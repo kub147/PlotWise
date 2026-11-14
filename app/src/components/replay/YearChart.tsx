@@ -1,6 +1,6 @@
-// Wykres „Year by year": zwrot netto na akr dla wybranego płodozmianu, rok po roku.
-// Słupki od zera: niebieski = rok na plusie, pomarańczowy = rok na minusie (para sprawdzona pod kątem daltonizmu).
-// Lata klęsk są zaznaczone szarym pasem i podpisem roku, nie samym kolorem.
+// "Year by year" chart: net return per acre of the selected rotation, year after year.
+// Bars from zero: blue = year above zero, orange = year below zero (pair checked for colour blindness).
+// Failure years are marked with a grey band and the year label, not by colour alone.
 import {
   Bar,
   BarChart,
@@ -17,11 +17,11 @@ import type { RotationResult } from '@/lib/results'
 import { rotationDisplayName } from '@/lib/rotation'
 import { formatUsd } from '@/lib/units'
 
-// Lata, w których doświadczenia K-State w Tribune straciły cały plon:
-// pszenica 2002 i 2013 (evidence.md, E01), sorgo 2002 i 2012 (E02).
+// Years in which the K-State trials at Tribune lost a whole crop:
+// wheat 2002 and 2013 (evidence.md, E01), sorghum 2002 and 2012 (E02).
 const FAILURE_YEARS = [2002, 2012, 2013]
 
-// Sąsiednie lata łączymy w jeden pas, żeby podpisy nie nachodziły na siebie: 2012 i 2013 -> "2012–13".
+// Neighbouring years are merged into one band so the labels do not overlap: 2012 and 2013 -> "2012–13".
 const FAILURE_SPANS = FAILURE_YEARS.reduce<{ from: number; to: number }[]>((spans, year) => {
   const last = spans[spans.length - 1]
   if (last && year === last.to + 1) last.to = year
@@ -45,7 +45,13 @@ function ChartTooltip({ active, payload }: { active?: boolean; payload?: { paylo
   )
 }
 
-export function YearChart({ rotation }: { rotation: RotationResult }) {
+type YearChartProps = {
+  rotation: RotationResult
+  // Site of the field (results `site`). The failure years were observed at Tribune only.
+  site?: string
+}
+
+export function YearChart({ rotation, site }: YearChartProps) {
   const data: Point[] = rotation.net_return_usd_acre.map(([year, value]) => ({ year, value }))
   const firstYear = data[0]?.year
   const lastYear = data[data.length - 1]?.year
@@ -61,7 +67,7 @@ export function YearChart({ rotation }: { rotation: RotationResult }) {
         number.
       </p>
 
-      {/* Na wąskim ekranie wykres przewija się w poziomie zamiast się ściskać */}
+      {/* On a narrow screen the chart scrolls sideways instead of shrinking */}
       <div className="mt-3 overflow-x-auto rounded-lg border border-border bg-card p-3">
         <div className="h-[300px] min-w-[640px]" role="img" aria-label={`Bar chart of yearly net return per acre for ${name}. The table below has the same numbers.`}>
           <ResponsiveContainer width="100%" height="100%">
@@ -117,7 +123,8 @@ export function YearChart({ rotation }: { rotation: RotationResult }) {
           </li>
           <li className="flex items-center gap-1.5">
             <span className="h-3 w-3 rounded-sm bg-muted-foreground/25 ring-1 ring-inset ring-input" aria-hidden />
-            Shaded: {FAILURE_YEARS.join(', ')}, years the Tribune field trials lost a whole crop
+            Shaded: {FAILURE_YEARS.join(', ')}, years the K-State field trials at Tribune lost a whole crop
+            {site && site !== 'Tribune' && `. Shown for reference: ${site} had its own weather in those years`}
           </li>
         </ul>
       </div>

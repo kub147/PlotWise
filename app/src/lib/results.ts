@@ -1,9 +1,9 @@
-// Wyniki silnika (results/<field_id>.json) i ranking liczony w przeglądarce.
-// Klucze potwierdzone w prawdziwych plikach; opisane są tylko te, których aplikacja używa.
+// Engine results (results/<field_id>.json) and the ranking computed in the browser.
+// Keys confirmed in the real files; only the ones the app uses are typed.
 import { useEffect, useState } from 'react'
 import { dataUrl } from '@/lib/data'
 
-// Cztery kryteria, które liczy silnik (engine/scoring.py), w kolejności suwaków.
+// The four criteria scored by the engine (engine/scoring.py), in slider order.
 export const CRITERIA = ['income', 'dry_year_safety', 'water', 'soil'] as const
 export type Criterion = (typeof CRITERIA)[number]
 export type Weights = Record<Criterion, number>
@@ -17,7 +17,7 @@ export type RotationResult = {
   status: string
   is_current: boolean
   mean_yield_kg_ha: Record<string, number>
-  // Pary [rok, USD/akr]; wartości są już w dolarach z 2025 r. na akr.
+  // Pairs [year, USD/acre]; values are already in 2025 dollars per acre.
   net_return_usd_acre: [number, number][]
   summary: {
     mean: number
@@ -40,17 +40,58 @@ export type RotationResult = {
   check_locally: string[]
 }
 
+export type RankingSensitivity = {
+  weight_sets_tested: number
+  share_of_wins: Record<string, number>
+  most_often_first: string
+  stable: boolean
+}
+
+// Yield level the replay is shown at (engine/counties.py SCENARIOS).
+// county_average: mean dryland yield of the county. well_managed: planning yield of the K-State budget whose costs are used.
+export const SCENARIOS = ['county_average', 'well_managed'] as const
+export type Scenario = (typeof SCENARIOS)[number]
+
+// The numbers of one rotation that change with the yield scenario.
+type ScenarioRotation = Pick<
+  RotationResult,
+  'id' | 'mean_yield_kg_ha' | 'net_return_usd_acre' | 'summary' | 'indicators' | 'scores'
+>
+
 export type FieldResults = {
   field_id: string
+  site?: string
+  cost_region?: string
   period: [number, number]
   current_rotation: string | null
   dry_years: number[]
   rotations: RotationResult[]
-  ranking_sensitivity: {
-    weight_sets_tested: number
-    share_of_wins: Record<string, number>
-    most_often_first: string
-    stable: boolean
+  ranking_sensitivity: RankingSensitivity
+  // Older result files have no second scenario.
+  yield_scenarios?: {
+    well_managed?: {
+      rotations: ScenarioRotation[]
+      ranking_sensitivity: RankingSensitivity
+    }
+  }
+}
+
+export function hasScenario(results: FieldResults, scenario: Scenario): boolean {
+  return scenario === 'county_average' || results.yield_scenarios?.well_managed !== undefined
+}
+
+// Rotations and ranking sensitivity at the chosen yield level.
+// The texts (why, evidence, risks) stay the same; only the numbers are swapped in.
+export function scenarioView(
+  results: FieldResults,
+  scenario: Scenario,
+): { rotations: RotationResult[]; sensitivity: RankingSensitivity } {
+  const other = scenario === 'well_managed' ? results.yield_scenarios?.well_managed : undefined
+  if (!other) return { rotations: results.rotations, sensitivity: results.ranking_sensitivity }
+  const byId = new Map(other.rotations.map((rotation) => [rotation.id, rotation]))
+  return {
+    rotations: results.rotations.map((rotation) => ({ ...rotation, ...byId.get(rotation.id) })),
+    sensitivity: other.ranking_sensitivity,
   }
 }
 
@@ -60,9 +101,9 @@ export type ResultsState =
   | { status: 'error'; message: string }
   | { status: 'ready'; results: FieldResults }
 
-// Wczytuje wyniki jednego pola. `available` pochodzi z manifestu: bez wyników nie próbujemy pobierać.
+// Loads the results of one field. `available` comes from the manifest: without results we do not fetch.
 export function useFieldResults(fieldId: string, available: boolean): ResultsState {
-  // Wynik pamiętamy razem z identyfikatorem pola, żeby po zmianie pola nie pokazać starych liczb.
+  // The result is kept with its field id so that old numbers never show after the field changes.
   const [loaded, setLoaded] = useState<{ fieldId: string; state: ResultsState } | null>(null)
   useEffect(() => {
     if (!available) return
@@ -88,8 +129,8 @@ export function useFieldResults(fieldId: string, available: boolean): ResultsSta
   return loaded?.fieldId === fieldId ? loaded.state : { status: 'loading' }
 }
 
-// Dopasowanie płodozmianu do priorytetów: średnia ważona czterech wyników 0–1.
-// Gdy wszystkie wagi są zerowe, traktujemy je jak równe (specyfikacja 5.3).
+// Fit of a rotation to the priorities: weighted mean of the four 0–1 scores.
+// When all weights are zero they count as equal (spec 5.3).
 export function fitScore(scores: Record<Criterion, number>, weights: Weights): number {
   const total = CRITERIA.reduce((sum, criterion) => sum + weights[criterion], 0)
   if (total === 0) {
@@ -100,7 +141,7 @@ export function fitScore(scores: Record<Criterion, number>, weights: Weights): n
 
 export type RankedRotation = { rotation: RotationResult; fit: number; place: number }
 
-// Ranking od najlepszego dopasowania. Przy remisie zostaje kolejność z pliku.
+// Ranking from the best fit down. Ties keep the order of the file.
 export function rankRotations(rotations: RotationResult[], weights: Weights): RankedRotation[] {
   return rotations
     .map((rotation, index) => ({ rotation, fit: fitScore(rotation.scores, weights), index }))
