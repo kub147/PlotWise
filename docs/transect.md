@@ -34,6 +34,15 @@ disappears; the transect stops near 98.3° W.
 - **Bare-soil days use one NDVI threshold (0.25) everywhere.** In wetter Ellis County fallow fields are greener (weeds), so their
   bare-day counts are low and not comparable with Tribune.
 
+- **County soil comes from a 2 km square at the county centroid.** In nine counties (Barber, Barton, Clark, Comanche, Ellis, Ford, Russell, Seward,
+  Stafford) that square gives under 200 mm, well below the cropland fields nearby (Ellis: 151–193 mm at the centroid, 279–297 mm on the three demo fields).
+  For the county map use at least 280 mm (the median) where `awc_mm` is below 200, or ask B for a cropland-weighted value.
+
+![Transect overview](img/transect_overview.png)
+
+Checks on the county layer: fallow share falls from west to east (24% of dryland cropland west of 101° W, 9% east of 99° W; correlation with
+longitude −0.56) and fell in 39 of 46 counties between 2008 and the latest CDL year (mean 26% → 20%).
+
 ## What exists now (workstream B)
 
 - `data/processed/fields.geojson`: **11 fields at three sites** (new property `site`): Tribune `ks071-001…005`, Colby `ks193-001…003`,

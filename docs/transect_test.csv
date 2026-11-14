@@ -1,0 +1,10 @@
+# Quick engine test along the rainfall gradient, 2026-11-14 (see docs/transect.md for cautions).
+# gridMET weather at the town, SSURGO soil at the point, south-west Kansas costs everywhere, 1996-2025.
+# net = mean net return, 2025 USD per acre per year; profit = share of years with a profit.
+site,lon,lat,rain_mm,wf_net,wf_profit,wsf_net,wsf_profit,wcf_net,wcf_profit
+Akron CO,-103.14,40.15,422,-18,0.31,-30,0.28,-79,0.31
+Tribune,-101.75,38.47,461,-33,0.17,-31,0.24,-67,0.28
+Garden City,-100.82,37.99,483,-40,0.28,-33,0.24,-54,0.34
+Colby,-101.07,39.39,504,-5,0.44,8,0.55,0,0.55
+Hays,-99.33,38.86,611,10,0.44,41,0.59,73,0.76
+Great Bend,-98.80,38.40,676,11,0.48,45,0.62,86,0.76
