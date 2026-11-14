@@ -26,6 +26,7 @@ export const PL: Record<string, string> = {
   'Looking for places…': 'Wyszukiwanie miejsc…',
   'Nothing found.': 'Nic nie znaleziono.',
   'Type at least 3 letters to search places.': 'Wpisz co najmniej 3 znaki, aby wyszukać miejscowość.',
+  'This demo currently covers selected fields and counties in western Kansas. More locations are planned for future versions.': 'To demo obejmuje obecnie wybrane pola i hrabstwa w zachodnim Kansas. W kolejnych wersjach planujemy dodać następne lokalizacje.',
   'The place search is not reachable right now; fields and counties still work.': 'Wyszukiwanie miejsc jest teraz niedostępne; pola i hrabstwa nadal można znaleźć.',
   'Places: © OpenStreetMap contributors': 'Miejsca: © współtwórcy OpenStreetMap',
   'Map layer': 'Warstwa mapy',

@@ -189,6 +189,9 @@ export function MapSearch({ fields, counties, onSelectField, onGoTo, className }
 
       {showList && (
         <div className="pw-sheet pw-scroll absolute inset-x-0 top-[calc(100%+6px)] max-h-[320px] overflow-y-auto rounded-3xl p-1.5 shadow-lift">
+          <p className="mx-2 mb-1 mt-1 rounded-2xl bg-foreground/[0.04] px-3 py-2 text-[13px] leading-snug text-muted-foreground">
+            {t('This demo currently covers selected fields and counties in western Kansas. More locations are planned for future versions.')}
+          </p>
           <ul id={listId} role="listbox" aria-label={t('Search results')}>
             {results.map((result, index) => (
               <li
@@ -223,6 +226,11 @@ export function MapSearch({ fields, counties, onSelectField, onGoTo, className }
             {placesReady && !places.failed && places.results.length > 0 && t('Places: © OpenStreetMap contributors')}
           </p>
         </div>
+      )}
+      {open && !showList && (
+        <p role="note" className="pw-sheet absolute inset-x-0 top-[calc(100%+6px)] z-20 rounded-3xl px-4 py-3 text-[13px] leading-snug text-muted-foreground shadow-lift">
+          {t('This demo currently covers selected fields and counties in western Kansas. More locations are planned for future versions.')}
+        </p>
       )}
     </div>
   )
