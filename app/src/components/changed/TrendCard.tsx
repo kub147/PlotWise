@@ -2,7 +2,7 @@
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { Card } from '@/components/ui/card'
 import { INDICATORS, indicatorValue, slopeText, type Climate, type Trend } from '@/lib/climate'
-import { useDateLocale, useT } from '@/lib/i18n'
+import { useDateLocale, useT, useTempUnit } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 
 type Point = { year: number; value: number }
@@ -32,6 +32,7 @@ type TrendCardProps = {
 export function TrendCard({ trend, yearly, meaning }: TrendCardProps) {
   const t = useT()
   const locale = useDateLocale()
+  const unit = useTempUnit()
   const info = INDICATORS[trend.indicator]
   const kind = info?.kind ?? 'days'
   const title = t(info?.title ?? trend.label)
@@ -48,7 +49,7 @@ export function TrendCard({ trend, yearly, meaning }: TrendCardProps) {
       </div>
 
       <div>
-        <p className="text-[24px] font-semibold leading-tight">{slopeText(kind, trend.slope_per_decade, t)}</p>
+        <p className="text-[24px] font-semibold leading-tight">{slopeText(kind, trend.slope_per_decade, t, unit)}</p>
         <div className="mt-1.5">
           <ReliabilityBadge reliable={trend.reliable} />
         </div>
@@ -78,7 +79,7 @@ export function TrendCard({ trend, yearly, meaning }: TrendCardProps) {
                 const point = payload[0].payload as Point
                 return (
                   <div className="pw-glass rounded-2xl px-3 py-2 text-[13px]">
-                    <span className="font-mono font-semibold">{point.year}</span>: {indicatorValue(kind, point.value, t, locale)}
+                    <span className="font-mono font-semibold">{point.year}</span>: {indicatorValue(kind, point.value, t, locale, unit)}
                   </div>
                 )
               }}
@@ -98,9 +99,9 @@ export function TrendCard({ trend, yearly, meaning }: TrendCardProps) {
 
       <p className="text-[13px] leading-snug text-muted-foreground">
         {t('Average in the first half of the record:')}{' '}
-        <span className="font-mono font-medium text-foreground">{indicatorValue(kind, trend.mean_first_half, t, locale)}</span>.{' '}
+        <span className="font-mono font-medium text-foreground">{indicatorValue(kind, trend.mean_first_half, t, locale, unit)}</span>.{' '}
         {t('Second half:')}{' '}
-        <span className="font-mono font-medium text-foreground">{indicatorValue(kind, trend.mean_second_half, t, locale)}</span>.{' '}
+        <span className="font-mono font-medium text-foreground">{indicatorValue(kind, trend.mean_second_half, t, locale, unit)}</span>.{' '}
         {t('Source: {source}.', { source: trend.source })}
       </p>
     </Card>

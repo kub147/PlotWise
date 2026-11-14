@@ -15,8 +15,8 @@ import {
 } from '@/lib/climate'
 import { fieldShortName, type AppData, type FieldFeature } from '@/lib/data'
 import { imageUrl, useHeatSummary, type HeatSummary } from '@/lib/fieldMedia'
-import { useDateLocale, useT } from '@/lib/i18n'
-import { cmToInches, cToF, formatNumber, mmToInches } from '@/lib/units'
+import { useDateLocale, useT, useTempUnit } from '@/lib/i18n'
+import { cmToInches, formatNumber, formatTemp, mmToInches, tempDelta } from '@/lib/units'
 
 // The four trends on the main screen (spec 5.2) and what each means for the field.
 const MAIN_TRENDS: { indicator: string; meaning: string }[] = [
@@ -236,6 +236,7 @@ function CountyRotationBars({ county, years, note }: { county: CountyRotations['
 // ECOSTRESS: the same moment, fallow against sorghum. The scenes cover the Tribune area only.
 function HeatComparison({ heat }: { heat: HeatSummary }) {
   const t = useT()
+  const unit = useTempUnit()
   const locale = useDateLocale()
   const rows = heat.scenes
     .map((scene) => ({
@@ -298,11 +299,11 @@ function HeatComparison({ heat }: { heat: HeatSummary }) {
                   <th scope="row" className="py-1.5 pr-3 font-medium">
                     {day(row.scene.time_utc)}
                   </th>
-                  <td className="py-1.5 pr-3 text-right font-mono">{formatNumber(cToF(row.fallow))}°F</td>
-                  <td className="py-1.5 pr-3 text-right font-mono">{formatNumber(cToF(row.sorghum))}°F</td>
+                  <td className="py-1.5 pr-3 text-right font-mono">{formatTemp(row.fallow, unit)}</td>
+                  <td className="py-1.5 pr-3 text-right font-mono">{formatTemp(row.sorghum, unit)}</td>
                   <td className="py-1.5 text-right font-mono font-semibold">
                     {/* Temperature difference: no offset of 32 */}
-                    {signed((row.fallow - row.sorghum) * 1.8, 0)}°F
+                    {signed(tempDelta(row.fallow - row.sorghum, unit), unit === 'C' ? 1 : 0)}°{unit}
                   </td>
                 </tr>
               ))}
@@ -325,6 +326,7 @@ type ChangedProps = {
 
 export function Changed({ data, selected }: ChangedProps) {
   const t = useT()
+  const unit = useTempUnit()
   const p = selected.properties
   const hasClimate = data.manifest.climate.includes(p.field_id)
   const climateState = useJson<Climate>(hasClimate ? `climate/${p.field_id}.json` : null)
@@ -371,7 +373,7 @@ export function Changed({ data, selected }: ChangedProps) {
         <h1 className="mt-1 max-w-[28ch] text-[34px] font-semibold leading-tight">{headline}</h1>
       </header>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4 [&>*]:min-w-0">
         {MAIN_TRENDS.map(({ indicator, meaning }) => {
           const trend = byName.get(indicator)
           return trend ? <TrendCard key={indicator} trend={trend} yearly={climate.yearly} meaning={meaning} /> : null
@@ -380,7 +382,8 @@ export function Changed({ data, selected }: ChangedProps) {
 
       <RainfallCard trend={rain} rows={climate.precip_crosscheck.windows.annual.rows} />
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      {/* min-w-0: a wide chart scrolls inside its card instead of widening the page on a phone */}
+      <div className="grid gap-4 lg:grid-cols-2 [&>*]:min-w-0">
         <WaterStorage grace={climate.grace} />
         {county && countyState.status === 'ready' && (
           <CountyRotationBars county={county} years={countyState.data.years} note={countyState.data.note} />
@@ -419,7 +422,7 @@ export function Changed({ data, selected }: ChangedProps) {
                     <th scope="row" className="py-1.5 pr-3 font-medium">
                       {t(info?.title ?? trend.label)}
                     </th>
-                    <td className="py-1.5 pr-3 font-mono">{slopeText(info?.kind ?? 'days', trend.slope_per_decade, t)}</td>
+                    <td className="py-1.5 pr-3 font-mono">{slopeText(info?.kind ?? 'days', trend.slope_per_decade, t, unit)}</td>
                     <td className="py-1.5 pr-3">{trend.reliable ? t('Yes') : t('No')}</td>
                     <td className="py-1.5">{trend.source}</td>
                   </tr>

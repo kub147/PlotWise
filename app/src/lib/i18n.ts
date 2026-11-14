@@ -3,6 +3,7 @@
 // and the English text otherwise or when a translation is missing. Variables go in braces: t('{n} fields', { n: 11 }).
 import { createContext, useCallback, useContext } from 'react'
 import { PL } from '@/lib/pl'
+import type { TempUnit } from '@/lib/units'
 
 export type Lang = 'en' | 'pl'
 export type Translate = (text: string, vars?: Record<string, string | number>) => string
@@ -63,6 +64,11 @@ export function useLang() {
 export function useT(): Translate {
   const { lang } = useContext(LanguageContext)
   return useCallback((text, vars) => translate(lang, text, vars), [lang])
+}
+
+// Temperatures: Fahrenheit in English (US farmers), Celsius in Polish (Polish readers think in °C).
+export function useTempUnit(): TempUnit {
+  return useContext(LanguageContext).lang === 'pl' ? 'C' : 'F'
 }
 
 // Locale for dates (month names). Numbers stay in the US format in both languages, like the US units.

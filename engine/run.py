@@ -16,7 +16,7 @@ from .counties import SCENARIOS
 from .yields import load_params
 
 ENGINE_GAPS = ["Stored soil water on this field is modelled from gridded weather, not measured",
-               "Yields are long-run estimates; a single year can be far off, wheat more than sorghum (docs/engine-validation.md)"]
+               "Yields are long-run estimates; a single year can be far off, wheat more than sorghum"]
 
 
 def dry_years_of(field_id: str) -> list[int]:

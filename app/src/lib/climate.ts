@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { dataUrl } from '@/lib/data'
 import type { Translate } from '@/lib/i18n'
-import { mmToInches } from '@/lib/units'
+import { mmToInches, type TempUnit } from '@/lib/units'
 
 export type Trend = {
   indicator: string
@@ -122,18 +122,25 @@ export function dayOfYearLabel(doy: number, locale: string) {
 }
 
 // Value of a measure in US units, for axes and tooltips.
-export function indicatorValue(kind: IndicatorKind, value: number, t: Translate, locale: string): string {
-  if (kind === 'gdd') return t('{n} °F·days', { n: number(value * 1.8, 0) })
+// Degree days are in °F·days in English and °C·days in Polish (unit from useTempUnit).
+export function indicatorValue(kind: IndicatorKind, value: number, t: Translate, locale: string, unit: TempUnit = 'F'): string {
+  if (kind === 'gdd') {
+    return unit === 'F' ? t('{n} °F·days', { n: number(value * 1.8, 0) }) : t('{n} °C·days', { n: number(value, 0) })
+  }
   if (kind === 'doy') return dayOfYearLabel(value, locale)
   if (kind === 'mm') return t('{n} in', { n: number(mmToInches(value), 1) })
   return t('{n} days', { n: number(value, 0) })
 }
 
 // Change per decade in words: "+138 °F·days per decade", "4.6 days later per decade".
-export function slopeText(kind: IndicatorKind, slope: number, t: Translate): string {
+export function slopeText(kind: IndicatorKind, slope: number, t: Translate, unit: TempUnit = 'F'): string {
   const sign = slope > 0 ? '+' : slope < 0 ? '−' : ''
   const size = Math.abs(slope)
-  if (kind === 'gdd') return t('{n} °F·days per decade', { n: sign + number(size * 1.8, 0) })
+  if (kind === 'gdd') {
+    return unit === 'F'
+      ? t('{n} °F·days per decade', { n: sign + number(size * 1.8, 0) })
+      : t('{n} °C·days per decade', { n: sign + number(size, 0) })
+  }
   if (kind === 'doy') {
     return slope >= 0
       ? t('{n} days later per decade', { n: number(size, 1) })

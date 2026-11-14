@@ -429,3 +429,66 @@
 .pw-scroll-none::-webkit-scrollbar {
   display: none;
 }
+
+/* Waving flag in the language switch (LanguageSwitch): the flag is cut into thin vertical slices that rise and fall
+   one after another, and a soft shadow runs across it, so the cloth seems to ripple from the pole. Plays when the
+   language is switched. The reduced-motion rule above turns it off. */
+.pw-flag {
+  position: relative;
+  display: flex;
+  width: 24px;
+  height: 16px;
+}
+.pw-flag-slice {
+  position: relative;
+  width: 2px;
+  height: 16px;
+  overflow: hidden;
+}
+.pw-flag-slice svg {
+  display: block;
+  width: 24px;
+  height: 16px;
+}
+/* Rounded ends of the cloth: only the first and the last slice. */
+.pw-flag-slice:first-child {
+  border-radius: 3px 0 0 3px;
+}
+.pw-flag-slice:nth-last-child(2) {
+  border-radius: 0 3px 3px 0;
+}
+.pw-flag-waving .pw-flag-slice {
+  animation: pw-flag-wave 0.6s ease-in-out 3 both;
+}
+.pw-flag-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12);
+}
+.pw-flag-waving .pw-flag-shade {
+  background: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.16) 25%, transparent 50%, rgb(255 255 255 / 0.18) 75%, transparent 100%);
+  background-size: 200% 100%;
+  animation: pw-flag-shade 0.6s linear 3;
+}
+@keyframes pw-flag-wave {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-1.5px);
+  }
+  75% {
+    transform: translateY(1.5px);
+  }
+}
+@keyframes pw-flag-shade {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}

@@ -16,9 +16,9 @@ import {
   type NdviState,
   type ViewerTab,
 } from '@/lib/fieldMedia'
-import { useDateLocale, useT } from '@/lib/i18n'
+import { useDateLocale, useT, useTempUnit } from '@/lib/i18n'
 import type { CropLetter } from '@/lib/rotation'
-import { cToF, formatNumber } from '@/lib/units'
+import { formatTemp } from '@/lib/units'
 
 // "2023-07-30 20:08" -> "Jul 30, 2023"
 function sceneDate(scene: HeatScene, locale: string) {
@@ -32,8 +32,6 @@ function clockTime(time: string, locale: string) {
   const [hour, minute] = time.split(':').map(Number)
   return `${((hour + 11) % 12) + 1}:${String(minute).padStart(2, '0')} ${hour < 12 ? 'am' : 'pm'}`
 }
-
-const fahrenheit = (celsius: number) => `${formatNumber(cToF(celsius))}°F`
 
 // The colours of the heat images (matplotlib RdYlBu, reversed): blue is cool, red is hot.
 const HEAT_SCALE = 'linear-gradient(to right, #313695, #74add1, #e0f3f8, #ffffbf, #fdae61, #f46d43, #a50026)'
@@ -85,6 +83,8 @@ function GreennessPanel({ field, ndvi, crops }: { field: FieldFeature; ndvi: Ndv
 
 function HeatPanel({ field, scenes }: { field: FieldFeature; scenes: HeatScene[] }) {
   const t = useT()
+  const unit = useTempUnit()
+  const temp = (celsius: number) => formatTemp(celsius, unit)
   const locale = useDateLocale()
   const fieldId = field.properties.field_id
   const [sceneId, setSceneId] = useState<string | null>(null)
@@ -102,9 +102,9 @@ function HeatPanel({ field, scenes }: { field: FieldFeature; scenes: HeatScene[]
         />
         {/* Colour scale of the image, with the two ends in degrees */}
         <figcaption className="flex items-center gap-3 text-[13px] text-muted-foreground">
-          <span className="font-mono font-medium text-foreground">{fahrenheit(scene.colour_scale_c[0])}</span>
+          <span className="font-mono font-medium text-foreground">{temp(scene.colour_scale_c[0])}</span>
           <span aria-hidden className="h-2.5 flex-1 rounded-full" style={{ background: HEAT_SCALE }} />
-          <span className="font-mono font-medium text-foreground">{fahrenheit(scene.colour_scale_c[1])}</span>
+          <span className="font-mono font-medium text-foreground">{temp(scene.colour_scale_c[1])}</span>
         </figcaption>
       </figure>
 
@@ -128,7 +128,7 @@ function HeatPanel({ field, scenes }: { field: FieldFeature; scenes: HeatScene[]
         {onField && (
           <p className="mt-4 text-[15px] leading-snug">
             {t('At that moment the ground on this field was')}{' '}
-            <span className="font-mono font-semibold">{fahrenheit(onField.lst_c)}</span>
+            <span className="font-mono font-semibold">{temp(onField.lst_c)}</span>
             {t(', with {crop} on it.', { crop: t(onField.crop) })}
           </p>
         )}
@@ -138,14 +138,14 @@ function HeatPanel({ field, scenes }: { field: FieldFeature; scenes: HeatScene[]
             <li key={crop} className="flex justify-between gap-2">
               {/* The key can be long: "winter wheat (ripe in June, stubble from July)" -> crop name only */}
               <span className="capitalize">{t(crop.split(' (')[0])}</span>
-              <span className="font-mono font-medium">{fahrenheit(value.mean_c)}</span>
+              <span className="font-mono font-medium">{temp(value.mean_c)}</span>
             </li>
           ))}
         </ul>
         <p className="mt-4 text-[13px] leading-snug text-muted-foreground">
           {t('On the map blue is cooler (about {low}) and red is hotter (about {high}); black outlines are the demo fields. This is the temperature of the ground surface, not of the air, at one moment in the day.', {
-            low: fahrenheit(scene.colour_scale_c[0]),
-            high: fahrenheit(scene.colour_scale_c[1]),
+            low: temp(scene.colour_scale_c[0]),
+            high: temp(scene.colour_scale_c[1]),
           })}
         </p>
       </div>

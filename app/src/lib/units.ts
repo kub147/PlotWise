@@ -11,6 +11,13 @@ export const cmToInches = (cm: number) => cm / 2.54
 export const cToF = (c: number) => c * 1.8 + 32
 // A difference or sum of degrees (e.g. degree days): no offset of 32.
 export const cDeltaToF = (c: number) => c * 1.8
+// Temperature unit of the interface: °F in English, °C in Polish (lib/i18n.ts, useTempUnit).
+export type TempUnit = 'F' | 'C'
+// A temperature reading, e.g. "95°F" or "35°C".
+export const formatTemp = (c: number, unit: TempUnit, digits = 0) =>
+  `${formatNumber(unit === 'F' ? cToF(c) : c, digits)}°${unit}`
+// A difference of temperatures in the chosen unit (no offset of 32).
+export const tempDelta = (c: number, unit: TempUnit) => (unit === 'F' ? cDeltaToF(c) : c)
 export const usdPerHaToUsdPerAcre = (usd: number) => usd / HA_TO_ACRE
 
 const KG_HA_TO_LB_ACRE = 0.8922
