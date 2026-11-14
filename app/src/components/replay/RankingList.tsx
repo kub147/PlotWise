@@ -1,0 +1,81 @@
+// Środkowa kolumna Rotation replay: ranking płodozmianów według priorytetów farmera.
+import { CropTile } from '@/components/CropTile'
+import type { RankedRotation } from '@/lib/results'
+import { rotationDisplayName, rotationPhases } from '@/lib/rotation'
+import { formatUsd } from '@/lib/units'
+import { cn } from '@/lib/utils'
+
+type RankingListProps = {
+  ranked: RankedRotation[]
+  selectedId: string
+  onSelect: (rotationId: string) => void
+}
+
+export function RankingList({ ranked, selectedId, onSelect }: RankingListProps) {
+  return (
+    <ol className="flex flex-col gap-2">
+      {ranked.map(({ rotation, fit, place }) => {
+        const selected = rotation.id === selectedId
+        const phases = rotationPhases(rotation.id) ?? []
+        const fitPercent = Math.round(fit * 100)
+        return (
+          <li key={rotation.id}>
+            <button
+              type="button"
+              aria-pressed={selected}
+              onClick={() => onSelect(rotation.id)}
+              className={cn(
+                'grid w-full grid-cols-[2rem_minmax(0,1fr)] items-center gap-x-3 gap-y-2 rounded-md border bg-card px-4 py-3 text-left transition-colors sm:grid-cols-[2rem_minmax(0,1fr)_auto]',
+                selected ? 'border-foreground ring-1 ring-foreground' : 'border-border hover:border-input',
+              )}
+            >
+              <span className="font-mono text-[21px] font-semibold" aria-label={`Place ${place}`}>
+                {place}
+              </span>
+
+              <span className="flex min-w-0 flex-col gap-1.5">
+                <span className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
+                  <span className="flex gap-0.5" aria-hidden>
+                    {phases.map((letter, i) => (
+                      <CropTile key={i} letter={letter} className="h-7 w-7" />
+                    ))}
+                  </span>
+                  <span className="text-[15px] font-semibold">{rotationDisplayName(rotation.name)}</span>
+                </span>
+                {(rotation.is_current || rotation.status === 'optional') && (
+                  <span className="flex flex-wrap gap-1.5">
+                    {rotation.is_current && (
+                      <span className="rounded-sm bg-foreground px-2 py-0.5 text-[13px] font-semibold text-card">
+                        Your rotation today
+                      </span>
+                    )}
+                    {rotation.status === 'optional' && (
+                      <span className="rounded-sm border border-input px-2 py-0.5 text-[13px] font-medium text-muted-foreground">
+                        Optional
+                      </span>
+                    )}
+                  </span>
+                )}
+              </span>
+
+              <span className="col-start-2 flex flex-col sm:col-start-3 sm:items-end">
+                <span className="font-mono text-[19px] font-semibold">{formatUsd(rotation.summary.mean)}</span>
+                <span className="text-[13px] text-muted-foreground">average per acre a year</span>
+              </span>
+
+              {/* Pasek dopasowania: długość i liczba, kolor nie niesie znaczenia */}
+              <span className="col-span-full flex items-center gap-3">
+                <span className="h-2 flex-1 overflow-hidden rounded-full bg-muted" aria-hidden>
+                  <span className="block h-full rounded-full bg-primary" style={{ width: `${fitPercent}%` }} />
+                </span>
+                <span className="w-[5.5rem] text-right text-[13px] text-muted-foreground">
+                  Fit <span className="font-mono font-semibold text-foreground">{fitPercent}</span> of 100
+                </span>
+              </span>
+            </button>
+          </li>
+        )
+      })}
+    </ol>
+  )
+}
