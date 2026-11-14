@@ -112,7 +112,7 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
     <div className="mx-auto grid max-w-[1680px] grid-cols-1 gap-4 p-4 lg:h-full lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-5 lg:p-5">
       <div className="flex min-w-0 flex-col gap-3 lg:min-h-0">
         <header>
-          <h1 className="text-[28px] font-semibold leading-tight">Region</h1>
+          <h1 className="text-[34px] font-semibold leading-tight">Region</h1>
           <p className="mt-1 text-[15px] text-muted-foreground">
             {data.counties.features.length} western Kansas counties · {formatNumber(data.rotations.fields)} fields ·{' '}
             {formatNumber(haToAcres(data.rotations.area_ha) / 1e6, 1)} million acres read from satellite crop maps,{' '}
@@ -145,7 +145,7 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
           />
         </div>
 
-        <div className="rounded-lg border border-border bg-card px-4 py-3">
+        <div className="pw-sheet rounded-3xl px-5 py-4">
           <h2 className="text-[15px] font-semibold">{info.title}</h2>
           <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1.5 text-[13px]">
             {info.legend.map((item) => (
@@ -195,14 +195,14 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
 
         <Card aria-live="polite">
           <CardSection>
-            <label htmlFor="county-select" className="text-[13px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">
+            <label htmlFor="county-select" className="text-[15px] font-medium text-foreground">
               County
             </label>
             <select
               id="county-select"
               value={countyId}
               onChange={(event) => zoomTo(event.target.value)}
-              className="mt-1 block min-h-11 w-full rounded-md border border-input bg-card px-3 text-[17px] font-semibold"
+              className="mt-2 block min-h-12 w-full rounded-2xl border-0 bg-foreground/[0.06] px-4 text-[17px] font-medium"
             >
               {names.map((entry) => (
                 <option key={entry.id} value={entry.id}>

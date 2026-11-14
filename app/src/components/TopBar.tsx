@@ -1,98 +1,156 @@
-// Górny pasek wspólny dla wszystkich stron: logo, cztery zakładki, wybrane pole, link „How we know".
-// Zakładki zaadaptowane z 21st.dev („Animated Navigation Tabs", autor ln-dev7): podkreślenie aktywnej
-// zakładki i tło przy najechaniu, ale jako prawdziwe linki routera i bez biblioteki animacji.
+// Nawigacja wspólna dla wszystkich stron, w dwóch postaciach:
+// – szeroki ekran: jedna pływająca „szklana" pastylka u góry (logo, cztery zakładki, wybrane pole, „How we know"),
+// – telefon: logo i wybrane pole u góry, a zakładki jako pasek na dole ekranu, pod kciukiem.
+// Treść strony i mapa przesuwają się pod spodem i prześwitują przez szkło.
+import { CalendarDays, History, Info, Map, MapPinned, TrendingUp, type LucideIcon } from 'lucide-react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { fieldShortName, type FieldFeature } from '@/lib/data'
-import { rotationLabel } from '@/lib/rotation'
+import { CROP_FILL_CLASS, toCropLetter } from '@/lib/rotation'
 import { cn } from '@/lib/utils'
 
-const TABS = [
-  { to: '/', label: 'My field' },
-  { to: '/changed', label: 'What has changed' },
-  { to: '/replay', label: 'Rotation replay' },
-  { to: '/season', label: 'This season' },
-  { to: '/region', label: 'Region' },
+const TABS: { to: string; label: string; short: string; icon: LucideIcon }[] = [
+  { to: '/', label: 'My field', short: 'Field', icon: MapPinned },
+  { to: '/changed', label: 'What has changed', short: 'Changes', icon: TrendingUp },
+  { to: '/replay', label: 'Rotation replay', short: 'Replay', icon: History },
+  { to: '/season', label: 'This season', short: 'Season', icon: CalendarDays },
+  { to: '/region', label: 'Region', short: 'Region', icon: Map },
 ]
 
 type TopBarProps = {
   selected: FieldFeature | undefined
 }
 
+// Znak: kiełek z dwoma liśćmi w okręgu, rysowany zielonym gradientem.
+function Logo() {
+  return (
+    <svg viewBox="0 0 32 32" className="h-8 w-8 shrink-0 sm:h-9 sm:w-9" fill="none" aria-hidden>
+      <defs>
+        <linearGradient id="pw-logo-gradient" x1="4" y1="28" x2="28" y2="4" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#2fd67b" />
+          <stop offset="1" stopColor="#06733a" />
+        </linearGradient>
+      </defs>
+      <g stroke="url(#pw-logo-gradient)" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="16" cy="16" r="14" />
+        <path d="M16 30V10.5" />
+        <path d="M16 20.5c-5 0-8.2-3-8.2-7.8 5 0 8.2 3 8.2 7.8Z" />
+        <path d="M16 20.5c5 0 8.2-3 8.2-7.8-5 0-8.2 3-8.2 7.8Z" />
+      </g>
+    </svg>
+  )
+}
+
+// Historia pola w miniaturze: jeden pasek na rok w kolorze uprawy. Ozdobna (pełna historia z opisem
+// jest w karcie pola), więc ukryta przed czytnikami ekranu. Zmienia się płynnie po wybraniu innego pola.
+function HistoryStrip({ field }: { field: FieldFeature }) {
+  const p = field.properties
+  const first = p.crop_sequence_first_year
+  const letters = [...p.crop_sequence]
+  return (
+    <span
+      aria-hidden
+      title={`What grew on ${fieldShortName(p)}, ${first}–${first + letters.length - 1}`}
+      className="flex h-3 w-9 shrink-0 overflow-hidden rounded-full sm:w-28"
+    >
+      {letters.map((letter, i) => (
+        <span key={i} className={cn('flex-1 transition-colors duration-500', CROP_FILL_CLASS[toCropLetter(letter)])} />
+      ))}
+    </span>
+  )
+}
+
 export function TopBar({ selected }: TopBarProps) {
   // Zachowujemy ?field=... przy przechodzeniu między zakładkami.
   const { search } = useLocation()
-  const rotation = selected
-    ? (rotationLabel(selected.properties.current_rotation) ?? selected.properties.current_rotation)
-    : null
 
   return (
-    <header className="border-b-2 border-bar-border bg-bar text-bar-foreground">
-      <div className="mx-auto flex max-w-[1680px] flex-wrap items-center gap-x-6 gap-y-1 px-4 lg:px-6">
-        <NavLink
-          to={{ pathname: '/', search }}
-          className="flex min-h-11 items-center gap-2.5 py-2 font-heading text-[19px] font-semibold tracking-tight"
-        >
-          <svg viewBox="0 0 32 32" className="h-7 w-7" aria-hidden>
-            <rect width="32" height="32" rx="6" className="fill-bar-foreground" />
-            <path d="M6 22l7-4 6 3 7-5v8H6z" className="fill-bar" opacity="0.35" />
-            <path
-              d="M6 15l7-4 6 3 7-5"
-              fill="none"
-              className="stroke-bar"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          PlotWise
-        </NavLink>
-
-        <nav aria-label="Main" className="order-last -mx-4 w-[calc(100%+2rem)] overflow-x-auto px-4 lg:order-none lg:mx-0 lg:w-auto lg:px-0">
-          <ul className="flex">
-            {TABS.map((tab) => (
-              <li key={tab.to}>
-                <NavLink
-                  to={{ pathname: tab.to, search }}
-                  end={tab.to === '/'}
-                  className={({ isActive }) =>
-                    cn(
-                      'relative flex min-h-[52px] items-center whitespace-nowrap px-4 text-[15px] transition-colors',
-                      'after:absolute after:inset-x-3 after:bottom-0 after:h-[3px] after:rounded-t-sm after:transition-colors',
-                      isActive
-                        ? 'font-semibold text-bar-foreground after:bg-bar-active'
-                        : 'font-medium text-bar-muted after:bg-transparent hover:text-bar-foreground',
-                    )
-                  }
-                >
-                  {tab.label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="ml-auto flex flex-wrap items-center gap-x-5 gap-y-1">
-          {selected && (
-            <p className="flex items-center gap-2 text-[13px] text-bar-muted">
-              <span className="sr-only">Selected field:</span>
-              <span className="rounded-sm border border-bar-border px-2.5 py-1.5 font-mono text-[13px] font-medium text-bar-foreground">
-                {fieldShortName(selected.properties)} · {rotation}
-              </span>
-            </p>
-          )}
+    <>
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-[1100] p-3 lg:p-4">
+        <div className="pw-glass pointer-events-auto mx-auto flex h-14 max-w-[1680px] items-center gap-2 rounded-full pl-3 pr-2 lg:pl-4">
           <NavLink
-            to={{ pathname: '/how', search }}
-            className={({ isActive }) =>
-              cn(
-                'flex min-h-11 items-center text-[15px] underline decoration-1 underline-offset-4',
-                isActive ? 'font-semibold text-bar-foreground decoration-bar-active decoration-2' : 'text-bar-muted hover:text-bar-foreground',
-              )
-            }
+            to={{ pathname: '/', search }}
+            className="flex min-h-11 items-center gap-2 pr-2 font-heading text-[16px] font-extrabold tracking-[0.01em] text-leaf-deep sm:text-[18px]"
           >
-            How we know
+            <Logo />
+            <span className="max-[380px]:sr-only">PLOTWISE</span>
           </NavLink>
+
+          <nav aria-label="Main" className="hidden lg:block">
+            <ul className="flex gap-0.5">
+              {TABS.map((tab) => (
+                <li key={tab.to}>
+                  <NavLink
+                    to={{ pathname: tab.to, search }}
+                    end={tab.to === '/'}
+                    className={({ isActive }) =>
+                      cn(
+                        'pw-press flex min-h-10 items-center whitespace-nowrap rounded-full px-3 text-[15px] xl:px-4',
+                        isActive
+                          ? 'bg-card font-medium text-foreground shadow-soft'
+                          : 'text-muted-foreground hover:bg-foreground/5 hover:text-foreground',
+                      )
+                    }
+                  >
+                    {tab.label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="ml-auto flex items-center gap-1.5">
+            {selected && (
+              <p className="flex min-h-10 items-center gap-2.5 rounded-full bg-foreground/5 px-3 text-[14px] font-medium sm:px-3.5 sm:text-[15px]">
+                <span className="sr-only">Selected field:</span>
+                <span className="whitespace-nowrap font-mono">{fieldShortName(selected.properties)}</span>
+                <HistoryStrip field={selected} />
+              </p>
+            )}
+            <NavLink
+              to={{ pathname: '/how', search }}
+              aria-label="How we know"
+              className={({ isActive }) =>
+                cn(
+                  'pw-press flex min-h-10 min-w-10 items-center justify-center gap-2 whitespace-nowrap rounded-full px-2.5 text-[15px] xl:px-4',
+                  isActive
+                    ? 'bg-card font-medium text-foreground shadow-soft'
+                    : 'text-muted-foreground hover:bg-foreground/5 hover:text-foreground',
+                )
+              }
+            >
+              <Info aria-hidden className="h-5 w-5 xl:hidden" />
+              <span className="hidden xl:inline">How we know</span>
+            </NavLink>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Telefon: pasek zakładek na dole ekranu */}
+      <nav aria-label="Main" className="pointer-events-none fixed inset-x-0 bottom-0 z-[1100] p-3 lg:hidden">
+        <ul
+          className="pw-glass pointer-events-auto mx-auto grid max-w-md gap-1 rounded-[28px] p-1.5"
+          style={{ gridTemplateColumns: `repeat(${TABS.length}, minmax(0, 1fr))` }}
+        >
+          {TABS.map((tab) => (
+            <li key={tab.to}>
+              <NavLink
+                to={{ pathname: tab.to, search }}
+                end={tab.to === '/'}
+                aria-label={tab.label}
+                className={({ isActive }) =>
+                  cn(
+                    'pw-press flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-[22px] text-[11px]',
+                    isActive ? 'bg-card font-medium text-foreground shadow-soft' : 'text-muted-foreground',
+                  )
+                }
+              >
+                <tab.icon aria-hidden className="h-[22px] w-[22px] [[aria-current=page]_&]:text-leaf" strokeWidth={1.75} />
+                {tab.short}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </>
   )
 }

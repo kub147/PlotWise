@@ -50,3 +50,13 @@ export function toCropLetter(letter: string): CropLetter {
 export function rotationDisplayName(name: string): string {
   return name.replace(/ - /g, ' – ')
 }
+
+// Samo wypełnienie uprawy (klasa CSS), bez litery: do paska historii pola nad górnym paskiem.
+export const CROP_FILL_CLASS: Record<CropLetter, string> = {
+  W: 'bg-crop-w',
+  S: 'bg-crop-s',
+  C: 'bg-crop-c',
+  F: 'bg-crop-f',
+  O: 'bg-crop-o',
+  Sf: 'bg-card',
+}

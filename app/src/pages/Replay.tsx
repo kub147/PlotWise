@@ -83,27 +83,28 @@ export function Replay({ data, selected }: ReplayProps) {
     ranked[0]
 
   return (
-    <div className="mx-auto flex max-w-[1680px] flex-col gap-5 p-4 lg:p-6">
+    <div className="mx-auto flex max-w-[1680px] flex-col gap-6 p-4 lg:p-6">
       <header>
-        <h1 className="text-[28px] font-semibold leading-tight">Rotation replay</h1>
+        <h1 className="text-[34px] font-semibold leading-tight">Rotation replay</h1>
         <p className="mt-1 text-[15px] text-muted-foreground">
-          {fieldShortName(selected.properties)}
-          {results && ` · every rotation replayed through each year from ${results.period[0]} to ${results.period[1]}`}
+          {results
+            ? `Every rotation replayed on ${fieldShortName(selected.properties)} through each year from ${results.period[0]} to ${results.period[1]}`
+            : fieldShortName(selected.properties)}
         </p>
       </header>
 
       {/* Warning always visible at the top (spec 5.3) */}
-      <p className="flex gap-3 rounded-lg border border-warning-border bg-warning px-4 py-3 text-[15px] leading-snug">
-        <TriangleAlert aria-hidden className="mt-0.5 h-5 w-5 shrink-0" />
+      <p className="flex gap-3 rounded-3xl bg-warning px-5 py-4 text-[15px] leading-snug">
+        <TriangleAlert aria-hidden className="mt-0.5 h-5 w-5 shrink-0 text-warning-border" />
         <span>
-          <strong className="font-semibold">Read this as a comparison, not as farm profit.</strong>{' '}
+          <strong className="font-medium">Read this as a comparison, not as farm profit.</strong>{' '}
           {allLose ? 'Every rotation shows a loss on average because we' : 'The numbers are low because we'} count full
           costs including land rent, and leave out crop insurance and program payments.
         </span>
       </p>
 
       {canSwitch && (
-        <section aria-labelledby="scenario-heading" className="rounded-lg border border-border bg-card px-4 py-3">
+        <section aria-labelledby="scenario-heading" className="pw-sheet rounded-3xl px-5 py-4">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <h2 id="scenario-heading" className="text-[15px] font-semibold">
               How does this field yield?
@@ -128,7 +129,7 @@ export function Replay({ data, selected }: ReplayProps) {
       {state.status === 'loading' && <p className="text-muted-foreground">Loading the replay…</p>}
       {state.status === 'error' && <p role="alert">The replay could not be loaded. {state.message}</p>}
       {state.status === 'missing' && (
-        <div className="rounded-lg border border-border bg-card p-5">
+        <div className="pw-sheet rounded-[28px] p-6">
           <h2 className="text-[19px] font-semibold">The replay is not ready for this field yet</h2>
           <p className="mt-1 text-[15px] text-muted-foreground">
             The engine has not produced results for this field yet. Tribune 001 has the full replay.
@@ -143,7 +144,7 @@ export function Replay({ data, selected }: ReplayProps) {
       )}
 
       {results && view && shown && (
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start xl:grid-cols-[280px_minmax(0,1fr)_420px]">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start xl:grid-cols-[280px_minmax(0,1fr)_420px]">
           {/* Three columns on a wide screen only; on a medium one the card drops below the ranking, on a phone one column */}
           <div className="min-w-0">
             <WeightSliders weights={weights} onChange={setWeights} />

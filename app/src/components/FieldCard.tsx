@@ -1,7 +1,8 @@
 // Prawa kolumna widoku „My field": karta wybranego pola.
 // Kolejność sekcji jest wiążąca: nazwa i powierzchnia, płodozmian, historia upraw, gleba i goła ziemia,
 // wykres zieloności, dwa obrazy z góry, przycisk przejścia do Rotation replay.
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Droplets, Sprout, Sun, TrendingUp, type LucideIcon } from 'lucide-react'
+import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { CropLegend, CropTile } from '@/components/CropTile'
 import { Button } from '@/components/ui/button'
@@ -17,6 +18,32 @@ import { formatNumber, haToAcres, mmToInches } from '@/lib/units'
 function historyName(name: string) {
   const code = /^CDL (\d+)$/.exec(name)
   return code ? `other crop (CDL class ${code[1]})` : name
+}
+
+// Kafelek z jedną liczbą: ikona, liczba, jednostka i opis, na lekko zabarwionym tle.
+function StatTile({
+  icon: Icon,
+  tint,
+  label,
+  unit,
+  children,
+}: {
+  icon: LucideIcon
+  tint: string
+  label: string
+  unit?: string
+  children: ReactNode
+}) {
+  return (
+    <div className="flex flex-col gap-1 rounded-[20px] p-3.5" style={{ background: tint }}>
+      <Icon aria-hidden className="h-5 w-5 opacity-70" strokeWidth={1.75} />
+      <dd className="order-2 font-mono text-[22px] font-medium leading-tight">
+        {children}
+        {unit && <span className="block font-sans text-[13px] font-normal leading-snug text-muted-foreground">{unit}</span>}
+      </dd>
+      <dt className="order-3 text-[13px] leading-snug text-muted-foreground">{label}</dt>
+    </div>
+  )
 }
 
 type FieldCardProps = {
@@ -52,8 +79,8 @@ export function FieldCard({ data, field }: FieldCardProps) {
         <p className="font-mono text-[13px] font-medium text-muted-foreground">{fieldShortName(p)}</p>
         <h2 className="mt-0.5 text-[21px] font-semibold leading-tight">{p.name}</h2>
         <p className="mt-1.5 text-[15px] text-muted-foreground">
-          {county ? `${county} County, Kansas` : 'Kansas'} ·{' '}
-          <span className="font-mono font-medium text-foreground">{formatNumber(haToAcres(p.area_ha))}</span> acres
+          <span className="font-mono font-semibold text-foreground">{formatNumber(haToAcres(p.area_ha))}</span> acres in{' '}
+          {county ? `${county} County, Kansas` : 'Kansas'}
         </p>
       </CardSection>
 
@@ -110,27 +137,20 @@ export function FieldCard({ data, field }: FieldCardProps) {
       <CardSection>
         <SectionLabel>Soil and bare ground</SectionLabel>
         <p className="text-[15px] font-medium">{p.soil_map_unit}</p>
-        <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
-          <div>
-            <dt className="text-[13px] text-muted-foreground">Water the soil can hold for plants</dt>
-            <dd className="font-mono text-[19px] font-semibold">
-              {formatNumber(mmToInches(p.awc_mm), 1)} <span className="font-sans text-[13px] font-medium text-muted-foreground">in, top 5 ft</span>
-            </dd>
-          </div>
-          <div>
-            <dt className="text-[13px] text-muted-foreground">Days a year with bare ground</dt>
-            <dd className="font-mono text-[19px] font-semibold">
-              {formatNumber(p.bare_days_per_year)} <span className="font-sans text-[13px] font-medium text-muted-foreground">seen from satellite</span>
-            </dd>
-          </div>
-          <div>
-            <dt className="text-[13px] text-muted-foreground">Organic matter</dt>
-            <dd className="font-mono text-[15px] font-medium">{formatNumber(p.organic_matter_pct, 1)}%</dd>
-          </div>
-          <div>
-            <dt className="text-[13px] text-muted-foreground">Slope</dt>
-            <dd className="font-mono text-[15px] font-medium">{formatNumber(p.slope_pct, 1)}%</dd>
-          </div>
+        {/* Cztery liczby jako kolorowe kafelki: kolor mówi, czego dotyczy liczba (woda, ziemia, próchnica, nachylenie) */}
+        <dl className="mt-3 grid grid-cols-2 gap-2.5">
+          <StatTile icon={Droplets} tint="var(--tint-water)" label="Water the soil can hold for plants" unit="in, top 5 ft">
+            {formatNumber(mmToInches(p.awc_mm), 1)}
+          </StatTile>
+          <StatTile icon={Sun} tint="var(--tint-soil)" label="Days a year with bare ground" unit="seen from satellite">
+            {formatNumber(p.bare_days_per_year)}
+          </StatTile>
+          <StatTile icon={Sprout} tint="var(--tint-life)" label="Organic matter">
+            {formatNumber(p.organic_matter_pct, 1)}%
+          </StatTile>
+          <StatTile icon={TrendingUp} tint="var(--tint-slope)" label="Slope">
+            {formatNumber(p.slope_pct, 1)}%
+          </StatTile>
         </dl>
         <p className="mt-3 text-[13px] text-muted-foreground">
           Bare ground means no green cover, averaged over the last 8 years. Standing stubble still protects the soil and

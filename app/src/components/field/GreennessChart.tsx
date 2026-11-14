@@ -28,7 +28,7 @@ function ChartTooltip({
   if (!active || !payload?.length) return null
   const point = payload[0].payload
   return (
-    <div className="rounded-md border border-border bg-card px-3 py-2 text-[13px] shadow-md">
+    <div className="pw-glass rounded-2xl px-3.5 py-2.5 text-[13px]">
       <p className="font-semibold">{new Date(point.time).toLocaleDateString('en-US', DAY_FORMAT)}</p>
       <p>
         Greenness <span className="font-mono font-semibold">{point.ndvi.toFixed(2)}</span>
@@ -64,7 +64,7 @@ export function GreennessChart({ fieldId, state, threshold }: GreennessChartProp
   return (
     <div>
       {/* Wykres jest szerszy niż karta i przewija się w poziomie, żeby 18 lat było czytelne */}
-      <div className="overflow-x-auto rounded-md border border-border">
+      <div className="pw-scroll overflow-x-auto rounded-2xl bg-foreground/[0.03]">
         <div
           className="h-[220px] min-w-[760px] pr-2 pt-3"
           role="img"

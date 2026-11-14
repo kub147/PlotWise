@@ -12,8 +12,8 @@ type SegmentedControlProps<T extends string> = {
   label: string
   value: T
   onValueChange: (value: T) => void
-  // 'bar' = wersja na górny pasek (kolory paska), 'surface' = na karcie lub mapie.
-  tone?: 'surface' | 'bar'
+  // 'surface' = na karcie, 'glass' = nad mapą (półprzezroczyste tło), 'bar' = na pasku nawigacji.
+  tone?: 'surface' | 'glass' | 'bar'
   className?: string
 }
 
@@ -56,8 +56,8 @@ export function SegmentedControl<T extends string>({
       role="radiogroup"
       aria-label={label}
       className={cn(
-        'relative inline-grid rounded-md border p-[3px]',
-        tone === 'bar' ? 'border-bar-border bg-bar' : 'border-border bg-muted',
+        'relative inline-grid rounded-full p-[3px]',
+        tone === 'glass' ? 'pw-glass' : 'bg-foreground/[0.06]',
         className,
       )}
       style={{ gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))` }}
@@ -66,8 +66,8 @@ export function SegmentedControl<T extends string>({
       <span
         aria-hidden
         className={cn(
-          'pointer-events-none absolute inset-y-[3px] left-[3px] rounded-sm transition-transform duration-200 ease-out',
-          tone === 'bar' ? 'bg-bar-foreground' : 'bg-foreground',
+          // Biały, lekko uniesiony znacznik, który przeskakuje sprężyście do wybranej opcji.
+          'pointer-events-none absolute inset-y-[3px] left-[3px] rounded-full bg-card shadow-soft transition-transform duration-300 ease-[var(--ease-spring)]',
         )}
         style={{ width: `calc((100% - 6px) / ${count})`, transform: `translateX(${index * 100}%)` }}
       />
@@ -86,14 +86,8 @@ export function SegmentedControl<T extends string>({
             onClick={() => onValueChange(option.value)}
             onKeyDown={(event) => onKeyDown(event, i)}
             className={cn(
-              'relative z-10 min-h-[38px] whitespace-nowrap rounded-sm px-3 text-[13px] font-semibold transition-colors',
-              tone === 'bar'
-                ? checked
-                  ? 'text-bar'
-                  : 'text-bar-muted hover:text-bar-foreground'
-                : checked
-                  ? 'text-card'
-                  : 'text-muted-foreground hover:text-foreground',
+              'relative z-10 min-h-[38px] whitespace-nowrap rounded-full px-4 text-[13px] transition-colors',
+              checked ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground',
             )}
           >
             {option.label}

@@ -21,7 +21,7 @@ export function FieldList({ data, selectedId, onSelect }: FieldListProps) {
   return (
     <nav aria-label="Demo fields" className="flex flex-col gap-5">
       <div>
-        <h2 className="text-[19px] font-semibold">Demo fields</h2>
+        <h2 className="text-[21px] font-semibold">Demo fields</h2>
         <p className="mt-1 text-[13px] text-muted-foreground">
           {data.fields.length} dryland fields at {groups.size} sites in western Kansas.
         </p>
@@ -33,12 +33,12 @@ export function FieldList({ data, selectedId, onSelect }: FieldListProps) {
           <section key={site} aria-labelledby={`site-${site}`}>
             <h3
               id={`site-${site}`}
-              className="mb-2 flex items-baseline justify-between gap-2 border-b border-border pb-1.5 font-sans text-[13px] font-semibold uppercase tracking-[0.06em] text-muted-foreground"
+              className="mb-1.5 flex items-baseline justify-between gap-2 px-3 text-[15px] font-semibold"
             >
               <span>{site}</span>
-              {county && <span className="font-medium normal-case tracking-normal">{county} County</span>}
+              {county && <span className="text-[13px] font-normal tracking-normal text-muted-foreground">{county} County</span>}
             </h3>
-            <ul className="flex flex-col gap-1.5">
+            <ul className="flex flex-col gap-1">
               {fields.map((field) => {
                 const p = field.properties
                 const selected = p.field_id === selectedId
@@ -51,14 +51,12 @@ export function FieldList({ data, selectedId, onSelect }: FieldListProps) {
                       aria-pressed={selected}
                       onClick={() => onSelect(p.field_id)}
                       className={cn(
-                        'flex w-full flex-col gap-1.5 rounded-md border px-3 py-2.5 text-left transition-colors',
-                        selected
-                          ? 'border-foreground bg-card ring-1 ring-foreground'
-                          : 'border-transparent hover:border-border hover:bg-card',
+                        'pw-press flex w-full flex-col gap-1.5 rounded-[20px] px-3 py-3 text-left',
+                        selected ? 'bg-card shadow-soft ring-2 ring-leaf' : 'hover:bg-card/60',
                       )}
                     >
                       <span className="flex items-center justify-between gap-2">
-                        <span className="font-mono text-[15px] font-semibold">{fieldShortName(p)}</span>
+                        <span className="font-mono text-[15px] font-medium">{fieldShortName(p)}</span>
                         {phases ? (
                           <span className="flex gap-0.5" aria-label={`Rotation ${phases.join('-')}`}>
                             {phases.map((letter, i) => (
@@ -66,7 +64,7 @@ export function FieldList({ data, selectedId, onSelect }: FieldListProps) {
                             ))}
                           </span>
                         ) : (
-                          <span className="rounded-sm border border-input px-1.5 py-0.5 text-[13px] font-medium">
+                          <span className="rounded-full bg-foreground/[0.06] px-2.5 py-0.5 text-[13px]">
                             No fallow
                           </span>
                         )}

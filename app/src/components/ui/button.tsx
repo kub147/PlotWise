@@ -5,12 +5,12 @@ import type { ButtonHTMLAttributes } from 'react'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  'inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-4 text-[15px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60',
+  'pw-press inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 text-[15px] font-medium disabled:cursor-not-allowed disabled:opacity-50',
   {
     variants: {
       variant: {
-        primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
-        outline: 'border border-input bg-card text-foreground hover:bg-muted',
+        primary: 'pw-brand shadow-[0_8px_22px_rgb(15_154_76/0.38)] hover:brightness-110',
+        outline: 'bg-foreground/[0.06] text-foreground hover:bg-foreground/10',
         ghost: 'text-foreground hover:bg-muted',
       },
       width: {

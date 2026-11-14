@@ -68,7 +68,7 @@ export function RegionMap({ counties, results, fields, layer, scenario, selected
   const showFields = close && fields !== null
 
   return (
-    <div className="relative h-[460px] overflow-hidden rounded-lg border border-map-frame bg-map-frame lg:h-full">
+    <div className="relative h-[460px] overflow-hidden rounded-[28px] bg-map-frame shadow-soft lg:h-full">
       <MapContainer bounds={REGION_BOUNDS} zoomControl={false} scrollWheelZoom preferCanvas zoomSnap={0.25} className="h-full w-full">
         <TileLayer url={STREET_TILES.url} attribution={STREET_TILES.attribution} maxZoom={15} />
         <ZoomControl position="bottomright" />

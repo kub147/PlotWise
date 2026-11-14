@@ -42,7 +42,14 @@ function FlyToField({ field }: { field: FieldFeature }) {
   const map = useMap()
   useEffect(() => {
     const bounds: LatLngBoundsExpression = ringToLatLng(field)
-    map.flyToBounds(bounds, { padding: [80, 80], maxZoom: 14, duration: 0.8 })
+    // Na szerokim ekranie lewy i prawy panel zasłaniają mapę, więc pole celujemy w wolny środek.
+    const wide = window.matchMedia('(min-width: 1024px)').matches
+    map.flyToBounds(bounds, {
+      paddingTopLeft: wide ? [370, 150] : [60, 80],
+      paddingBottomRight: wide ? [480, 60] : [60, 60],
+      maxZoom: 14,
+      duration: 0.8,
+    })
   }, [field, map])
   return null
 }
@@ -57,12 +64,12 @@ export function FieldMap({ fields, selected, onSelect }: FieldMapProps) {
   const [layer, setLayer] = useState<LayerId>('aerial')
   const tiles = layer === 'aerial' ? AERIAL_TILES : STREET_TILES
   // Na zdjęciu lotniczym obrysy muszą być jasne, na jasnym podkładzie ciemne.
-  const outline = layer === 'aerial' ? '#ffffff' : '#0e1a24'
-  const highlight = layer === 'aerial' ? '#ffd43b' : '#b5179e'
+  const outline = layer === 'aerial' ? '#ffffff' : '#2a221c'
+  const highlight = layer === 'aerial' ? '#ffd60a' : '#b5179e'
   const note = LAYER_NOTES[layer]
 
   return (
-    <div className="relative h-[440px] overflow-hidden rounded-lg border border-map-frame bg-map-frame lg:h-full">
+    <div className="pw-map-bleed relative h-[440px] overflow-hidden rounded-[28px] bg-map-frame shadow-soft lg:h-full lg:rounded-none lg:shadow-none">
       <MapContainer
         center={[selected.properties.lat, selected.properties.lon]}
         zoom={13}
@@ -87,7 +94,7 @@ export function FieldMap({ fields, selected, onSelect }: FieldMapProps) {
               eventHandlers={{ click: () => onSelect(field.properties.field_id) }}
             >
               <Tooltip sticky>
-                {fieldShortName(field.properties)} · {field.properties.current_rotation}
+                {fieldShortName(field.properties)}, {field.properties.current_rotation}
               </Tooltip>
             </Polygon>
           )
@@ -96,14 +103,14 @@ export function FieldMap({ fields, selected, onSelect }: FieldMapProps) {
       </MapContainer>
 
       {/* Przełącznik warstw nad mapą (z-index powyżej warstw Leaflet) */}
-      <div className="absolute left-3 top-3 z-[1000] max-w-[calc(100%-1.5rem)] overflow-x-auto rounded-md shadow-md">
-        <SegmentedControl label="Map layer" options={LAYERS} value={layer} onValueChange={setLayer} />
+      <div className="absolute left-3 top-3 z-[1000] max-w-[calc(100%-1.5rem)] overflow-x-auto rounded-full lg:left-[336px] lg:top-[88px] lg:max-w-[calc(100%-336px-412px)] xl:max-w-none">
+        <SegmentedControl label="Map layer" options={LAYERS} value={layer} onValueChange={setLayer} tone="glass" />
       </div>
 
       {note && (
         <p
           role="status"
-          className="absolute bottom-3 left-3 z-[1000] max-w-[min(26rem,calc(100%-5rem))] rounded-md border border-border bg-card px-3 py-2 text-[13px] text-foreground shadow-md"
+          className="pw-glass absolute bottom-3 left-3 z-[1000] max-w-[min(26rem,calc(100%-5rem))] rounded-2xl px-4 py-3 text-[13px] text-foreground lg:bottom-4 lg:left-[336px]"
         >
           {note}
         </p>

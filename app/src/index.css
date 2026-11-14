@@ -1,9 +1,8 @@
 @import 'tailwindcss';
 
 /* Fonty ładujemy lokalnie (bez zewnętrznego CDN). */
-@import '@fontsource-variable/inter';
-@import '@fontsource-variable/sora';
-@import '@fontsource-variable/jetbrains-mono';
+/* Jeden miękki, lekko zaokrąglony krój na całą aplikację. */
+@import '@fontsource-variable/geologica';
 
 /* Mapowanie zmiennych motywu na klasy Tailwind (nazwy jak w shadcn/ui). */
 @theme inline {
@@ -48,71 +47,122 @@
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 2px);
+  --color-leaf: var(--leaf);
+  --color-leaf-deep: var(--leaf-deep);
+  --color-leaf-soft: var(--leaf-soft);
+  /* Dwa poziomy miękkiego cienia w ciepłym odcieniu: karta leżąca i karta uniesiona. */
+  --shadow-soft: 0 1px 2px rgb(20 50 35 / 0.04), 0 8px 24px rgb(20 50 35 / 0.07);
+  --shadow-lift: 0 2px 6px rgb(20 50 35 / 0.06), 0 18px 44px rgb(20 50 35 / 0.16);
 }
 
-/* Motyw „Orbit Console": chłodny, ciemny pasek i rama mapy, cyjanowy akcent. */
+/* Motyw „Open sky": lekki i jasny, jak na telefonie. W tle powoli płynie kolorowa „mgła" (niebo, młoda zieleń,
+   pszenica, sorgo), a nawigacja, panele i karty to półprzezroczyste szkło, przez które ta mgła i mapa prześwitują.
+   Akcentem jest zieleń z logo. */
 :root {
-  --background: #eef2f5;
-  --foreground: #0e1a24;
+  --leaf: #0c8a45;
+  --leaf-deep: #06733a;
+  --leaf-bright: #2fd67b;
+  --leaf-soft: #dcf7e6;
+  --brand-gradient: linear-gradient(135deg, #06733a 0%, #0f9a4c 55%, #17b25a 100%);
+  --background: #f4f8f5;
+  --foreground: #1d2420;
   --card: #ffffff;
-  --card-foreground: #0e1a24;
-  --muted: #e3e9ee;
-  --muted-foreground: #44535f;
-  --border: #d3dce3;
-  --input: #b9c5cf;
-  --ring: #0b7285;
-  --primary: #0b7285;
+  --card-foreground: #1d2420;
+  --muted: #e9eeea;
+  --muted-foreground: #5c6660;
+  --border: rgb(29 36 32 / 0.08);
+  --input: #c3ccc6;
+  --ring: #2f7fd1;
+  --primary: var(--leaf-deep);
   --primary-foreground: #ffffff;
-  --secondary: #e3e9ee;
-  --secondary-foreground: #0e1a24;
-  --accent: #dff1f4;
-  --accent-foreground: #07515f;
-  --bar: #0e1a24;
-  --bar-foreground: #ffffff;
-  --bar-muted: #b4c2cd;
-  --bar-active: #5fd4e6;
-  --bar-border: #24333f;
-  --map-frame: #0e1a24;
-  /* Uprawy: każda ma inną jasność, żeby dało się je odróżnić także bez koloru. */
-  --crop-f: #dce3e8;
-  --crop-f-fg: #0e1a24;
-  --crop-w: #f2c94c;
-  --crop-w-fg: #0e1a24;
-  --crop-c: #6fbf9b;
-  --crop-c-fg: #0e1a24;
-  --crop-o: #7f8a96;
-  --crop-o-fg: #0e1a24;
-  --crop-s: #8f2f1b;
-  --crop-s-fg: #ffffff;
+  --secondary: #e9eeea;
+  --secondary-foreground: #1d2420;
+  --accent: var(--leaf-soft);
+  --accent-foreground: #06532b;
+  --bar: #ffffff;
+  --bar-foreground: #1d2420;
+  --bar-muted: #5c6660;
+  --bar-active: var(--leaf);
+  --bar-border: #e3e9e5;
+  --map-frame: #dfe6e1;
+  /* Uprawy. Zestaw sprawdzony walidatorem palet: każda para różni się wyraźnie także przy zaburzeniach
+     widzenia barw (najgorsza para: kukurydza–sorgo), a na każdym kafelku i tak jest litera.
+     Pszenica = dojrzały łan, sorgo = rdzawe wiechy, kukurydza = zielony łan, ugór = goła ziemia. */
+  --crop-w: #f7c544;
+  --crop-w-fg: #1d2420;
+  --crop-s: #ea6a47;
+  --crop-s-fg: #1d2420;
+  --crop-c: #37a374;
+  --crop-c-fg: #10241b;
+  --crop-f: #5e4a3e;
+  --crop-f-fg: #ffffff;
+  --crop-o: #93a0c4;
+  --crop-o-fg: #1d2420;
   /* Wykresy: zysk i strata (para sprawdzona pod kątem daltonizmu), tło ostrzeżenia. */
   --chart-gain: #1479a8;
   --chart-loss: #cc6a2e;
   --chart-green: #2a8a57;
-  --warning: #fff6db;
-  --warning-border: #b98a1b;
-  --font-body: 'Inter Variable', system-ui, sans-serif;
-  --font-head: 'Sora Variable', 'Inter Variable', system-ui, sans-serif;
-  --font-num: 'JetBrains Mono Variable', ui-monospace, monospace;
-  --radius: 6px;
+  --warning: rgb(255 236 189 / 0.8);
+  --warning-border: #b9770e;
+  /* Kolory kafelków z liczbami w karcie pola: woda, ziemia, próchnica, nachylenie. */
+  --tint-water: rgb(64 156 255 / 0.14);
+  --tint-soil: rgb(196 140 84 / 0.18);
+  --tint-life: rgb(47 214 123 / 0.16);
+  --tint-slope: rgb(147 160 196 / 0.2);
+  --font-body: 'Geologica Variable', system-ui, sans-serif;
+  --font-head: 'Geologica Variable', system-ui, sans-serif;
+  --font-num: 'Geologica Variable', system-ui, sans-serif;
+  --radius: 16px;
+  /* Ruch jak w telefonie: szybki start, miękkie wyhamowanie z lekkim odbiciem. */
+  --ease-spring: cubic-bezier(0.3, 1.35, 0.5, 1);
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @layer base {
   html {
     font-size: 15px;
   }
+  html {
+    background: var(--background);
+  }
   body {
     margin: 0;
-    background: var(--background);
     color: var(--foreground);
     font-family: var(--font-body);
+    font-weight: 350;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+  }
+  /* Kolorowa mgła w tle: dwie warstwy miękkich plam, które bardzo powoli dryfują w przeciwne strony.
+     Nieruchome względem ekranu; szkło nad nimi rozmywa je jeszcze bardziej. */
+  body::before,
+  body::after {
+    content: '';
+    position: fixed;
+    inset: -25%;
+    z-index: -1;
+    pointer-events: none;
+  }
+  body::before {
+    background:
+      radial-gradient(38% 34% at 22% 26%, rgb(120 190 255 / 0.6), transparent 70%),
+      radial-gradient(34% 32% at 78% 70%, rgb(255 198 92 / 0.5), transparent 70%);
+    animation: pw-drift-a 46s ease-in-out infinite alternate;
+  }
+  body::after {
+    background:
+      radial-gradient(36% 32% at 76% 22%, rgb(96 226 158 / 0.55), transparent 70%),
+      radial-gradient(32% 30% at 24% 78%, rgb(255 142 112 / 0.38), transparent 70%);
+    animation: pw-drift-b 58s ease-in-out infinite alternate;
+  }
+  button {
+    cursor: pointer;
   }
   h1,
   h2,
   h3 {
     font-family: var(--font-head);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
   }
   :focus-visible {
     outline: 2px solid var(--ring);
@@ -120,7 +170,93 @@
   }
 }
 
-/* Suwak: natywny <input type="range"> o wysokości 44 px, z wypełnieniem do bieżącej wartości (--fill). */
+/* Liczby i kody: ten sam krój, cyfry o stałej szerokości, żeby kolumny się nie rozjeżdżały.
+   Klasa font-mono zostaje w komponentach jako „to jest liczba", ale nie przełącza na krój maszynowy. */
+.font-mono {
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.01em;
+}
+
+@keyframes pw-drift-a {
+  from {
+    transform: translate3d(-4%, -3%, 0) rotate(0deg) scale(1);
+  }
+  to {
+    transform: translate3d(6%, 5%, 0) rotate(14deg) scale(1.12);
+  }
+}
+@keyframes pw-drift-b {
+  from {
+    transform: translate3d(5%, 4%, 0) rotate(0deg) scale(1.08);
+  }
+  to {
+    transform: translate3d(-6%, -4%, 0) rotate(-16deg) scale(1);
+  }
+}
+
+/* „Szkło": półprzezroczysta biała powierzchnia, która rozmywa i podbija kolory tego, co pod nią
+   (mgłę, mapę albo przewijaną treść). Jasna krawędź u góry udaje odbicie światła. */
+.pw-glass {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.74), rgb(255 255 255 / 0.56));
+  -webkit-backdrop-filter: blur(26px) saturate(1.9);
+  backdrop-filter: blur(26px) saturate(1.9);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    inset 0 0 0 1px rgb(255 255 255 / 0.45),
+    0 1px 2px rgb(20 50 35 / 0.05),
+    0 14px 36px rgb(20 50 35 / 0.14);
+}
+/* Karta: to samo szkło, ale gęstsze, żeby dłuższy tekst czytał się pewnie. */
+.pw-sheet {
+  background: rgb(255 255 255 / 0.8);
+  -webkit-backdrop-filter: blur(30px) saturate(1.8);
+  backdrop-filter: blur(30px) saturate(1.8);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.95),
+    var(--shadow-soft);
+}
+/* Wybrany element na szkle: zielona obwódka i mocniejszy cień (zastępuje cień karty). */
+.pw-selected {
+  box-shadow:
+    0 0 0 2px var(--leaf),
+    var(--shadow-lift);
+}
+/* Zielony gradient z logo: główny przycisk, paski dopasowania, miejsce pierwsze w rankingu. */
+.pw-brand {
+  background: var(--brand-gradient);
+  color: #ffffff;
+}
+
+/* Wciśnięcie: element lekko się ugina pod palcem i wraca. */
+.pw-press {
+  transition:
+    transform 0.25s var(--ease-spring),
+    background-color 0.2s,
+    box-shadow 0.25s var(--ease-out);
+}
+.pw-press:active {
+  transform: scale(0.975);
+}
+
+/* Karta pola wjeżdża miękko po wybraniu innego pola (odpowiedź na akcję użytkownika). */
+@keyframes pw-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+}
+.pw-rise {
+  animation: pw-rise 0.42s var(--ease-out);
+}
+
+/* Wąski, dyskretny pasek przewijania w pływających panelach. */
+.pw-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(20 50 35 / 0.22) transparent;
+}
+
+/* Suwak: natywny <input type="range"> o wysokości 44 px. Tor wypełnia się złotem do bieżącej wartości (--fill),
+   uchwyt jest biały i rzuca cień, jak w telefonie. */
 .pw-range {
   appearance: none;
   -webkit-appearance: none;
@@ -133,28 +269,34 @@
 .pw-range::-webkit-slider-runnable-track {
   height: 6px;
   border-radius: 3px;
-  background: linear-gradient(to right, var(--primary) var(--fill), var(--input) var(--fill));
+  background: linear-gradient(to right, var(--leaf) var(--fill), rgb(29 36 32 / 0.1) var(--fill));
 }
 .pw-range::-moz-range-track {
   height: 6px;
   border-radius: 3px;
-  background: linear-gradient(to right, var(--primary) var(--fill), var(--input) var(--fill));
+  background: linear-gradient(to right, var(--leaf) var(--fill), rgb(29 36 32 / 0.1) var(--fill));
 }
 .pw-range::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 24px;
-  height: 24px;
-  margin-top: -9px;
+  width: 28px;
+  height: 28px;
+  margin-top: -11px;
   border-radius: 50%;
-  border: 2px solid var(--primary);
-  background: var(--card);
+  border: 0;
+  background: #ffffff;
+  box-shadow: 0 0 0 0.5px rgb(20 50 35 / 0.12), 0 3px 8px rgb(20 50 35 / 0.22);
+  transition: transform 0.2s var(--ease-spring);
+}
+.pw-range:active::-webkit-slider-thumb {
+  transform: scale(1.12);
 }
 .pw-range::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  border: 2px solid var(--primary);
-  background: var(--card);
+  border: 0;
+  background: #ffffff;
+  box-shadow: 0 0 0 0.5px rgb(20 50 35 / 0.12), 0 3px 8px rgb(20 50 35 / 0.22);
 }
 
 /* Leaflet: kontrolki i podpisy w kroju aplikacji. */
@@ -165,7 +307,42 @@
 .leaflet-tooltip {
   font-size: 13px;
   color: var(--foreground);
-  border-radius: var(--radius);
+  border: 0;
+  border-radius: 12px;
+  padding: 6px 10px;
+  box-shadow: var(--shadow-lift);
+}
+.leaflet-tooltip::before {
+  display: none;
+}
+/* Przyciski powiększania jako jedna zaokrąglona „szklana" pastylka. */
+.leaflet-bar {
+  border: 0 !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  box-shadow: var(--shadow-lift) !important;
+}
+.leaflet-bar a {
+  width: 44px !important;
+  height: 44px !important;
+  line-height: 44px !important;
+  color: var(--foreground) !important;
+  background: color-mix(in srgb, #ffffff 82%, transparent) !important;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border-color: var(--border) !important;
+}
+/* Na szerokim ekranie mapa leży pod pływającymi panelami: kontrolki przesuwamy w wolny środek. */
+@media (min-width: 1024px) {
+  .pw-map-bleed .leaflet-bottom.leaflet-right {
+    right: 404px;
+    bottom: 8px;
+  }
+}
+@media (min-width: 1280px) {
+  .pw-map-bleed .leaflet-bottom.leaflet-right {
+    right: 444px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

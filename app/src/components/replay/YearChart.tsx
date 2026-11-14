@@ -35,7 +35,7 @@ function ChartTooltip({ active, payload }: { active?: boolean; payload?: { paylo
   if (!active || !payload?.length) return null
   const point = payload[0].payload
   return (
-    <div className="rounded-md border border-border bg-card px-3 py-2 text-[13px] shadow-md">
+    <div className="pw-glass rounded-2xl px-3.5 py-2.5 text-[13px]">
       <p className="font-mono font-semibold">{point.year}</p>
       <p>
         <span className="font-mono font-semibold">{formatUsd(point.value)}</span> per acre
@@ -68,8 +68,8 @@ export function YearChart({ rotation, site }: YearChartProps) {
       </p>
 
       {/* On a narrow screen the chart scrolls sideways instead of shrinking */}
-      <div className="mt-3 overflow-x-auto rounded-lg border border-border bg-card p-3">
-        <div className="h-[300px] min-w-[640px]" role="img" aria-label={`Bar chart of yearly net return per acre for ${name}. The table below has the same numbers.`}>
+      <div className="mt-3 overflow-x-auto pw-sheet rounded-3xl p-4">
+        <div className="h-[300px] min-w-[600px]" role="img" aria-label={`Bar chart of yearly net return per acre for ${name}. The table below has the same numbers.`}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data} margin={{ top: 22, right: 8, bottom: 0, left: 0 }} barCategoryGap={2}>
               <CartesianGrid vertical={false} stroke="var(--border)" />
@@ -133,7 +133,7 @@ export function YearChart({ rotation, site }: YearChartProps) {
         <summary className="flex min-h-11 cursor-pointer items-center text-[15px] font-medium text-primary underline underline-offset-4">
           Show the numbers as a table
         </summary>
-        <div className="max-h-72 overflow-auto rounded-lg border border-border bg-card">
+        <div className="pw-sheet pw-scroll max-h-72 overflow-auto rounded-3xl">
           <table className="w-full text-left text-[13px]">
             <thead className="sticky top-0 bg-muted">
               <tr>

@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 export function Card({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn('rounded-lg border border-border bg-card text-card-foreground', className)}
+      className={cn('pw-sheet rounded-[28px] text-card-foreground', className)}
       {...props}
     />
   )
@@ -13,14 +13,14 @@ export function Card({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
 
 // Sekcja wewnątrz karty, oddzielona linią od poprzedniej.
 export function CardSection({ className, ...props }: HTMLAttributes<HTMLElement>) {
-  return <section className={cn('border-t border-border px-5 py-4 first:border-t-0', className)} {...props} />
+  return <section className={cn('mx-6 border-t border-border py-5 first:border-t-0', className)} {...props} />
 }
 
 // Mały nagłówek sekcji (etykieta nad treścią).
 export function SectionLabel({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
-      className={cn('mb-2 font-sans text-[13px] font-semibold uppercase tracking-[0.06em] text-muted-foreground', className)}
+      className={cn('mb-3 text-[15px] font-medium text-foreground', className)}
       {...props}
     />
   )

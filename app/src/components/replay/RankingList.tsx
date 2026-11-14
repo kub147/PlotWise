@@ -25,11 +25,17 @@ export function RankingList({ ranked, selectedId, onSelect }: RankingListProps) 
               aria-pressed={selected}
               onClick={() => onSelect(rotation.id)}
               className={cn(
-                'grid w-full grid-cols-[2rem_minmax(0,1fr)] items-center gap-x-3 gap-y-2 rounded-md border bg-card px-4 py-3 text-left transition-colors sm:grid-cols-[2rem_minmax(0,1fr)_auto]',
-                selected ? 'border-foreground ring-1 ring-foreground' : 'border-border hover:border-input',
+                'pw-press grid w-full grid-cols-[2rem_minmax(0,1fr)] items-center gap-x-3 gap-y-2.5 pw-sheet rounded-3xl px-5 py-4 text-left sm:grid-cols-[2rem_minmax(0,1fr)_auto]',
+                selected && 'pw-selected',
               )}
             >
-              <span className="font-mono text-[21px] font-semibold" aria-label={`Place ${place}`}>
+              <span
+                className={cn(
+                  'flex h-8 w-8 items-center justify-center rounded-full font-mono text-[15px] font-medium',
+                  place === 1 ? 'pw-brand shadow-[0_4px_12px_rgb(15_154_76/0.35)]' : 'bg-foreground/[0.06] text-muted-foreground',
+                )}
+                aria-label={`Place ${place}`}
+              >
                 {place}
               </span>
 
@@ -45,12 +51,12 @@ export function RankingList({ ranked, selectedId, onSelect }: RankingListProps) 
                 {(rotation.is_current || rotation.status === 'optional') && (
                   <span className="flex flex-wrap gap-1.5">
                     {rotation.is_current && (
-                      <span className="rounded-sm bg-foreground px-2 py-0.5 text-[13px] font-semibold text-card">
+                      <span className="rounded-full bg-leaf-soft px-2.5 py-0.5 text-[13px] font-medium text-accent-foreground">
                         Your rotation today
                       </span>
                     )}
                     {rotation.status === 'optional' && (
-                      <span className="rounded-sm border border-input px-2 py-0.5 text-[13px] font-medium text-muted-foreground">
+                      <span className="rounded-full bg-foreground/[0.06] px-2.5 py-0.5 text-[13px] text-muted-foreground">
                         Optional
                       </span>
                     )}
@@ -65,8 +71,11 @@ export function RankingList({ ranked, selectedId, onSelect }: RankingListProps) 
 
               {/* Pasek dopasowania: długość i liczba, kolor nie niesie znaczenia */}
               <span className="col-span-full flex items-center gap-3">
-                <span className="h-2 flex-1 overflow-hidden rounded-full bg-muted" aria-hidden>
-                  <span className="block h-full rounded-full bg-primary" style={{ width: `${fitPercent}%` }} />
+                <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-foreground/[0.07]" aria-hidden>
+                  <span
+                    className="pw-brand block h-full rounded-full transition-[width] duration-500 ease-[var(--ease-out)]"
+                    style={{ width: `${fitPercent}%` }}
+                  />
                 </span>
                 <span className="w-[5.5rem] text-right text-[13px] text-muted-foreground">
                   Fit <span className="font-mono font-semibold text-foreground">{fitPercent}</span> of 100

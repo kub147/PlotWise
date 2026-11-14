@@ -16,7 +16,8 @@ function Shell() {
   return (
     <div className="flex min-h-screen flex-col lg:h-screen">
       <TopBar selected={selected} />
-      <main className="min-h-0 flex-1 lg:overflow-y-auto">
+      {/* Nawigacja jest przyklejona nad treścią, więc treść dostaje odstęp u góry (i na telefonie u dołu). */}
+      <main className="pw-scroll min-h-0 flex-1 pb-24 pt-[72px] lg:overflow-y-auto lg:pb-0 lg:pt-[76px]">
         {state.status === 'loading' && <p className="p-6 text-muted-foreground">Loading field data…</p>}
         {state.status === 'error' && (
           <p role="alert" className="p-6">

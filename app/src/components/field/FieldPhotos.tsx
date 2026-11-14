@@ -6,7 +6,7 @@ import { cToF, formatNumber } from '@/lib/units'
 
 function Missing({ children }: { children: string }) {
   return (
-    <div className="flex aspect-square items-center justify-center rounded-md border border-dashed border-input bg-muted px-3 text-center text-[13px] text-muted-foreground">
+    <div className="flex aspect-square items-center justify-center rounded-2xl bg-foreground/[0.05] px-3 text-center text-[13px] text-muted-foreground">
       {children}
     </div>
   )
@@ -15,7 +15,7 @@ function Missing({ children }: { children: string }) {
 // Miniatura z linkiem do pełnego obrazu w nowej karcie.
 function Thumbnail({ file, alt }: { file: string; alt: string }) {
   return (
-    <a href={imageUrl(file)} target="_blank" rel="noreferrer" className="block overflow-hidden rounded-md border border-border">
+    <a href={imageUrl(file)} target="_blank" rel="noreferrer" className="pw-press block overflow-hidden rounded-2xl">
       <img src={imageUrl(file)} alt={alt} loading="lazy" className="aspect-square w-full object-cover" />
     </a>
   )

@@ -6,11 +6,10 @@ const TILE_CLASS: Record<CropLetter, string> = {
   W: 'bg-crop-w text-crop-w-fg',
   S: 'bg-crop-s text-crop-s-fg',
   C: 'bg-crop-c text-crop-c-fg',
-  // Ugór jest najjaśniejszy, więc dostaje ramkę, żeby nie zlewał się z kartą.
-  F: 'bg-crop-f text-crop-f-fg ring-1 ring-inset ring-input',
+  F: 'bg-crop-f text-crop-f-fg',
   O: 'bg-crop-o text-crop-o-fg',
   // Słonecznik (tylko w opcjonalnym W-Sf-F): bez własnego koloru, wyróżnia go gruba ramka i dwie litery.
-  Sf: 'bg-card text-foreground ring-2 ring-inset ring-foreground text-[13px]',
+  Sf: 'bg-card text-foreground ring-[1.5px] ring-inset ring-foreground text-[13px]',
 }
 
 type CropTileProps = {
@@ -24,7 +23,7 @@ export function CropTile({ letter, size = 'badge', className }: CropTileProps) {
   return (
     <span
       className={cn(
-        'inline-flex items-center justify-center rounded-sm font-mono font-semibold leading-none',
+        'inline-flex items-center justify-center rounded-[8px] font-mono font-semibold leading-none',
         size === 'badge' ? 'h-8 w-8 text-[15px]' : 'h-8 w-full text-[13px]',
         TILE_CLASS[crop],
         className,
