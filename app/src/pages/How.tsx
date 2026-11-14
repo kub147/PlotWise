@@ -3,13 +3,16 @@
 import { ArrowDown, ArrowRight } from 'lucide-react'
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { ValidationChart } from '@/components/how/ValidationChart'
 import { Card } from '@/components/ui/card'
+import { useJson } from '@/lib/climate'
 import type { AppData } from '@/lib/data'
 import { useEvidence, type EvidenceItem } from '@/lib/evidence'
 import { imageUrl } from '@/lib/fieldMedia'
 import { scenarioView, useFieldResults, type FieldResults } from '@/lib/results'
 import { rotationLabel } from '@/lib/rotation'
 import { formatUsd } from '@/lib/units'
+import { REFERENCE_SERIES, validationTiles, type Validation } from '@/lib/validation'
 import { cn } from '@/lib/utils'
 
 // Pole przy stacji K-State w Tribune: na nim porównujemy kolejność płodozmianów z badaniem K-State.
@@ -18,7 +21,8 @@ const BENCHMARK_FIELD = 'ks071-001'
 const BENCHMARK_YEARS: [number, number] = [2008, 2015]
 const KSTATE_ORDER = ['WSF', 'WF', 'WCF']
 
-// Trzy kafle z raportu walidacji silnika (docs/engine-validation.md, sekcje 2 i 3). Liczby są przepisane z raportu.
+// Three tiles from the engine's validation report (docs/engine-validation.md, sections 2 and 3).
+// Fallback only: when validation.json is there, the tiles are written from it (lib/validation.ts).
 const VALIDATION_TILES = [
   {
     title: 'Sorghum: about 60%',
@@ -145,6 +149,19 @@ export function How({ data }: { data: AppData }) {
     ? Object.values(evidence.items).sort((a, b) => Number(a.id.slice(1)) - Number(b.id.slice(1)))
     : []
   const hasWanted = wanted !== null && evidence?.items[wanted] !== undefined
+  // Series and numbers written by `python -m engine.validate`. Without the file the page falls back to the
+  // report's picture and the tiles above.
+  const validationState = useJson<Validation>('validation.json')
+  const validation = validationState.status === 'ready' ? validationState.data : null
+  const charts = validation
+    ? REFERENCE_SERIES.flatMap((id) => {
+        const series = validation.series.find((candidate) => candidate.id === id)
+        if (!series) return []
+        const zeroYears = validation.failures.find((failure) => failure.series === id)?.measured_zero_years ?? []
+        return [{ series, zeroYears }]
+      })
+    : []
+  const tiles = validation ? validationTiles(validation) : VALIDATION_TILES
 
   // Link z karty płodozmianu (#/how?evidence=E07) przewija do właściwego wiersza.
   useEffect(() => {
@@ -166,23 +183,40 @@ export function How({ data }: { data: AppData }) {
         <h2 id="checked-heading" className="text-[24px] font-semibold leading-tight">
           Checked against 24 years of field trials
         </h2>
-        <Card className="overflow-hidden p-4 lg:p-6">
-          <a href={imageUrl('engine_validation.png')} target="_blank" rel="noreferrer" className="block">
-            <img
-              src={imageUrl('engine_validation.png')}
-              alt="Charts comparing modeled yields with yields measured at the K-State Tribune trials for wheat and sorghum"
-              loading="lazy"
-              className="w-full rounded-2xl"
-            />
-          </a>
-          <p className="mt-3 text-[13px] leading-snug text-muted-foreground">
-            Modeled yield against yield measured at the K-State Southwest Research-Extension Center in Tribune,
-            1996–2020. From the engine’s validation report.
-          </p>
-        </Card>
+        {validationState.status === 'loading' && <p className="text-muted-foreground">Loading the validation…</p>}
+        {charts.length > 0 && (
+          <>
+            <div className="grid gap-4 lg:grid-cols-2">
+              {charts.map(({ series, zeroYears }) => (
+                <ValidationChart key={series.id} series={series} zeroYears={zeroYears} />
+              ))}
+            </div>
+            <p className="max-w-[80ch] text-[13px] leading-snug text-muted-foreground">
+              Measured at the {validation?.site}. The engine was run there with the same gridded weather it uses for
+              every field, not with the station’s own rain gauge. Its water settings were fitted to measured soil
+              water, not to these yields.
+            </p>
+          </>
+        )}
+        {validationState.status === 'missing' && (
+          <Card className="overflow-hidden p-4 lg:p-6">
+            <a href={imageUrl('engine_validation.png')} target="_blank" rel="noreferrer" className="block">
+              <img
+                src={imageUrl('engine_validation.png')}
+                alt="Charts comparing modeled yields with yields measured at the K-State Tribune trials for wheat and sorghum"
+                loading="lazy"
+                className="w-full rounded-2xl"
+              />
+            </a>
+            <p className="mt-3 text-[13px] leading-snug text-muted-foreground">
+              Modeled yield against yield measured at the K-State Southwest Research-Extension Center in Tribune,
+              1996–2020. From the engine’s validation report.
+            </p>
+          </Card>
+        )}
 
         <div className="grid gap-4 sm:grid-cols-2">
-          {VALIDATION_TILES.map((tile) => (
+          {tiles.map((tile) => (
             <Card key={tile.title} className="p-6">
               <h3 className="text-[19px] font-semibold leading-snug">{tile.title}</h3>
               <p className="mt-2 text-[15px] leading-snug text-muted-foreground">{tile.text}</p>

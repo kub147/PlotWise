@@ -11,7 +11,7 @@ import { SegmentedControl } from '@/components/ui/segmented-control'
 import { fieldShortName, type AppData, type FieldFeature } from '@/lib/data'
 import { useEvidence } from '@/lib/evidence'
 import {
-  EQUAL_WEIGHTS,
+  DEFAULT_WEIGHTS,
   hasScenario,
   rankRotations,
   scenarioView,
@@ -62,7 +62,7 @@ export function Replay({ data, selected }: ReplayProps) {
   const fieldId = selected.properties.field_id
   const state = useFieldResults(fieldId, data.manifest.results.includes(fieldId))
   const evidence = useEvidence()
-  const [weights, setWeights] = useState<Weights>(EQUAL_WEIGHTS)
+  const [weights, setWeights] = useState<Weights>(DEFAULT_WEIGHTS)
   const [chosenScenario, setScenario] = useState<Scenario>('county_average')
   // The chosen rotation is kept with its field: a new field goes back to the default choice.
   const [choice, setChoice] = useState<{ fieldId: string; rotationId: string } | null>(null)

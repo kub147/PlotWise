@@ -8,7 +8,9 @@ export const CRITERIA = ['income', 'dry_year_safety', 'water', 'soil'] as const
 export type Criterion = (typeof CRITERIA)[number]
 export type Weights = Record<Criterion, number>
 
-export const EQUAL_WEIGHTS: Weights = { income: 50, dry_year_safety: 50, water: 50, soil: 50 }
+// Starting weights, same ratio as engine/scoring.py DEFAULT_WEIGHTS (2:2:1:1). Water and soil both rise with how
+// often a crop is grown (the two indicators correlate 0.95), so together they start at the weight of one money priority.
+export const DEFAULT_WEIGHTS: Weights = { income: 50, dry_year_safety: 50, water: 25, soil: 25 }
 
 export type RotationResult = {
   id: string
@@ -141,10 +143,12 @@ export function fitScore(scores: Record<Criterion, number>, weights: Weights): n
 
 export type RankedRotation = { rotation: RotationResult; fit: number; place: number }
 
-// Ranking from the best fit down. Ties keep the order of the file.
+// Ranking from the best fit down. Fits are compared to four decimals and ties keep the order of the file,
+// the same rule as engine/scoring.py rank, so rounding noise never reorders two equal rotations.
 export function rankRotations(rotations: RotationResult[], weights: Weights): RankedRotation[] {
+  const key = (fit: number) => Math.round(fit * 1e4)
   return rotations
     .map((rotation, index) => ({ rotation, fit: fitScore(rotation.scores, weights), index }))
-    .sort((a, b) => b.fit - a.fit || a.index - b.index)
+    .sort((a, b) => key(b.fit) - key(a.fit) || a.index - b.index)
     .map(({ rotation, fit }, i) => ({ rotation, fit, place: i + 1 }))
 }

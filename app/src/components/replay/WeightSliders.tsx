@@ -1,9 +1,9 @@
-// Lewa kolumna Rotation replay: cztery suwaki priorytetów 0–100 i reset do równych wag.
+// Lewa kolumna Rotation replay: cztery suwaki priorytetów 0–100 i reset do wag początkowych (2:2:1:1).
 // Kryteria są takie, jak liczy silnik (engine/scoring.py): income, dry_year_safety, water, soil.
 import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { CRITERIA, EQUAL_WEIGHTS, type Criterion, type Weights } from '@/lib/results'
+import { CRITERIA, DEFAULT_WEIGHTS, type Criterion, type Weights } from '@/lib/results'
 import { cn } from '@/lib/utils'
 
 // Nazwy i opisy prostym językiem. Opis mówi, co dokładnie mierzy wynik w silniku.
@@ -20,7 +20,7 @@ type WeightSlidersProps = {
 }
 
 export function WeightSliders({ weights, onChange }: WeightSlidersProps) {
-  const isEqual = CRITERIA.every((criterion) => weights[criterion] === EQUAL_WEIGHTS[criterion])
+  const isDefault = CRITERIA.every((criterion) => weights[criterion] === DEFAULT_WEIGHTS[criterion])
   // On a phone the sliders start folded so the ranking is not four screens down; on a wide screen they always show.
   const [open, setOpen] = useState(false)
   return (
@@ -39,7 +39,7 @@ export function WeightSliders({ weights, onChange }: WeightSlidersProps) {
           onClick={() => setOpen(!open)}
           className="mt-2 flex min-h-11 w-full items-center justify-between gap-2 rounded-2xl bg-foreground/5 px-4 text-[15px] font-medium lg:hidden"
         >
-          {open ? 'Hide the sliders' : isEqual ? 'Change priorities (now equal)' : 'Change priorities (changed)'}
+          {open ? 'Hide the sliders' : isDefault ? 'Change priorities (starting weights)' : 'Change priorities (changed)'}
           <ChevronDown aria-hidden className={cn('h-5 w-5 transition-transform', open && 'rotate-180')} />
         </button>
       </div>
@@ -79,8 +79,13 @@ export function WeightSliders({ weights, onChange }: WeightSlidersProps) {
         )
       })}
 
-      <Button variant="outline" width="full" disabled={isEqual} onClick={() => onChange(EQUAL_WEIGHTS)}>
-        Reset to equal weights
+      <p className="text-[13px] leading-snug text-muted-foreground">
+        Rain use and soil start at half weight. Both go up with how often a crop is grown, so together they start
+        level with one money priority.
+      </p>
+
+      <Button variant="outline" width="full" disabled={isDefault} onClick={() => onChange(DEFAULT_WEIGHTS)}>
+        Reset to starting weights
       </Button>
       </div>
     </section>

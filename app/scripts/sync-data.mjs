@@ -48,6 +48,11 @@ copyFile(join(processed, 'county_rotation_summary.json'), join(outData, 'county_
 copyFile(join(processed, 'county_field_rotations.json'), join(outData, 'county_field_rotations.json'))
 copyFile(join(processed, 'county_fields.geojson'), join(outData, 'county_fields.geojson'))
 copyFile(join(processed, 'results', 'counties.json'), join(outData, 'county_results.json'))
+// "How we know" page: measured and modelled yields at the Tribune trials (python -m engine.validate).
+// Optional: without it the page shows the report's picture instead of its own charts.
+if (existsSync(join(processed, 'results', 'validation.json'))) {
+  copyFile(join(processed, 'results', 'validation.json'), join(outData, 'validation.json'))
+}
 copyFile(join(processed, 'heat', 'ecostress_summary.json'), join(outData, 'ecostress_summary.json'))
 copyFile(join(repo, 'crops-economics', 'reference', 'evidence.md'), join(outData, 'evidence.md'))
 
