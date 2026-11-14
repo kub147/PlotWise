@@ -1,5 +1,6 @@
-# private notes
+# private notes and event handouts (kept locally, not part of the project)
 ANALIZA.md
+*.pdf
 
 # data: commit small processed files, never raw downloads
 data/raw/
