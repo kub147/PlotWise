@@ -11,6 +11,7 @@ python -m engine.counties            # county yield factors + 46-county replay -
                                      #   data/processed/results/counties.json, docs/engine-counties.md (about 30 s). Run before engine.run
 python -m engine.run                 # replay for every field -> data/processed/results/<field_id>.json
 python -m engine.validate            # comparison with the K-State Tribune trials -> docs/engine-validation.md, docs/img/engine_validation.png
+                                     #   and data/processed/results/validation.json (series and numbers for the app's "How we know" page)
 python -m engine.test_engine         # offline tests (water conservation, schedules, scoring)
 python -m engine.calibrate           # only after the model or its inputs change -> engine/params.json (about 30 s)
 ```
@@ -64,7 +65,8 @@ Needs Python 3.10+, `numpy`, and `matplotlib` for the validation figure. Run fro
 4. **Money** (`replay.py`). Yield × the actual Kansas price of that year − the K-State budget cost of the phase,
    2025 USD per acre of the whole rotation, fallow included.
 5. **Scores and sensitivity** (`scoring.py`). Four criteria on fixed 0-1 scales; 5,000 random weightings show how often
-   each rotation comes first.
+   each rotation comes first. Default weights are income 2, dry_year_safety 2, water 1, soil 1: water and soil both
+   measure cropping intensity (indicators correlate 0.95), so together they weigh as much as one money criterion.
 
 ## Output: `data/processed/results/<field_id>.json`
 
@@ -107,6 +109,6 @@ To rank with the farmer's own weights in the app: total = Σ weight × score ove
 | D4 | `replay.py` | Land split evenly between the phases of a rotation | — (a convention) |
 | D5 | sorghum level | 1996-2020 average; the trial shows a rise of about 2 bu/acre per year that the water model cannot see | Add a technology trend once C confirms the cause |
 | D6 | wheat-fallow | Modelled 14-month fallow stores 17% of precipitation, measured 28% | Better fallow physics (residue, snow catch); see validation, section 1 |
-| D7 | soil score | Cropping intensity (crops per year) stands in for soil benefit; it is correlated with the water score, and residue amounts per crop are not counted | Residue amounts per crop from C; decide with E whether to merge water and soil |
+| D7 | soil score | Cropping intensity (crops per year) stands in for soil benefit; it correlates 0.95 with the water indicator, so by default the two share one weight (`scoring.py`); residue amounts per crop are not counted | Residue amounts per crop from C, which would make soil an independent criterion |
 
 Not done: the "This season" forward run from today's soil water (stretch), validation against OpenET and SMAP.

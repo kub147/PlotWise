@@ -8,7 +8,7 @@ import numpy as np
 from . import inputs
 from .inputs import Crop, Weather
 from .rotation import build_schedule, kc_curve
-from .scoring import weight_sensitivity
+from .scoring import DEFAULT_WEIGHTS, rank, scores_for, weight_sensitivity
 from .waterbalance import WaterParams, fallow_periods, season_summaries, simulate
 from .yields import kstate_yield
 
@@ -77,6 +77,21 @@ def test_weight_sensitivity():
     scores = {"A": dict(water=1, soil=0, income=0, dry_year_safety=0), "B": dict(water=0, soil=1, income=0, dry_year_safety=0)}
     share = weight_sensitivity(scores, 4000)["share_of_wins"]
     assert abs(share["A"] - 0.5) < 0.05 and abs(share["A"] + share["B"] - 1) < 1e-9
+    # water and soil share one weight: a rotation that wins only on that pair comes first in about a third of the draws
+    scores = {"A": dict(water=1, soil=1, income=0, dry_year_safety=0), "B": dict(water=0, soil=0, income=1, dry_year_safety=0),
+              "C": dict(water=0, soil=0, income=0, dry_year_safety=1)}
+    share = weight_sensitivity(scores, 6000)["share_of_wins"]
+    assert all(abs(v - 1 / 3) < 0.04 for v in share.values()), share
+    assert abs(sum(DEFAULT_WEIGHTS.values()) - 1) < 1e-9
+    assert abs(DEFAULT_WEIGHTS["water"] + DEFAULT_WEIGHTS["soil"] - DEFAULT_WEIGHTS["income"]) < 1e-9
+    # equal totals keep the order of the file: (0.5 + 0.5) / 3 + 0.2 / 6 == (0.37 + 0.28) / 3 + (0.56 + 0.34) / 6
+    tie = {"WF": dict(water=0.2, soil=0.0, income=0.5, dry_year_safety=0.5),
+           "WSF": dict(water=0.56, soil=0.34, income=0.37, dry_year_safety=0.28)}
+    assert rank(tie, DEFAULT_WEIGHTS) == ["WF", "WSF"] and rank(dict(reversed(tie.items())), DEFAULT_WEIGHTS) == ["WSF", "WF"]
+    wf = {"summary": {"mean": -50.0, "mean_of_worst_fifth": -90.0}, "net_year": {2001: -80.0, 2002: -20.0},
+          "indicators": {"crop_water_share": 0.4, "crops_per_year": 0.5}}
+    s, dry = scores_for(wf, [2001], wf)
+    assert s["income"] == 0.5 and s["dry_year_safety"] == 0.5 and dry == -80.0, "wheat-fallow is the money reference"
 
 
 def main():

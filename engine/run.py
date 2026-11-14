@@ -116,7 +116,9 @@ def build_result(field: dict, wx, crops, rotations, params, eco) -> dict:
         dry_years_source="year_types in data/processed/climate/<field_id>.json (workstream A)",
         rotations=out_rot,
         rotations_not_modelled=rep["skipped"],
-        default_weights=DEFAULT_WEIGHTS,
+        default_weights={c: round(w, 4) for c, w in DEFAULT_WEIGHTS.items()},
+        default_weights_note="water and soil both measure cropping intensity (indicators correlate 0.95), so together "
+                             "they weigh as much as one money criterion: income 2, dry_year_safety 2, water 1, soil 1",
         default_ranking=rank(scores, DEFAULT_WEIGHTS),
         ranking_sensitivity=weight_sensitivity(scores),
         scoring_scales={c: dict(zero_at=SCALES[c][0], one_at=SCALES[c][1]) for c in CRITERIA},

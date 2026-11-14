@@ -2358,15 +2358,15 @@
     "weight_sets_tested": 5000,
     "share_of_wins": {
      "WF": 0.0,
-     "WSF": 0.52,
+     "WSF": 0.76,
      "WCF": 0.01,
-     "WSSF": 0.47,
+     "WSSF": 0.23,
      "WWSF": 0.0,
      "WSfF": 0.0
     },
     "most_often_first": "WSF",
-    "stable": false,
-    "note": "Share of all possible priority weightings under which each rotation ranks first. Below about 0.6 for the leader, the ranking depends on the farmer's priorities."
+    "stable": true,
+    "note": "Share of all possible priority weightings under which each rotation ranks first; water and soil share one weight in the draw because they measure nearly the same thing. Below about 0.6 for the leader, the ranking depends on the farmer's priorities."
    },
    "description": "Planning yield of the K-State budget whose costs are used: a well-managed field. The costs then match the yields"
   }
@@ -4936,15 +4936,16 @@
   "WW": "used for validation only"
  },
  "default_weights": {
-  "water": 0.25,
-  "soil": 0.25,
-  "income": 0.25,
-  "dry_year_safety": 0.25
+  "water": 0.1667,
+  "soil": 0.1667,
+  "income": 0.3333,
+  "dry_year_safety": 0.3333
  },
+ "default_weights_note": "water and soil both measure cropping intensity (indicators correlate 0.95), so together they weigh as much as one money criterion: income 2, dry_year_safety 2, water 1, soil 1",
  "default_ranking": [
   "WSF",
-  "WSSF",
   "WSfF",
+  "WSSF",
   "WWSF",
   "WCF",
   "WF"
@@ -4953,15 +4954,15 @@
   "weight_sets_tested": 5000,
   "share_of_wins": {
    "WF": 0.0,
-   "WSF": 0.37,
-   "WCF": 0.04,
-   "WSSF": 0.44,
+   "WSF": 0.52,
+   "WCF": 0.02,
+   "WSSF": 0.21,
    "WWSF": 0.0,
-   "WSfF": 0.15
+   "WSfF": 0.25
   },
-  "most_often_first": "WSSF",
+  "most_often_first": "WSF",
   "stable": false,
-  "note": "Share of all possible priority weightings under which each rotation ranks first. Below about 0.6 for the leader, the ranking depends on the farmer's priorities."
+  "note": "Share of all possible priority weightings under which each rotation ranks first; water and soil share one weight in the draw because they measure nearly the same thing. Below about 0.6 for the leader, the ranking depends on the farmer's priorities."
  },
  "scoring_scales": {
   "water": {

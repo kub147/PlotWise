@@ -11,10 +11,15 @@ Checks
     4  rotation effects: second sorghum, recrop wheat, continuous wheat relative to the first crop
     5  level against USDA NASS county non-irrigated yields (Greeley County) and K-State budget planning yields
     6  economics: average net return 2008-2015 by rotation vs the K-State large-scale study
+
+Also writes data/processed/results/validation.json: the measured and modelled series and the headline numbers of
+checks 1-4, for the "How we know" page of the app (so the page draws its own charts and copies no number by hand).
 """
 from __future__ import annotations
 
 import csv
+import datetime as dt
+import json
 from pathlib import Path
 
 import numpy as np
@@ -25,6 +30,7 @@ from .yields import KG_HA_PER_BU_ACRE, kstate_yield, load_params, to_bu_acre, tr
 
 DOC = inputs.ROOT / "docs" / "engine-validation.md"
 FIG = inputs.ROOT / "docs" / "img" / "engine_validation.png"
+OUT_JSON = inputs.RESULTS_DIR / "validation.json"
 COUNTY = inputs.ROOT / "crops-economics" / "reference" / "county_yields.csv"
 LABEL = {"wheat_wssf": "Wheat after fallow (WSSF)", "wheat_wwsf_first": "Wheat after fallow (WWSF)",
          "wheat_wwsf_recrop": "Wheat after wheat (WWSF)", "wheat_continuous": "Continuous wheat",
@@ -88,6 +94,80 @@ def economics_check(wx, crops, params):
     return bench, longrun, planning
 
 
+def extra_fits(data) -> dict:
+    """Regressions of measured yield on modelled ET (and year, or heat days), reference series of each crop.
+    Information only: (R2, leave-one-out R2) per variant."""
+    s, w = data["sorghum_wssf_first"], data["wheat_wssf"]
+    pair = lambda cols, y: tribune.fit(cols, y)[1:3]
+    return dict(sorghum_et=pair([s["et"]], s["obs"]), sorghum_et_year=pair([s["et"], s["years"]], s["obs"]),
+                wheat_et=pair([w["et"]], w["obs"]), wheat_et_heat=pair([w["et"], w["hot"]], w["obs"]))
+
+
+def failure_rows(data) -> list[dict]:
+    """Measured zero-yield years against the model's three lowest years, reference series of each crop."""
+    rows = []
+    for name in ("wheat_wssf", "sorghum_wssf_first"):
+        d = data[name]
+        zeros = [y for y, v in zip(d["years"], d["obs"]) if v == 0]
+        low = sorted(zip(d["calibrated"], d["years"]))[:3]
+        rows.append(dict(series=name, crop=d["crop"], zeros=zeros, low=low))
+    return rows
+
+
+def write_json(wx, crops, par, params, data) -> None:
+    """Numbers and series behind the "How we know" page. Yields in bu/acre, water in mm."""
+    fits = extra_fits(data)
+    series = []
+    for name, d in data.items():
+        o, c = np.array(d["obs"]), np.array(d["calibrated"])
+        series.append(dict(
+            id=name, label=LABEL[name], crop=d["crop"], n=len(o), years=d["years"],
+            measured_bu_acre=[round(float(v), 1) for v in o], modelled_bu_acre=[round(float(v), 1) for v in c],
+            measured_mean=round(float(o.mean()), 1), modelled_mean=round(float(c.mean()), 1),
+            r2=round(float(np.corrcoef(o, c)[0, 1] ** 2), 2), rmse_bu_acre=round(float(np.sqrt(((c - o) ** 2).mean())), 1)))
+    failures = []
+    for f in failure_rows(data):
+        lowest_two = [y for _, y in f["low"][:len(f["zeros"])]]
+        failures.append(dict(series=f["series"], crop=f["crop"], measured_zero_years=f["zeros"],
+                             model_lowest_years=[[y, round(float(v), 1)] for v, y in f["low"]],
+                             zero_years_are_model_lowest=sorted(lowest_two) == sorted(f["zeros"])))
+    mod = tribune.water_check(wx, crops, par)
+    water = [dict(crop=crop, rotation=rot,
+                  fallow_efficiency_pct=dict(model=round(mod[(crop, rot)][0]), measured=t[0]),
+                  water_at_planting_mm=dict(model=round(mod[(crop, rot)][2]), measured=t[2]),
+                  crop_water_use_mm=dict(model=round(mod[(crop, rot)][3]), measured=t[3]))
+             for (crop, rot), t in tribune.WATER_TARGETS.items()]
+    pct = lambda pair: dict(explained=round(pair[0], 2), leave_one_out=round(pair[1], 2))
+    twin_r2 = {}
+    for crop, a, b in (("winter_wheat", "wheat_wssf", "wheat_wwsf_first"), ("grain_sorghum", "sorghum_wssf_first", "sorghum_wwsf")):
+        common = [y for y in data[a]["years"] if y in data[b]["years"]]
+        pick = lambda d: [d["obs"][d["years"].index(y)] for y in common]
+        twin_r2[crop] = round(float(np.corrcoef(pick(data[a]), pick(data[b]))[0, 1] ** 2), 2)
+    out = dict(
+        _about="Written by python -m engine.validate. Same numbers as docs/engine-validation.md, for the app.",
+        generated=dt.date.today().isoformat(),
+        site="K-State Southwest Research-Extension Center, Tribune, Kansas",
+        weather="gridMET pixel of the station (gridded weather, as for every field in the app)",
+        period=[min(d["years"][0] for d in data.values()), max(d["years"][-1] for d in data.values())],
+        units={"yield": "bu/acre", "water": "mm"},
+        headline=dict(
+            _about="Share of the measured year-to-year yield variation explained (R2), and the same when each year is "
+                   "predicted without having been used in the fit (leave-one-out). Reference position of each crop: "
+                   "sorghum after wheat, wheat after fallow.",
+            grain_sorghum=dict(series="sorghum_wssf_first", predictors="modelled crop water use", **pct(fits["sorghum_et"])),
+            winter_wheat=dict(series="wheat_wssf", predictors="modelled crop water use and days of 34 C or more from flowering to maturity",
+                              **pct(fits["wheat_et_heat"]))),
+        series=series,
+        failures=failures,
+        water=dict(source="Schlegel, Haag, O'Brien 2016, 2008-2015; the water parameters were calibrated on this table, yields were not used",
+                   rows=water),
+        rotation_effects=[dict(effect=k, **v) for k, v in params["rotation_residuals"].items()],
+        plot_noise=dict(note="r2 between two measured series of the same crop in the same rotation position, on different "
+                             "plots: what a perfect model could reach", **twin_r2),
+        report="docs/engine-validation.md")
+    OUT_JSON.write_text(json.dumps(out, indent=1), encoding="utf-8")
+
+
 def write_report(wx, crops, par, params, data, county, eco):
     L = []
     L += ["# Engine validation", "",
@@ -130,9 +210,9 @@ def write_report(wx, crops, par, params, data, county, eco):
         heat = f" {m['per_hot_day_kg_ha']:+.1f} × days ≥ 34 °C (flowering to maturity)" if m["per_hot_day_kg_ha"] else ""
         L.append(f"| {crop_id} | {m['intercept_kg_ha']:.0f} + {m['per_mm_et_kg_ha']:.2f} × ET mm{heat} | {m['n']} | {m['r2']:.2f} | {m['r2_leave_one_out']:.2f} |")
     # extra regressions, information only
-    s = data["sorghum_wssf_first"]; w_ = data["wheat_wssf"]
-    _, r_et, loo_et, _ = tribune.fit([s["et"]], s["obs"]); _, r_ty, loo_ty, _ = tribune.fit([s["et"], s["years"]], s["obs"])
-    _, w_et, wloo_et, _ = tribune.fit([w_["et"]], w_["obs"]); _, w_h, wloo_h, _ = tribune.fit([w_["et"], w_["hot"]], w_["obs"])
+    fits = extra_fits(data)
+    (r_et, loo_et), (r_ty, loo_ty) = fits["sorghum_et"], fits["sorghum_et_year"]
+    (w_et, wloo_et), (w_h, wloo_h) = fits["wheat_et"], fits["wheat_et_heat"]
     L += ["", "What the numbers say:", "",
           f"- **Sorghum is modelled usefully.** Modelled ET alone explains {r_et:.0%} of the measured variation of sorghum after wheat "
           f"(leave-one-out {loo_et:.0%}).",
@@ -149,11 +229,8 @@ def write_report(wx, crops, par, params, data, county, eco):
 
     L += ["## 3. Crop failures", "",
           "| Crop | Measured zero-yield years | Model's three lowest years (calibrated, bu/acre) |", "| :--- | :--- | :--- |"]
-    for name in ("wheat_wssf", "sorghum_wssf_first"):
-        d = data[name]
-        zeros = [y for y, v in zip(d["years"], d["obs"]) if v == 0]
-        low = sorted(zip(d["calibrated"], d["years"]))[:3]
-        L.append(f"| {LABEL[name]} | {', '.join(map(str, zeros))} | {', '.join(f'{y} ({v:.0f})' for v, y in low)} |")
+    for f in failure_rows(data):
+        L.append(f"| {LABEL[f['series']]} | {', '.join(map(str, f['zeros']))} | {', '.join(f'{y} ({v:.0f})' for v, y in f['low'])} |")
     L += [""]
 
     L += ["## 4. Rotation effects", "",
@@ -248,7 +325,8 @@ def main():
     county = county_check(wx, crops, par, params)
     write_report(wx, crops, par, params, data, county, economics_check(wx, crops, params))
     write_figure(data)
-    print("written", DOC, FIG)
+    write_json(wx, crops, par, params, data)
+    print("written", DOC, FIG, OUT_JSON)
 
 
 if __name__ == "__main__":
