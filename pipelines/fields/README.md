@@ -20,6 +20,11 @@ python3 pipelines/fields/heat_stress.py          # ECOSTRESS surface temperature
 python3 pipelines/fields/render_preview.py       # Sentinel-2 overview and NAIP chip per field -> docs/img/
 ```
 
+```bash
+python3 pipelines/fields/county_rotations.py     # all delineated fields classified by rotation -> data/processed/county_fields.geojson, map
+python3 pipelines/fields/plot_ndvi.py            # NDVI history chart per demo field -> docs/img/ndvi_<field_id>.png
+```
+
 ## What each field carries
 
 | Property | Meaning | Source |
@@ -44,6 +49,25 @@ The USDA Crop Sequence Boundaries archive (3.8 GB) refuses scripted downloads, s
 - **CDL vs NDVI.** In years CDL calls fallow, May–August NDVI has a median of 0.18 (90th percentile 0.26); in sorghum and corn years the summer mean is 0.4–0.55. The two independent sources agree on which years were fallow.
 - **Slope.** Raw 30 m SRTM gave 3–5% on visibly flat fields because elevations are whole metres. After smoothing, slopes are 0.7–1.9%, in line with the SSURGO map-unit names ("0 to 1" and "1 to 3 percent slopes").
 - **Soil.** All five fields are Ulysses or Richfield silt loam with 304–332 mm of available water to 150 cm. The engine baseline assumed 250 mm.
+
+## The whole county
+
+`data/processed/county_fields.geojson` (0.8 MB, for the map in the app) holds all 1,221 delineated fields with `rotation`, `sequence` and `area_ha`; totals are in `data/processed/county_rotation_summary.json`; the picture is `docs/img/county_rotations.png`.
+
+| Rotation 2018–2025 | Fields | Share of area |
+| :--- | ---: | ---: |
+| Wheat – fallow | 121 | 11% |
+| Wheat – sorghum – fallow | 148 | 13% |
+| Wheat – corn – fallow | 110 | 9% |
+| Moved from wheat – fallow to a 3-year rotation | 51 | 4% |
+| No fallow in 8 years | 62 | 4% |
+| Other sequences with fallow | 729 | 59% |
+
+These are clean fields of at least 40 ha (about 90,000 ha in total), not all cropland in the county. The large "other" group is itself a finding: most fields do not follow a fixed textbook rotation, so farmers adjust from year to year. The round green fields in the north of the map are irrigated pivots.
+
+## NDVI charts
+
+`docs/img/ndvi_<field_id>.png` shows Landsat greenness since 2012 against the CDL crop of each year. On `ks071-004` the wheat peaks in spring, the flat fallow years and the tall late-summer sorghum peaks of 2022 and 2025 are all visible, so the chart shows the change of rotation without any model.
 
 ## Heat stress from ECOSTRESS
 

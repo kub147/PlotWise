@@ -1,0 +1,45 @@
+{
+ "county_fips": "20071",
+ "years": "2018-2025",
+ "note": "Fields of at least 40 ha with the same CDL crop sequence in all pixels and cropland in every year. This is a sample of clean fields, not all cropland in the county.",
+ "fields": 1221,
+ "area_ha": 90077,
+ "rotations": {
+  "W-F": {
+   "label": "Wheat - fallow (1 crop in 2 years)",
+   "fields": 121,
+   "area_ha": 9784,
+   "share_of_area": 0.109
+  },
+  "W-S-F": {
+   "label": "Wheat - sorghum - fallow",
+   "fields": 148,
+   "area_ha": 11634,
+   "share_of_area": 0.129
+  },
+  "W-C-F": {
+   "label": "Wheat - corn - fallow",
+   "fields": 110,
+   "area_ha": 8102,
+   "share_of_area": 0.09
+  },
+  "W-F to 3-year": {
+   "label": "Moved from wheat - fallow to a 3-year rotation",
+   "fields": 51,
+   "area_ha": 3364,
+   "share_of_area": 0.037
+  },
+  "no fallow": {
+   "label": "No fallow in 8 years",
+   "fields": 62,
+   "area_ha": 3870,
+   "share_of_area": 0.043
+  },
+  "other with fallow": {
+   "label": "Other sequences with fallow",
+   "fields": 729,
+   "area_ha": 53323,
+   "share_of_area": 0.592
+  }
+ }
+}
