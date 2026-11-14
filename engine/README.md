@@ -7,6 +7,8 @@ ranking depends on the farmer's priorities.
 ## Run
 
 ```bash
+python -m engine.counties            # county yield factors + 46-county replay -> engine/county_yield_factors.json,
+                                     #   data/processed/results/counties.json, docs/engine-counties.md (about 30 s). Run before engine.run
 python -m engine.run                 # replay for every field -> data/processed/results/<field_id>.json
 python -m engine.validate            # comparison with the K-State Tribune trials -> docs/engine-validation.md, docs/img/engine_validation.png
 python -m engine.test_engine         # offline tests (water conservation, schedules, scoring)
@@ -26,6 +28,21 @@ Needs Python 3.10+, `numpy`, and `matplotlib` for the validation figure. Run fro
 | `crops-economics/scripts/lookup.py` | C | every price and cost |
 | `reference/kstate_tribune_rotation_yields.csv` | — | validation and yield calibration |
 | `engine/validation/tribune_station_gridmet.csv` | D | gridMET weather of the K-State Tribune station, 1994-2020, written from the cache of `scripts/water_balance_baseline.py` |
+
+## Three sites and 46 counties (transect, see docs/transect.md)
+
+- **Cost region** of a field or county: `crops-economics/reference/county_budget_regions.csv` (Tribune SW, Colby NW, Hays NC).
+- **Yield level**: the Tribune-calibrated model is far too high in the wetter east (dryland corn about 130 bu/acre at Hays
+  against about 70 on farms). Every county and crop gets a factor = mean USDA NASS dryland county yield / mean modelled
+  yield, same years (`county_yield_factors.json`). Fields use the factor of their county (field_id prefix, e.g. `ks051`).
+  The model keeps the year-to-year variation and the water carried between crops; the county's farms set the average.
+- **Money** is reported with land rent (`mean`) and without it (`mean_before_land_rent`): rent is nearly the same for every
+  rotation of a region (43-82 USD/acre/yr), so it hardly affects a ranking, but it differs between regions. Scores use the
+  before-rent numbers so that sites can be compared.
+- **County results** (`results/counties.json`, about 140 kB): per county `best_rotation` (of WF, WSF, WCF, WSSF, WWSF),
+  `gain_replacing_fallow_usd_acre` (WSF − WF), per rotation `mean`, `mean_before_land_rent`, `share_of_years_with_profit`,
+  `share_of_years_covering_costs_before_rent`, mean yields, and `practice` (what farmers grow, from B's field classification).
+  Top level: `agreement_with_practice`, `choice_checks`. Report: `docs/engine-counties.md`.
 
 ## How it works
 
@@ -66,15 +83,19 @@ To rank with the farmer's own weights in the app: total = Σ weight × score ove
 - The model puts the measured crop failures (wheat 2002 and 2013, sorghum 2002 and 2012) among its worst years.
 - Sorghum: modelled water use explains about 60% of measured year-to-year yield variation. Wheat: about 45%, and much
   less out of sample. One wheat year is a rough estimate.
-- All rotations lose money on average in this accounting (full costs with land rent, no insurance, no government
-  payments), as in the K-State study. Compare rotations with each other; do not read the level as farm profit.
-- The five demo fields get almost the same numbers: they share the weather of a few 4 km cells and similar soils.
+- All rotations lose money on average once land rent is paid (full K-State costs, county-average yields, no insurance,
+  no government payments). Before rent the best rotations are near break-even. Compare rotations with each other.
+- Fields of one site get almost the same numbers: they share the weather of a few 4 km cells and similar soils.
+- Along the transect the gain from replacing fallow with sorghum rises from about −17 USD/acre/yr in the far west to
+  +12 in the east; the corn-or-sorghum preference follows farmers' choices (docs/engine-counties.md).
 
 ## ASSUMPTIONS and open items
 
 | # | Where | Assumption | How to remove it |
 | :--- | :--- | :--- | :--- |
-| D1 | `calibrate.py` FARM_FACTOR | Corn and sunflower farm factor 0.8, same as sorghum | A corn trial series from Tribune (K-State reports) |
+| D1 | `county_yield_factors.json` | One constant yield factor per county and crop (no technology trend); corn only from NASS dryland years to 2018; sunflower from all-practices yields | Year-specific factors if NASS county data were complete |
+| D8 | `counties.py` | County sorghum average mixes sorghum after wheat with sorghum after sorghum, so WSF is probably undervalued relative to WF | Sorghum yields by previous crop (not in NASS) |
+| D9 | `counties.py` | County soil below 200 mm replaced by 280 mm (9 counties) | Cropland-weighted SSURGO from B |
 | D2 | `scoring.py` SCALES | Reference scales of the four scores | Review with C and E; they are value judgements |
 | D3 | `waterbalance.py` | Growth periods of the Kansas Water Budget mapped on FAO-56 stages (only used for diagnostics) | — |
 | D4 | `replay.py` | Land split evenly between the phases of a rotation | — (a convention) |

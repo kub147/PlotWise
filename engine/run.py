@@ -25,8 +25,23 @@ def dry_years_of(field_id: str) -> list[int]:
     return [int(y) for y, t in json.load(open(path)).get("year_types", {}).items() if t == "dry"]
 
 
+def field_context(field_id: str) -> tuple[str, dict | None, str]:
+    """Cost region and county yield factors of a field (its county is the field_id prefix, e.g. ks193)."""
+    from .counties import FACTORS_JSON, load_counties
+    cid = field_id.split("-")[0]
+    region = load_counties().get(cid, {}).get("budget_region", "SW")
+    if FACTORS_JSON.exists():
+        f = json.load(open(FACTORS_JSON))["counties"].get(cid)
+        if f:
+            return region, {crop: v["factor"] for crop, v in f.items()}, cid
+    print(f"WARNING: no county yield factors for {cid}: run `python -m engine.counties` first. "
+          f"Using the Tribune trial-to-farm factors, which are too high away from Tribune.")
+    return region, None, cid
+
+
 def build_result(field: dict, wx, crops, rotations, params, eco) -> dict:
-    rep = replay_field(field, wx, crops, rotations, params, eco)
+    region, yf, county = field_context(field["field_id"])
+    rep = replay_field(field, wx, crops, rotations, params, eco, region=region, yield_factor=yf)
     dry = [y for y in dry_years_of(field["field_id"]) if rep["first_year"] <= y <= rep["last_year"]]
     current = ROTATION_OF_LABEL.get(field.get("current_rotation", ""))
     scores, dry_mean = {}, {}
@@ -55,9 +70,15 @@ def build_result(field: dict, wx, crops, rotations, params, eco) -> dict:
     return dict(
         field_id=field["field_id"], generated=dt.date.today().isoformat(),
         period=[rep["first_year"], rep["last_year"]],
-        units={"yield": "kg/ha at farm level (trial level x farm factor)",
+        site=field.get("site"), county_id=county, cost_region=region,
+        yield_factor=rep["yield_factor"],
+        yield_factor_source="engine/county_yield_factors.json: model scaled to the mean USDA NASS dryland yield of the county" if yf
+                            else "params.json farm_factor (Tribune trial to farm)",
+        units={"yield": "kg/ha at farm level (trial-level model x county yield factor)",
                "net_return": "2025 USD per acre per year, averaged over the whole rotation, fallow acres included; "
-                             "actual Kansas price of each harvest year; crop insurance and government payments excluded",
+                             "actual Kansas price of each harvest year; K-State budget of the field's cost region, land rent included; "
+                             "crop insurance and government payments excluded. mean_before_land_rent adds the region's rent back "
+                             "(nearly the same for every rotation of a region, within a few dollars)",
                "scores": "0-1 on fixed scales, see scoring_scales"},
         current_rotation=current,
         current_rotation_note=None if current else f"'{field.get('current_rotation')}' is not one of the fixed rotations the engine replays",
@@ -74,7 +95,8 @@ def build_result(field: dict, wx, crops, rotations, params, eco) -> dict:
         assumptions=[
             "Every phase of a rotation is present every year (land split evenly between phases)",
             "Costs before 2016 equal the mean real 2016-2026 K-State budget cost (crops-economics/HANDOVER.md, A2)",
-            "Corn and sunflower: K-State yield function as published, farm factor assumed equal to sorghum; not validated year by year",
+            "Average yield level of each crop = mean USDA NASS dryland yield of the county (1996 onward); the model supplies the year-to-year variation",
+            "Corn and sunflower have no trial calibration; their level comes only from county yields. Corn at Hays is the least certain number",
             "Sorghum at the 1996-2020 average yield level; measured trial yields rose by about 2 bu/acre per year, so today's sorghum is probably understated",
             "The model stores less water in a 14-month fallow than measured at Tribune, so wheat-fallow is probably somewhat better than shown",
             "Scores use fixed scales chosen by the team; they are value judgements",

@@ -83,7 +83,7 @@ def economics_check(wx, crops, params):
     longrun = replay_field(field, wx, crops, rotations, params, Economics(), first_year=1996, last_year=2020)
     planning = {}
     for r in csv.DictReader(open(inputs.ROOT / "crops-economics" / "reference" / "costs.csv")):
-        if r["planning_yield"] and r["yield_unit"] == "bu":
+        if r["planning_yield"] and r["yield_unit"] == "bu" and r.get("region", "SW") == "SW":
             planning.setdefault(r["cost_key"], []).append(float(r["planning_yield"]))
     return bench, longrun, planning
 
