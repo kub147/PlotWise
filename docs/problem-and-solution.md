@@ -3,6 +3,10 @@
 NASA Space Apps 2026, challenge "Field Shift: Adapting Farms with NASA Data".
 Team: 5 Geoinformatics students, AGH University of Krakow. Working draft, 2026-11-14.
 
+> **Update:** this was the first sketch. The current direction, demo region (Tribune, Greeley County) and plan are in
+> [project-brief.md](project-brief.md), [data-sources.md](data-sources.md), [research-evidence.md](research-evidence.md) and [work-plan.md](work-plan.md).
+> The problem statement below still stands; the Garden City example and the placeholder scores are superseded.
+
 ---
 
 ## 1. Problem statement

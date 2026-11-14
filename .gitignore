@@ -1,14 +1,15 @@
 # private notes
 ANALIZA.md
 
-# data and outputs
-data/
-*.json
-!package.json
+# data: commit small processed files, never raw downloads
+data/raw/
+data/cache/
 *.parquet
 *.tif
 *.nc
 *.h5
+*.zip
+*.gdb/
 
 # Python
 __pycache__/
