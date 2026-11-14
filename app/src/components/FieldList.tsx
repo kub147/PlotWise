@@ -27,10 +27,33 @@ export function FieldList({ data, selectedId, onSelect }: FieldListProps) {
         </p>
       </div>
 
+      {/* Phone: a drop-down instead of the long list, so the map and the field card are one swipe away */}
+      <div className="lg:hidden">
+        <label htmlFor="field-select" className="sr-only">
+          Choose a field
+        </label>
+        <select
+          id="field-select"
+          value={selectedId}
+          onChange={(event) => onSelect(event.target.value)}
+          className="block min-h-12 w-full rounded-2xl border border-input bg-card px-3 text-[16px] font-medium"
+        >
+          {[...groups.entries()].map(([site, fields]) => (
+            <optgroup key={site} label={site}>
+              {fields.map((field) => (
+                <option key={field.properties.field_id} value={field.properties.field_id}>
+                  {fieldShortName(field.properties)} · {field.properties.current_rotation}
+                </option>
+              ))}
+            </optgroup>
+          ))}
+        </select>
+      </div>
+
       {[...groups.entries()].map(([site, fields]) => {
         const county = data.countyNames[fields[0].properties.county_fips]
         return (
-          <section key={site} aria-labelledby={`site-${site}`}>
+          <section key={site} aria-labelledby={`site-${site}`} className="hidden lg:block">
             <h3
               id={`site-${site}`}
               className="mb-1.5 flex items-baseline justify-between gap-2 px-3 text-[15px] font-semibold"

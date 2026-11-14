@@ -1,7 +1,7 @@
 // Map of the study area: 46 counties coloured by the chosen layer, plus the field outlines of the three
 // demo counties coloured by rotation. Drawn on canvas so a few thousand polygons stay smooth.
 import 'leaflet/dist/leaflet.css'
-import type { LatLngBoundsExpression, Layer, PathOptions } from 'leaflet'
+import { Browser, type LatLngBoundsExpression, type Layer, type PathOptions } from 'leaflet'
 import { useEffect, useMemo, useState } from 'react'
 import { GeoJSON, MapContainer, TileLayer, ZoomControl, useMap, useMapEvents } from 'react-leaflet'
 import {
@@ -68,8 +68,17 @@ export function RegionMap({ counties, results, fields, layer, scenario, selected
   const showFields = close && fields !== null
 
   return (
-    <div className="relative h-[460px] overflow-hidden rounded-[28px] bg-map-frame shadow-soft lg:h-full">
-      <MapContainer bounds={REGION_BOUNDS} zoomControl={false} scrollWheelZoom preferCanvas zoomSnap={0.25} className="h-full w-full">
+    <div className="relative h-[360px] overflow-hidden rounded-[28px] bg-map-frame shadow-soft lg:h-full">
+      {/* On a phone one finger scrolls the page; the map moves and zooms with two fingers or the buttons. */}
+      <MapContainer
+        bounds={REGION_BOUNDS}
+        zoomControl={false}
+        scrollWheelZoom
+        dragging={!Browser.mobile}
+        preferCanvas
+        zoomSnap={0.25}
+        className="h-full w-full"
+      >
         <TileLayer url={STREET_TILES.url} attribution={STREET_TILES.attribution} maxZoom={15} />
         <ZoomControl position="bottomright" />
         <GeoJSON

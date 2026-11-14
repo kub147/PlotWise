@@ -2,7 +2,7 @@
 // W repo nie ma kafli rastrowych NDVI ani ECOSTRESS, więc te dwie warstwy pokazują zwykły podkład
 // i informację, gdzie szukać obrazów (specyfikacja 5.1 dopuszcza takie rozwiązanie).
 import 'leaflet/dist/leaflet.css'
-import type { LatLngBoundsExpression, LatLngTuple } from 'leaflet'
+import { Browser, type LatLngBoundsExpression, type LatLngTuple } from 'leaflet'
 import { useEffect, useState } from 'react'
 import { MapContainer, Polygon, TileLayer, Tooltip, ZoomControl, useMap } from 'react-leaflet'
 import { SegmentedControl } from '@/components/ui/segmented-control'
@@ -69,12 +69,14 @@ export function FieldMap({ fields, selected, onSelect }: FieldMapProps) {
   const note = LAYER_NOTES[layer]
 
   return (
-    <div className="pw-map-bleed relative h-[440px] overflow-hidden rounded-[28px] bg-map-frame shadow-soft lg:h-full lg:rounded-none lg:shadow-none">
+    <div className="pw-map-bleed relative h-[340px] overflow-hidden rounded-[28px] bg-map-frame shadow-soft lg:h-full lg:rounded-none lg:shadow-none">
       <MapContainer
         center={[selected.properties.lat, selected.properties.lon]}
         zoom={13}
         zoomControl={false}
         scrollWheelZoom
+        // On a phone one finger scrolls the page; the map moves and zooms with two fingers or the buttons.
+        dragging={!Browser.mobile}
         className="h-full w-full"
       >
         <TileLayer key={layer} url={tiles.url} attribution={tiles.attribution} maxZoom={18} />

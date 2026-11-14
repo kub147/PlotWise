@@ -1,7 +1,10 @@
 // Lewa kolumna Rotation replay: cztery suwaki priorytetów 0–100 i reset do równych wag.
 // Kryteria są takie, jak liczy silnik (engine/scoring.py): income, dry_year_safety, water, soil.
+import { ChevronDown } from 'lucide-react'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { CRITERIA, EQUAL_WEIGHTS, type Criterion, type Weights } from '@/lib/results'
+import { cn } from '@/lib/utils'
 
 // Nazwy i opisy prostym językiem. Opis mówi, co dokładnie mierzy wynik w silniku.
 const CRITERION_TEXT: Record<Criterion, { label: string; hint: string }> = {
@@ -18,6 +21,8 @@ type WeightSlidersProps = {
 
 export function WeightSliders({ weights, onChange }: WeightSlidersProps) {
   const isEqual = CRITERIA.every((criterion) => weights[criterion] === EQUAL_WEIGHTS[criterion])
+  // On a phone the sliders start folded so the ranking is not four screens down; on a wide screen they always show.
+  const [open, setOpen] = useState(false)
   return (
     <section aria-labelledby="priorities-heading" className="flex flex-col gap-4">
       <div>
@@ -27,7 +32,19 @@ export function WeightSliders({ weights, onChange }: WeightSlidersProps) {
         <p className="mt-1 text-[13px] text-muted-foreground">
           Move a slider to the right for what matters more to you. The ranking updates as you move.
         </p>
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-controls="priorities-sliders"
+          onClick={() => setOpen(!open)}
+          className="mt-2 flex min-h-11 w-full items-center justify-between gap-2 rounded-2xl bg-foreground/5 px-4 text-[15px] font-medium lg:hidden"
+        >
+          {open ? 'Hide the sliders' : isEqual ? 'Change priorities (now equal)' : 'Change priorities (changed)'}
+          <ChevronDown aria-hidden className={cn('h-5 w-5 transition-transform', open && 'rotate-180')} />
+        </button>
       </div>
+
+      <div id="priorities-sliders" className={cn('flex-col gap-4 lg:flex', open ? 'flex' : 'hidden')}>
 
       {CRITERIA.map((criterion) => {
         const id = `weight-${criterion}`
@@ -65,6 +82,7 @@ export function WeightSliders({ weights, onChange }: WeightSlidersProps) {
       <Button variant="outline" width="full" disabled={isEqual} onClick={() => onChange(EQUAL_WEIGHTS)}>
         Reset to equal weights
       </Button>
+      </div>
     </section>
   )
 }

@@ -161,7 +161,7 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
           </p>
           <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]">
             <span className="text-muted-foreground">
-              {fields ? 'Field outlines, coloured by rotation as in the list on the right, are drawn for three counties. Zoom to:' : 'Zoom to:'}
+              {fields ? 'Field outlines, coloured by rotation as in the rotation list, are drawn for three counties. Zoom to:' : 'Zoom to:'}
             </span>
             {OUTLINE_COUNTIES.map((id) => {
               const name = names.find((entry) => entry.id === id)?.name

@@ -24,8 +24,8 @@ import { rotationLabel } from '@/lib/rotation'
 import { DEFAULT_FIELD_ID } from '@/lib/selection'
 
 const SCENARIO_OPTIONS: { value: Scenario; label: string }[] = [
-  { value: 'county_average', label: 'Average field in the county' },
-  { value: 'well_managed', label: 'Well-managed field' },
+  { value: 'county_average', label: 'County average' },
+  { value: 'well_managed', label: 'Well managed' },
 ]
 
 const SCENARIO_TEXT: Record<Scenario, string> = {
