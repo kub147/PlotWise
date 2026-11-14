@@ -1,0 +1,10 @@
+# Yield vs. evapotranspiration relationships for crops of the central High Plains (western Kansas research).
+# Source: Stone, Schlegel, Khan, Klocke, Aiken (2006). Water Supply: Yield Relationships Developed for Study of Water Management. Table 1 (after Khan 1996; Khan et al. 1996).
+# yield = slope * (seasonal ET - threshold_et) for ET above the threshold; zero below it. "longterm" slope includes hail, freeze, insects, disease.
+# Units: inches of ET; bu/acre/inch (sunflower: lb/acre/inch). 1 in = 25.4 mm; 1 bu/acre = 67.25 kg/ha (wheat, soybean) or 62.77 kg/ha (corn, sorghum).
+crop,max_et_in,threshold_et_in,slope_per_in,slope_longterm_per_in,yield_unit
+corn,25,10.9,16.9,13.3,bu/acre
+grain_sorghum,21,6.9,12.2,9.4,bu/acre
+sunflower,22,5.4,218,150,lb/acre
+winter_wheat,24,10.0,6.0,4.6,bu/acre
+soybean,24,7.8,4.6,3.8,bu/acre

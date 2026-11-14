@@ -1,0 +1,17 @@
+# Fallow water accumulation, fallow efficiency, available soil water (8 ft profile) at planting and crop water use by rotation, Tribune, Kansas, 2008-2015.
+# Source: Schlegel, Haag, O'Brien (2016). Large-Scale Dryland Cropping Systems. Kansas Agricultural Experiment Station Research Reports 2(7), Table 1.
+# Rotation codes: capital letter = crop phase measured. WF = wheat-fallow (reduced till); all other rotations no-till. SS = continuous sorghum.
+# Economics from the same report (2008-2015, excl. crop insurance and government payments): WSF was the only rotation with a positive average net return (< $6/acre); WF -$18/acre; all others below -$35/acre.
+crop,rotation,fallow_accumulation_in,fallow_efficiency_pct,asw_at_planting_in,crop_water_use_in
+wheat,Wf,6.47,28,9.38,16.70
+wheat,Wsf,2.76,19,6.11,12.65
+wheat,Wcf,2.26,15,5.77,12.51
+wheat,Wscf,2.92,18,6.11,12.70
+wheat,Wcsf,2.74,17,6.10,12.65
+corn,wCf,2.07,16,5.24,13.28
+corn,wCsf,1.87,15,5.10,13.17
+corn,wsCf,0.95,22,3.99,12.47
+grain_sorghum,wSf,1.97,14,5.33,12.50
+grain_sorghum,wScf,2.48,17,5.51,12.81
+grain_sorghum,wcSf,1.01,15,4.56,11.80
+grain_sorghum,SS,1.17,17,4.40,11.69

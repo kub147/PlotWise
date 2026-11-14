@@ -7,6 +7,8 @@ Downloads T2M_MAX, T2M_MIN and PRECTOTCORR from the POWER API (no key needed) an
 GDD (base 10°C, cap 30°C, Apr–Oct), frost dates, days with Tmax >= 35°C, precipitation, ET0 (Hargreaves, FAO-56),
 monthly P − ET0 balance, trends per decade and Mann-Kendall p-values. Output: table on screen + JSON.
 Note: POWER meteorology has a ~0.5° x 0.625° grid, so this describes the climate of the area, not of the field itself.
+Caution: do not use POWER precipitation for trends without a cross-check. At Tribune, KS it shows a drying trend
+(-45 mm/decade, 1995-2020) that gridMET does not (+3 mm/decade). Use POWER for temperature, radiation and GDD.
 """
 import argparse, json, math, urllib.request, datetime as dt
 from statistics import mean, median
@@ -62,12 +64,14 @@ def main():
                     last_spring_frost_doy=ls, first_fall_frost_doy=ff,
                     frost_free_days=(ff - ls) if ls and ff else None,
                     heavy_rain_days_25mm=sum(1 for x in r if x[3] >= 25))
-    half = len(years) // 2; trends = {}
+    trends = {}
     print("indicator | mean 1st half | mean 2nd half | trend/decade | Mann-Kendall p")
     for key in Y[years[0]]:
         pairs = [(y, Y[y][key]) for y in years if Y[y][key] is not None]
         xs, v = [p[0] for p in pairs], [p[1] for p in pairs]
-        t = dict(mean_first_half=mean(v[:half]), mean_second_half=mean(v[half:]),
+        if len(v) < 4: continue  # e.g. frost dates at a frost-free site
+        h = len(v) // 2
+        t = dict(mean_first_half=mean(v[:h]), mean_second_half=mean(v[h:]),
                  slope_per_decade=slope_per_decade(xs, v), mk_p=mann_kendall_p(v))
         trends[key] = t
         print(f"{key} | {t['mean_first_half']:.0f} | {t['mean_second_half']:.0f} | {t['slope_per_decade']:+.1f} | {t['mk_p']:.2f}")
