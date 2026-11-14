@@ -1,0 +1,1574 @@
+{
+ "source": "projects/openet/assets/ensemble/conus/gridmet/monthly/v2_0",
+ "unit": "mm",
+ "period": [
+  1999,
+  2024
+ ],
+ "method": "Field mean of the OpenET ensemble at 30 m; a month counts when at least 90% of the field's pixels have a value. et_min / et_max are the range across the ensemble models. Precipitation and reference ET are gridMET, from the weather CSV. Crop is the CDL majority class.",
+ "caveats": [
+  "On all five fields, including plain wheat-fallow, mean annual OpenET is about 20% above gridMET precipitation (ET / P 1.19-1.21). A dryland field cannot evaporate more than it receives over 24 years, so OpenET is biased high here relative to gridMET precipitation (or precipitation is biased low). Use OpenET for differences between years, crops and fields, not for the absolute level.",
+  "Because the ratio is the same on every field, ET / P does not separate irrigated from dryland fields here.",
+  "OpenET models use gridMET reference ET, so OpenET is not fully independent of the weather files."
+ ],
+ "fields": [
+  {
+   "field_id": "ks071-001",
+   "months_with_et": 301,
+   "months_in_collection": 303,
+   "n_complete_years": 24,
+   "yearly": [
+    {
+     "year": 2000,
+     "crop": null,
+     "et_mm": 530.7,
+     "precip_mm": 382.9,
+     "et_apr_oct_mm": 402.3,
+     "et_min_apr_oct_mm": 319.1,
+     "et_max_apr_oct_mm": 490.4,
+     "precip_apr_oct_mm": 291.1,
+     "eto_apr_oct_mm": 1254.5
+    },
+    {
+     "year": 2001,
+     "crop": null,
+     "et_mm": 572.6,
+     "precip_mm": 377.1,
+     "et_apr_oct_mm": 480.0,
+     "et_min_apr_oct_mm": 364.2,
+     "et_max_apr_oct_mm": 597.3,
+     "precip_apr_oct_mm": 306.4,
+     "eto_apr_oct_mm": 1208.4
+    },
+    {
+     "year": 2002,
+     "crop": null,
+     "et_mm": 290.1,
+     "precip_mm": 258.3,
+     "et_apr_oct_mm": 201.9,
+     "et_min_apr_oct_mm": 123.5,
+     "et_max_apr_oct_mm": 287.9,
+     "precip_apr_oct_mm": 236.6,
+     "eto_apr_oct_mm": 1302.6
+    },
+    {
+     "year": 2003,
+     "crop": null,
+     "et_mm": 415.1,
+     "precip_mm": 391.8,
+     "et_apr_oct_mm": 311.3,
+     "et_min_apr_oct_mm": 170.8,
+     "et_max_apr_oct_mm": 462.4,
+     "precip_apr_oct_mm": 332.0,
+     "eto_apr_oct_mm": 1243.3
+    },
+    {
+     "year": 2004,
+     "crop": null,
+     "et_mm": 616.8,
+     "precip_mm": 595.0,
+     "et_apr_oct_mm": 500.7,
+     "et_min_apr_oct_mm": 352.3,
+     "et_max_apr_oct_mm": 671.2,
+     "precip_apr_oct_mm": 510.8,
+     "eto_apr_oct_mm": 1156.4
+    },
+    {
+     "year": 2005,
+     "crop": null,
+     "et_mm": 374.3,
+     "precip_mm": 474.0,
+     "et_apr_oct_mm": 260.8,
+     "et_min_apr_oct_mm": 128.2,
+     "et_max_apr_oct_mm": 388.2,
+     "precip_apr_oct_mm": 426.6,
+     "eto_apr_oct_mm": 1231.0
+    },
+    {
+     "year": 2006,
+     "crop": null,
+     "et_mm": 482.8,
+     "precip_mm": 485.4,
+     "et_apr_oct_mm": 360.8,
+     "et_min_apr_oct_mm": 219.4,
+     "et_max_apr_oct_mm": 507.9,
+     "precip_apr_oct_mm": 353.0,
+     "eto_apr_oct_mm": 1244.5
+    },
+    {
+     "year": 2007,
+     "crop": null,
+     "et_mm": 570.4,
+     "precip_mm": 405.5,
+     "et_apr_oct_mm": 465.1,
+     "et_min_apr_oct_mm": 382.0,
+     "et_max_apr_oct_mm": 560.8,
+     "precip_apr_oct_mm": 315.4,
+     "eto_apr_oct_mm": 1217.5
+    },
+    {
+     "year": 2008,
+     "crop": "fallow",
+     "et_mm": 311.5,
+     "precip_mm": 402.1,
+     "et_apr_oct_mm": 216.9,
+     "et_min_apr_oct_mm": 127.4,
+     "et_max_apr_oct_mm": 327.1,
+     "precip_apr_oct_mm": 363.7,
+     "eto_apr_oct_mm": 1228.3
+    },
+    {
+     "year": 2009,
+     "crop": "winter wheat",
+     "et_mm": 606.1,
+     "precip_mm": 436.0,
+     "et_apr_oct_mm": 493.0,
+     "et_min_apr_oct_mm": 399.2,
+     "et_max_apr_oct_mm": 580.1,
+     "precip_apr_oct_mm": 379.2,
+     "eto_apr_oct_mm": 1090.3
+    },
+    {
+     "year": 2010,
+     "crop": "corn",
+     "et_mm": 543.7,
+     "precip_mm": 491.1,
+     "et_apr_oct_mm": 446.6,
+     "et_min_apr_oct_mm": 316.7,
+     "et_max_apr_oct_mm": 571.4,
+     "precip_apr_oct_mm": 415.4,
+     "eto_apr_oct_mm": 1308.9
+    },
+    {
+     "year": 2011,
+     "crop": "fallow",
+     "et_mm": 405.4,
+     "precip_mm": 494.4,
+     "et_apr_oct_mm": 337.1,
+     "et_min_apr_oct_mm": 219.2,
+     "et_max_apr_oct_mm": 468.3,
+     "precip_apr_oct_mm": 415.3,
+     "eto_apr_oct_mm": 1393.9
+    },
+    {
+     "year": 2012,
+     "crop": "winter wheat",
+     "et_mm": 443.0,
+     "precip_mm": 228.9,
+     "et_apr_oct_mm": 328.1,
+     "et_min_apr_oct_mm": 208.2,
+     "et_max_apr_oct_mm": 447.5,
+     "precip_apr_oct_mm": 178.2,
+     "eto_apr_oct_mm": 1403.7
+    },
+    {
+     "year": 2013,
+     "crop": "fallow",
+     "et_mm": null,
+     "precip_mm": 373.1,
+     "et_apr_oct_mm": 252.2,
+     "et_min_apr_oct_mm": 149.3,
+     "et_max_apr_oct_mm": 352.6,
+     "precip_apr_oct_mm": 340.8,
+     "eto_apr_oct_mm": 1264.2
+    },
+    {
+     "year": 2014,
+     "crop": "winter wheat",
+     "et_mm": 629.8,
+     "precip_mm": 424.3,
+     "et_apr_oct_mm": 517.1,
+     "et_min_apr_oct_mm": 350.9,
+     "et_max_apr_oct_mm": 710.6,
+     "precip_apr_oct_mm": 369.8,
+     "eto_apr_oct_mm": 1224.0
+    },
+    {
+     "year": 2015,
+     "crop": "fallow",
+     "et_mm": 455.8,
+     "precip_mm": 544.9,
+     "et_apr_oct_mm": 326.4,
+     "et_min_apr_oct_mm": 213.1,
+     "et_max_apr_oct_mm": 446.9,
+     "precip_apr_oct_mm": 486.1,
+     "eto_apr_oct_mm": 1172.6
+    },
+    {
+     "year": 2016,
+     "crop": "winter wheat",
+     "et_mm": 786.6,
+     "precip_mm": 590.6,
+     "et_apr_oct_mm": 629.1,
+     "et_min_apr_oct_mm": 499.1,
+     "et_max_apr_oct_mm": 766.6,
+     "precip_apr_oct_mm": 552.6,
+     "eto_apr_oct_mm": 1216.0
+    },
+    {
+     "year": 2017,
+     "crop": "sorghum",
+     "et_mm": 703.1,
+     "precip_mm": 616.1,
+     "et_apr_oct_mm": 579.1,
+     "et_min_apr_oct_mm": 439.8,
+     "et_max_apr_oct_mm": 729.2,
+     "precip_apr_oct_mm": 547.4,
+     "eto_apr_oct_mm": 1130.8
+    },
+    {
+     "year": 2018,
+     "crop": "fallow",
+     "et_mm": 469.0,
+     "precip_mm": 511.0,
+     "et_apr_oct_mm": 357.5,
+     "et_min_apr_oct_mm": 262.4,
+     "et_max_apr_oct_mm": 451.4,
+     "precip_apr_oct_mm": 463.5,
+     "eto_apr_oct_mm": 1202.6
+    },
+    {
+     "year": 2019,
+     "crop": "winter wheat",
+     "et_mm": 747.4,
+     "precip_mm": 460.8,
+     "et_apr_oct_mm": 625.8,
+     "et_min_apr_oct_mm": 523.7,
+     "et_max_apr_oct_mm": 737.1,
+     "precip_apr_oct_mm": 367.8,
+     "eto_apr_oct_mm": 1165.3
+    },
+    {
+     "year": 2020,
+     "crop": "sorghum",
+     "et_mm": 749.4,
+     "precip_mm": 351.3,
+     "et_apr_oct_mm": 626.9,
+     "et_min_apr_oct_mm": 479.5,
+     "et_max_apr_oct_mm": 792.7,
+     "precip_apr_oct_mm": 265.5,
+     "eto_apr_oct_mm": 1256.9
+    },
+    {
+     "year": 2021,
+     "crop": "fallow",
+     "et_mm": 425.3,
+     "precip_mm": 509.9,
+     "et_apr_oct_mm": 320.1,
+     "et_min_apr_oct_mm": 236.2,
+     "et_max_apr_oct_mm": 410.6,
+     "precip_apr_oct_mm": 422.1,
+     "eto_apr_oct_mm": 1171.9
+    },
+    {
+     "year": 2022,
+     "crop": "winter wheat",
+     "et_mm": 590.9,
+     "precip_mm": 348.7,
+     "et_apr_oct_mm": 467.9,
+     "et_min_apr_oct_mm": 344.8,
+     "et_max_apr_oct_mm": 608.1,
+     "precip_apr_oct_mm": 312.0,
+     "eto_apr_oct_mm": 1284.8
+    },
+    {
+     "year": 2023,
+     "crop": "sorghum",
+     "et_mm": 714.2,
+     "precip_mm": 530.1,
+     "et_apr_oct_mm": 610.2,
+     "et_min_apr_oct_mm": 480.2,
+     "et_max_apr_oct_mm": 754.5,
+     "precip_apr_oct_mm": 438.0,
+     "eto_apr_oct_mm": 1145.6
+    },
+    {
+     "year": 2024,
+     "crop": "fallow",
+     "et_mm": 565.4,
+     "precip_mm": 487.0,
+     "et_apr_oct_mm": 448.2,
+     "et_min_apr_oct_mm": 308.6,
+     "et_max_apr_oct_mm": 584.4,
+     "precip_apr_oct_mm": 371.9,
+     "eto_apr_oct_mm": 1260.5
+    }
+   ],
+   "mean_annual_et_mm": 542,
+   "mean_annual_precip_mm": 450,
+   "et_to_precip_ratio": 1.2,
+   "mean_apr_oct_et_mm": 423,
+   "mean_apr_oct_et_to_eto": 0.35,
+   "apr_oct_et_by_cdl_crop": {
+    "corn": {
+     "n_years": 1,
+     "mean_mm": 447,
+     "min_mm": 447,
+     "max_mm": 447
+    },
+    "fallow": {
+     "n_years": 7,
+     "mean_mm": 323,
+     "min_mm": 217,
+     "max_mm": 448
+    },
+    "sorghum": {
+     "n_years": 3,
+     "mean_mm": 605,
+     "min_mm": 579,
+     "max_mm": 627
+    },
+    "winter wheat": {
+     "n_years": 6,
+     "mean_mm": 510,
+     "min_mm": 328,
+     "max_mm": 629
+    }
+   }
+  },
+  {
+   "field_id": "ks071-002",
+   "months_with_et": 301,
+   "months_in_collection": 303,
+   "n_complete_years": 24,
+   "yearly": [
+    {
+     "year": 2000,
+     "crop": null,
+     "et_mm": 483.5,
+     "precip_mm": 384.8,
+     "et_apr_oct_mm": 360.7,
+     "et_min_apr_oct_mm": 246.8,
+     "et_max_apr_oct_mm": 475.1,
+     "precip_apr_oct_mm": 290.3,
+     "eto_apr_oct_mm": 1247.0
+    },
+    {
+     "year": 2001,
+     "crop": null,
+     "et_mm": 518.3,
+     "precip_mm": 372.2,
+     "et_apr_oct_mm": 417.8,
+     "et_min_apr_oct_mm": 287.3,
+     "et_max_apr_oct_mm": 550.7,
+     "precip_apr_oct_mm": 301.3,
+     "eto_apr_oct_mm": 1200.3
+    },
+    {
+     "year": 2002,
+     "crop": null,
+     "et_mm": 407.8,
+     "precip_mm": 257.2,
+     "et_apr_oct_mm": 323.2,
+     "et_min_apr_oct_mm": 198.2,
+     "et_max_apr_oct_mm": 458.4,
+     "precip_apr_oct_mm": 235.0,
+     "eto_apr_oct_mm": 1294.5
+    },
+    {
+     "year": 2003,
+     "crop": null,
+     "et_mm": 588.6,
+     "precip_mm": 395.8,
+     "et_apr_oct_mm": 472.6,
+     "et_min_apr_oct_mm": 303.0,
+     "et_max_apr_oct_mm": 645.1,
+     "precip_apr_oct_mm": 335.0,
+     "eto_apr_oct_mm": 1236.1
+    },
+    {
+     "year": 2004,
+     "crop": null,
+     "et_mm": 559.8,
+     "precip_mm": 608.1,
+     "et_apr_oct_mm": 447.5,
+     "et_min_apr_oct_mm": 289.3,
+     "et_max_apr_oct_mm": 592.0,
+     "precip_apr_oct_mm": 522.9,
+     "eto_apr_oct_mm": 1149.6
+    },
+    {
+     "year": 2005,
+     "crop": null,
+     "et_mm": 648.4,
+     "precip_mm": 475.6,
+     "et_apr_oct_mm": 499.3,
+     "et_min_apr_oct_mm": 333.7,
+     "et_max_apr_oct_mm": 666.3,
+     "precip_apr_oct_mm": 427.0,
+     "eto_apr_oct_mm": 1223.3
+    },
+    {
+     "year": 2006,
+     "crop": null,
+     "et_mm": 474.7,
+     "precip_mm": 488.6,
+     "et_apr_oct_mm": 329.4,
+     "et_min_apr_oct_mm": 172.0,
+     "et_max_apr_oct_mm": 489.8,
+     "precip_apr_oct_mm": 354.7,
+     "eto_apr_oct_mm": 1237.3
+    },
+    {
+     "year": 2007,
+     "crop": null,
+     "et_mm": 584.1,
+     "precip_mm": 404.2,
+     "et_apr_oct_mm": 455.3,
+     "et_min_apr_oct_mm": 352.5,
+     "et_max_apr_oct_mm": 553.4,
+     "precip_apr_oct_mm": 312.4,
+     "eto_apr_oct_mm": 1210.6
+    },
+    {
+     "year": 2008,
+     "crop": "fallow",
+     "et_mm": 444.4,
+     "precip_mm": 399.3,
+     "et_apr_oct_mm": 349.4,
+     "et_min_apr_oct_mm": 189.3,
+     "et_max_apr_oct_mm": 539.5,
+     "precip_apr_oct_mm": 361.0,
+     "eto_apr_oct_mm": 1222.0
+    },
+    {
+     "year": 2009,
+     "crop": "fallow",
+     "et_mm": 434.7,
+     "precip_mm": 432.7,
+     "et_apr_oct_mm": 337.6,
+     "et_min_apr_oct_mm": 202.9,
+     "et_max_apr_oct_mm": 468.1,
+     "precip_apr_oct_mm": 372.2,
+     "eto_apr_oct_mm": 1089.5
+    },
+    {
+     "year": 2010,
+     "crop": "millet",
+     "et_mm": 589.9,
+     "precip_mm": 478.5,
+     "et_apr_oct_mm": 482.9,
+     "et_min_apr_oct_mm": 329.0,
+     "et_max_apr_oct_mm": 653.5,
+     "precip_apr_oct_mm": 399.9,
+     "eto_apr_oct_mm": 1302.2
+    },
+    {
+     "year": 2011,
+     "crop": "fallow",
+     "et_mm": 525.9,
+     "precip_mm": 513.6,
+     "et_apr_oct_mm": 395.8,
+     "et_min_apr_oct_mm": 235.1,
+     "et_max_apr_oct_mm": 573.2,
+     "precip_apr_oct_mm": 431.0,
+     "eto_apr_oct_mm": 1384.1
+    },
+    {
+     "year": 2012,
+     "crop": "winter wheat",
+     "et_mm": 460.5,
+     "precip_mm": 218.3,
+     "et_apr_oct_mm": 292.6,
+     "et_min_apr_oct_mm": 148.9,
+     "et_max_apr_oct_mm": 445.6,
+     "precip_apr_oct_mm": 169.1,
+     "eto_apr_oct_mm": 1391.4
+    },
+    {
+     "year": 2013,
+     "crop": "fallow",
+     "et_mm": null,
+     "precip_mm": 371.7,
+     "et_apr_oct_mm": 307.7,
+     "et_min_apr_oct_mm": 183.1,
+     "et_max_apr_oct_mm": 432.8,
+     "precip_apr_oct_mm": 339.0,
+     "eto_apr_oct_mm": 1254.8
+    },
+    {
+     "year": 2014,
+     "crop": "winter wheat",
+     "et_mm": 532.1,
+     "precip_mm": 417.7,
+     "et_apr_oct_mm": 416.5,
+     "et_min_apr_oct_mm": 238.5,
+     "et_max_apr_oct_mm": 581.2,
+     "precip_apr_oct_mm": 363.0,
+     "eto_apr_oct_mm": 1219.0
+    },
+    {
+     "year": 2015,
+     "crop": "fallow",
+     "et_mm": 469.6,
+     "precip_mm": 548.0,
+     "et_apr_oct_mm": 344.0,
+     "et_min_apr_oct_mm": 234.3,
+     "et_max_apr_oct_mm": 457.2,
+     "precip_apr_oct_mm": 487.8,
+     "eto_apr_oct_mm": 1167.8
+    },
+    {
+     "year": 2016,
+     "crop": "winter wheat",
+     "et_mm": 808.4,
+     "precip_mm": 508.7,
+     "et_apr_oct_mm": 643.6,
+     "et_min_apr_oct_mm": 515.8,
+     "et_max_apr_oct_mm": 772.1,
+     "precip_apr_oct_mm": 470.7,
+     "eto_apr_oct_mm": 1210.2
+    },
+    {
+     "year": 2017,
+     "crop": "fallow",
+     "et_mm": 453.9,
+     "precip_mm": 593.2,
+     "et_apr_oct_mm": 327.4,
+     "et_min_apr_oct_mm": 213.5,
+     "et_max_apr_oct_mm": 430.7,
+     "precip_apr_oct_mm": 526.5,
+     "eto_apr_oct_mm": 1129.2
+    },
+    {
+     "year": 2018,
+     "crop": "winter wheat",
+     "et_mm": 589.9,
+     "precip_mm": 493.9,
+     "et_apr_oct_mm": 464.8,
+     "et_min_apr_oct_mm": 300.1,
+     "et_max_apr_oct_mm": 620.8,
+     "precip_apr_oct_mm": 442.0,
+     "eto_apr_oct_mm": 1201.7
+    },
+    {
+     "year": 2019,
+     "crop": "fallow",
+     "et_mm": 414.7,
+     "precip_mm": 490.7,
+     "et_apr_oct_mm": 316.7,
+     "et_min_apr_oct_mm": 172.0,
+     "et_max_apr_oct_mm": 466.0,
+     "precip_apr_oct_mm": 394.5,
+     "eto_apr_oct_mm": 1164.2
+    },
+    {
+     "year": 2020,
+     "crop": "winter wheat",
+     "et_mm": 727.6,
+     "precip_mm": 345.3,
+     "et_apr_oct_mm": 599.2,
+     "et_min_apr_oct_mm": 438.2,
+     "et_max_apr_oct_mm": 757.3,
+     "precip_apr_oct_mm": 260.2,
+     "eto_apr_oct_mm": 1252.9
+    },
+    {
+     "year": 2021,
+     "crop": "fallow",
+     "et_mm": 523.4,
+     "precip_mm": 550.2,
+     "et_apr_oct_mm": 399.6,
+     "et_min_apr_oct_mm": 308.4,
+     "et_max_apr_oct_mm": 495.7,
+     "precip_apr_oct_mm": 456.0,
+     "eto_apr_oct_mm": 1164.1
+    },
+    {
+     "year": 2022,
+     "crop": "winter wheat",
+     "et_mm": 559.6,
+     "precip_mm": 379.1,
+     "et_apr_oct_mm": 446.9,
+     "et_min_apr_oct_mm": 274.5,
+     "et_max_apr_oct_mm": 607.1,
+     "precip_apr_oct_mm": 335.7,
+     "eto_apr_oct_mm": 1271.7
+    },
+    {
+     "year": 2023,
+     "crop": "fallow",
+     "et_mm": 504.8,
+     "precip_mm": 533.0,
+     "et_apr_oct_mm": 396.4,
+     "et_min_apr_oct_mm": 220.2,
+     "et_max_apr_oct_mm": 567.0,
+     "precip_apr_oct_mm": 447.6,
+     "eto_apr_oct_mm": 1133.7
+    },
+    {
+     "year": 2024,
+     "crop": "winter wheat",
+     "et_mm": 696.4,
+     "precip_mm": 508.5,
+     "et_apr_oct_mm": 562.3,
+     "et_min_apr_oct_mm": 404.0,
+     "et_max_apr_oct_mm": 713.9,
+     "precip_apr_oct_mm": 388.2,
+     "eto_apr_oct_mm": 1250.5
+    }
+   ],
+   "mean_annual_et_mm": 542,
+   "mean_annual_precip_mm": 450,
+   "et_to_precip_ratio": 1.2,
+   "mean_apr_oct_et_mm": 416,
+   "mean_apr_oct_et_to_eto": 0.34,
+   "apr_oct_et_by_cdl_crop": {
+    "fallow": {
+     "n_years": 9,
+     "mean_mm": 353,
+     "min_mm": 308,
+     "max_mm": 400
+    },
+    "millet": {
+     "n_years": 1,
+     "mean_mm": 483,
+     "min_mm": 483,
+     "max_mm": 483
+    },
+    "winter wheat": {
+     "n_years": 7,
+     "mean_mm": 489,
+     "min_mm": 293,
+     "max_mm": 644
+    }
+   }
+  },
+  {
+   "field_id": "ks071-003",
+   "months_with_et": 301,
+   "months_in_collection": 303,
+   "n_complete_years": 24,
+   "yearly": [
+    {
+     "year": 2000,
+     "crop": null,
+     "et_mm": 479.2,
+     "precip_mm": 384.8,
+     "et_apr_oct_mm": 347.4,
+     "et_min_apr_oct_mm": 232.6,
+     "et_max_apr_oct_mm": 460.8,
+     "precip_apr_oct_mm": 290.3,
+     "eto_apr_oct_mm": 1247.0
+    },
+    {
+     "year": 2001,
+     "crop": null,
+     "et_mm": 477.6,
+     "precip_mm": 372.2,
+     "et_apr_oct_mm": 381.8,
+     "et_min_apr_oct_mm": 243.1,
+     "et_max_apr_oct_mm": 523.1,
+     "precip_apr_oct_mm": 301.3,
+     "eto_apr_oct_mm": 1200.3
+    },
+    {
+     "year": 2002,
+     "crop": null,
+     "et_mm": 357.8,
+     "precip_mm": 257.2,
+     "et_apr_oct_mm": 280.2,
+     "et_min_apr_oct_mm": 168.5,
+     "et_max_apr_oct_mm": 393.6,
+     "precip_apr_oct_mm": 235.0,
+     "eto_apr_oct_mm": 1294.5
+    },
+    {
+     "year": 2003,
+     "crop": null,
+     "et_mm": 621.1,
+     "precip_mm": 395.8,
+     "et_apr_oct_mm": 499.5,
+     "et_min_apr_oct_mm": 372.1,
+     "et_max_apr_oct_mm": 624.2,
+     "precip_apr_oct_mm": 335.0,
+     "eto_apr_oct_mm": 1236.1
+    },
+    {
+     "year": 2004,
+     "crop": null,
+     "et_mm": 578.2,
+     "precip_mm": 608.1,
+     "et_apr_oct_mm": 462.2,
+     "et_min_apr_oct_mm": 295.1,
+     "et_max_apr_oct_mm": 620.0,
+     "precip_apr_oct_mm": 522.9,
+     "eto_apr_oct_mm": 1149.6
+    },
+    {
+     "year": 2005,
+     "crop": null,
+     "et_mm": 649.8,
+     "precip_mm": 475.6,
+     "et_apr_oct_mm": 527.4,
+     "et_min_apr_oct_mm": 369.7,
+     "et_max_apr_oct_mm": 683.7,
+     "precip_apr_oct_mm": 427.0,
+     "eto_apr_oct_mm": 1223.3
+    },
+    {
+     "year": 2006,
+     "crop": null,
+     "et_mm": 436.0,
+     "precip_mm": 488.6,
+     "et_apr_oct_mm": 353.0,
+     "et_min_apr_oct_mm": 231.5,
+     "et_max_apr_oct_mm": 470.2,
+     "precip_apr_oct_mm": 354.7,
+     "eto_apr_oct_mm": 1237.3
+    },
+    {
+     "year": 2007,
+     "crop": null,
+     "et_mm": 679.5,
+     "precip_mm": 404.2,
+     "et_apr_oct_mm": 558.4,
+     "et_min_apr_oct_mm": 444.2,
+     "et_max_apr_oct_mm": 672.7,
+     "precip_apr_oct_mm": 312.4,
+     "eto_apr_oct_mm": 1210.6
+    },
+    {
+     "year": 2008,
+     "crop": "sorghum",
+     "et_mm": 410.6,
+     "precip_mm": 399.3,
+     "et_apr_oct_mm": 299.4,
+     "et_min_apr_oct_mm": 152.6,
+     "et_max_apr_oct_mm": 474.4,
+     "precip_apr_oct_mm": 361.0,
+     "eto_apr_oct_mm": 1222.0
+    },
+    {
+     "year": 2009,
+     "crop": "winter wheat",
+     "et_mm": 458.1,
+     "precip_mm": 432.7,
+     "et_apr_oct_mm": 339.5,
+     "et_min_apr_oct_mm": 211.0,
+     "et_max_apr_oct_mm": 478.2,
+     "precip_apr_oct_mm": 372.2,
+     "eto_apr_oct_mm": 1089.5
+    },
+    {
+     "year": 2010,
+     "crop": "winter wheat",
+     "et_mm": 674.2,
+     "precip_mm": 478.5,
+     "et_apr_oct_mm": 576.4,
+     "et_min_apr_oct_mm": 411.6,
+     "et_max_apr_oct_mm": 753.8,
+     "precip_apr_oct_mm": 399.9,
+     "eto_apr_oct_mm": 1302.2
+    },
+    {
+     "year": 2011,
+     "crop": "sorghum",
+     "et_mm": 504.5,
+     "precip_mm": 513.6,
+     "et_apr_oct_mm": 399.3,
+     "et_min_apr_oct_mm": 266.8,
+     "et_max_apr_oct_mm": 548.0,
+     "precip_apr_oct_mm": 431.0,
+     "eto_apr_oct_mm": 1384.1
+    },
+    {
+     "year": 2012,
+     "crop": "winter wheat",
+     "et_mm": 406.5,
+     "precip_mm": 218.3,
+     "et_apr_oct_mm": 264.9,
+     "et_min_apr_oct_mm": 131.5,
+     "et_max_apr_oct_mm": 403.2,
+     "precip_apr_oct_mm": 169.1,
+     "eto_apr_oct_mm": 1391.4
+    },
+    {
+     "year": 2013,
+     "crop": "winter wheat",
+     "et_mm": null,
+     "precip_mm": 371.7,
+     "et_apr_oct_mm": 434.1,
+     "et_min_apr_oct_mm": 301.6,
+     "et_max_apr_oct_mm": 575.8,
+     "precip_apr_oct_mm": 339.0,
+     "eto_apr_oct_mm": 1254.8
+    },
+    {
+     "year": 2014,
+     "crop": "winter wheat",
+     "et_mm": 450.8,
+     "precip_mm": 417.7,
+     "et_apr_oct_mm": 348.2,
+     "et_min_apr_oct_mm": 198.2,
+     "et_max_apr_oct_mm": 487.2,
+     "precip_apr_oct_mm": 363.0,
+     "eto_apr_oct_mm": 1219.0
+    },
+    {
+     "year": 2015,
+     "crop": "winter wheat",
+     "et_mm": 610.1,
+     "precip_mm": 548.0,
+     "et_apr_oct_mm": 490.6,
+     "et_min_apr_oct_mm": 344.4,
+     "et_max_apr_oct_mm": 649.4,
+     "precip_apr_oct_mm": 487.8,
+     "eto_apr_oct_mm": 1167.8
+    },
+    {
+     "year": 2016,
+     "crop": "fallow",
+     "et_mm": 398.2,
+     "precip_mm": 508.7,
+     "et_apr_oct_mm": 274.6,
+     "et_min_apr_oct_mm": 174.3,
+     "et_max_apr_oct_mm": 374.2,
+     "precip_apr_oct_mm": 470.7,
+     "eto_apr_oct_mm": 1210.2
+    },
+    {
+     "year": 2017,
+     "crop": "winter wheat",
+     "et_mm": 575.6,
+     "precip_mm": 593.2,
+     "et_apr_oct_mm": 470.0,
+     "et_min_apr_oct_mm": 313.1,
+     "et_max_apr_oct_mm": 617.9,
+     "precip_apr_oct_mm": 526.5,
+     "eto_apr_oct_mm": 1129.2
+    },
+    {
+     "year": 2018,
+     "crop": "corn",
+     "et_mm": 665.4,
+     "precip_mm": 493.9,
+     "et_apr_oct_mm": 562.6,
+     "et_min_apr_oct_mm": 412.9,
+     "et_max_apr_oct_mm": 714.7,
+     "precip_apr_oct_mm": 442.0,
+     "eto_apr_oct_mm": 1201.7
+    },
+    {
+     "year": 2019,
+     "crop": "fallow",
+     "et_mm": 378.6,
+     "precip_mm": 490.7,
+     "et_apr_oct_mm": 288.5,
+     "et_min_apr_oct_mm": 154.8,
+     "et_max_apr_oct_mm": 417.9,
+     "precip_apr_oct_mm": 394.5,
+     "eto_apr_oct_mm": 1164.2
+    },
+    {
+     "year": 2020,
+     "crop": "winter wheat",
+     "et_mm": 764.0,
+     "precip_mm": 345.3,
+     "et_apr_oct_mm": 616.8,
+     "et_min_apr_oct_mm": 431.6,
+     "et_max_apr_oct_mm": 781.8,
+     "precip_apr_oct_mm": 260.2,
+     "eto_apr_oct_mm": 1252.9
+    },
+    {
+     "year": 2021,
+     "crop": "corn",
+     "et_mm": 647.1,
+     "precip_mm": 550.2,
+     "et_apr_oct_mm": 541.7,
+     "et_min_apr_oct_mm": 448.4,
+     "et_max_apr_oct_mm": 638.6,
+     "precip_apr_oct_mm": 456.0,
+     "eto_apr_oct_mm": 1164.1
+    },
+    {
+     "year": 2022,
+     "crop": "fallow",
+     "et_mm": 435.0,
+     "precip_mm": 379.1,
+     "et_apr_oct_mm": 340.8,
+     "et_min_apr_oct_mm": 212.5,
+     "et_max_apr_oct_mm": 461.0,
+     "precip_apr_oct_mm": 335.7,
+     "eto_apr_oct_mm": 1271.7
+    },
+    {
+     "year": 2023,
+     "crop": "winter wheat",
+     "et_mm": 598.7,
+     "precip_mm": 533.0,
+     "et_apr_oct_mm": 490.9,
+     "et_min_apr_oct_mm": 317.6,
+     "et_max_apr_oct_mm": 660.8,
+     "precip_apr_oct_mm": 447.6,
+     "eto_apr_oct_mm": 1133.7
+    },
+    {
+     "year": 2024,
+     "crop": "corn",
+     "et_mm": 821.4,
+     "precip_mm": 508.5,
+     "et_apr_oct_mm": 703.9,
+     "et_min_apr_oct_mm": 596.9,
+     "et_max_apr_oct_mm": 807.1,
+     "precip_apr_oct_mm": 388.2,
+     "eto_apr_oct_mm": 1250.5
+    }
+   ],
+   "mean_annual_et_mm": 545,
+   "mean_annual_precip_mm": 450,
+   "et_to_precip_ratio": 1.21,
+   "mean_apr_oct_et_mm": 434,
+   "mean_apr_oct_et_to_eto": 0.36,
+   "apr_oct_et_by_cdl_crop": {
+    "corn": {
+     "n_years": 3,
+     "mean_mm": 603,
+     "min_mm": 542,
+     "max_mm": 704
+    },
+    "fallow": {
+     "n_years": 3,
+     "mean_mm": 301,
+     "min_mm": 275,
+     "max_mm": 341
+    },
+    "sorghum": {
+     "n_years": 2,
+     "mean_mm": 349,
+     "min_mm": 299,
+     "max_mm": 399
+    },
+    "winter wheat": {
+     "n_years": 9,
+     "mean_mm": 448,
+     "min_mm": 265,
+     "max_mm": 617
+    }
+   }
+  },
+  {
+   "field_id": "ks071-004",
+   "months_with_et": 302,
+   "months_in_collection": 303,
+   "n_complete_years": 24,
+   "yearly": [
+    {
+     "year": 2000,
+     "crop": null,
+     "et_mm": 376.1,
+     "precip_mm": 383.7,
+     "et_apr_oct_mm": 284.3,
+     "et_min_apr_oct_mm": 158.3,
+     "et_max_apr_oct_mm": 403.8,
+     "precip_apr_oct_mm": 290.3,
+     "eto_apr_oct_mm": 1255.9
+    },
+    {
+     "year": 2001,
+     "crop": null,
+     "et_mm": 699.4,
+     "precip_mm": 383.3,
+     "et_apr_oct_mm": 580.4,
+     "et_min_apr_oct_mm": 477.9,
+     "et_max_apr_oct_mm": 681.8,
+     "precip_apr_oct_mm": 312.2,
+     "eto_apr_oct_mm": 1212.1
+    },
+    {
+     "year": 2002,
+     "crop": null,
+     "et_mm": 378.7,
+     "precip_mm": 262.3,
+     "et_apr_oct_mm": 273.9,
+     "et_min_apr_oct_mm": 150.3,
+     "et_max_apr_oct_mm": 404.9,
+     "precip_apr_oct_mm": 240.1,
+     "eto_apr_oct_mm": 1303.2
+    },
+    {
+     "year": 2003,
+     "crop": null,
+     "et_mm": 597.8,
+     "precip_mm": 384.9,
+     "et_apr_oct_mm": 470.1,
+     "et_min_apr_oct_mm": 282.9,
+     "et_max_apr_oct_mm": 669.8,
+     "precip_apr_oct_mm": 326.7,
+     "eto_apr_oct_mm": 1245.1
+    },
+    {
+     "year": 2004,
+     "crop": null,
+     "et_mm": 661.6,
+     "precip_mm": 584.4,
+     "et_apr_oct_mm": 545.2,
+     "et_min_apr_oct_mm": 393.8,
+     "et_max_apr_oct_mm": 695.4,
+     "precip_apr_oct_mm": 502.6,
+     "eto_apr_oct_mm": 1158.3
+    },
+    {
+     "year": 2005,
+     "crop": null,
+     "et_mm": 515.0,
+     "precip_mm": 474.9,
+     "et_apr_oct_mm": 388.1,
+     "et_min_apr_oct_mm": 257.9,
+     "et_max_apr_oct_mm": 529.5,
+     "precip_apr_oct_mm": 428.5,
+     "eto_apr_oct_mm": 1231.8
+    },
+    {
+     "year": 2006,
+     "crop": null,
+     "et_mm": 674.0,
+     "precip_mm": 497.1,
+     "et_apr_oct_mm": 532.8,
+     "et_min_apr_oct_mm": 361.9,
+     "et_max_apr_oct_mm": 711.3,
+     "precip_apr_oct_mm": 363.1,
+     "eto_apr_oct_mm": 1245.3
+    },
+    {
+     "year": 2007,
+     "crop": null,
+     "et_mm": 526.2,
+     "precip_mm": 409.9,
+     "et_apr_oct_mm": 401.2,
+     "et_min_apr_oct_mm": 289.8,
+     "et_max_apr_oct_mm": 511.7,
+     "precip_apr_oct_mm": 319.3,
+     "eto_apr_oct_mm": 1218.7
+    },
+    {
+     "year": 2008,
+     "crop": "winter wheat",
+     "et_mm": 533.7,
+     "precip_mm": 407.4,
+     "et_apr_oct_mm": 417.6,
+     "et_min_apr_oct_mm": 265.2,
+     "et_max_apr_oct_mm": 595.0,
+     "precip_apr_oct_mm": 369.4,
+     "eto_apr_oct_mm": 1227.3
+    },
+    {
+     "year": 2009,
+     "crop": "fallow",
+     "et_mm": 354.6,
+     "precip_mm": 442.8,
+     "et_apr_oct_mm": 283.2,
+     "et_min_apr_oct_mm": 186.4,
+     "et_max_apr_oct_mm": 384.4,
+     "precip_apr_oct_mm": 388.2,
+     "eto_apr_oct_mm": 1086.9
+    },
+    {
+     "year": 2010,
+     "crop": "winter wheat",
+     "et_mm": 706.1,
+     "precip_mm": 474.1,
+     "et_apr_oct_mm": 604.5,
+     "et_min_apr_oct_mm": 418.2,
+     "et_max_apr_oct_mm": 791.7,
+     "precip_apr_oct_mm": 399.4,
+     "eto_apr_oct_mm": 1311.3
+    },
+    {
+     "year": 2011,
+     "crop": "fallow",
+     "et_mm": 473.2,
+     "precip_mm": 483.1,
+     "et_apr_oct_mm": 341.8,
+     "et_min_apr_oct_mm": 208.9,
+     "et_max_apr_oct_mm": 496.7,
+     "precip_apr_oct_mm": 405.6,
+     "eto_apr_oct_mm": 1399.0
+    },
+    {
+     "year": 2012,
+     "crop": "winter wheat",
+     "et_mm": 534.6,
+     "precip_mm": 235.9,
+     "et_apr_oct_mm": 367.3,
+     "et_min_apr_oct_mm": 252.6,
+     "et_max_apr_oct_mm": 491.0,
+     "precip_apr_oct_mm": 183.3,
+     "eto_apr_oct_mm": 1408.5
+    },
+    {
+     "year": 2013,
+     "crop": "sorghum",
+     "et_mm": null,
+     "precip_mm": 376.6,
+     "et_apr_oct_mm": 422.6,
+     "et_min_apr_oct_mm": 289.7,
+     "et_max_apr_oct_mm": 554.7,
+     "precip_apr_oct_mm": 344.1,
+     "eto_apr_oct_mm": 1268.3
+    },
+    {
+     "year": 2014,
+     "crop": "fallow",
+     "et_mm": 349.2,
+     "precip_mm": 425.6,
+     "et_apr_oct_mm": 267.3,
+     "et_min_apr_oct_mm": 189.4,
+     "et_max_apr_oct_mm": 352.0,
+     "precip_apr_oct_mm": 373.1,
+     "eto_apr_oct_mm": 1225.6
+    },
+    {
+     "year": 2015,
+     "crop": "winter wheat",
+     "et_mm": 560.1,
+     "precip_mm": 567.7,
+     "et_apr_oct_mm": 450.5,
+     "et_min_apr_oct_mm": 288.6,
+     "et_max_apr_oct_mm": 623.8,
+     "precip_apr_oct_mm": 509.1,
+     "eto_apr_oct_mm": 1174.0
+    },
+    {
+     "year": 2016,
+     "crop": "fallow",
+     "et_mm": 472.3,
+     "precip_mm": 623.9,
+     "et_apr_oct_mm": 359.1,
+     "et_min_apr_oct_mm": 235.3,
+     "et_max_apr_oct_mm": 478.6,
+     "precip_apr_oct_mm": 586.5,
+     "eto_apr_oct_mm": 1218.6
+    },
+    {
+     "year": 2017,
+     "crop": "winter wheat",
+     "et_mm": 609.9,
+     "precip_mm": 631.7,
+     "et_apr_oct_mm": 522.7,
+     "et_min_apr_oct_mm": 365.3,
+     "et_max_apr_oct_mm": 673.1,
+     "precip_apr_oct_mm": 559.6,
+     "eto_apr_oct_mm": 1131.3
+    },
+    {
+     "year": 2018,
+     "crop": "fallow",
+     "et_mm": 401.2,
+     "precip_mm": 503.7,
+     "et_apr_oct_mm": 303.8,
+     "et_min_apr_oct_mm": 190.7,
+     "et_max_apr_oct_mm": 421.0,
+     "precip_apr_oct_mm": 458.4,
+     "eto_apr_oct_mm": 1199.6
+    },
+    {
+     "year": 2019,
+     "crop": "winter wheat",
+     "et_mm": 690.8,
+     "precip_mm": 436.2,
+     "et_apr_oct_mm": 561.9,
+     "et_min_apr_oct_mm": 439.5,
+     "et_max_apr_oct_mm": 680.6,
+     "precip_apr_oct_mm": 344.9,
+     "eto_apr_oct_mm": 1162.2
+    },
+    {
+     "year": 2020,
+     "crop": "fallow",
+     "et_mm": 510.1,
+     "precip_mm": 359.5,
+     "et_apr_oct_mm": 395.8,
+     "et_min_apr_oct_mm": 243.4,
+     "et_max_apr_oct_mm": 562.7,
+     "precip_apr_oct_mm": 275.4,
+     "eto_apr_oct_mm": 1255.3
+    },
+    {
+     "year": 2021,
+     "crop": "winter wheat",
+     "et_mm": 677.1,
+     "precip_mm": 489.7,
+     "et_apr_oct_mm": 560.9,
+     "et_min_apr_oct_mm": 434.5,
+     "et_max_apr_oct_mm": 697.1,
+     "precip_apr_oct_mm": 402.6,
+     "eto_apr_oct_mm": 1172.5
+    },
+    {
+     "year": 2022,
+     "crop": "sorghum",
+     "et_mm": 566.2,
+     "precip_mm": 338.8,
+     "et_apr_oct_mm": 488.0,
+     "et_min_apr_oct_mm": 328.3,
+     "et_max_apr_oct_mm": 649.6,
+     "precip_apr_oct_mm": 304.0,
+     "eto_apr_oct_mm": 1285.8
+    },
+    {
+     "year": 2023,
+     "crop": "fallow",
+     "et_mm": 389.8,
+     "precip_mm": 532.2,
+     "et_apr_oct_mm": 322.4,
+     "et_min_apr_oct_mm": 227.4,
+     "et_max_apr_oct_mm": 420.7,
+     "precip_apr_oct_mm": 439.3,
+     "eto_apr_oct_mm": 1145.7
+    },
+    {
+     "year": 2024,
+     "crop": "winter wheat",
+     "et_mm": 613.9,
+     "precip_mm": 476.1,
+     "et_apr_oct_mm": 494.6,
+     "et_min_apr_oct_mm": 368.2,
+     "et_max_apr_oct_mm": 625.5,
+     "precip_apr_oct_mm": 365.7,
+     "eto_apr_oct_mm": 1260.6
+    }
+   ],
+   "mean_annual_et_mm": 536,
+   "mean_annual_precip_mm": 450,
+   "et_to_precip_ratio": 1.19,
+   "mean_apr_oct_et_mm": 426,
+   "mean_apr_oct_et_to_eto": 0.35,
+   "apr_oct_et_by_cdl_crop": {
+    "fallow": {
+     "n_years": 7,
+     "mean_mm": 325,
+     "min_mm": 267,
+     "max_mm": 396
+    },
+    "sorghum": {
+     "n_years": 2,
+     "mean_mm": 455,
+     "min_mm": 423,
+     "max_mm": 488
+    },
+    "winter wheat": {
+     "n_years": 8,
+     "mean_mm": 498,
+     "min_mm": 367,
+     "max_mm": 604
+    }
+   }
+  },
+  {
+   "field_id": "ks071-005",
+   "months_with_et": 301,
+   "months_in_collection": 303,
+   "n_complete_years": 24,
+   "yearly": [
+    {
+     "year": 2000,
+     "crop": null,
+     "et_mm": 429.7,
+     "precip_mm": 383.1,
+     "et_apr_oct_mm": 333.4,
+     "et_min_apr_oct_mm": 239.1,
+     "et_max_apr_oct_mm": 430.3,
+     "precip_apr_oct_mm": 291.0,
+     "eto_apr_oct_mm": 1246.8
+    },
+    {
+     "year": 2001,
+     "crop": null,
+     "et_mm": 472.0,
+     "precip_mm": 376.3,
+     "et_apr_oct_mm": 380.6,
+     "et_min_apr_oct_mm": 265.3,
+     "et_max_apr_oct_mm": 506.6,
+     "precip_apr_oct_mm": 305.4,
+     "eto_apr_oct_mm": 1200.7
+    },
+    {
+     "year": 2002,
+     "crop": null,
+     "et_mm": 260.9,
+     "precip_mm": 257.0,
+     "et_apr_oct_mm": 203.2,
+     "et_min_apr_oct_mm": 107.2,
+     "et_max_apr_oct_mm": 315.6,
+     "precip_apr_oct_mm": 235.1,
+     "eto_apr_oct_mm": 1294.5
+    },
+    {
+     "year": 2003,
+     "crop": null,
+     "et_mm": 589.8,
+     "precip_mm": 391.8,
+     "et_apr_oct_mm": 479.3,
+     "et_min_apr_oct_mm": 333.5,
+     "et_max_apr_oct_mm": 636.7,
+     "precip_apr_oct_mm": 331.8,
+     "eto_apr_oct_mm": 1234.7
+    },
+    {
+     "year": 2004,
+     "crop": null,
+     "et_mm": 518.4,
+     "precip_mm": 602.7,
+     "et_apr_oct_mm": 393.9,
+     "et_min_apr_oct_mm": 263.6,
+     "et_max_apr_oct_mm": 518.8,
+     "precip_apr_oct_mm": 518.2,
+     "eto_apr_oct_mm": 1149.3
+    },
+    {
+     "year": 2005,
+     "crop": null,
+     "et_mm": 743.1,
+     "precip_mm": 471.9,
+     "et_apr_oct_mm": 591.0,
+     "et_min_apr_oct_mm": 450.2,
+     "et_max_apr_oct_mm": 732.3,
+     "precip_apr_oct_mm": 425.5,
+     "eto_apr_oct_mm": 1223.4
+    },
+    {
+     "year": 2006,
+     "crop": null,
+     "et_mm": 439.0,
+     "precip_mm": 486.5,
+     "et_apr_oct_mm": 324.6,
+     "et_min_apr_oct_mm": 205.7,
+     "et_max_apr_oct_mm": 456.4,
+     "precip_apr_oct_mm": 353.6,
+     "eto_apr_oct_mm": 1236.6
+    },
+    {
+     "year": 2007,
+     "crop": null,
+     "et_mm": 491.9,
+     "precip_mm": 402.1,
+     "et_apr_oct_mm": 393.1,
+     "et_min_apr_oct_mm": 279.4,
+     "et_max_apr_oct_mm": 506.2,
+     "precip_apr_oct_mm": 311.8,
+     "eto_apr_oct_mm": 1210.2
+    },
+    {
+     "year": 2008,
+     "crop": "CDL 60",
+     "et_mm": 400.8,
+     "precip_mm": 398.3,
+     "et_apr_oct_mm": 283.7,
+     "et_min_apr_oct_mm": 149.4,
+     "et_max_apr_oct_mm": 430.2,
+     "precip_apr_oct_mm": 358.7,
+     "eto_apr_oct_mm": 1221.4
+    },
+    {
+     "year": 2009,
+     "crop": "winter wheat",
+     "et_mm": 506.5,
+     "precip_mm": 433.7,
+     "et_apr_oct_mm": 384.2,
+     "et_min_apr_oct_mm": 221.8,
+     "et_max_apr_oct_mm": 537.5,
+     "precip_apr_oct_mm": 372.0,
+     "eto_apr_oct_mm": 1087.4
+    },
+    {
+     "year": 2010,
+     "crop": "winter wheat",
+     "et_mm": 589.0,
+     "precip_mm": 479.2,
+     "et_apr_oct_mm": 482.0,
+     "et_min_apr_oct_mm": 317.4,
+     "et_max_apr_oct_mm": 665.3,
+     "precip_apr_oct_mm": 401.1,
+     "eto_apr_oct_mm": 1302.7
+    },
+    {
+     "year": 2011,
+     "crop": "winter wheat",
+     "et_mm": 473.5,
+     "precip_mm": 507.0,
+     "et_apr_oct_mm": 368.4,
+     "et_min_apr_oct_mm": 209.8,
+     "et_max_apr_oct_mm": 551.6,
+     "precip_apr_oct_mm": 424.9,
+     "eto_apr_oct_mm": 1382.1
+    },
+    {
+     "year": 2012,
+     "crop": "winter wheat",
+     "et_mm": 510.5,
+     "precip_mm": 220.1,
+     "et_apr_oct_mm": 357.1,
+     "et_min_apr_oct_mm": 239.5,
+     "et_max_apr_oct_mm": 479.6,
+     "precip_apr_oct_mm": 170.5,
+     "eto_apr_oct_mm": 1392.3
+    },
+    {
+     "year": 2013,
+     "crop": "winter wheat",
+     "et_mm": null,
+     "precip_mm": 369.8,
+     "et_apr_oct_mm": 270.0,
+     "et_min_apr_oct_mm": 171.2,
+     "et_max_apr_oct_mm": 386.1,
+     "precip_apr_oct_mm": 336.7,
+     "eto_apr_oct_mm": 1254.6
+    },
+    {
+     "year": 2014,
+     "crop": "winter wheat",
+     "et_mm": 532.2,
+     "precip_mm": 421.8,
+     "et_apr_oct_mm": 425.9,
+     "et_min_apr_oct_mm": 247.3,
+     "et_max_apr_oct_mm": 612.0,
+     "precip_apr_oct_mm": 365.7,
+     "eto_apr_oct_mm": 1218.6
+    },
+    {
+     "year": 2015,
+     "crop": "corn",
+     "et_mm": 575.9,
+     "precip_mm": 535.7,
+     "et_apr_oct_mm": 485.7,
+     "et_min_apr_oct_mm": 341.7,
+     "et_max_apr_oct_mm": 652.0,
+     "precip_apr_oct_mm": 480.7,
+     "eto_apr_oct_mm": 1166.9
+    },
+    {
+     "year": 2016,
+     "crop": "winter wheat",
+     "et_mm": 598.1,
+     "precip_mm": 534.4,
+     "et_apr_oct_mm": 482.8,
+     "et_min_apr_oct_mm": 355.7,
+     "et_max_apr_oct_mm": 633.1,
+     "precip_apr_oct_mm": 493.9,
+     "eto_apr_oct_mm": 1210.6
+    },
+    {
+     "year": 2017,
+     "crop": "winter wheat",
+     "et_mm": 548.3,
+     "precip_mm": 603.6,
+     "et_apr_oct_mm": 442.9,
+     "et_min_apr_oct_mm": 307.9,
+     "et_max_apr_oct_mm": 573.1,
+     "precip_apr_oct_mm": 535.8,
+     "eto_apr_oct_mm": 1127.8
+    },
+    {
+     "year": 2018,
+     "crop": "corn",
+     "et_mm": 599.4,
+     "precip_mm": 501.9,
+     "et_apr_oct_mm": 498.9,
+     "et_min_apr_oct_mm": 318.8,
+     "et_max_apr_oct_mm": 680.7,
+     "precip_apr_oct_mm": 451.2,
+     "eto_apr_oct_mm": 1199.5
+    },
+    {
+     "year": 2019,
+     "crop": "corn",
+     "et_mm": 581.7,
+     "precip_mm": 475.7,
+     "et_apr_oct_mm": 477.4,
+     "et_min_apr_oct_mm": 380.2,
+     "et_max_apr_oct_mm": 579.0,
+     "precip_apr_oct_mm": 378.5,
+     "eto_apr_oct_mm": 1162.8
+    },
+    {
+     "year": 2020,
+     "crop": "corn",
+     "et_mm": 523.0,
+     "precip_mm": 328.2,
+     "et_apr_oct_mm": 433.3,
+     "et_min_apr_oct_mm": 301.1,
+     "et_max_apr_oct_mm": 575.5,
+     "precip_apr_oct_mm": 235.3,
+     "eto_apr_oct_mm": 1254.2
+    },
+    {
+     "year": 2021,
+     "crop": "winter wheat",
+     "et_mm": 531.5,
+     "precip_mm": 496.7,
+     "et_apr_oct_mm": 438.4,
+     "et_min_apr_oct_mm": 306.2,
+     "et_max_apr_oct_mm": 589.3,
+     "precip_apr_oct_mm": 403.6,
+     "eto_apr_oct_mm": 1170.6
+    },
+    {
+     "year": 2022,
+     "crop": "corn",
+     "et_mm": 545.8,
+     "precip_mm": 350.2,
+     "et_apr_oct_mm": 449.2,
+     "et_min_apr_oct_mm": 315.5,
+     "et_max_apr_oct_mm": 578.7,
+     "precip_apr_oct_mm": 307.8,
+     "eto_apr_oct_mm": 1276.3
+    },
+    {
+     "year": 2023,
+     "crop": "sorghum",
+     "et_mm": 662.3,
+     "precip_mm": 532.4,
+     "et_apr_oct_mm": 573.0,
+     "et_min_apr_oct_mm": 414.4,
+     "et_max_apr_oct_mm": 733.7,
+     "precip_apr_oct_mm": 450.3,
+     "eto_apr_oct_mm": 1139.5
+    },
+    {
+     "year": 2024,
+     "crop": "corn",
+     "et_mm": 646.5,
+     "precip_mm": 489.8,
+     "et_apr_oct_mm": 546.9,
+     "et_min_apr_oct_mm": 389.4,
+     "et_max_apr_oct_mm": 721.6,
+     "precip_apr_oct_mm": 372.0,
+     "eto_apr_oct_mm": 1255.9
+    }
+   ],
+   "mean_annual_et_mm": 532,
+   "mean_annual_precip_mm": 445,
+   "et_to_precip_ratio": 1.2,
+   "mean_apr_oct_et_mm": 420,
+   "mean_apr_oct_et_to_eto": 0.35,
+   "apr_oct_et_by_cdl_crop": {
+    "CDL 60": {
+     "n_years": 1,
+     "mean_mm": 284,
+     "min_mm": 284,
+     "max_mm": 284
+    },
+    "corn": {
+     "n_years": 6,
+     "mean_mm": 482,
+     "min_mm": 433,
+     "max_mm": 547
+    },
+    "sorghum": {
+     "n_years": 1,
+     "mean_mm": 573,
+     "min_mm": 573,
+     "max_mm": 573
+    },
+    "winter wheat": {
+     "n_years": 9,
+     "mean_mm": 406,
+     "min_mm": 270,
+     "max_mm": 483
+    }
+   }
+  }
+ ]
+}

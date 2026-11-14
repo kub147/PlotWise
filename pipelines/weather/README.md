@@ -61,6 +61,22 @@ each. Finished years are cached and never requested again. A first run for one f
 - Temperature indicators are identical for all five fields: they share one NASA POWER cell (about 50 km).
 - The GRACE p-value ignores autocorrelation between months.
 
+## OpenET (stretch)
+
+```bash
+python3 pipelines/weather/openet.py check   # coverage of two test years, 2 requests
+python3 pipelines/weather/openet.py all     # 1999–2024, one request per year for all fields
+```
+
+Writes `data/processed/climate/<field_id>_openet.csv` (`month, et_mm, et_min_mm, et_max_mm, valid_pixel_share, precip_mm, eto_mm`)
+and `data/processed/climate/openet_summary.json` (per field: yearly ET next to precipitation, reference ET and the CDL crop;
+mean ET/P; April–October ET by crop). ET is the field mean of the OpenET ensemble at 30 m; `et_min_mm` / `et_max_mm` are the
+range across the six models. The collection is tiled by UTM zone and a tile is masked outside its zone (a single-image point query can
+return nothing, which is what the note in data-sources.md saw); the script mosaics the tiles first. Months where fewer than 90% of the field's pixels have a value are left empty.
+Result for the five demo fields (1999–2024): mean annual OpenET is about 20% above gridMET precipitation on every field
+(ET / P 1.19–1.21), dryland wheat–fallow included. Over 24 years that cannot be real for a rainfed field, so OpenET is biased
+high here relative to gridMET precipitation. Use it for differences between years, crops and fields, not for absolute ET.
+
 ## Hand-over
 
 **To D (engine)**
@@ -77,3 +93,9 @@ each. Finished years are cached and never requested again. A first run for one f
 - Precipitation shows no reliable trend in any product except NASA POWER, whose drying trend the other three do not confirm. Do not write that rainfall is declining; `precip_crosscheck` and `<field_id>_precip_crosscheck.png` hold the evidence.
 - GDD, hot days and frost dates are the same for all five fields (one NASA POWER cell). Present them as "the area", not "this field".
 - `grace` is a regional value (~300 km) and `smap` a 9 km cell: show them with their `note`, never as a field measurement.
+
+**To D (engine), OpenET**
+
+- For validation level 4 compare modelled crop ET with `et_apr_oct_mm` per year in `openet_summary.json` (`yearly[]`, with the CDL crop of that year), or with the monthly values in `<field_id>_openet.csv`. Use `et_min` / `et_max` as the uncertainty band.
+- Expect modelled ET to be about 20% below OpenET in absolute terms (see the result above): compare the year-to-year pattern (correlation, ranking of years), not the level.
+- OpenET is itself a model ensemble driven by gridMET reference ET, so it is not fully independent of our weather input.
