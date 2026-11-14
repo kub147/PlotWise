@@ -77,3 +77,75 @@ Generated 2026-11-14 by `pipelines/weather/run.py`. One CSV per field, daily, no
 | `srad_mj_m2` | NASA POWER | 12000 |
 | `srad_mj_m2` | gridMET | 3 |
 | `wind_m_s` | NASA POWER | 12003 |
+
+### ks193-001 (lon -101.02282, lat 39.43511; 1994-01-01 to 2026-11-11)
+
+| Column | Source | Days |
+| :--- | :--- | ---: |
+| `precip_mm` | gridMET | 12003 |
+| `tmax_c` | gridMET | 12003 |
+| `tmin_c` | gridMET | 12003 |
+| `eto_mm` | gridMET | 12003 |
+| `srad_mj_m2` | NASA POWER | 12000 |
+| `srad_mj_m2` | gridMET | 3 |
+| `wind_m_s` | NASA POWER | 12003 |
+
+### ks193-002 (lon -101.01258, lat 39.43411; 1994-01-01 to 2026-11-11)
+
+| Column | Source | Days |
+| :--- | :--- | ---: |
+| `precip_mm` | gridMET | 12003 |
+| `tmax_c` | gridMET | 12003 |
+| `tmin_c` | gridMET | 12003 |
+| `eto_mm` | gridMET | 12003 |
+| `srad_mj_m2` | NASA POWER | 12000 |
+| `srad_mj_m2` | gridMET | 3 |
+| `wind_m_s` | NASA POWER | 12003 |
+
+### ks193-003 (lon -101.0793, lat 39.22393; 1994-01-01 to 2026-11-11)
+
+| Column | Source | Days |
+| :--- | :--- | ---: |
+| `precip_mm` | gridMET | 12003 |
+| `tmax_c` | gridMET | 12003 |
+| `tmin_c` | gridMET | 12003 |
+| `eto_mm` | gridMET | 12003 |
+| `srad_mj_m2` | NASA POWER | 12000 |
+| `srad_mj_m2` | gridMET | 3 |
+| `wind_m_s` | NASA POWER | 12003 |
+
+### ks051-001 (lon -99.2577, lat 38.86002; 1994-01-01 to 2026-11-11)
+
+| Column | Source | Days |
+| :--- | :--- | ---: |
+| `precip_mm` | gridMET | 12003 |
+| `tmax_c` | gridMET | 12003 |
+| `tmin_c` | gridMET | 12003 |
+| `eto_mm` | gridMET | 12003 |
+| `srad_mj_m2` | NASA POWER | 12000 |
+| `srad_mj_m2` | gridMET | 3 |
+| `wind_m_s` | NASA POWER | 12003 |
+
+### ks051-002 (lon -99.07284, lat 38.81649; 1994-01-01 to 2026-11-11)
+
+| Column | Source | Days |
+| :--- | :--- | ---: |
+| `precip_mm` | gridMET | 12003 |
+| `tmax_c` | gridMET | 12003 |
+| `tmin_c` | gridMET | 12003 |
+| `eto_mm` | gridMET | 12003 |
+| `srad_mj_m2` | NASA POWER | 12000 |
+| `srad_mj_m2` | gridMET | 3 |
+| `wind_m_s` | NASA POWER | 12003 |
+
+### ks051-003 (lon -99.22152, lat 38.79478; 1994-01-01 to 2026-11-11)
+
+| Column | Source | Days |
+| :--- | :--- | ---: |
+| `precip_mm` | gridMET | 12003 |
+| `tmax_c` | gridMET | 12003 |
+| `tmin_c` | gridMET | 12003 |
+| `eto_mm` | gridMET | 12003 |
+| `srad_mj_m2` | NASA POWER | 12000 |
+| `srad_mj_m2` | gridMET | 3 |
+| `wind_m_s` | NASA POWER | 12003 |
