@@ -30,18 +30,40 @@ Known bias: the county sorghum average includes sorghum after sorghum and contin
 
 The gain from replacing fallow with sorghum rises from west to east (correlation with longitude 0.72). All numbers include land rent; `mean_before_land_rent` in `results/counties.json` adds it back.
 
-## 3. Independent check: what farmers actually do
+## 3. Two yield levels: county average and well-managed field
+
+Costs come from K-State budgets, which assume a well-managed field. Their planning yields are well above the county averages the main scenario uses (2016-2024, model at county level / budget planning yield):
+
+| Budget region | Wheat after fallow | Sorghum in WSF | Corn in WCF |
+| :--- | ---: | ---: | ---: |
+| SW (19 counties) | 0.87 | 0.75 | 0.92 |
+| NW (12 counties) | 0.80 | 0.78 | 0.91 |
+| NC (6 counties) | 0.77 | 0.67 | 0.67 |
+| SC (9 counties) | 0.79 | 0.57 | 0.59 |
+
+So the main scenario charges a good manager's costs for an average farm's yields, which favours fallow, the cheapest phase. The second scenario, `well_managed`, sets each crop's level to the planning yield of the budget whose costs are used (`factor_well_managed` in `engine/county_yield_factors.json`). The farmer picks the one that describes the field.
+
+| Longitude | Counties | Gain of WSF over WF, county average | Same, well managed | Model's best, well managed: WF / WSF / WCF / other |
+| :--- | ---: | ---: | ---: | :--- |
+| 102-101 W | 14 | -17 | +7 | 2 / 12 / 0 / 0 |
+| 101-100 W | 10 | -7 | +7 | 2 / 8 / 0 / 0 |
+| 100-99 W | 15 | +5 | +41 | 0 / 15 / 0 / 0 |
+| 99-98.3 W | 7 | +12 | +66 | 0 / 7 / 0 / 0 |
+
+Caveat: the north-central and south-central budgets are proxies from wetter central Kansas without fallow (C's note A8); their sorghum and corn planning yields (about 115 bu/acre) are probably too high for Hays, so the well-managed numbers there are optimistic.
+
+## 4. Independent check: what farmers actually do
 
 Farmers' rotations come from the crop sequence 2018-2025 of 31,660 fields (workstream B), so they were not used to build the model.
 
 - **Corn or sorghum after wheat:** the model's preference follows farmers' choice, Spearman ρ = 0.53 over 38 counties. Corn is favoured in the cooler north-west, sorghum in the south and centre, as on the map.
 - **Sorghum or fallow:** weak, ρ = 0.24 over 32 counties. Strict wheat-fallow is rare everywhere (about 4% of field area), so farmers' share hardly varies; the model prefers wheat-fallow west of 101° W, where most farmers have already moved to three-year rotations. Reasons outside the model: crop insurance and government payments, spreading work and risk, weed control, and the sorghum bias above.
-- **Leaving fallow since 2008: the model disagrees with farmers.** Rank correlation between the model's gain from replacing fallow and the drop in fallow share 2008 → latest: ρ = -0.62; with the share of fields that moved from wheat-fallow to a three-year rotation: ρ = -0.62 (46 counties). Farmers left fallow mostly in the dry west, where the model says fallow still pays best; the east had little fallow to leave. Where the model sees a gain, fallow is lower today (17.5% against 22% of cropland), but that is explained by rainfall alone. Likely reasons the model misses: better water storage under modern no-till, the rise of sorghum yields since 2008 (one constant factor averages old and new years), insurance and payments, and the sorghum bias above.
-- **Most common rotation of the three = model's best:** 15 of 39 counties (always guessing WSF: 25). By longitude: 102-101 W 3/14, 101-100 W 3/10, 100-99 W 8/14, 99-98.3 W 1/1.
+- **Leaving fallow since 2008: the model disagrees with farmers.** Rank correlation between the model's gain from replacing fallow and the drop in fallow share 2008 → latest: ρ = -0.62; with the share of fields that moved from wheat-fallow to a three-year rotation: ρ = -0.62 (46 counties). Part of this is arithmetic: the west had the most fallow to lose. Measured as a relative drop (drop / 2008 share, 43 counties with at least 5% fallow in 2008) it is weaker but still negative: ρ = -0.43 (well managed -0.58). Farmers in the dry west cut their fallow by about 30%, those near Hays by under 10%; the model sees the opposite gradient. The east had little fallow to leave. Where the model sees a gain, fallow is lower today (17.5% against 22% of cropland), but that is explained by rainfall alone. Likely reasons the model misses: better water storage under modern no-till, the rise of sorghum yields since 2008 (one constant factor averages old and new years), insurance and payments, and the sorghum bias above.
+- **Most common rotation of the three = model's best:** 15 of 39 counties with county-average yields, 22 with well-managed yields (always guessing WSF: 25). The well-managed scenario agrees more often mainly because it names WSF almost everywhere, which is what most farmers grow; it does not explain where farmers left fallow (point above). By longitude, county average: 102-101 W 3/14, 101-100 W 3/10, 100-99 W 8/14, 99-98.3 W 1/1.
 
-Reading: the model agrees with farmers on where corn and where sorghum fits, and on WSF around Hays. It does not explain why farmers in the far west have been leaving fallow: there it is more pessimistic about sorghum than farmers are. Show the west with that caution; it is also an honest example of where local knowledge beats the model.
+Reading: the model agrees with farmers on where corn and where sorghum fits. Whether replacing fallow pays depends above all on how well the field yields: with county-average yields fallow wins in the west, with the yields the K-State budgets assume sorghum wins almost everywhere. Neither scenario explains why the far west has been leaving fallow fastest; that is where local knowledge (no-till water storage, insurance, workload) beats the model.
 
-## 4. Inputs and assumptions
+## 5. Inputs and assumptions
 
 - Soil: SSURGO at the centroid; where below 200 mm (the 2 km square missed the cropland) 280 mm is used (9 counties).
 - Costs: K-State budgets of the county's region (`county_budget_regions.csv`; north-central and south-central budgets are proxies without fallow, C's A8).

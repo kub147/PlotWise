@@ -36,9 +36,15 @@ Needs Python 3.10+, `numpy`, and `matplotlib` for the validation figure. Run fro
   against about 70 on farms). Every county and crop gets a factor = mean USDA NASS dryland county yield / mean modelled
   yield, same years (`county_yield_factors.json`). Fields use the factor of their county (field_id prefix, e.g. `ks051`).
   The model keeps the year-to-year variation and the water carried between crops; the county's farms set the average.
+- **Two yield scenarios.** Main records: `county_average` (NASS county mean). `yield_scenarios.well_managed` in each field
+  file (and `well_managed` per county in counties.json) repeats the per-rotation numbers at the planning yield of the K-State
+  budget whose costs are used, 15-45% higher. Costs assume a well-managed field, so the county-average scenario favours fallow.
+  The app should let the farmer pick; neither is a forecast. North-central budgets (Hays) are proxies from wetter central
+  Kansas, so well-managed Hays is optimistic.
 - **Money** is reported with land rent (`mean`) and without it (`mean_before_land_rent`): rent is nearly the same for every
-  rotation of a region (43-82 USD/acre/yr), so it hardly affects a ranking, but it differs between regions. Scores use the
-  before-rent numbers so that sites can be compared.
+  rotation of a region (43-82 USD/acre/yr), so it hardly affects a ranking, but it differs between regions. The money scores
+  (`income`, `dry_year_safety`) are the difference to wheat-fallow on the same field and scenario (±60 USD/acre/yr → 0..1,
+  WF = 0.5), so neither rent nor scenario level shifts them.
 - **County results** (`results/counties.json`, about 140 kB): per county `best_rotation` (of WF, WSF, WCF, WSSF, WWSF),
   `gain_replacing_fallow_usd_acre` (WSF − WF), per rotation `mean`, `mean_before_land_rent`, `share_of_years_with_profit`,
   `share_of_years_covering_costs_before_rent`, mean yields, and `practice` (what farmers grow, from B's field classification).

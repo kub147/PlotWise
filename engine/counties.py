@@ -15,6 +15,14 @@ Why a yield level per county
     with sorghum in WSF, corn with corn in WCF, sunflower (all practices, NASS has no dryland split) with WSfF.
     A county with fewer than MIN_YEARS of data borrows the median factor of its cost region.
 
+Two yield scenarios
+    county_average  the factor above. Costs come from K-State budgets, which assume a well-managed field (planning
+                    yields 15-45% above the county averages), so this scenario charges a good manager's costs for an
+                    average farm's yields; that favours fallow, the cheapest phase.
+    well_managed    factor_well_managed = K-State planning yield of the budget used for costs / mean modelled
+                    trial-level yield over the budget years (2016 onward). Costs and yields then belong together.
+    The farmer picks the one that describes the field. Neither is a forecast.
+
 Inputs: data/processed/counties.geojson (B), data/processed/weather/counties/<county_id>.csv (A),
 crops-economics/reference/county_yields.csv and county_budget_regions.csv (C),
 data/processed/county_field_rotations.json (B, fields classified from CDL 2018-2025).
@@ -30,7 +38,7 @@ import numpy as np
 
 from . import inputs
 from .replay import Economics, replay_field
-from .yields import load_params, to_bu_acre
+from .yields import KG_HA_PER_BU_ACRE, load_params, to_bu_acre
 
 COUNTIES_GEOJSON = inputs.ROOT / "data" / "processed" / "counties.geojson"
 COUNTY_WEATHER = inputs.WEATHER_DIR / "counties"
@@ -50,6 +58,15 @@ REFERENCE = {"winter_wheat": ("WF", "NON-IRRIGATED"), "grain_sorghum": ("WSF", "
 EXTEND = ("winter_wheat", "grain_sorghum")
 EXTEND_MIN_OVERLAP = 5
 EXTENDED: dict = {}       # filled by nass_yields(): which series were extended, and the ratio used
+COSTS_CSV = inputs.ROOT / "crops-economics" / "reference" / "costs.csv"
+# Budget whose planning yield defines the "well-managed field" level of each crop (same rotation position as REFERENCE)
+BUDGET_KEY = {"winter_wheat": "wheat|W-F", "grain_sorghum": "sorghum|W-S-F", "corn": "corn|W-C-F", "sunflower": "sunflower|W-SF-F"}
+BUDGET_FIRST_YEAR = 2016                       # first K-State budget year in costs.csv
+KG_HA_PER_CWT_ACRE = 100 * 0.45359237 / 0.40468564
+SCENARIOS = {
+    "county_average": "Average dryland yield of the county (USDA NASS): all farms, good and poor fields, every rotation position",
+    "well_managed": "Planning yield of the K-State budget whose costs are used: a well-managed field. The costs then match the yields",
+}
 MAIN = ("WF", "WSF", "WCF", "WSSF", "WWSF")   # rotations that can be "best"; optional WSfF is reported, not ranked
 PRACTICE_LABEL = {"WF": "W-F", "WSF": "W-S-F", "WCF": "W-C-F"}   # engine id -> label in county_field_rotations.json
 
@@ -124,6 +141,12 @@ def compute_factors(counties, crops, rotations, params, eco) -> dict:
                              model_mean_same_years_kg_ha=round(float(m.mean())),
                              factor=round(float(o.mean() / m.mean()), 3) if m.mean() > 0 else None,
                              r2_year_to_year=round(float(np.corrcoef(o, m)[0, 1] ** 2), 2) if o.std() > 0 and m.std() > 0 else None)
+            budget = planning_yields().get((c["budget_region"], BUDGET_KEY[crop]))
+            recent = [v for y, v in model.items() if y >= BUDGET_FIRST_YEAR]
+            if budget and recent and np.mean(recent) > 0:
+                entry.update(planning_yield_kg_ha=round(budget["kg_ha"]), planning_budget=budget["label"],
+                             model_trial_mean_budget_years_kg_ha=round(float(np.mean(recent))),
+                             factor_well_managed=round(float(budget["kg_ha"] / np.mean(recent)), 3))
             if (cid, crop) in EXTENDED:
                 entry["extended_with_all_practices"] = dict(EXTENDED[(cid, crop)], years_added=len(EXTENDED[(cid, crop)]["years_added"]))
             raw[cid][crop] = entry
@@ -141,60 +164,101 @@ def compute_factors(counties, crops, rotations, params, eco) -> dict:
                 pool = by_region.get(c["budget_region"]) or all_f
                 e["factor"] = round(float(np.median(pool)), 3)
                 e["borrowed"] = f"median of region {c['budget_region']} ({len(pool)} counties)"
+            if not e.get("factor_well_managed"):
+                e["factor_well_managed"] = e["factor"]
+                e["well_managed_note"] = "no K-State planning yield for this crop and region; county average used"
     return raw
+
+
+_PLANNING: dict = {}
+
+
+def planning_yields() -> dict:
+    """(region, cost_key) -> mean K-State planning yield 2016-2025 in kg/ha, and whether the budget is a proxy."""
+    if not _PLANNING:
+        acc: dict = {}
+        for r in csv.DictReader(open(COSTS_CSV, encoding="utf-8")):
+            if r["planning_yield"] and int(r["year"]) <= 2025:
+                acc.setdefault((r["region"], r["cost_key"]), []).append((float(r["planning_yield"]), r["yield_unit"], r["proxy"]))
+        for k, v in acc.items():
+            unit = v[0][1]
+            mean = float(np.mean([x[0] for x in v]))
+            crop = {"wheat": "winter_wheat", "sorghum": "grain_sorghum", "corn": "corn", "sunflower": "sunflower"}[k[1].split("|")[0]]
+            kg = mean * KG_HA_PER_CWT_ACRE if unit == "cwt" else mean * KG_HA_PER_BU_ACRE.get(crop, 62.77)
+            proxy = any(x[2] not in ("", "false", "False", "0") for x in v)
+            _PLANNING[k] = dict(kg_ha=kg, label=f"{k[0]} {k[1]}: {mean:.0f} {unit}/acre" + (" (proxy budget)" if proxy else ""))
+    return _PLANNING
 
 
 def best_of(rotations_out: dict, ids) -> str:
     return max(ids, key=lambda r: rotations_out[r]["mean"])
 
 
-def replay_counties(counties, crops, rotations, params, eco, factors) -> dict:
-    practice = json.load(open(FIELD_ROTATIONS, encoding="utf-8"))
-    practice = practice.get("counties", practice)
-    out = {}
-    for cid, c in counties.items():
-        wx = inputs.load_weather(COUNTY_WEATHER / f"{cid}.csv")
-        yf = {crop: factors[cid][crop]["factor"] for crop in REFERENCE}
-        rep = replay_field(c, wx, crops, rotations, params, eco, first_year=FIRST_YEAR,
-                           region=c["budget_region"], yield_factor=yf)
-        rots = {}
-        for rid, r in rep["rotations"].items():
-            vals = np.array(list(r["net_year"].values()))
-            rots[rid] = dict(mean=round(float(vals.mean()), 1),
-                             mean_before_land_rent=r["summary"]["mean_before_land_rent"],
-                             share_of_years_with_profit=round(float((vals > 0).mean()), 2),
-                             share_of_years_covering_costs_before_rent=r["summary"]["share_of_years_covering_costs_before_rent"],
-                             mean_of_worst_fifth=r["summary"]["mean_of_worst_fifth"],
-                             mean_yield_bu_acre={k: round(to_bu_acre(k, v), 1) if k != "sunflower" else None
-                                                 for k, v in r["crop_mean_kg_ha"].items()},
-                             mean_yield_kg_ha={k: round(v) for k, v in r["crop_mean_kg_ha"].items()})
-        best = best_of(rots, [r for r in MAIN if r in rots])
-        best3 = best_of(rots, ("WF", "WSF", "WCF"))
-        entry = dict(
-            name=c["name"], lon=c["lon"], lat=c["lat"], budget_region=c["budget_region"],
-            awc_mm=c["awc_mm"], awc_replaced=c["awc_mm"] != c["awc_mm_layer"],
-            precip_mm_per_year=round(float(wx.precip.sum() / len(wx.dates) * 365.25)),
-            period=[rep["first_year"], rep["last_year"]],
-            land_rent_usd_acre=rep["rotations"]["WF"]["summary"]["land_rent"],
-            best_rotation=best, best_of_three=best3,
-            gain_replacing_fallow_usd_acre=round(rots["WSF"]["mean"] - rots["WF"]["mean"], 1),
-            best_three_year_vs_wf_usd_acre=round(max(rots["WSF"]["mean"], rots["WCF"]["mean"]) - rots["WF"]["mean"], 1),
-            rotations=rots,
-            yield_factor=yf,
-            yield_factor_borrowed=[k for k in REFERENCE if factors[cid][k].get("borrowed")])
-        p = practice.get(cid)
-        if p:
-            shares = {rid: p["rotations"][lab]["share_of_area"] for rid, lab in PRACTICE_LABEL.items()}
-            common = max(shares, key=shares.get)
-            fallow_based = sum(shares.values())
-            entry["practice"] = dict(
-                fields=p["fields"], share_of_area=shares,
+def _rotation_table(rep: dict) -> dict:
+    rots = {}
+    for rid, r in rep["rotations"].items():
+        vals = np.array(list(r["net_year"].values()))
+        rots[rid] = dict(mean=round(float(vals.mean()), 1),
+                         mean_before_land_rent=r["summary"]["mean_before_land_rent"],
+                         share_of_years_with_profit=round(float((vals > 0).mean()), 2),
+                         share_of_years_covering_costs_before_rent=r["summary"]["share_of_years_covering_costs_before_rent"],
+                         mean_of_worst_fifth=r["summary"]["mean_of_worst_fifth"],
+                         mean_yield_bu_acre={k: round(to_bu_acre(k, v), 1) if k != "sunflower" else None
+                                             for k, v in r["crop_mean_kg_ha"].items()},
+                         mean_yield_kg_ha={k: round(v) for k, v in r["crop_mean_kg_ha"].items()})
+    return rots
+
+
+def _scenario_summary(rots: dict) -> dict:
+    return dict(best_rotation=best_of(rots, [r for r in MAIN if r in rots]),
+                best_of_three=best_of(rots, ("WF", "WSF", "WCF")),
+                gain_replacing_fallow_usd_acre=round(rots["WSF"]["mean"] - rots["WF"]["mean"], 1),
+                best_three_year_vs_wf_usd_acre=round(max(rots["WSF"]["mean"], rots["WCF"]["mean"]) - rots["WF"]["mean"], 1))
+
+
+def _practice(p: dict, best3: str) -> dict:
+    shares = {rid: p["rotations"][lab]["share_of_area"] for rid, lab in PRACTICE_LABEL.items()}
+    common = max(shares, key=shares.get)
+    fallow_based = sum(shares.values())
+    return dict(fields=p["fields"], share_of_area=shares,
                 share_no_fallow=p["rotations"]["no fallow"]["share_of_area"],
                 share_moved_wf_to_three_year=p["rotations"]["W-F to 3-year"]["share_of_area"],
                 most_common_of_three=common if fallow_based > 0 else None,
                 three_rotations_share=round(fallow_based, 3),
                 model_best_is_most_common=(best3 == common) if fallow_based >= 0.05 else None,
                 model_best_share=shares[best3])
+
+
+def replay_counties(counties, crops, rotations, params, eco, factors) -> dict:
+    """Top level of each county = county_average scenario (unchanged format); `well_managed` holds the second one."""
+    practice = json.load(open(FIELD_ROTATIONS, encoding="utf-8"))
+    practice = practice.get("counties", practice)
+    out = {}
+    for cid, c in counties.items():
+        wx = inputs.load_weather(COUNTY_WEATHER / f"{cid}.csv")
+        res = {}
+        for scen, key in (("county_average", "factor"), ("well_managed", "factor_well_managed")):
+            yf = {crop: factors[cid][crop][key] for crop in REFERENCE}
+            rep = replay_field(c, wx, crops, rotations, params, eco, first_year=FIRST_YEAR,
+                               region=c["budget_region"], yield_factor=yf)
+            rots = _rotation_table(rep)
+            res[scen] = dict(_scenario_summary(rots), rotations=rots, yield_factor=yf)
+        avg, wm = res["county_average"], res["well_managed"]
+        entry = dict(
+            name=c["name"], lon=c["lon"], lat=c["lat"], budget_region=c["budget_region"],
+            awc_mm=c["awc_mm"], awc_replaced=c["awc_mm"] != c["awc_mm_layer"],
+            precip_mm_per_year=round(float(wx.precip.sum() / len(wx.dates) * 365.25)),
+            period=[rep["first_year"], rep["last_year"]],
+            land_rent_usd_acre=avg["rotations"]["WF"]["mean_before_land_rent"] - avg["rotations"]["WF"]["mean"],
+            **{k: avg[k] for k in ("best_rotation", "best_of_three", "gain_replacing_fallow_usd_acre", "best_three_year_vs_wf_usd_acre")},
+            rotations=avg["rotations"], yield_factor=avg["yield_factor"],
+            yield_factor_borrowed=[k for k in REFERENCE if factors[cid][k].get("borrowed")],
+            well_managed=wm)
+        entry["land_rent_usd_acre"] = round(entry["land_rent_usd_acre"], 1)
+        p = practice.get(cid)
+        if p:
+            entry["practice"] = _practice(p, avg["best_of_three"])
+            wm["practice_match"] = _practice(p, wm["best_of_three"])["model_best_is_most_common"]
         out[cid] = entry
     return out
 
@@ -211,7 +275,11 @@ def agreement(out: dict) -> dict:
     for lo, hi, label in ((-102.1, -101.0, "102-101 W"), (-101.0, -100.0, "101-100 W"), (-100.0, -99.0, "100-99 W"), (-99.0, -98.3, "99-98.3 W")):
         sel = [v for v in rows if lo <= v["lon"] < hi]
         bands[label] = dict(counties=len(sel), matches=sum(v["practice"]["model_best_is_most_common"] for v in sel))
-    return dict(counties_compared=n, model_matches_most_common=hits, by_longitude=bands, share=round(hits / n, 2) if n else None,
+    wm_hits = sum(bool(v["well_managed"].get("practice_match")) for v in rows)
+    for lo, hi, label in ((-102.1, -101.0, "102-101 W"), (-101.0, -100.0, "101-100 W"), (-100.0, -99.0, "100-99 W"), (-99.0, -98.3, "99-98.3 W")):
+        bands[label]["matches_well_managed"] = sum(bool(v["well_managed"].get("practice_match")) for v in rows if lo <= v["lon"] < hi)
+    return dict(counties_compared=n, model_matches_most_common=hits, model_matches_most_common_well_managed=wm_hits,
+                by_longitude=bands, share=round(hits / n, 2) if n else None,
                 naive_rule=f"always {naive}", naive_matches=naive_hits,
                 note="Counties where WF, WSF and WCF together cover at least 5% of the classified field area. "
                      "Most common = largest share of area among the three; model = highest mean net return among the three.")
@@ -229,18 +297,27 @@ def choice_checks(out: dict) -> dict:
         rows = [v for v in out.values() if v.get("practice")
                 and v["practice"]["share_of_area"][a] + v["practice"]["share_of_area"][b] >= 0.05]
         gain = [v["rotations"][a]["mean"] - v["rotations"][b]["mean"] for v in rows]
+        gain_wm = [v["well_managed"]["rotations"][a]["mean"] - v["well_managed"]["rotations"][b]["mean"] for v in rows]
         share = [v["practice"]["share_of_area"][a] / (v["practice"]["share_of_area"][a] + v["practice"]["share_of_area"][b]) for v in rows]
         res[label] = dict(counties=len(rows), spearman=round(_spearman(gain, share), 2),
+                          spearman_well_managed=round(_spearman(gain_wm, share), 2),
                           note=f"rank correlation between the model's gain of {a} over {b} and farmers' share of {a} among {a}+{b}")
     # did farmers leave fallow where the model sees the largest gain from leaving it?
     layer = {f["properties"]["county_id"]: f["properties"] for f in json.load(open(COUNTIES_GEOJSON, encoding="utf-8"))["features"]}
     ids = [cid for cid in out if cid in layer]
     gain = [out[c]["gain_replacing_fallow_usd_acre"] for c in ids]
+    gain_wm = [out[c]["well_managed"]["gain_replacing_fallow_usd_acre"] for c in ids]
     drop = [layer[c]["fallow_share_2008"] - layer[c]["fallow_share_latest"] for c in ids]
     moved = [out[c]["practice"]["share_moved_wf_to_three_year"] if out[c].get("practice") else 0.0 for c in ids]
+    rel_ids = [i for i, c in enumerate(ids) if layer[c]["fallow_share_2008"] >= 0.05]
+    rel = [drop[i] / layer[ids[i]]["fallow_share_2008"] for i in rel_ids]
     res["leaving fallow since 2008"] = dict(
         counties=len(ids), spearman_gain_vs_drop_in_fallow_share=round(_spearman(gain, drop), 2),
         spearman_gain_vs_share_moved_wf_to_three_year=round(_spearman(gain, moved), 2),
+        counties_relative=len(rel_ids),
+        spearman_gain_vs_relative_drop=round(_spearman([gain[i] for i in rel_ids], rel), 2),
+        spearman_gain_well_managed_vs_relative_drop=round(_spearman([gain_wm[i] for i in rel_ids], rel), 2),
+        spearman_fallow_share_2008_vs_relative_drop=round(_spearman([layer[ids[i]]["fallow_share_2008"] for i in rel_ids], rel), 2),
         note="Fallow share of dryland cropland 2008 -> latest CDL year (counties.geojson) and fields that moved from "
              "wheat-fallow to a three-year rotation (county_field_rotations.json). A positive value would mean farmers "
              "left fallow where the model sees the largest gain.")
@@ -290,7 +367,33 @@ def write_report(factors: dict, summary: dict, params: dict) -> None:
     lon = [v["lon"] for v in out.values()]; g = [v["gain_replacing_fallow_usd_acre"] for v in out.values()]
     L += ["", f"The gain from replacing fallow with sorghum rises from west to east (correlation with longitude {np.corrcoef(lon, g)[0, 1]:.2f}). "
           "All numbers include land rent; `mean_before_land_rent` in `results/counties.json` adds it back.", "",
-          "## 3. Independent check: what farmers actually do", "",
+          "## 3. Two yield levels: county average and well-managed field", "",
+          "Costs come from K-State budgets, which assume a well-managed field. Their planning yields are well above the county "
+          "averages the main scenario uses (2016-2024, model at county level / budget planning yield):", "",
+          "| Budget region | Wheat after fallow | Sorghum in WSF | Corn in WCF |", "| :--- | ---: | ---: | ---: |"]
+    for reg in ("SW", "NW", "NC", "SC"):
+        cells = []
+        for crop in ("winter_wheat", "grain_sorghum", "corn"):
+            e = [factors[c][crop] for c, v in out.items() if v["budget_region"] == reg and factors[c][crop].get("factor_well_managed")
+                 and not factors[c][crop].get("well_managed_note")]
+            cells.append(f"{np.mean([x['factor'] / x['factor_well_managed'] for x in e]):.2f}" if e else "-")
+        L.append(f"| {reg} ({sum(v['budget_region'] == reg for v in out.values())} counties) | {' | '.join(cells)} |")
+    wm_bands = []
+    for lo, hi, lab in ((-102.1, -101.0, "102-101 W"), (-101.0, -100.0, "101-100 W"), (-100.0, -99.0, "100-99 W"), (-99.0, -98.3, "99-98.3 W")):
+        sel = [v for v in out.values() if lo <= v["lon"] < hi]
+        cnt = {r: sum(v["well_managed"]["best_rotation"] == r for v in sel) for r in ("WF", "WSF", "WCF")}
+        wm_bands.append(f"| {lab} | {len(sel)} | {np.mean([v['gain_replacing_fallow_usd_acre'] for v in sel]):+.0f} | "
+                        f"{np.mean([v['well_managed']['gain_replacing_fallow_usd_acre'] for v in sel]):+.0f} | "
+                        f"{cnt['WF']} / {cnt['WSF']} / {cnt['WCF']} / {len(sel) - sum(cnt.values())} |")
+    L += ["", "So the main scenario charges a good manager's costs for an average farm's yields, which favours fallow, the cheapest "
+          "phase. The second scenario, `well_managed`, sets each crop's level to the planning yield of the budget whose costs are used "
+          "(`factor_well_managed` in `engine/county_yield_factors.json`). The farmer picks the one that describes the field.", "",
+          "| Longitude | Counties | Gain of WSF over WF, county average | Same, well managed | Model's best, well managed: WF / WSF / WCF / other |",
+          "| :--- | ---: | ---: | ---: | :--- |"] + wm_bands + ["",
+          "Caveat: the north-central and south-central budgets are proxies from wetter central Kansas without fallow (C's note A8); "
+          "their sorghum and corn planning yields (about 115 bu/acre) are probably too high for Hays, so the well-managed numbers "
+          "there are optimistic.", "",
+          "## 4. Independent check: what farmers actually do", "",
           "Farmers' rotations come from the crop sequence 2018-2025 of 31,660 fields (workstream B), so they were not used to build the model.", "",
           f"- **Corn or sorghum after wheat:** the model's preference follows farmers' choice, Spearman ρ = {c['corn instead of sorghum (WCF vs WSF)']['spearman']:.2f} "
           f"over {c['corn instead of sorghum (WCF vs WSF)']['counties']} counties. Corn is favoured in the cooler north-west, sorghum in the south and centre, as on the map.",
@@ -301,16 +404,22 @@ def write_report(factors: dict, summary: dict, params: dict) -> None:
           f"- **Leaving fallow since 2008: the model disagrees with farmers.** Rank correlation between the model's gain from replacing fallow "
           f"and the drop in fallow share 2008 → latest: ρ = {c['leaving fallow since 2008']['spearman_gain_vs_drop_in_fallow_share']:+.2f}; with the share of fields "
           f"that moved from wheat-fallow to a three-year rotation: ρ = {c['leaving fallow since 2008']['spearman_gain_vs_share_moved_wf_to_three_year']:+.2f} "
-          f"({c['leaving fallow since 2008']['counties']} counties). Farmers left fallow mostly in the dry west, where the model says fallow still pays best; "
-          "the east had little fallow to leave. Where the model sees a gain, fallow is lower today (17.5% against 22% of cropland), but that is "
+          f"({c['leaving fallow since 2008']['counties']} counties). Part of this is arithmetic: the west had the most fallow to lose. Measured as a relative drop "
+          f"(drop / 2008 share, {c['leaving fallow since 2008']['counties_relative']} counties with at least 5% fallow in 2008) it is weaker but still negative: "
+          f"ρ = {c['leaving fallow since 2008']['spearman_gain_vs_relative_drop']:+.2f} (well managed {c['leaving fallow since 2008']['spearman_gain_well_managed_vs_relative_drop']:+.2f}). "
+          "Farmers in the dry west cut their fallow by about 30%, those near Hays by under 10%; the model sees the opposite gradient. "
+          "The east had little fallow to leave. Where the model sees a gain, fallow is lower today (17.5% against 22% of cropland), but that is "
           "explained by rainfall alone. Likely reasons the model misses: better water storage under modern no-till, the rise of sorghum yields "
           "since 2008 (one constant factor averages old and new years), insurance and payments, and the sorghum bias above.",
           f"- **Most common rotation of the three = model's best:** {a['model_matches_most_common']} of {a['counties_compared']} counties "
-          f"(always guessing WSF: {a['naive_matches']}). By longitude: " + ", ".join(f"{k} {v['matches']}/{v['counties']}" for k, v in a["by_longitude"].items()) + ".", "",
-          "Reading: the model agrees with farmers on where corn and where sorghum fits, and on WSF around Hays. It does not explain why farmers in "
-          "the far west have been leaving fallow: there it is more pessimistic about sorghum than farmers are. Show the west with that caution; "
-          "it is also an honest example of where local knowledge beats the model.", "",
-          "## 4. Inputs and assumptions", "",
+          f"with county-average yields, {a['model_matches_most_common_well_managed']} with well-managed yields "
+          f"(always guessing WSF: {a['naive_matches']}). The well-managed scenario agrees more often mainly because it names WSF almost "
+          "everywhere, which is what most farmers grow; it does not explain where farmers left fallow (point above). By longitude, county average: " + ", ".join(f"{k} {v['matches']}/{v['counties']}" for k, v in a["by_longitude"].items()) + ".", "",
+          "Reading: the model agrees with farmers on where corn and where sorghum fits. Whether replacing fallow pays depends above all on how "
+          "well the field yields: with county-average yields fallow wins in the west, with the yields the K-State budgets assume sorghum wins "
+          "almost everywhere. Neither scenario explains why the far west has been leaving fallow fastest; that is where local knowledge "
+          "(no-till water storage, insurance, workload) beats the model.", "",
+          "## 5. Inputs and assumptions", "",
           f"- Soil: SSURGO at the centroid; where below {MIN_AWC_MM} mm (the 2 km square missed the cropland) {FALLBACK_AWC_MM} mm is used "
           f"({sum(v['awc_replaced'] for v in out.values())} counties).",
           "- Costs: K-State budgets of the county's region (`county_budget_regions.csv`; north-central and south-central budgets are proxies without fallow, C's A8).",

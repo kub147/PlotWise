@@ -11,7 +11,8 @@ import sys
 
 from . import inputs
 from .replay import ROTATION_OF_LABEL, Economics, replay_field
-from .scoring import CRITERIA, DEFAULT_WEIGHTS, SCALES, rank, scores_for, weight_sensitivity
+from .scoring import MONEY_REFERENCE, CRITERIA, DEFAULT_WEIGHTS, SCALES, rank, scores_for, weight_sensitivity
+from .counties import SCENARIOS
 from .yields import load_params
 
 ENGINE_GAPS = ["Stored soil water on this field is modelled from gridded weather, not measured",
@@ -25,28 +26,49 @@ def dry_years_of(field_id: str) -> list[int]:
     return [int(y) for y, t in json.load(open(path, encoding="utf-8")).get("year_types", {}).items() if t == "dry"]
 
 
-def field_context(field_id: str) -> tuple[str, dict | None, str]:
-    """Cost region and county yield factors of a field (its county is the field_id prefix, e.g. ks193)."""
+def field_context(field_id: str) -> tuple[str, dict | None, str, dict | None]:
+    """Cost region, county yield factors (county average, well managed) of a field; county = field_id prefix."""
     from .counties import FACTORS_JSON, load_counties
     cid = field_id.split("-")[0]
     region = load_counties().get(cid, {}).get("budget_region", "SW")
     if FACTORS_JSON.exists():
         f = json.load(open(FACTORS_JSON, encoding="utf-8"))["counties"].get(cid)
         if f:
-            return region, {crop: v["factor"] for crop, v in f.items()}, cid
+            return (region, {crop: v["factor"] for crop, v in f.items()}, cid,
+                    {crop: v.get("factor_well_managed", v["factor"]) for crop, v in f.items()})
     print(f"WARNING: no county yield factors for {cid}: run `python -m engine.counties` first. "
           f"Using the Tribune trial-to-farm factors, which are too high away from Tribune.")
-    return region, None, cid
+    return region, None, cid, None
+
+
+def scenario_view(rep: dict, dry: list[int], current: str | None) -> dict:
+    """Per-rotation numbers of one yield scenario, in the same keys as the main rotation records."""
+    scores, rows = {}, []
+    for rid, r in rep["rotations"].items():
+        scores[rid], dry_mean = scores_for(r, dry, rep["rotations"].get(MONEY_REFERENCE))
+        summary = dict(r["summary"], mean_in_dry_years=round(dry_mean, 1))
+        if current in rep["rotations"]:
+            cur = rep["rotations"][current]["net_year"]
+            diff = [r["net_year"][y] - cur[y] for y in r["years"]]
+            summary["mean_vs_current"] = round(sum(diff) / len(diff), 1)
+            summary["share_of_years_better_than_current"] = round(sum(d > 0 for d in diff) / len(diff), 2) if rid != current else None
+        rows.append(dict(id=rid, yields_kg_ha=r["yields"],
+                         mean_yield_kg_ha={c: round(v) for c, v in r["crop_mean_kg_ha"].items()},
+                         net_return_usd_acre=[[y, round(r["net_year"][y], 1)] for y in r["years"]],
+                         summary=summary, indicators=r["indicators"], scores=scores[rid]))
+    return dict(yield_factor=rep["yield_factor"], rotations=rows,
+                default_ranking=rank(scores, DEFAULT_WEIGHTS), ranking_sensitivity=weight_sensitivity(scores))
 
 
 def build_result(field: dict, wx, crops, rotations, params, eco) -> dict:
-    region, yf, county = field_context(field["field_id"])
+    region, yf, county, yf_wm = field_context(field["field_id"])
     rep = replay_field(field, wx, crops, rotations, params, eco, region=region, yield_factor=yf)
+    rep_wm = replay_field(field, wx, crops, rotations, params, eco, region=region, yield_factor=yf_wm) if yf_wm else None
     dry = [y for y in dry_years_of(field["field_id"]) if rep["first_year"] <= y <= rep["last_year"]]
     current = ROTATION_OF_LABEL.get(field.get("current_rotation", ""))
     scores, dry_mean = {}, {}
     for rid, r in rep["rotations"].items():
-        scores[rid], dry_mean[rid] = scores_for(r, dry)
+        scores[rid], dry_mean[rid] = scores_for(r, dry, rep["rotations"].get(MONEY_REFERENCE))
     out_rot = []
     for rid, r in rep["rotations"].items():
         rot = rotations[rid]
@@ -80,6 +102,13 @@ def build_result(field: dict, wx, crops, rotations, params, eco) -> dict:
                              "crop insurance and government payments excluded. mean_before_land_rent adds the region's rent back "
                              "(nearly the same for every rotation of a region, within a few dollars)",
                "scores": "0-1 on fixed scales, see scoring_scales"},
+        yield_scenario="county_average",
+        yield_scenarios=dict(
+            _about="The main rotation records above use county_average. well_managed repeats the per-rotation numbers "
+                   "with the yield level of the K-State budgets whose costs are used; the app can swap them in. "
+                   "Description of each: engine/counties.py SCENARIOS.",
+            county_average=SCENARIOS["county_average"],
+            well_managed=dict(scenario_view(rep_wm, dry, current), description=SCENARIOS["well_managed"]) if rep_wm else None),
         current_rotation=current,
         current_rotation_note=None if current else f"'{field.get('current_rotation')}' is not one of the fixed rotations the engine replays",
         soil=dict(awc_mm=field["awc_mm"], source="SSURGO, 0-150 cm (fields.geojson)"),
@@ -91,11 +120,13 @@ def build_result(field: dict, wx, crops, rotations, params, eco) -> dict:
         default_ranking=rank(scores, DEFAULT_WEIGHTS),
         ranking_sensitivity=weight_sensitivity(scores),
         scoring_scales={c: dict(zero_at=SCALES[c][0], one_at=SCALES[c][1]) for c in CRITERIA},
+        scoring_note="income and dry_year_safety: net return minus that of wheat-fallow (WF) on this field and scenario, USD/acre/yr",
         farm_factor=params["farm_factor"],
         assumptions=[
             "Every phase of a rotation is present every year (land split evenly between phases)",
             "Costs before 2016 equal the mean real 2016-2026 K-State budget cost (crops-economics/HANDOVER.md, A2)",
-            "Average yield level of each crop = mean USDA NASS dryland yield of the county (1996 onward); the model supplies the year-to-year variation",
+            "Average yield level of each crop = mean USDA NASS dryland yield of the county (1996 onward); the model supplies the year-to-year variation. "
+            "Costs come from K-State budgets for a well-managed field, so this main scenario favours fallow; see yield_scenarios.well_managed",
             "Corn and sunflower have no trial calibration; their level comes only from county yields. Corn at Hays is the least certain number",
             "Sorghum at the 1996-2020 average yield level; measured trial yields rose by about 2 bu/acre per year, so today's sorghum is probably understated",
             "The model stores less water in a 14-month fallow than measured at Tribune, so wheat-fallow is probably somewhat better than shown",

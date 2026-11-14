@@ -32,6 +32,10 @@
     "model_mean_same_years_kg_ha": 4017,
     "factor": 0.592,
     "r2_year_to_year": 0.17,
+    "planning_yield_kg_ha": 3416,
+    "planning_budget": "SC wheat|W-F: 51 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 4359,
+    "factor_well_managed": 0.784,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 9
@@ -48,6 +52,10 @@
     "model_mean_same_years_kg_ha": 7658,
     "factor": 0.374,
     "r2_year_to_year": 0.48,
+    "planning_yield_kg_ha": 6729,
+    "planning_budget": "SC sorghum|W-S-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 8090,
+    "factor_well_managed": 0.832,
     "extended_with_all_practices": {
      "ratio": 0.959,
      "years_added": 14
@@ -63,11 +71,19 @@
     "nass_mean_kg_ha": 3013,
     "model_mean_same_years_kg_ha": 10232,
     "factor": 0.294,
-    "r2_year_to_year": 0.22
+    "r2_year_to_year": 0.22,
+    "planning_yield_kg_ha": 6704,
+    "planning_budget": "SC corn|W-C-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 11345,
+    "factor_well_managed": 0.591
    },
    "sunflower": {
     "n_years": 1,
     "model_trial_mean_kg_ha": 2967,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SC sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 3188,
+    "factor_well_managed": 0.562,
     "factor": 0.712,
     "borrowed": "median of region SC (22 counties)"
    }
@@ -84,6 +100,10 @@
     "model_mean_same_years_kg_ha": 4122,
     "factor": 0.656,
     "r2_year_to_year": 0.07,
+    "planning_yield_kg_ha": 3416,
+    "planning_budget": "SC wheat|W-F: 51 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 4292,
+    "factor_well_managed": 0.796,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 16
@@ -100,6 +120,10 @@
     "model_mean_same_years_kg_ha": 7830,
     "factor": 0.579,
     "r2_year_to_year": 0.38,
+    "planning_yield_kg_ha": 6729,
+    "planning_budget": "SC sorghum|W-S-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 8071,
+    "factor_well_managed": 0.834,
     "extended_with_all_practices": {
      "ratio": 0.943,
      "years_added": 22
@@ -115,11 +139,19 @@
     "nass_mean_kg_ha": 4106,
     "model_mean_same_years_kg_ha": 10128,
     "factor": 0.405,
-    "r2_year_to_year": 0.69
+    "r2_year_to_year": 0.69,
+    "planning_yield_kg_ha": 6704,
+    "planning_budget": "SC corn|W-C-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 11137,
+    "factor_well_managed": 0.602
    },
    "sunflower": {
     "n_years": 3,
     "model_trial_mean_kg_ha": 3022,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SC sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 3164,
+    "factor_well_managed": 0.567,
     "factor": 0.712,
     "borrowed": "median of region SC (22 counties)"
    }
@@ -136,6 +168,10 @@
     "model_mean_same_years_kg_ha": 2883,
     "factor": 0.918,
     "r2_year_to_year": 0.49,
+    "planning_yield_kg_ha": 3443,
+    "planning_budget": "NW wheat|W-F: 51 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3283,
+    "factor_well_managed": 1.049,
     "extended_with_all_practices": {
      "ratio": 0.978,
      "years_added": 12
@@ -152,6 +188,10 @@
     "model_mean_same_years_kg_ha": 5126,
     "factor": 0.605,
     "r2_year_to_year": 0.73,
+    "planning_yield_kg_ha": 5248,
+    "planning_budget": "NW sorghum|W-S-F: 84 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 5984,
+    "factor_well_managed": 0.877,
     "extended_with_all_practices": {
      "ratio": 0.825,
      "years_added": 15
@@ -167,7 +207,11 @@
     "nass_mean_kg_ha": 3772,
     "model_mean_same_years_kg_ha": 3429,
     "factor": 1.1,
-    "r2_year_to_year": 0.66
+    "r2_year_to_year": 0.66,
+    "planning_yield_kg_ha": 5524,
+    "planning_budget": "NW corn|W-C-F: 88 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 5322,
+    "factor_well_managed": 1.038
    },
    "sunflower": {
     "n_years": 11,
@@ -179,7 +223,11 @@
     "nass_mean_kg_ha": 1604,
     "model_mean_same_years_kg_ha": 1473,
     "factor": 1.089,
-    "r2_year_to_year": 0.36
+    "r2_year_to_year": 0.36,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2070,
+    "factor_well_managed": 0.866
    }
   },
   "ks025": {
@@ -194,6 +242,10 @@
     "model_mean_same_years_kg_ha": 3543,
     "factor": 0.675,
     "r2_year_to_year": 0.51,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3832,
+    "factor_well_managed": 0.79,
     "extended_with_all_practices": {
      "ratio": 0.984,
      "years_added": 14
@@ -210,6 +262,10 @@
     "model_mean_same_years_kg_ha": 7002,
     "factor": 0.505,
     "r2_year_to_year": 0.63,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7611,
+    "factor_well_managed": 0.666,
     "extended_with_all_practices": {
      "ratio": 0.914,
      "years_added": 16
@@ -218,12 +274,20 @@
    "corn": {
     "n_years": 4,
     "model_trial_mean_kg_ha": 8317,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 10301,
+    "factor_well_managed": 0.48,
     "factor": 0.559,
     "borrowed": "median of region SW (18 counties)"
    },
    "sunflower": {
     "n_years": 0,
     "model_trial_mean_kg_ha": 2512,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2913,
+    "factor_well_managed": 0.616,
     "factor": 0.746,
     "borrowed": "median of region SW (10 counties)"
    }
@@ -240,6 +304,10 @@
     "model_mean_same_years_kg_ha": 3981,
     "factor": 0.518,
     "r2_year_to_year": 0.43,
+    "planning_yield_kg_ha": 3416,
+    "planning_budget": "SC wheat|W-F: 51 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 4185,
+    "factor_well_managed": 0.816,
     "extended_with_all_practices": {
      "ratio": 0.997,
      "years_added": 11
@@ -256,6 +324,10 @@
     "model_mean_same_years_kg_ha": 7339,
     "factor": 0.396,
     "r2_year_to_year": 0.29,
+    "planning_yield_kg_ha": 6729,
+    "planning_budget": "SC sorghum|W-S-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 8025,
+    "factor_well_managed": 0.839,
     "extended_with_all_practices": {
      "ratio": 0.929,
      "years_added": 17
@@ -271,11 +343,19 @@
     "nass_mean_kg_ha": 3854,
     "model_mean_same_years_kg_ha": 11289,
     "factor": 0.341,
-    "r2_year_to_year": 0.27
+    "r2_year_to_year": 0.27,
+    "planning_yield_kg_ha": 6704,
+    "planning_budget": "SC corn|W-C-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 11134,
+    "factor_well_managed": 0.602
    },
    "sunflower": {
     "n_years": 0,
     "model_trial_mean_kg_ha": 2843,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SC sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 3164,
+    "factor_well_managed": 0.567,
     "factor": 0.712,
     "borrowed": "median of region SC (22 counties)"
    }
@@ -292,6 +372,10 @@
     "model_mean_same_years_kg_ha": 3833,
     "factor": 0.73,
     "r2_year_to_year": 0.47,
+    "planning_yield_kg_ha": 3443,
+    "planning_budget": "NW wheat|W-F: 51 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 4116,
+    "factor_well_managed": 0.837,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 15
@@ -308,6 +392,10 @@
     "model_mean_same_years_kg_ha": 7132,
     "factor": 0.564,
     "r2_year_to_year": 0.69,
+    "planning_yield_kg_ha": 5248,
+    "planning_budget": "NW sorghum|W-S-F: 84 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7288,
+    "factor_well_managed": 0.72,
     "extended_with_all_practices": {
      "ratio": 0.987,
      "years_added": 15
@@ -323,7 +411,11 @@
     "nass_mean_kg_ha": 3928,
     "model_mean_same_years_kg_ha": 7223,
     "factor": 0.544,
-    "r2_year_to_year": 0.79
+    "r2_year_to_year": 0.79,
+    "planning_yield_kg_ha": 5524,
+    "planning_budget": "NW corn|W-C-F: 88 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 8736,
+    "factor_well_managed": 0.632
    },
    "sunflower": {
     "n_years": 11,
@@ -335,7 +427,11 @@
     "nass_mean_kg_ha": 1454,
     "model_mean_same_years_kg_ha": 2461,
     "factor": 0.591,
-    "r2_year_to_year": 0.49
+    "r2_year_to_year": 0.49,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2718,
+    "factor_well_managed": 0.66
    }
   },
   "ks047": {
@@ -350,6 +446,10 @@
     "model_mean_same_years_kg_ha": 3720,
     "factor": 0.678,
     "r2_year_to_year": 0.24,
+    "planning_yield_kg_ha": 3416,
+    "planning_budget": "SC wheat|W-F: 51 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 4078,
+    "factor_well_managed": 0.838,
     "extended_with_all_practices": {
      "ratio": 0.941,
      "years_added": 11
@@ -366,6 +466,10 @@
     "model_mean_same_years_kg_ha": 6703,
     "factor": 0.573,
     "r2_year_to_year": 0.31,
+    "planning_yield_kg_ha": 6729,
+    "planning_budget": "SC sorghum|W-S-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 7059,
+    "factor_well_managed": 0.953,
     "extended_with_all_practices": {
      "ratio": 0.9,
      "years_added": 18
@@ -381,11 +485,19 @@
     "nass_mean_kg_ha": 3820,
     "model_mean_same_years_kg_ha": 8276,
     "factor": 0.462,
-    "r2_year_to_year": 0.43
+    "r2_year_to_year": 0.43,
+    "planning_yield_kg_ha": 6704,
+    "planning_budget": "SC corn|W-C-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 8764,
+    "factor_well_managed": 0.765
    },
    "sunflower": {
     "n_years": 2,
     "model_trial_mean_kg_ha": 2497,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SC sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2653,
+    "factor_well_managed": 0.676,
     "factor": 0.712,
     "borrowed": "median of region SC (22 counties)"
    }
@@ -402,6 +514,10 @@
     "model_mean_same_years_kg_ha": 3797,
     "factor": 0.661,
     "r2_year_to_year": 0.25,
+    "planning_yield_kg_ha": 3672,
+    "planning_budget": "NC wheat|W-F: 55 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 4194,
+    "factor_well_managed": 0.876,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 15
@@ -418,6 +534,10 @@
     "model_mean_same_years_kg_ha": 7369,
     "factor": 0.552,
     "r2_year_to_year": 0.48,
+    "planning_yield_kg_ha": 7193,
+    "planning_budget": "NC sorghum|W-S-F: 115 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 7822,
+    "factor_well_managed": 0.92,
     "extended_with_all_practices": {
      "ratio": 0.972,
      "years_added": 15
@@ -433,7 +553,11 @@
     "nass_mean_kg_ha": 4526,
     "model_mean_same_years_kg_ha": 10272,
     "factor": 0.441,
-    "r2_year_to_year": 0.15
+    "r2_year_to_year": 0.15,
+    "planning_yield_kg_ha": 7369,
+    "planning_budget": "NC corn|W-C-F: 117 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 10596,
+    "factor_well_managed": 0.695
    },
    "sunflower": {
     "n_years": 12,
@@ -445,7 +569,11 @@
     "nass_mean_kg_ha": 1374,
     "model_mean_same_years_kg_ha": 2713,
     "factor": 0.506,
-    "r2_year_to_year": 0.33
+    "r2_year_to_year": 0.33,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NC sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 3008,
+    "factor_well_managed": 0.596
    }
   },
   "ks055": {
@@ -460,6 +588,10 @@
     "model_mean_same_years_kg_ha": 3007,
     "factor": 0.792,
     "r2_year_to_year": 0.59,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3384,
+    "factor_well_managed": 0.894,
     "extended_with_all_practices": {
      "ratio": 0.884,
      "years_added": 7
@@ -476,6 +608,10 @@
     "model_mean_same_years_kg_ha": 5984,
     "factor": 0.64,
     "r2_year_to_year": 0.71,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6419,
+    "factor_well_managed": 0.79,
     "extended_with_all_practices": {
      "ratio": 0.878,
      "years_added": 8
@@ -491,7 +627,11 @@
     "nass_mean_kg_ha": 3715,
     "model_mean_same_years_kg_ha": 7227,
     "factor": 0.514,
-    "r2_year_to_year": 0.57
+    "r2_year_to_year": 0.57,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7044,
+    "factor_well_managed": 0.702
    },
    "sunflower": {
     "n_years": 13,
@@ -503,7 +643,11 @@
     "nass_mean_kg_ha": 1521,
     "model_mean_same_years_kg_ha": 1895,
     "factor": 0.802,
-    "r2_year_to_year": 0.37
+    "r2_year_to_year": 0.37,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2268,
+    "factor_well_managed": 0.791
    }
   },
   "ks057": {
@@ -518,6 +662,10 @@
     "model_mean_same_years_kg_ha": 3713,
     "factor": 0.696,
     "r2_year_to_year": 0.23,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 4035,
+    "factor_well_managed": 0.75,
     "extended_with_all_practices": {
      "ratio": 0.972,
      "years_added": 6
@@ -534,6 +682,10 @@
     "model_mean_same_years_kg_ha": 6851,
     "factor": 0.588,
     "r2_year_to_year": 0.75,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7401,
+    "factor_well_managed": 0.685,
     "extended_with_all_practices": {
      "ratio": 0.869,
      "years_added": 12
@@ -549,11 +701,19 @@
     "nass_mean_kg_ha": 4386,
     "model_mean_same_years_kg_ha": 8519,
     "factor": 0.515,
-    "r2_year_to_year": 0.8
+    "r2_year_to_year": 0.8,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 9623,
+    "factor_well_managed": 0.514
    },
    "sunflower": {
     "n_years": 2,
     "model_trial_mean_kg_ha": 2502,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2810,
+    "factor_well_managed": 0.638,
     "factor": 0.746,
     "borrowed": "median of region SW (10 counties)"
    }
@@ -570,6 +730,10 @@
     "model_mean_same_years_kg_ha": 3741,
     "factor": 0.72,
     "r2_year_to_year": 0.26,
+    "planning_yield_kg_ha": 3443,
+    "planning_budget": "NW wheat|W-F: 51 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 4049,
+    "factor_well_managed": 0.85,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 14
@@ -586,6 +750,10 @@
     "model_mean_same_years_kg_ha": 6790,
     "factor": 0.596,
     "r2_year_to_year": 0.71,
+    "planning_yield_kg_ha": 5248,
+    "planning_budget": "NW sorghum|W-S-F: 84 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7822,
+    "factor_well_managed": 0.671,
     "extended_with_all_practices": {
      "ratio": 0.973,
      "years_added": 15
@@ -601,11 +769,19 @@
     "nass_mean_kg_ha": 4443,
     "model_mean_same_years_kg_ha": 7758,
     "factor": 0.573,
-    "r2_year_to_year": 0.76
+    "r2_year_to_year": 0.76,
+    "planning_yield_kg_ha": 5524,
+    "planning_budget": "NW corn|W-C-F: 88 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 10660,
+    "factor_well_managed": 0.518
    },
    "sunflower": {
     "n_years": 2,
     "model_trial_mean_kg_ha": 2555,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2992,
+    "factor_well_managed": 0.599,
     "factor": 0.794,
     "borrowed": "median of region NW (7 counties)"
    }
@@ -622,6 +798,10 @@
     "model_mean_same_years_kg_ha": 3404,
     "factor": 0.736,
     "r2_year_to_year": 0.12,
+    "planning_yield_kg_ha": 3443,
+    "planning_budget": "NW wheat|W-F: 51 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3655,
+    "factor_well_managed": 0.942,
     "extended_with_all_practices": {
      "ratio": 0.997,
      "years_added": 5
@@ -638,6 +818,10 @@
     "model_mean_same_years_kg_ha": 6169,
     "factor": 0.656,
     "r2_year_to_year": 0.47,
+    "planning_yield_kg_ha": 5248,
+    "planning_budget": "NW sorghum|W-S-F: 84 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6667,
+    "factor_well_managed": 0.787,
     "extended_with_all_practices": {
      "ratio": 0.981,
      "years_added": 11
@@ -653,11 +837,19 @@
     "nass_mean_kg_ha": 3793,
     "model_mean_same_years_kg_ha": 6248,
     "factor": 0.607,
-    "r2_year_to_year": 0.45
+    "r2_year_to_year": 0.45,
+    "planning_yield_kg_ha": 5524,
+    "planning_budget": "NW corn|W-C-F: 88 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7361,
+    "factor_well_managed": 0.75
    },
    "sunflower": {
     "n_years": 1,
     "model_trial_mean_kg_ha": 2292,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2455,
+    "factor_well_managed": 0.731,
     "factor": 0.794,
     "borrowed": "median of region NW (7 counties)"
    }
@@ -674,6 +866,10 @@
     "model_mean_same_years_kg_ha": 2437,
     "factor": 0.816,
     "r2_year_to_year": 0.42,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 2611,
+    "factor_well_managed": 1.159,
     "extended_with_all_practices": {
      "ratio": 0.785,
      "years_added": 9
@@ -690,6 +886,10 @@
     "model_mean_same_years_kg_ha": 5177,
     "factor": 0.531,
     "r2_year_to_year": 0.44,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 5939,
+    "factor_well_managed": 0.854,
     "extended_with_all_practices": {
      "ratio": 0.719,
      "years_added": 11
@@ -705,7 +905,11 @@
     "nass_mean_kg_ha": 3207,
     "model_mean_same_years_kg_ha": 4306,
     "factor": 0.745,
-    "r2_year_to_year": 0.75
+    "r2_year_to_year": 0.75,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 5814,
+    "factor_well_managed": 0.851
    },
    "sunflower": {
     "n_years": 10,
@@ -717,7 +921,11 @@
     "nass_mean_kg_ha": 1831,
     "model_mean_same_years_kg_ha": 1784,
     "factor": 1.026,
-    "r2_year_to_year": 0.05
+    "r2_year_to_year": 0.05,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2020,
+    "factor_well_managed": 0.888
    }
   },
   "ks069": {
@@ -732,6 +940,10 @@
     "model_mean_same_years_kg_ha": 3544,
     "factor": 0.743,
     "r2_year_to_year": 0.51,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3798,
+    "factor_well_managed": 0.797,
     "extended_with_all_practices": {
      "ratio": 0.881,
      "years_added": 7
@@ -748,6 +960,10 @@
     "model_mean_same_years_kg_ha": 6544,
     "factor": 0.608,
     "r2_year_to_year": 0.76,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7255,
+    "factor_well_managed": 0.699,
     "extended_with_all_practices": {
      "ratio": 0.835,
      "years_added": 16
@@ -763,11 +979,19 @@
     "nass_mean_kg_ha": 3834,
     "model_mean_same_years_kg_ha": 8451,
     "factor": 0.454,
-    "r2_year_to_year": 0.84
+    "r2_year_to_year": 0.84,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 9254,
+    "factor_well_managed": 0.534
    },
    "sunflower": {
     "n_years": 3,
     "model_trial_mean_kg_ha": 2372,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2727,
+    "factor_well_managed": 0.658,
     "factor": 0.746,
     "borrowed": "median of region SW (10 counties)"
    }
@@ -784,6 +1008,10 @@
     "model_mean_same_years_kg_ha": 3079,
     "factor": 0.74,
     "r2_year_to_year": 0.46,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3518,
+    "factor_well_managed": 0.86,
     "extended_with_all_practices": {
      "ratio": 0.971,
      "years_added": 13
@@ -800,6 +1028,10 @@
     "model_mean_same_years_kg_ha": 5726,
     "factor": 0.608,
     "r2_year_to_year": 0.76,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6329,
+    "factor_well_managed": 0.801,
     "extended_with_all_practices": {
      "ratio": 0.931,
      "years_added": 18
@@ -815,7 +1047,11 @@
     "nass_mean_kg_ha": 3821,
     "model_mean_same_years_kg_ha": 5191,
     "factor": 0.736,
-    "r2_year_to_year": 0.42
+    "r2_year_to_year": 0.42,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6003,
+    "factor_well_managed": 0.824
    },
    "sunflower": {
     "n_years": 5,
@@ -827,7 +1063,11 @@
     "nass_mean_kg_ha": 1652,
     "model_mean_same_years_kg_ha": 2329,
     "factor": 0.709,
-    "r2_year_to_year": 0.14
+    "r2_year_to_year": 0.14,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2207,
+    "factor_well_managed": 0.813
    }
   },
   "ks075": {
@@ -842,6 +1082,10 @@
     "model_mean_same_years_kg_ha": 2439,
     "factor": 0.862,
     "r2_year_to_year": 0.55,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 2872,
+    "factor_well_managed": 1.054,
     "extended_with_all_practices": {
      "ratio": 0.973,
      "years_added": 15
@@ -858,6 +1102,10 @@
     "model_mean_same_years_kg_ha": 5154,
     "factor": 0.573,
     "r2_year_to_year": 0.69,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6034,
+    "factor_well_managed": 0.84,
     "extended_with_all_practices": {
      "ratio": 0.911,
      "years_added": 11
@@ -873,11 +1121,19 @@
     "nass_mean_kg_ha": 3187,
     "model_mean_same_years_kg_ha": 3874,
     "factor": 0.823,
-    "r2_year_to_year": 0.56
+    "r2_year_to_year": 0.56,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 5475,
+    "factor_well_managed": 0.903
    },
    "sunflower": {
     "n_years": 1,
     "model_trial_mean_kg_ha": 1692,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2071,
+    "factor_well_managed": 0.866,
     "factor": 0.746,
     "borrowed": "median of region SW (10 counties)"
    }
@@ -894,6 +1150,10 @@
     "model_mean_same_years_kg_ha": 2964,
     "factor": 0.748,
     "r2_year_to_year": 0.69,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3680,
+    "factor_well_managed": 0.822,
     "extended_with_all_practices": {
      "ratio": 0.815,
      "years_added": 6
@@ -910,6 +1170,10 @@
     "model_mean_same_years_kg_ha": 6015,
     "factor": 0.576,
     "r2_year_to_year": 0.49,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7480,
+    "factor_well_managed": 0.678,
     "extended_with_all_practices": {
      "ratio": 0.775,
      "years_added": 14
@@ -925,7 +1189,11 @@
     "nass_mean_kg_ha": 3515,
     "model_mean_same_years_kg_ha": 6080,
     "factor": 0.578,
-    "r2_year_to_year": 0.73
+    "r2_year_to_year": 0.73,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 9686,
+    "factor_well_managed": 0.511
    },
    "sunflower": {
     "n_years": 10,
@@ -937,7 +1205,11 @@
     "nass_mean_kg_ha": 1534,
     "model_mean_same_years_kg_ha": 2125,
     "factor": 0.722,
-    "r2_year_to_year": 0.01
+    "r2_year_to_year": 0.01,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2830,
+    "factor_well_managed": 0.634
    }
   },
   "ks083": {
@@ -952,6 +1224,10 @@
     "model_mean_same_years_kg_ha": 3412,
     "factor": 0.697,
     "r2_year_to_year": 0.33,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 4027,
+    "factor_well_managed": 0.751,
     "extended_with_all_practices": {
      "ratio": 0.969,
      "years_added": 8
@@ -968,6 +1244,10 @@
     "model_mean_same_years_kg_ha": 6724,
     "factor": 0.514,
     "r2_year_to_year": 0.67,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6970,
+    "factor_well_managed": 0.728,
     "extended_with_all_practices": {
      "ratio": 0.897,
      "years_added": 10
@@ -983,11 +1263,19 @@
     "nass_mean_kg_ha": 4111,
     "model_mean_same_years_kg_ha": 9792,
     "factor": 0.42,
-    "r2_year_to_year": 0.69
+    "r2_year_to_year": 0.69,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 8204,
+    "factor_well_managed": 0.603
    },
    "sunflower": {
     "n_years": 1,
     "model_trial_mean_kg_ha": 2503,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2578,
+    "factor_well_managed": 0.696,
     "factor": 0.746,
     "borrowed": "median of region SW (10 counties)"
    }
@@ -1004,6 +1292,10 @@
     "model_mean_same_years_kg_ha": 2837,
     "factor": 0.843,
     "r2_year_to_year": 0.52,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3364,
+    "factor_well_managed": 0.9,
     "extended_with_all_practices": {
      "ratio": 0.955,
      "years_added": 12
@@ -1020,6 +1312,10 @@
     "model_mean_same_years_kg_ha": 5849,
     "factor": 0.596,
     "r2_year_to_year": 0.6,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6542,
+    "factor_well_managed": 0.775,
     "extended_with_all_practices": {
      "ratio": 0.903,
      "years_added": 16
@@ -1035,11 +1331,19 @@
     "nass_mean_kg_ha": 3835,
     "model_mean_same_years_kg_ha": 5828,
     "factor": 0.658,
-    "r2_year_to_year": 0.8
+    "r2_year_to_year": 0.8,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7028,
+    "factor_well_managed": 0.704
    },
    "sunflower": {
     "n_years": 4,
     "model_trial_mean_kg_ha": 1991,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2332,
+    "factor_well_managed": 0.769,
     "factor": 0.746,
     "borrowed": "median of region SW (10 counties)"
    }
@@ -1056,6 +1360,10 @@
     "model_mean_same_years_kg_ha": 4299,
     "factor": 0.581,
     "r2_year_to_year": 0.26,
+    "planning_yield_kg_ha": 3416,
+    "planning_budget": "SC wheat|W-F: 51 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 4679,
+    "factor_well_managed": 0.73,
     "extended_with_all_practices": {
      "ratio": 0.958,
      "years_added": 8
@@ -1072,6 +1380,10 @@
     "model_mean_same_years_kg_ha": 7635,
     "factor": 0.489,
     "r2_year_to_year": 0.59,
+    "planning_yield_kg_ha": 6729,
+    "planning_budget": "SC sorghum|W-S-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 8195,
+    "factor_well_managed": 0.821,
     "extended_with_all_practices": {
      "ratio": 0.845,
      "years_added": 11
@@ -1087,11 +1399,19 @@
     "nass_mean_kg_ha": 3460,
     "model_mean_same_years_kg_ha": 10335,
     "factor": 0.335,
-    "r2_year_to_year": 0.6
+    "r2_year_to_year": 0.6,
+    "planning_yield_kg_ha": 6704,
+    "planning_budget": "SC corn|W-C-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 11658,
+    "factor_well_managed": 0.575
    },
    "sunflower": {
     "n_years": 1,
     "model_trial_mean_kg_ha": 2939,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SC sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 3227,
+    "factor_well_managed": 0.556,
     "factor": 0.712,
     "borrowed": "median of region SC (22 counties)"
    }
@@ -1108,6 +1428,10 @@
     "model_mean_same_years_kg_ha": 3441,
     "factor": 0.75,
     "r2_year_to_year": 0.45,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3718,
+    "factor_well_managed": 0.814,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 11
@@ -1124,6 +1448,10 @@
     "model_mean_same_years_kg_ha": 6288,
     "factor": 0.548,
     "r2_year_to_year": 0.81,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6866,
+    "factor_well_managed": 0.739,
     "extended_with_all_practices": {
      "ratio": 0.936,
      "years_added": 15
@@ -1139,11 +1467,19 @@
     "nass_mean_kg_ha": 4179,
     "model_mean_same_years_kg_ha": 8531,
     "factor": 0.49,
-    "r2_year_to_year": 0.53
+    "r2_year_to_year": 0.53,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7960,
+    "factor_well_managed": 0.621
    },
    "sunflower": {
     "n_years": 4,
     "model_trial_mean_kg_ha": 2292,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2508,
+    "factor_well_managed": 0.715,
     "factor": 0.746,
     "borrowed": "median of region SW (10 counties)"
    }
@@ -1160,6 +1496,10 @@
     "model_mean_same_years_kg_ha": 3083,
     "factor": 0.804,
     "r2_year_to_year": 0.41,
+    "planning_yield_kg_ha": 3443,
+    "planning_budget": "NW wheat|W-F: 51 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3588,
+    "factor_well_managed": 0.96,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 10
@@ -1176,6 +1516,10 @@
     "model_mean_same_years_kg_ha": 5805,
     "factor": 0.658,
     "r2_year_to_year": 0.74,
+    "planning_yield_kg_ha": 5248,
+    "planning_budget": "NW sorghum|W-S-F: 84 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6684,
+    "factor_well_managed": 0.785,
     "extended_with_all_practices": {
      "ratio": 0.966,
      "years_added": 10
@@ -1191,7 +1535,11 @@
     "nass_mean_kg_ha": 4175,
     "model_mean_same_years_kg_ha": 4694,
     "factor": 0.89,
-    "r2_year_to_year": 0.55
+    "r2_year_to_year": 0.55,
+    "planning_yield_kg_ha": 5524,
+    "planning_budget": "NW corn|W-C-F: 88 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7190,
+    "factor_well_managed": 0.768
    },
    "sunflower": {
     "n_years": 10,
@@ -1203,7 +1551,11 @@
     "nass_mean_kg_ha": 1285,
     "model_mean_same_years_kg_ha": 1619,
     "factor": 0.794,
-    "r2_year_to_year": 0.6
+    "r2_year_to_year": 0.6,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2398,
+    "factor_well_managed": 0.748
    }
   },
   "ks119": {
@@ -1218,6 +1570,10 @@
     "model_mean_same_years_kg_ha": 3194,
     "factor": 0.702,
     "r2_year_to_year": 0.59,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3886,
+    "factor_well_managed": 0.779,
     "extended_with_all_practices": {
      "ratio": 0.891,
      "years_added": 6
@@ -1234,6 +1590,10 @@
     "model_mean_same_years_kg_ha": 6159,
     "factor": 0.538,
     "r2_year_to_year": 0.37,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7263,
+    "factor_well_managed": 0.698,
     "extended_with_all_practices": {
      "ratio": 0.715,
      "years_added": 13
@@ -1249,11 +1609,19 @@
     "nass_mean_kg_ha": 3599,
     "model_mean_same_years_kg_ha": 6648,
     "factor": 0.541,
-    "r2_year_to_year": 0.81
+    "r2_year_to_year": 0.81,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 9546,
+    "factor_well_managed": 0.518
    },
    "sunflower": {
     "n_years": 2,
     "model_trial_mean_kg_ha": 2233,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2730,
+    "factor_well_managed": 0.657,
     "factor": 0.746,
     "borrowed": "median of region SW (10 counties)"
    }
@@ -1270,6 +1638,10 @@
     "model_mean_same_years_kg_ha": 2540,
     "factor": 0.737,
     "r2_year_to_year": 0.6,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 2995,
+    "factor_well_managed": 1.01,
     "extended_with_all_practices": {
      "ratio": 0.869,
      "years_added": 2
@@ -1286,6 +1658,10 @@
     "model_mean_same_years_kg_ha": 5489,
     "factor": 0.448,
     "r2_year_to_year": 0.55,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6609,
+    "factor_well_managed": 0.767,
     "extended_with_all_practices": {
      "ratio": 0.849,
      "years_added": 9
@@ -1301,7 +1677,11 @@
     "nass_mean_kg_ha": 2612,
     "model_mean_same_years_kg_ha": 4908,
     "factor": 0.532,
-    "r2_year_to_year": 0.39
+    "r2_year_to_year": 0.39,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7378,
+    "factor_well_managed": 0.67
    },
    "sunflower": {
     "n_years": 5,
@@ -1313,7 +1693,11 @@
     "nass_mean_kg_ha": 1480,
     "model_mean_same_years_kg_ha": 2102,
     "factor": 0.704,
-    "r2_year_to_year": 0.17
+    "r2_year_to_year": 0.17,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2368,
+    "factor_well_managed": 0.757
    }
   },
   "ks135": {
@@ -1328,6 +1712,10 @@
     "model_mean_same_years_kg_ha": 3553,
     "factor": 0.694,
     "r2_year_to_year": 0.41,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3989,
+    "factor_well_managed": 0.759,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 14
@@ -1344,6 +1732,10 @@
     "model_mean_same_years_kg_ha": 6838,
     "factor": 0.561,
     "r2_year_to_year": 0.59,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6989,
+    "factor_well_managed": 0.726,
     "extended_with_all_practices": {
      "ratio": 0.976,
      "years_added": 18
@@ -1359,7 +1751,11 @@
     "nass_mean_kg_ha": 4203,
     "model_mean_same_years_kg_ha": 10355,
     "factor": 0.406,
-    "r2_year_to_year": 0.53
+    "r2_year_to_year": 0.53,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 8242,
+    "factor_well_managed": 0.6
    },
    "sunflower": {
     "n_years": 7,
@@ -1371,7 +1767,11 @@
     "nass_mean_kg_ha": 1385,
     "model_mean_same_years_kg_ha": 2640,
     "factor": 0.524,
-    "r2_year_to_year": 0.33
+    "r2_year_to_year": 0.33,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2602,
+    "factor_well_managed": 0.689
    }
   },
   "ks137": {
@@ -1386,6 +1786,10 @@
     "model_mean_same_years_kg_ha": 4112,
     "factor": 0.589,
     "r2_year_to_year": 0.18,
+    "planning_yield_kg_ha": 3443,
+    "planning_budget": "NW wheat|W-F: 51 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 4276,
+    "factor_well_managed": 0.805,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 11
@@ -1402,6 +1806,10 @@
     "model_mean_same_years_kg_ha": 7262,
     "factor": 0.572,
     "r2_year_to_year": 0.74,
+    "planning_yield_kg_ha": 5248,
+    "planning_budget": "NW sorghum|W-S-F: 84 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7477,
+    "factor_well_managed": 0.702,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 7
@@ -1417,11 +1825,19 @@
     "nass_mean_kg_ha": 4437,
     "model_mean_same_years_kg_ha": 9549,
     "factor": 0.465,
-    "r2_year_to_year": 0.68
+    "r2_year_to_year": 0.68,
+    "planning_yield_kg_ha": 5524,
+    "planning_budget": "NW corn|W-C-F: 88 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 9484,
+    "factor_well_managed": 0.582
    },
    "sunflower": {
     "n_years": 4,
     "model_trial_mean_kg_ha": 2753,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2824,
+    "factor_well_managed": 0.635,
     "factor": 0.794,
     "borrowed": "median of region NW (7 counties)"
    }
@@ -1438,6 +1854,10 @@
     "model_mean_same_years_kg_ha": 4260,
     "factor": 0.644,
     "r2_year_to_year": 0.09,
+    "planning_yield_kg_ha": 3672,
+    "planning_budget": "NC wheat|W-F: 55 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 4282,
+    "factor_well_managed": 0.858,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 13
@@ -1454,6 +1874,10 @@
     "model_mean_same_years_kg_ha": 7901,
     "factor": 0.596,
     "r2_year_to_year": 0.67,
+    "planning_yield_kg_ha": 7193,
+    "planning_budget": "NC sorghum|W-S-F: 115 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 7937,
+    "factor_well_managed": 0.906,
     "extended_with_all_practices": {
      "ratio": 0.966,
      "years_added": 16
@@ -1469,7 +1893,11 @@
     "nass_mean_kg_ha": 5044,
     "model_mean_same_years_kg_ha": 10631,
     "factor": 0.474,
-    "r2_year_to_year": 0.43
+    "r2_year_to_year": 0.43,
+    "planning_yield_kg_ha": 7369,
+    "planning_budget": "NC corn|W-C-F: 117 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 10843,
+    "factor_well_managed": 0.68
    },
    "sunflower": {
     "n_years": 11,
@@ -1481,7 +1909,11 @@
     "nass_mean_kg_ha": 1433,
     "model_mean_same_years_kg_ha": 3033,
     "factor": 0.473,
-    "r2_year_to_year": 0.08
+    "r2_year_to_year": 0.08,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NC sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 3090,
+    "factor_well_managed": 0.58
    }
   },
   "ks145": {
@@ -1496,6 +1928,10 @@
     "model_mean_same_years_kg_ha": 4066,
     "factor": 0.665,
     "r2_year_to_year": 0.16,
+    "planning_yield_kg_ha": 3416,
+    "planning_budget": "SC wheat|W-F: 51 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 4395,
+    "factor_well_managed": 0.777,
     "extended_with_all_practices": {
      "ratio": 0.961,
      "years_added": 12
@@ -1512,6 +1948,10 @@
     "model_mean_same_years_kg_ha": 7476,
     "factor": 0.526,
     "r2_year_to_year": 0.58,
+    "planning_yield_kg_ha": 6729,
+    "planning_budget": "SC sorghum|W-S-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 7833,
+    "factor_well_managed": 0.859,
     "extended_with_all_practices": {
      "ratio": 0.85,
      "years_added": 18
@@ -1527,11 +1967,19 @@
     "nass_mean_kg_ha": 3475,
     "model_mean_same_years_kg_ha": 8758,
     "factor": 0.397,
-    "r2_year_to_year": 0.41
+    "r2_year_to_year": 0.41,
+    "planning_yield_kg_ha": 6704,
+    "planning_budget": "SC corn|W-C-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 10740,
+    "factor_well_managed": 0.624
    },
    "sunflower": {
     "n_years": 1,
     "model_trial_mean_kg_ha": 2839,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SC sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 3044,
+    "factor_well_managed": 0.589,
     "factor": 0.712,
     "borrowed": "median of region SC (22 counties)"
    }
@@ -1548,6 +1996,10 @@
     "model_mean_same_years_kg_ha": 4156,
     "factor": 0.638,
     "r2_year_to_year": 0.21,
+    "planning_yield_kg_ha": 3672,
+    "planning_budget": "NC wheat|W-F: 55 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 4523,
+    "factor_well_managed": 0.812,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 15
@@ -1564,6 +2016,10 @@
     "model_mean_same_years_kg_ha": 7453,
     "factor": 0.614,
     "r2_year_to_year": 0.72,
+    "planning_yield_kg_ha": 7193,
+    "planning_budget": "NC sorghum|W-S-F: 115 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 8065,
+    "factor_well_managed": 0.892,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 15
@@ -1579,7 +2035,11 @@
     "nass_mean_kg_ha": 4403,
     "model_mean_same_years_kg_ha": 9978,
     "factor": 0.441,
-    "r2_year_to_year": 0.65
+    "r2_year_to_year": 0.65,
+    "planning_yield_kg_ha": 7369,
+    "planning_budget": "NC corn|W-C-F: 117 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 11438,
+    "factor_well_managed": 0.644
    },
    "sunflower": {
     "n_years": 5,
@@ -1591,7 +2051,11 @@
     "nass_mean_kg_ha": 1535,
     "model_mean_same_years_kg_ha": 2447,
     "factor": 0.627,
-    "r2_year_to_year": 0.78
+    "r2_year_to_year": 0.78,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NC sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 3128,
+    "factor_well_managed": 0.573
    }
   },
   "ks151": {
@@ -1606,6 +2070,10 @@
     "model_mean_same_years_kg_ha": 3935,
     "factor": 0.69,
     "r2_year_to_year": 0.11,
+    "planning_yield_kg_ha": 3416,
+    "planning_budget": "SC wheat|W-F: 51 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 4264,
+    "factor_well_managed": 0.801,
     "extended_with_all_practices": {
      "ratio": 0.979,
      "years_added": 13
@@ -1622,6 +2090,10 @@
     "model_mean_same_years_kg_ha": 6945,
     "factor": 0.493,
     "r2_year_to_year": 0.61,
+    "planning_yield_kg_ha": 6729,
+    "planning_budget": "SC sorghum|W-S-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 7133,
+    "factor_well_managed": 0.943,
     "extended_with_all_practices": {
      "ratio": 0.946,
      "years_added": 15
@@ -1637,11 +2109,19 @@
     "nass_mean_kg_ha": 3957,
     "model_mean_same_years_kg_ha": 9217,
     "factor": 0.429,
-    "r2_year_to_year": 0.59
+    "r2_year_to_year": 0.59,
+    "planning_yield_kg_ha": 6704,
+    "planning_budget": "SC corn|W-C-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 9600,
+    "factor_well_managed": 0.698
    },
    "sunflower": {
     "n_years": 3,
     "model_trial_mean_kg_ha": 2630,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SC sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2694,
+    "factor_well_managed": 0.666,
     "factor": 0.712,
     "borrowed": "median of region SC (22 counties)"
    }
@@ -1658,6 +2138,10 @@
     "model_mean_same_years_kg_ha": 3741,
     "factor": 0.753,
     "r2_year_to_year": 0.44,
+    "planning_yield_kg_ha": 3443,
+    "planning_budget": "NW wheat|W-F: 51 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3567,
+    "factor_well_managed": 0.965,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 11
@@ -1674,6 +2158,10 @@
     "model_mean_same_years_kg_ha": 6530,
     "factor": 0.55,
     "r2_year_to_year": 0.54,
+    "planning_yield_kg_ha": 5248,
+    "planning_budget": "NW sorghum|W-S-F: 84 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6436,
+    "factor_well_managed": 0.815,
     "extended_with_all_practices": {
      "ratio": 0.954,
      "years_added": 12
@@ -1689,7 +2177,11 @@
     "nass_mean_kg_ha": 4118,
     "model_mean_same_years_kg_ha": 7962,
     "factor": 0.517,
-    "r2_year_to_year": 0.6
+    "r2_year_to_year": 0.6,
+    "planning_yield_kg_ha": 5524,
+    "planning_budget": "NW corn|W-C-F: 88 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7022,
+    "factor_well_managed": 0.787
    },
    "sunflower": {
     "n_years": 13,
@@ -1701,7 +2193,11 @@
     "nass_mean_kg_ha": 1416,
     "model_mean_same_years_kg_ha": 2431,
     "factor": 0.583,
-    "r2_year_to_year": 0.06
+    "r2_year_to_year": 0.06,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2267,
+    "factor_well_managed": 0.791
    }
   },
   "ks163": {
@@ -1716,6 +2212,10 @@
     "model_mean_same_years_kg_ha": 3696,
     "factor": 0.71,
     "r2_year_to_year": 0.28,
+    "planning_yield_kg_ha": 3672,
+    "planning_budget": "NC wheat|W-F: 55 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 3946,
+    "factor_well_managed": 0.931,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 14
@@ -1732,6 +2232,10 @@
     "model_mean_same_years_kg_ha": 6826,
     "factor": 0.657,
     "r2_year_to_year": 0.6,
+    "planning_yield_kg_ha": 7193,
+    "planning_budget": "NC sorghum|W-S-F: 115 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 7100,
+    "factor_well_managed": 1.013,
     "extended_with_all_practices": {
      "ratio": 0.993,
      "years_added": 25
@@ -1747,7 +2251,11 @@
     "nass_mean_kg_ha": 5306,
     "model_mean_same_years_kg_ha": 8259,
     "factor": 0.642,
-    "r2_year_to_year": 0.07
+    "r2_year_to_year": 0.07,
+    "planning_yield_kg_ha": 7369,
+    "planning_budget": "NC corn|W-C-F: 117 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 8532,
+    "factor_well_managed": 0.864
    },
    "sunflower": {
     "n_years": 13,
@@ -1759,7 +2267,11 @@
     "nass_mean_kg_ha": 1392,
     "model_mean_same_years_kg_ha": 2471,
     "factor": 0.563,
-    "r2_year_to_year": 0.24
+    "r2_year_to_year": 0.24,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NC sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2658,
+    "factor_well_managed": 0.675
    }
   },
   "ks165": {
@@ -1774,6 +2286,10 @@
     "model_mean_same_years_kg_ha": 3737,
     "factor": 0.661,
     "r2_year_to_year": 0.25,
+    "planning_yield_kg_ha": 3416,
+    "planning_budget": "SC wheat|W-F: 51 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 3942,
+    "factor_well_managed": 0.867,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 10
@@ -1790,6 +2306,10 @@
     "model_mean_same_years_kg_ha": 7219,
     "factor": 0.558,
     "r2_year_to_year": 0.58,
+    "planning_yield_kg_ha": 6729,
+    "planning_budget": "SC sorghum|W-S-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 6996,
+    "factor_well_managed": 0.962,
     "extended_with_all_practices": {
      "ratio": 0.972,
      "years_added": 9
@@ -1805,11 +2325,19 @@
     "nass_mean_kg_ha": 3843,
     "model_mean_same_years_kg_ha": 9142,
     "factor": 0.42,
-    "r2_year_to_year": 0.64
+    "r2_year_to_year": 0.64,
+    "planning_yield_kg_ha": 6704,
+    "planning_budget": "SC corn|W-C-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 8018,
+    "factor_well_managed": 0.836
    },
    "sunflower": {
     "n_years": 4,
     "model_trial_mean_kg_ha": 2608,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SC sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2594,
+    "factor_well_managed": 0.691,
     "factor": 0.712,
     "borrowed": "median of region SC (22 counties)"
    }
@@ -1826,6 +2354,10 @@
     "model_mean_same_years_kg_ha": 4244,
     "factor": 0.65,
     "r2_year_to_year": 0.18,
+    "planning_yield_kg_ha": 3672,
+    "planning_budget": "NC wheat|W-F: 55 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 4311,
+    "factor_well_managed": 0.852,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 15
@@ -1842,6 +2374,10 @@
     "model_mean_same_years_kg_ha": 7675,
     "factor": 0.58,
     "r2_year_to_year": 0.65,
+    "planning_yield_kg_ha": 7193,
+    "planning_budget": "NC sorghum|W-S-F: 115 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 7785,
+    "factor_well_managed": 0.924,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 23
@@ -1857,11 +2393,19 @@
     "nass_mean_kg_ha": 4071,
     "model_mean_same_years_kg_ha": 11664,
     "factor": 0.349,
-    "r2_year_to_year": 0.19
+    "r2_year_to_year": 0.19,
+    "planning_yield_kg_ha": 7369,
+    "planning_budget": "NC corn|W-C-F: 117 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 10053,
+    "factor_well_managed": 0.733
    },
    "sunflower": {
     "n_years": 0,
     "model_trial_mean_kg_ha": 2961,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NC sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 3022,
+    "factor_well_managed": 0.593,
     "factor": 0.563,
     "borrowed": "median of region NC (5 counties)"
    }
@@ -1878,6 +2422,10 @@
     "model_mean_same_years_kg_ha": 3169,
     "factor": 0.864,
     "r2_year_to_year": 0.57,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3580,
+    "factor_well_managed": 0.845,
     "extended_with_all_practices": {
      "ratio": 0.969,
      "years_added": 8
@@ -1894,6 +2442,10 @@
     "model_mean_same_years_kg_ha": 6349,
     "factor": 0.735,
     "r2_year_to_year": 0.71,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6832,
+    "factor_well_managed": 0.742,
     "extended_with_all_practices": {
      "ratio": 0.97,
      "years_added": 8
@@ -1909,7 +2461,11 @@
     "nass_mean_kg_ha": 4579,
     "model_mean_same_years_kg_ha": 6356,
     "factor": 0.721,
-    "r2_year_to_year": 0.66
+    "r2_year_to_year": 0.66,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7782,
+    "factor_well_managed": 0.636
    },
    "sunflower": {
     "n_years": 10,
@@ -1921,7 +2477,11 @@
     "nass_mean_kg_ha": 1419,
     "model_mean_same_years_kg_ha": 1981,
     "factor": 0.716,
-    "r2_year_to_year": 0.28
+    "r2_year_to_year": 0.28,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2499,
+    "factor_well_managed": 0.718
    }
   },
   "ks175": {
@@ -1936,6 +2496,10 @@
     "model_mean_same_years_kg_ha": 3037,
     "factor": 0.694,
     "r2_year_to_year": 0.65,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3498,
+    "factor_well_managed": 0.865,
     "extended_with_all_practices": {
      "ratio": 0.81,
      "years_added": 9
@@ -1952,6 +2516,10 @@
     "model_mean_same_years_kg_ha": 5986,
     "factor": 0.482,
     "r2_year_to_year": 0.32,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7234,
+    "factor_well_managed": 0.701,
     "extended_with_all_practices": {
      "ratio": 0.731,
      "years_added": 14
@@ -1967,11 +2535,19 @@
     "nass_mean_kg_ha": 2918,
     "model_mean_same_years_kg_ha": 6330,
     "factor": 0.461,
-    "r2_year_to_year": 0.48
+    "r2_year_to_year": 0.48,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 9707,
+    "factor_well_managed": 0.51
    },
    "sunflower": {
     "n_years": 4,
     "model_trial_mean_kg_ha": 2097,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2722,
+    "factor_well_managed": 0.659,
     "factor": 0.746,
     "borrowed": "median of region SW (10 counties)"
    }
@@ -1988,6 +2564,10 @@
     "model_mean_same_years_kg_ha": 3659,
     "factor": 0.747,
     "r2_year_to_year": 0.36,
+    "planning_yield_kg_ha": 3443,
+    "planning_budget": "NW wheat|W-F: 51 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3802,
+    "factor_well_managed": 0.906,
     "extended_with_all_practices": {
      "ratio": 0.98,
      "years_added": 8
@@ -2004,6 +2584,10 @@
     "model_mean_same_years_kg_ha": 6410,
     "factor": 0.661,
     "r2_year_to_year": 0.76,
+    "planning_yield_kg_ha": 5248,
+    "planning_budget": "NW sorghum|W-S-F: 84 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7097,
+    "factor_well_managed": 0.739,
     "extended_with_all_practices": {
      "ratio": 0.947,
      "years_added": 6
@@ -2019,11 +2603,19 @@
     "nass_mean_kg_ha": 4299,
     "model_mean_same_years_kg_ha": 6517,
     "factor": 0.66,
-    "r2_year_to_year": 0.75
+    "r2_year_to_year": 0.75,
+    "planning_yield_kg_ha": 5524,
+    "planning_budget": "NW corn|W-C-F: 88 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 8574,
+    "factor_well_managed": 0.644
    },
    "sunflower": {
     "n_years": 4,
     "model_trial_mean_kg_ha": 2292,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2639,
+    "factor_well_managed": 0.68,
     "factor": 0.794,
     "borrowed": "median of region NW (7 counties)"
    }
@@ -2040,6 +2632,10 @@
     "model_mean_same_years_kg_ha": 3615,
     "factor": 0.703,
     "r2_year_to_year": 0.5,
+    "planning_yield_kg_ha": 3443,
+    "planning_budget": "NW wheat|W-F: 51 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3678,
+    "factor_well_managed": 0.936,
     "extended_with_all_practices": {
      "ratio": 0.944,
      "years_added": 14
@@ -2056,6 +2652,10 @@
     "model_mean_same_years_kg_ha": 6248,
     "factor": 0.538,
     "r2_year_to_year": 0.42,
+    "planning_yield_kg_ha": 5248,
+    "planning_budget": "NW sorghum|W-S-F: 84 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6491,
+    "factor_well_managed": 0.808,
     "extended_with_all_practices": {
      "ratio": 0.8,
      "years_added": 14
@@ -2071,7 +2671,11 @@
     "nass_mean_kg_ha": 4104,
     "model_mean_same_years_kg_ha": 6553,
     "factor": 0.626,
-    "r2_year_to_year": 0.61
+    "r2_year_to_year": 0.61,
+    "planning_yield_kg_ha": 5524,
+    "planning_budget": "NW corn|W-C-F: 88 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7048,
+    "factor_well_managed": 0.784
    },
    "sunflower": {
     "n_years": 15,
@@ -2083,7 +2687,11 @@
     "nass_mean_kg_ha": 1565,
     "model_mean_same_years_kg_ha": 1810,
     "factor": 0.864,
-    "r2_year_to_year": 0.3
+    "r2_year_to_year": 0.3,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2287,
+    "factor_well_managed": 0.784
    }
   },
   "ks183": {
@@ -2098,6 +2706,10 @@
     "model_mean_same_years_kg_ha": 4097,
     "factor": 0.708,
     "r2_year_to_year": 0.04,
+    "planning_yield_kg_ha": 3672,
+    "planning_budget": "NC wheat|W-F: 55 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 4197,
+    "factor_well_managed": 0.875,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 16
@@ -2114,6 +2726,10 @@
     "model_mean_same_years_kg_ha": 7665,
     "factor": 0.717,
     "r2_year_to_year": 0.63,
+    "planning_yield_kg_ha": 7193,
+    "planning_budget": "NC sorghum|W-S-F: 115 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 7980,
+    "factor_well_managed": 0.901,
     "extended_with_all_practices": {
      "ratio": 0.989,
      "years_added": 16
@@ -2129,7 +2745,11 @@
     "nass_mean_kg_ha": 4984,
     "model_mean_same_years_kg_ha": 9946,
     "factor": 0.501,
-    "r2_year_to_year": 0.53
+    "r2_year_to_year": 0.53,
+    "planning_yield_kg_ha": 7369,
+    "planning_budget": "NC corn|W-C-F: 117 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 11338,
+    "factor_well_managed": 0.65
    },
    "sunflower": {
     "n_years": 13,
@@ -2141,7 +2761,11 @@
     "nass_mean_kg_ha": 1769,
     "model_mean_same_years_kg_ha": 2843,
     "factor": 0.622,
-    "r2_year_to_year": 0.4
+    "r2_year_to_year": 0.4,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NC sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 3101,
+    "factor_well_managed": 0.578
    }
   },
   "ks185": {
@@ -2156,6 +2780,10 @@
     "model_mean_same_years_kg_ha": 4136,
     "factor": 0.625,
     "r2_year_to_year": 0.08,
+    "planning_yield_kg_ha": 3416,
+    "planning_budget": "SC wheat|W-F: 51 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 4367,
+    "factor_well_managed": 0.782,
     "extended_with_all_practices": {
      "ratio": 0.967,
      "years_added": 7
@@ -2172,6 +2800,10 @@
     "model_mean_same_years_kg_ha": 7655,
     "factor": 0.496,
     "r2_year_to_year": 0.61,
+    "planning_yield_kg_ha": 6729,
+    "planning_budget": "SC sorghum|W-S-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 7980,
+    "factor_well_managed": 0.843,
     "extended_with_all_practices": {
      "ratio": 0.927,
      "years_added": 12
@@ -2187,11 +2819,19 @@
     "nass_mean_kg_ha": 4104,
     "model_mean_same_years_kg_ha": 10907,
     "factor": 0.376,
-    "r2_year_to_year": 0.69
+    "r2_year_to_year": 0.69,
+    "planning_yield_kg_ha": 6704,
+    "planning_budget": "SC corn|W-C-F: 107 bu/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 11708,
+    "factor_well_managed": 0.573
    },
    "sunflower": {
     "n_years": 2,
     "model_trial_mean_kg_ha": 2913,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SC sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 3114,
+    "factor_well_managed": 0.576,
     "factor": 0.712,
     "borrowed": "median of region SC (22 counties)"
    }
@@ -2208,6 +2848,10 @@
     "model_mean_same_years_kg_ha": 2580,
     "factor": 0.917,
     "r2_year_to_year": 0.68,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 2789,
+    "factor_well_managed": 1.085,
     "extended_with_all_practices": {
      "ratio": 0.867,
      "years_added": 4
@@ -2224,6 +2868,10 @@
     "model_mean_same_years_kg_ha": 5902,
     "factor": 0.486,
     "r2_year_to_year": 0.6,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6331,
+    "factor_well_managed": 0.801,
     "extended_with_all_practices": {
      "ratio": 0.78,
      "years_added": 6
@@ -2239,7 +2887,11 @@
     "nass_mean_kg_ha": 3314,
     "model_mean_same_years_kg_ha": 4277,
     "factor": 0.775,
-    "r2_year_to_year": 0.69
+    "r2_year_to_year": 0.69,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6638,
+    "factor_well_managed": 0.745
    },
    "sunflower": {
     "n_years": 6,
@@ -2251,7 +2903,11 @@
     "nass_mean_kg_ha": 1572,
     "model_mean_same_years_kg_ha": 1610,
     "factor": 0.977,
-    "r2_year_to_year": 0.21
+    "r2_year_to_year": 0.21,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2198,
+    "factor_well_managed": 0.816
    }
   },
   "ks189": {
@@ -2266,6 +2922,10 @@
     "model_mean_same_years_kg_ha": 2724,
     "factor": 0.699,
     "r2_year_to_year": 0.56,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3011,
+    "factor_well_managed": 1.005,
     "extended_with_all_practices": {
      "ratio": 0.712,
      "years_added": 9
@@ -2282,6 +2942,10 @@
     "model_mean_same_years_kg_ha": 5287,
     "factor": 0.483,
     "r2_year_to_year": 0.54,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 5903,
+    "factor_well_managed": 0.859,
     "extended_with_all_practices": {
      "ratio": 0.827,
      "years_added": 13
@@ -2297,7 +2961,11 @@
     "nass_mean_kg_ha": 3227,
     "model_mean_same_years_kg_ha": 3640,
     "factor": 0.886,
-    "r2_year_to_year": 0.78
+    "r2_year_to_year": 0.78,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 5504,
+    "factor_well_managed": 0.899
    },
    "sunflower": {
     "n_years": 14,
@@ -2309,7 +2977,11 @@
     "nass_mean_kg_ha": 1537,
     "model_mean_same_years_kg_ha": 1665,
     "factor": 0.923,
-    "r2_year_to_year": 0.41
+    "r2_year_to_year": 0.41,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2040,
+    "factor_well_managed": 0.879
    }
   },
   "ks193": {
@@ -2324,6 +2996,10 @@
     "model_mean_same_years_kg_ha": 3516,
     "factor": 0.705,
     "r2_year_to_year": 0.28,
+    "planning_yield_kg_ha": 3443,
+    "planning_budget": "NW wheat|W-F: 51 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3752,
+    "factor_well_managed": 0.918,
     "extended_with_all_practices": {
      "ratio": 0.978,
      "years_added": 8
@@ -2340,6 +3016,10 @@
     "model_mean_same_years_kg_ha": 6293,
     "factor": 0.608,
     "r2_year_to_year": 0.78,
+    "planning_yield_kg_ha": 5248,
+    "planning_budget": "NW sorghum|W-S-F: 84 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6637,
+    "factor_well_managed": 0.791,
     "extended_with_all_practices": {
      "ratio": 0.951,
      "years_added": 7
@@ -2355,7 +3035,11 @@
     "nass_mean_kg_ha": 4047,
     "model_mean_same_years_kg_ha": 6230,
     "factor": 0.65,
-    "r2_year_to_year": 0.8
+    "r2_year_to_year": 0.8,
+    "planning_yield_kg_ha": 5524,
+    "planning_budget": "NW corn|W-C-F: 88 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7085,
+    "factor_well_managed": 0.78
    },
    "sunflower": {
     "n_years": 13,
@@ -2367,7 +3051,11 @@
     "nass_mean_kg_ha": 1426,
     "model_mean_same_years_kg_ha": 2116,
     "factor": 0.674,
-    "r2_year_to_year": 0.39
+    "r2_year_to_year": 0.39,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2368,
+    "factor_well_managed": 0.757
    }
   },
   "ks195": {
@@ -2382,6 +3070,10 @@
     "model_mean_same_years_kg_ha": 3513,
     "factor": 0.684,
     "r2_year_to_year": 0.28,
+    "planning_yield_kg_ha": 3443,
+    "planning_budget": "NW wheat|W-F: 51 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3944,
+    "factor_well_managed": 0.873,
     "extended_with_all_practices": {
      "ratio": 1.0,
      "years_added": 8
@@ -2398,6 +3090,10 @@
     "model_mean_same_years_kg_ha": 6584,
     "factor": 0.603,
     "r2_year_to_year": 0.78,
+    "planning_yield_kg_ha": 5248,
+    "planning_budget": "NW sorghum|W-S-F: 84 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7254,
+    "factor_well_managed": 0.723,
     "extended_with_all_practices": {
      "ratio": 0.983,
      "years_added": 14
@@ -2413,11 +3109,19 @@
     "nass_mean_kg_ha": 4563,
     "model_mean_same_years_kg_ha": 7913,
     "factor": 0.577,
-    "r2_year_to_year": 0.68
+    "r2_year_to_year": 0.68,
+    "planning_yield_kg_ha": 5524,
+    "planning_budget": "NW corn|W-C-F: 88 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 8871,
+    "factor_well_managed": 0.623
    },
    "sunflower": {
     "n_years": 3,
     "model_trial_mean_kg_ha": 2357,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2714,
+    "factor_well_managed": 0.661,
     "factor": 0.794,
     "borrowed": "median of region NW (7 counties)"
    }
@@ -2434,6 +3138,10 @@
     "model_mean_same_years_kg_ha": 3355,
     "factor": 0.701,
     "r2_year_to_year": 0.29,
+    "planning_yield_kg_ha": 3443,
+    "planning_budget": "NW wheat|W-F: 51 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3450,
+    "factor_well_managed": 0.998,
     "extended_with_all_practices": {
      "ratio": 0.956,
      "years_added": 12
@@ -2450,6 +3158,10 @@
     "model_mean_same_years_kg_ha": 5714,
     "factor": 0.493,
     "r2_year_to_year": 0.63,
+    "planning_yield_kg_ha": 5248,
+    "planning_budget": "NW sorghum|W-S-F: 84 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6863,
+    "factor_well_managed": 0.765,
     "extended_with_all_practices": {
      "ratio": 0.818,
      "years_added": 8
@@ -2465,7 +3177,11 @@
     "nass_mean_kg_ha": 3801,
     "model_mean_same_years_kg_ha": 5890,
     "factor": 0.645,
-    "r2_year_to_year": 0.75
+    "r2_year_to_year": 0.75,
+    "planning_yield_kg_ha": 5524,
+    "planning_budget": "NW corn|W-C-F: 88 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 7640,
+    "factor_well_managed": 0.723
    },
    "sunflower": {
     "n_years": 13,
@@ -2477,7 +3193,11 @@
     "nass_mean_kg_ha": 1668,
     "model_mean_same_years_kg_ha": 2056,
     "factor": 0.811,
-    "r2_year_to_year": 0.12
+    "r2_year_to_year": 0.12,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "NW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2479,
+    "factor_well_managed": 0.724
    }
   },
   "ks203": {
@@ -2492,6 +3212,10 @@
     "model_mean_same_years_kg_ha": 3299,
     "factor": 0.777,
     "r2_year_to_year": 0.42,
+    "planning_yield_kg_ha": 3026,
+    "planning_budget": "SW wheat|W-F: 45 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 3493,
+    "factor_well_managed": 0.866,
     "extended_with_all_practices": {
      "ratio": 0.916,
      "years_added": 9
@@ -2508,6 +3232,10 @@
     "model_mean_same_years_kg_ha": 6220,
     "factor": 0.671,
     "r2_year_to_year": 0.71,
+    "planning_yield_kg_ha": 5072,
+    "planning_budget": "SW sorghum|W-S-F: 81 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6363,
+    "factor_well_managed": 0.797,
     "extended_with_all_practices": {
      "ratio": 0.852,
      "years_added": 10
@@ -2523,7 +3251,11 @@
     "nass_mean_kg_ha": 4382,
     "model_mean_same_years_kg_ha": 5727,
     "factor": 0.765,
-    "r2_year_to_year": 0.59
+    "r2_year_to_year": 0.59,
+    "planning_yield_kg_ha": 4946,
+    "planning_budget": "SW corn|W-C-F: 79 bu/acre",
+    "model_trial_mean_budget_years_kg_ha": 6106,
+    "factor_well_managed": 0.81
    },
    "sunflower": {
     "n_years": 8,
@@ -2535,7 +3267,11 @@
     "nass_mean_kg_ha": 1589,
     "model_mean_same_years_kg_ha": 2065,
     "factor": 0.769,
-    "r2_year_to_year": 0.32
+    "r2_year_to_year": 0.32,
+    "planning_yield_kg_ha": 1793,
+    "planning_budget": "SW sunflower|W-SF-F: 16 cwt/acre (proxy budget)",
+    "model_trial_mean_budget_years_kg_ha": 2247,
+    "factor_well_managed": 0.798
    }
   }
  }

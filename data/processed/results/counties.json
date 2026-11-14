@@ -6,22 +6,27 @@
  "agreement_with_practice": {
   "counties_compared": 39,
   "model_matches_most_common": 15,
+  "model_matches_most_common_well_managed": 22,
   "by_longitude": {
    "102-101 W": {
     "counties": 14,
-    "matches": 3
+    "matches": 3,
+    "matches_well_managed": 4
    },
    "101-100 W": {
     "counties": 10,
-    "matches": 3
+    "matches": 3,
+    "matches_well_managed": 5
    },
    "100-99 W": {
     "counties": 14,
-    "matches": 8
+    "matches": 8,
+    "matches_well_managed": 12
    },
    "99-98.3 W": {
     "counties": 1,
-    "matches": 1
+    "matches": 1,
+    "matches_well_managed": 1
    }
   },
   "share": 0.38,
@@ -33,17 +38,23 @@
   "sorghum instead of fallow (WSF vs WF)": {
    "counties": 32,
    "spearman": 0.24,
+   "spearman_well_managed": 0.11,
    "note": "rank correlation between the model's gain of WSF over WF and farmers' share of WSF among WSF+WF"
   },
   "corn instead of sorghum (WCF vs WSF)": {
    "counties": 38,
    "spearman": 0.53,
+   "spearman_well_managed": 0.37,
    "note": "rank correlation between the model's gain of WCF over WSF and farmers' share of WCF among WCF+WSF"
   },
   "leaving fallow since 2008": {
    "counties": 46,
    "spearman_gain_vs_drop_in_fallow_share": -0.62,
    "spearman_gain_vs_share_moved_wf_to_three_year": -0.62,
+   "counties_relative": 43,
+   "spearman_gain_vs_relative_drop": -0.43,
+   "spearman_gain_well_managed_vs_relative_drop": -0.58,
+   "spearman_fallow_share_2008_vs_relative_drop": 0.36,
    "note": "Fallow share of dryland cropland 2008 -> latest CDL year (counties.geojson) and fields that moved from wheat-fallow to a three-year rotation (county_field_rotations.json). A positive value would mean farmers left fallow where the model sees the largest gain."
   }
  },
@@ -164,6 +175,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 62.7,
+    "best_three_year_vs_wf_usd_acre": 62.7,
+    "rotations": {
+     "WF": {
+      "mean": -26.9,
+      "mean_before_land_rent": 25.3,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.7,
+      "mean_of_worst_fifth": -83.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3237
+      }
+     },
+     "WSF": {
+      "mean": 35.8,
+      "mean_before_land_rent": 88.0,
+      "share_of_years_with_profit": 0.7,
+      "share_of_years_covering_costs_before_rent": 0.9,
+      "mean_of_worst_fifth": -50.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.0,
+       "grain_sorghum": 102.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3227,
+       "grain_sorghum": 6406
+      }
+     },
+     "WCF": {
+      "mean": 8.0,
+      "mean_before_land_rent": 60.2,
+      "share_of_years_with_profit": 0.47,
+      "share_of_years_covering_costs_before_rent": 0.8,
+      "mean_of_worst_fifth": -90.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.0,
+       "corn": 100.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3228,
+       "corn": 6283
+      }
+     },
+     "WSSF": {
+      "mean": 30.9,
+      "mean_before_land_rent": 83.1,
+      "share_of_years_with_profit": 0.6,
+      "share_of_years_covering_costs_before_rent": 0.8,
+      "mean_of_worst_fifth": -66.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.0,
+       "grain_sorghum": 87.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3227,
+       "grain_sorghum": 5470
+      }
+     },
+     "WWSF": {
+      "mean": 19.0,
+      "mean_before_land_rent": 71.2,
+      "share_of_years_with_profit": 0.53,
+      "share_of_years_covering_costs_before_rent": 0.87,
+      "mean_of_worst_fifth": -58.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 43.5,
+       "grain_sorghum": 102.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2928,
+       "grain_sorghum": 6406
+      }
+     },
+     "WSfF": {
+      "mean": -38.6,
+      "mean_before_land_rent": 24.5,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -114.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.0,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3228,
+       "sunflower": 1667
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.784,
+     "grain_sorghum": 0.832,
+     "corn": 0.591,
+     "sunflower": 0.562
+    },
+    "practice_match": null
+   },
    "practice": {
     "fields": 175,
     "share_of_area": {
@@ -295,6 +409,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 64.6,
+    "best_three_year_vs_wf_usd_acre": 64.6,
+    "rotations": {
+     "WF": {
+      "mean": -23.2,
+      "mean_before_land_rent": 29.0,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -72.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3281
+      }
+     },
+     "WSF": {
+      "mean": 41.4,
+      "mean_before_land_rent": 93.6,
+      "share_of_years_with_profit": 0.63,
+      "share_of_years_covering_costs_before_rent": 0.97,
+      "mean_of_worst_fifth": -43.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.1,
+       "grain_sorghum": 104.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3233,
+       "grain_sorghum": 6530
+      }
+     },
+     "WCF": {
+      "mean": 15.9,
+      "mean_before_land_rent": 68.1,
+      "share_of_years_with_profit": 0.47,
+      "share_of_years_covering_costs_before_rent": 0.77,
+      "mean_of_worst_fifth": -84.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.1,
+       "corn": 102.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3236,
+       "corn": 6457
+      }
+     },
+     "WSSF": {
+      "mean": 36.4,
+      "mean_before_land_rent": 88.6,
+      "share_of_years_with_profit": 0.57,
+      "share_of_years_covering_costs_before_rent": 0.87,
+      "mean_of_worst_fifth": -58.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.1,
+       "grain_sorghum": 88.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3233,
+       "grain_sorghum": 5546
+      }
+     },
+     "WWSF": {
+      "mean": 23.4,
+      "mean_before_land_rent": 75.6,
+      "share_of_years_with_profit": 0.53,
+      "share_of_years_covering_costs_before_rent": 0.83,
+      "mean_of_worst_fifth": -61.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 43.2,
+       "grain_sorghum": 104.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2907,
+       "grain_sorghum": 6528
+      }
+     },
+     "WSfF": {
+      "mean": -32.9,
+      "mean_before_land_rent": 30.1,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -107.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.1,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3235,
+       "sunflower": 1713
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.796,
+     "grain_sorghum": 0.834,
+     "corn": 0.602,
+     "sunflower": 0.567
+    },
+    "practice_match": null
+   },
    "practice": {
     "fields": 425,
     "share_of_area": {
@@ -424,6 +641,109 @@
     "sunflower": 1.089
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 11.6,
+    "best_three_year_vs_wf_usd_acre": 11.6,
+    "rotations": {
+     "WF": {
+      "mean": -32.4,
+      "mean_before_land_rent": 27.3,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -107.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3116
+      }
+     },
+     "WSF": {
+      "mean": -20.8,
+      "mean_before_land_rent": 39.0,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -117.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 45.0,
+       "grain_sorghum": 73.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3026,
+       "grain_sorghum": 4605
+      }
+     },
+     "WCF": {
+      "mean": -51.0,
+      "mean_before_land_rent": 8.8,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -196.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 45.1,
+       "corn": 61.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3032,
+       "corn": 3871
+      }
+     },
+     "WSSF": {
+      "mean": -39.6,
+      "mean_before_land_rent": 20.2,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -136.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 45.0,
+       "grain_sorghum": 61.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3026,
+       "grain_sorghum": 3869
+      }
+     },
+     "WWSF": {
+      "mean": -38.8,
+      "mean_before_land_rent": 21.0,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -140.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.6,
+       "grain_sorghum": 73.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2660,
+       "grain_sorghum": 4605
+      }
+     },
+     "WSfF": {
+      "mean": -35.9,
+      "mean_before_land_rent": 22.4,
+      "share_of_years_with_profit": 0.4,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -144.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 45.0,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3028,
+       "sunflower": 1444
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 1.049,
+     "grain_sorghum": 0.877,
+     "corn": 1.038,
+     "sunflower": 0.866
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 922,
     "share_of_area": {
@@ -556,6 +876,109 @@
     "corn",
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 7.7,
+    "best_three_year_vs_wf_usd_acre": 7.7,
+    "rotations": {
+     "WF": {
+      "mean": -33.0,
+      "mean_before_land_rent": 11.0,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -87.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2790
+      }
+     },
+     "WSF": {
+      "mean": -25.3,
+      "mean_before_land_rent": 20.7,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -89.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.7,
+       "grain_sorghum": 72.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2740,
+       "grain_sorghum": 4568
+      }
+     },
+     "WCF": {
+      "mean": -54.2,
+      "mean_before_land_rent": -8.2,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -150.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.8,
+       "corn": 63.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2744,
+       "corn": 3992
+      }
+     },
+     "WSSF": {
+      "mean": -42.0,
+      "mean_before_land_rent": 3.5,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.43,
+      "mean_of_worst_fifth": -110.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.7,
+       "grain_sorghum": 61.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2740,
+       "grain_sorghum": 3865
+      }
+     },
+     "WWSF": {
+      "mean": -47.8,
+      "mean_before_land_rent": -0.9,
+      "share_of_years_with_profit": 0.13,
+      "share_of_years_covering_costs_before_rent": 0.37,
+      "mean_of_worst_fifth": -122.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.7,
+       "grain_sorghum": 72.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2404,
+       "grain_sorghum": 4565
+      }
+     },
+     "WSfF": {
+      "mean": -36.8,
+      "mean_before_land_rent": 12.9,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -113.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.8,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2746,
+       "sunflower": 1547
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.79,
+     "grain_sorghum": 0.666,
+     "corn": 0.48,
+     "sunflower": 0.616
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 215,
     "share_of_area": {
@@ -687,6 +1110,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 58.3,
+    "best_three_year_vs_wf_usd_acre": 58.3,
+    "rotations": {
+     "WF": {
+      "mean": -28.5,
+      "mean_before_land_rent": 23.7,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -80.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3252
+      }
+     },
+     "WSF": {
+      "mean": 29.8,
+      "mean_before_land_rent": 82.0,
+      "share_of_years_with_profit": 0.63,
+      "share_of_years_covering_costs_before_rent": 0.93,
+      "mean_of_worst_fifth": -49.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.0,
+       "grain_sorghum": 99.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3231,
+       "grain_sorghum": 6262
+      }
+     },
+     "WCF": {
+      "mean": -2.6,
+      "mean_before_land_rent": 49.6,
+      "share_of_years_with_profit": 0.5,
+      "share_of_years_covering_costs_before_rent": 0.8,
+      "mean_of_worst_fifth": -111.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.0,
+       "corn": 95.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3231,
+       "corn": 6006
+      }
+     },
+     "WSSF": {
+      "mean": 23.0,
+      "mean_before_land_rent": 75.2,
+      "share_of_years_with_profit": 0.57,
+      "share_of_years_covering_costs_before_rent": 0.77,
+      "mean_of_worst_fifth": -66.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.0,
+       "grain_sorghum": 84.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3231,
+       "grain_sorghum": 5323
+      }
+     },
+     "WWSF": {
+      "mean": 10.7,
+      "mean_before_land_rent": 62.9,
+      "share_of_years_with_profit": 0.57,
+      "share_of_years_covering_costs_before_rent": 0.77,
+      "mean_of_worst_fifth": -71.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 42.7,
+       "grain_sorghum": 99.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2874,
+       "grain_sorghum": 6260
+      }
+     },
+     "WSfF": {
+      "mean": -44.6,
+      "mean_before_land_rent": 18.4,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -120.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.0,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3231,
+       "sunflower": 1612
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.816,
+     "grain_sorghum": 0.839,
+     "corn": 0.602,
+     "sunflower": 0.567
+    },
+    "practice_match": null
+   },
    "practice": {
     "fields": 124,
     "share_of_area": {
@@ -816,6 +1342,109 @@
     "sunflower": 0.591
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 18.2,
+    "best_three_year_vs_wf_usd_acre": 18.2,
+    "rotations": {
+     "WF": {
+      "mean": -26.9,
+      "mean_before_land_rent": 32.9,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.7,
+      "mean_of_worst_fifth": -93.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3234
+      }
+     },
+     "WSF": {
+      "mean": -8.7,
+      "mean_before_land_rent": 51.1,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.73,
+      "mean_of_worst_fifth": -108.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.2,
+       "grain_sorghum": 79.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3109,
+       "grain_sorghum": 4964
+      }
+     },
+     "WCF": {
+      "mean": -14.1,
+      "mean_before_land_rent": 45.7,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -168.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.0,
+       "corn": 81.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3093,
+       "corn": 5096
+      }
+     },
+     "WSSF": {
+      "mean": -28.8,
+      "mean_before_land_rent": 31.0,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -130.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.0,
+       "grain_sorghum": 65.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3094,
+       "grain_sorghum": 4118
+      }
+     },
+     "WWSF": {
+      "mean": -30.3,
+      "mean_before_land_rent": 29.5,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -133.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.0,
+       "grain_sorghum": 78.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2692,
+       "grain_sorghum": 4951
+      }
+     },
+     "WSfF": {
+      "mean": -18.9,
+      "mean_before_land_rent": 39.3,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -126.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.4,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3122,
+       "sunflower": 1652
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.837,
+     "grain_sorghum": 0.72,
+     "corn": 0.632,
+     "sunflower": 0.66
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 860,
     "share_of_area": {
@@ -947,6 +1576,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 67.0,
+    "best_three_year_vs_wf_usd_acre": 67.0,
+    "rotations": {
+     "WF": {
+      "mean": -32.2,
+      "mean_before_land_rent": 20.0,
+      "share_of_years_with_profit": 0.13,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -87.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3164
+      }
+     },
+     "WSF": {
+      "mean": 34.8,
+      "mean_before_land_rent": 87.1,
+      "share_of_years_with_profit": 0.63,
+      "share_of_years_covering_costs_before_rent": 0.87,
+      "mean_of_worst_fifth": -55.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.7,
+       "grain_sorghum": 103.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3139,
+       "grain_sorghum": 6473
+      }
+     },
+     "WCF": {
+      "mean": 6.5,
+      "mean_before_land_rent": 58.7,
+      "share_of_years_with_profit": 0.5,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -130.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.7,
+       "corn": 100.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3140,
+       "corn": 6296
+      }
+     },
+     "WSSF": {
+      "mean": 32.5,
+      "mean_before_land_rent": 84.7,
+      "share_of_years_with_profit": 0.57,
+      "share_of_years_covering_costs_before_rent": 0.77,
+      "mean_of_worst_fifth": -67.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.7,
+       "grain_sorghum": 88.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3139,
+       "grain_sorghum": 5548
+      }
+     },
+     "WWSF": {
+      "mean": 17.3,
+      "mean_before_land_rent": 69.5,
+      "share_of_years_with_profit": 0.53,
+      "share_of_years_covering_costs_before_rent": 0.87,
+      "mean_of_worst_fifth": -70.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 42.6,
+       "grain_sorghum": 103.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2862,
+       "grain_sorghum": 6473
+      }
+     },
+     "WSfF": {
+      "mean": -40.6,
+      "mean_before_land_rent": 22.4,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -123.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.7,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3139,
+       "sunflower": 1688
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.838,
+     "grain_sorghum": 0.953,
+     "corn": 0.765,
+     "sunflower": 0.676
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 568,
     "share_of_area": {
@@ -1076,6 +1808,109 @@
     "sunflower": 0.506
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 60.7,
+    "best_three_year_vs_wf_usd_acre": 60.7,
+    "rotations": {
+     "WF": {
+      "mean": -57.2,
+      "mean_before_land_rent": 25.1,
+      "share_of_years_with_profit": 0.13,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -121.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 50.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3400
+      }
+     },
+     "WSF": {
+      "mean": 3.5,
+      "mean_before_land_rent": 85.9,
+      "share_of_years_with_profit": 0.47,
+      "share_of_years_covering_costs_before_rent": 0.9,
+      "mean_of_worst_fifth": -86.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 49.3,
+       "grain_sorghum": 109.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3317,
+       "grain_sorghum": 6844
+      }
+     },
+     "WCF": {
+      "mean": -30.1,
+      "mean_before_land_rent": 52.3,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -163.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 49.3,
+       "corn": 102.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3317,
+       "corn": 6454
+      }
+     },
+     "WSSF": {
+      "mean": -6.7,
+      "mean_before_land_rent": 75.6,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.73,
+      "mean_of_worst_fifth": -106.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 49.3,
+       "grain_sorghum": 91.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3315,
+       "grain_sorghum": 5720
+      }
+     },
+     "WWSF": {
+      "mean": -18.4,
+      "mean_before_land_rent": 64.0,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.77,
+      "mean_of_worst_fifth": -109.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 43.8,
+       "grain_sorghum": 108.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2943,
+       "grain_sorghum": 6830
+      }
+     },
+     "WSfF": {
+      "mean": -61.3,
+      "mean_before_land_rent": 21.8,
+      "share_of_years_with_profit": 0.13,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -150.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 49.4,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3323,
+       "sunflower": 1663
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.876,
+     "grain_sorghum": 0.92,
+     "corn": 0.695,
+     "sunflower": 0.596
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 252,
     "share_of_area": {
@@ -1205,6 +2040,109 @@
     "sunflower": 0.802
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 5.5,
+    "best_three_year_vs_wf_usd_acre": 5.5,
+    "rotations": {
+     "WF": {
+      "mean": -30.0,
+      "mean_before_land_rent": 14.0,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -100.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 42.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2875
+      }
+     },
+     "WSF": {
+      "mean": -24.5,
+      "mean_before_land_rent": 21.5,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -109.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.7,
+       "grain_sorghum": 75.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2735,
+       "grain_sorghum": 4764
+      }
+     },
+     "WCF": {
+      "mean": -50.7,
+      "mean_before_land_rent": -4.7,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -196.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.6,
+       "corn": 68.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2729,
+       "corn": 4307
+      }
+     },
+     "WSSF": {
+      "mean": -42.0,
+      "mean_before_land_rent": 3.5,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.43,
+      "mean_of_worst_fifth": -124.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.5,
+       "grain_sorghum": 63.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2726,
+       "grain_sorghum": 3961
+      }
+     },
+     "WWSF": {
+      "mean": -49.6,
+      "mean_before_land_rent": -2.6,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.4,
+      "mean_of_worst_fifth": -146.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.1,
+       "grain_sorghum": 75.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2358,
+       "grain_sorghum": 4756
+      }
+     },
+     "WSfF": {
+      "mean": -35.3,
+      "mean_before_land_rent": 14.4,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -157.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.9,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2750,
+       "sunflower": 1624
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.894,
+     "grain_sorghum": 0.79,
+     "corn": 0.702,
+     "sunflower": 0.791
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 1384,
     "share_of_area": {
@@ -1336,6 +2274,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 10.4,
+    "best_three_year_vs_wf_usd_acre": 10.4,
+    "rotations": {
+     "WF": {
+      "mean": -29.2,
+      "mean_before_land_rent": 14.8,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -78.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 42.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2846
+      }
+     },
+     "WSF": {
+      "mean": -18.8,
+      "mean_before_land_rent": 27.1,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -86.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.7,
+       "grain_sorghum": 74.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2804,
+       "grain_sorghum": 4683
+      }
+     },
+     "WCF": {
+      "mean": -44.1,
+      "mean_before_land_rent": 1.9,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -137.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.7,
+       "corn": 67.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2804,
+       "corn": 4214
+      }
+     },
+     "WSSF": {
+      "mean": -34.7,
+      "mean_before_land_rent": 10.8,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -109.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.7,
+       "grain_sorghum": 63.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2803,
+       "grain_sorghum": 3969
+      }
+     },
+     "WWSF": {
+      "mean": -41.7,
+      "mean_before_land_rent": 5.3,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -114.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 36.4,
+       "grain_sorghum": 74.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2450,
+       "grain_sorghum": 4674
+      }
+     },
+     "WSfF": {
+      "mean": -30.4,
+      "mean_before_land_rent": 19.3,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -108.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.8,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2810,
+       "sunflower": 1596
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.75,
+     "grain_sorghum": 0.685,
+     "corn": 0.514,
+     "sunflower": 0.638
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 1090,
     "share_of_area": {
@@ -1467,6 +2508,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 11.0,
+    "best_three_year_vs_wf_usd_acre": 11.0,
+    "rotations": {
+     "WF": {
+      "mean": -29.3,
+      "mean_before_land_rent": 30.5,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.7,
+      "mean_of_worst_fifth": -91.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3218
+      }
+     },
+     "WSF": {
+      "mean": -18.3,
+      "mean_before_land_rent": 41.5,
+      "share_of_years_with_profit": 0.4,
+      "share_of_years_covering_costs_before_rent": 0.7,
+      "mean_of_worst_fifth": -99.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.2,
+       "grain_sorghum": 75.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3108,
+       "grain_sorghum": 4706
+      }
+     },
+     "WCF": {
+      "mean": -38.5,
+      "mean_before_land_rent": 21.3,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -171.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 45.8,
+       "corn": 70.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3081,
+       "corn": 4425
+      }
+     },
+     "WSSF": {
+      "mean": -40.2,
+      "mean_before_land_rent": 19.6,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -123.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 45.8,
+       "grain_sorghum": 62.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3083,
+       "grain_sorghum": 3900
+      }
+     },
+     "WWSF": {
+      "mean": -38.0,
+      "mean_before_land_rent": 21.8,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -120.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.3,
+       "grain_sorghum": 74.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2712,
+       "grain_sorghum": 4675
+      }
+     },
+     "WSfF": {
+      "mean": -30.5,
+      "mean_before_land_rent": 27.8,
+      "share_of_years_with_profit": 0.4,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -124.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.4,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3117,
+       "sunflower": 1531
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.85,
+     "grain_sorghum": 0.671,
+     "corn": 0.518,
+     "sunflower": 0.599
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 810,
     "share_of_area": {
@@ -1598,6 +2742,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 21.0,
+    "best_three_year_vs_wf_usd_acre": 21.0,
+    "rotations": {
+     "WF": {
+      "mean": -26.7,
+      "mean_before_land_rent": 33.0,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -91.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3271
+      }
+     },
+     "WSF": {
+      "mean": -5.7,
+      "mean_before_land_rent": 54.1,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.7,
+      "mean_of_worst_fifth": -94.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.0,
+       "grain_sorghum": 80.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3229,
+       "grain_sorghum": 5048
+      }
+     },
+     "WCF": {
+      "mean": -21.4,
+      "mean_before_land_rent": 38.4,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -157.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.1,
+       "corn": 77.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3237,
+       "corn": 4886
+      }
+     },
+     "WSSF": {
+      "mean": -23.4,
+      "mean_before_land_rent": 36.4,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -113.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.0,
+       "grain_sorghum": 67.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3229,
+       "grain_sorghum": 4263
+      }
+     },
+     "WWSF": {
+      "mean": -22.1,
+      "mean_before_land_rent": 37.7,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -117.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 42.9,
+       "grain_sorghum": 80.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2885,
+       "grain_sorghum": 5047
+      }
+     },
+     "WSfF": {
+      "mean": -16.1,
+      "mean_before_land_rent": 42.2,
+      "share_of_years_with_profit": 0.4,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -114.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.0,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3229,
+       "sunflower": 1676
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.942,
+     "grain_sorghum": 0.787,
+     "corn": 0.75,
+     "sunflower": 0.731
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 591,
     "share_of_area": {
@@ -1727,6 +2974,109 @@
     "sunflower": 1.026
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 1.9,
+    "best_three_year_vs_wf_usd_acre": 1.9,
+    "rotations": {
+     "WF": {
+      "mean": -39.0,
+      "mean_before_land_rent": 5.0,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -123.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2751
+      }
+     },
+     "WSF": {
+      "mean": -37.1,
+      "mean_before_land_rent": 8.9,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -119.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.2,
+       "grain_sorghum": 71.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2639,
+       "grain_sorghum": 4454
+      }
+     },
+     "WCF": {
+      "mean": -77.9,
+      "mean_before_land_rent": -31.9,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.4,
+      "mean_of_worst_fifth": -218.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.4,
+       "corn": 55.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2646,
+       "corn": 3460
+      }
+     },
+     "WSSF": {
+      "mean": -53.8,
+      "mean_before_land_rent": -8.3,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.43,
+      "mean_of_worst_fifth": -134.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.2,
+       "grain_sorghum": 59.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2639,
+       "grain_sorghum": 3750
+      }
+     },
+     "WWSF": {
+      "mean": -58.2,
+      "mean_before_land_rent": -11.3,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.43,
+      "mean_of_worst_fifth": -161.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 34.8,
+       "grain_sorghum": 71.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2343,
+       "grain_sorghum": 4454
+      }
+     },
+     "WSfF": {
+      "mean": -49.7,
+      "mean_before_land_rent": -0.0,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -165.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.3,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2641,
+       "sunflower": 1474
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 1.159,
+     "grain_sorghum": 0.854,
+     "corn": 0.851,
+     "sunflower": 0.888
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 525,
     "share_of_area": {
@@ -1858,6 +3208,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 6.6,
+    "best_three_year_vs_wf_usd_acre": 6.6,
+    "rotations": {
+     "WF": {
+      "mean": -31.3,
+      "mean_before_land_rent": 12.8,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -92.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 42.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2824
+      }
+     },
+     "WSF": {
+      "mean": -24.7,
+      "mean_before_land_rent": 21.3,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -101.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.1,
+       "grain_sorghum": 73.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2763,
+       "grain_sorghum": 4602
+      }
+     },
+     "WCF": {
+      "mean": -51.7,
+      "mean_before_land_rent": -5.7,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -169.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.1,
+       "corn": 64.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2764,
+       "corn": 4073
+      }
+     },
+     "WSSF": {
+      "mean": -40.9,
+      "mean_before_land_rent": 4.6,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.43,
+      "mean_of_worst_fifth": -120.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.1,
+       "grain_sorghum": 62.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2762,
+       "grain_sorghum": 3895
+      }
+     },
+     "WWSF": {
+      "mean": -47.5,
+      "mean_before_land_rent": -0.5,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.43,
+      "mean_of_worst_fifth": -135.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.9,
+       "grain_sorghum": 73.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2413,
+       "grain_sorghum": 4602
+      }
+     },
+     "WSfF": {
+      "mean": -36.1,
+      "mean_before_land_rent": 13.6,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -128.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.2,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2769,
+       "sunflower": 1561
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.797,
+     "grain_sorghum": 0.699,
+     "corn": 0.534,
+     "sunflower": 0.658
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 974,
     "share_of_area": {
@@ -1987,6 +3440,109 @@
     "sunflower": 0.709
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 3.9,
+    "best_three_year_vs_wf_usd_acre": 3.9,
+    "rotations": {
+     "WF": {
+      "mean": -37.8,
+      "mean_before_land_rent": 6.3,
+      "share_of_years_with_profit": 0.13,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -98.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2658
+      }
+     },
+     "WSF": {
+      "mean": -33.9,
+      "mean_before_land_rent": 12.1,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -117.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 36.6,
+       "grain_sorghum": 71.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2461,
+       "grain_sorghum": 4516
+      }
+     },
+     "WCF": {
+      "mean": -66.2,
+      "mean_before_land_rent": -20.2,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.43,
+      "mean_of_worst_fifth": -194.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 36.6,
+       "corn": 61.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2459,
+       "corn": 3852
+      }
+     },
+     "WSSF": {
+      "mean": -51.3,
+      "mean_before_land_rent": -5.8,
+      "share_of_years_with_profit": 0.13,
+      "share_of_years_covering_costs_before_rent": 0.37,
+      "mean_of_worst_fifth": -133.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 36.5,
+       "grain_sorghum": 59.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2456,
+       "grain_sorghum": 3732
+      }
+     },
+     "WWSF": {
+      "mean": -59.7,
+      "mean_before_land_rent": -12.8,
+      "share_of_years_with_profit": 0.1,
+      "share_of_years_covering_costs_before_rent": 0.4,
+      "mean_of_worst_fifth": -145.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 31.6,
+       "grain_sorghum": 71.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2127,
+       "grain_sorghum": 4511
+      }
+     },
+     "WSfF": {
+      "mean": -45.7,
+      "mean_before_land_rent": 4.0,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -147.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 36.9,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2480,
+       "sunflower": 1491
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.86,
+     "grain_sorghum": 0.801,
+     "corn": 0.824,
+     "sunflower": 0.813
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 1221,
     "share_of_area": {
@@ -2118,6 +3674,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 4.4,
+    "best_three_year_vs_wf_usd_acre": 4.4,
+    "rotations": {
+     "WF": {
+      "mean": -46.2,
+      "mean_before_land_rent": -2.1,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -130.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 38.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2592
+      }
+     },
+     "WSF": {
+      "mean": -41.8,
+      "mean_before_land_rent": 4.2,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -129.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.9,
+       "grain_sorghum": 71.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2412,
+       "grain_sorghum": 4471
+      }
+     },
+     "WCF": {
+      "mean": -77.9,
+      "mean_before_land_rent": -31.9,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -225.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.9,
+       "corn": 58.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2413,
+       "corn": 3672
+      }
+     },
+     "WSSF": {
+      "mean": -58.1,
+      "mean_before_land_rent": -12.6,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.33,
+      "mean_of_worst_fifth": -137.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.8,
+       "grain_sorghum": 59.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2409,
+       "grain_sorghum": 3703
+      }
+     },
+     "WWSF": {
+      "mean": -66.0,
+      "mean_before_land_rent": -19.0,
+      "share_of_years_with_profit": 0.13,
+      "share_of_years_covering_costs_before_rent": 0.33,
+      "mean_of_worst_fifth": -166.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 31.6,
+       "grain_sorghum": 71.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2128,
+       "grain_sorghum": 4470
+      }
+     },
+     "WSfF": {
+      "mean": -55.0,
+      "mean_before_land_rent": -5.3,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -170.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 36.1,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2425,
+       "sunflower": 1465
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 1.054,
+     "grain_sorghum": 0.84,
+     "corn": 0.903,
+     "sunflower": 0.866
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 981,
     "share_of_area": {
@@ -2247,6 +3906,109 @@
     "sunflower": 0.722
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WF",
+    "best_of_three": "WF",
+    "gain_replacing_fallow_usd_acre": -4.6,
+    "best_three_year_vs_wf_usd_acre": -4.6,
+    "rotations": {
+     "WF": {
+      "mean": -45.9,
+      "mean_before_land_rent": -1.9,
+      "share_of_years_with_profit": 0.13,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -118.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 38.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2586
+      }
+     },
+     "WSF": {
+      "mean": -50.5,
+      "mean_before_land_rent": -4.6,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.4,
+      "mean_of_worst_fifth": -128.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 36.0,
+       "grain_sorghum": 66.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2419,
+       "grain_sorghum": 4177
+      }
+     },
+     "WCF": {
+      "mean": -88.2,
+      "mean_before_land_rent": -42.2,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.3,
+      "mean_of_worst_fifth": -209.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.9,
+       "corn": 52.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2417,
+       "corn": 3290
+      }
+     },
+     "WSSF": {
+      "mean": -69.6,
+      "mean_before_land_rent": -24.1,
+      "share_of_years_with_profit": 0.07,
+      "share_of_years_covering_costs_before_rent": 0.33,
+      "mean_of_worst_fifth": -145.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.9,
+       "grain_sorghum": 55.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2413,
+       "grain_sorghum": 3462
+      }
+     },
+     "WWSF": {
+      "mean": -74.4,
+      "mean_before_land_rent": -27.5,
+      "share_of_years_with_profit": 0.1,
+      "share_of_years_covering_costs_before_rent": 0.23,
+      "mean_of_worst_fifth": -160.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 31.2,
+       "grain_sorghum": 66.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2100,
+       "grain_sorghum": 4174
+      }
+     },
+     "WSfF": {
+      "mean": -64.3,
+      "mean_before_land_rent": -14.6,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.4,
+      "mean_of_worst_fifth": -168.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 36.2,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2435,
+       "sunflower": 1350
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.822,
+     "grain_sorghum": 0.678,
+     "corn": 0.511,
+     "sunflower": 0.634
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 635,
     "share_of_area": {
@@ -2378,6 +4140,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 18.1,
+    "best_three_year_vs_wf_usd_acre": 18.1,
+    "rotations": {
+     "WF": {
+      "mean": -32.5,
+      "mean_before_land_rent": 11.6,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -88.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2773
+      }
+     },
+     "WSF": {
+      "mean": -14.4,
+      "mean_before_land_rent": 31.6,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -91.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.5,
+       "grain_sorghum": 79.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2724,
+       "grain_sorghum": 4997
+      }
+     },
+     "WCF": {
+      "mean": -30.7,
+      "mean_before_land_rent": 15.3,
+      "share_of_years_with_profit": 0.4,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -158.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.5,
+       "corn": 77.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2723,
+       "corn": 4860
+      }
+     },
+     "WSSF": {
+      "mean": -28.4,
+      "mean_before_land_rent": 17.1,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -109.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.5,
+       "grain_sorghum": 67.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2722,
+       "grain_sorghum": 4214
+      }
+     },
+     "WWSF": {
+      "mean": -39.7,
+      "mean_before_land_rent": 7.2,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -121.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.4,
+       "grain_sorghum": 79.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2380,
+       "grain_sorghum": 4995
+      }
+     },
+     "WSfF": {
+      "mean": -23.1,
+      "mean_before_land_rent": 26.5,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -120.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.6,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2731,
+       "sunflower": 1742
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.751,
+     "grain_sorghum": 0.728,
+     "corn": 0.603,
+     "sunflower": 0.696
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 620,
     "share_of_area": {
@@ -2509,6 +4374,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 3.6,
+    "best_three_year_vs_wf_usd_acre": 3.6,
+    "rotations": {
+     "WF": {
+      "mean": -41.1,
+      "mean_before_land_rent": 2.9,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -97.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2652
+      }
+     },
+     "WSF": {
+      "mean": -37.5,
+      "mean_before_land_rent": 8.5,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -112.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.9,
+       "grain_sorghum": 73.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2412,
+       "grain_sorghum": 4592
+      }
+     },
+     "WCF": {
+      "mean": -69.8,
+      "mean_before_land_rent": -23.9,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.43,
+      "mean_of_worst_fifth": -201.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.9,
+       "corn": 61.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2413,
+       "corn": 3883
+      }
+     },
+     "WSSF": {
+      "mean": -54.4,
+      "mean_before_land_rent": -8.9,
+      "share_of_years_with_profit": 0.13,
+      "share_of_years_covering_costs_before_rent": 0.33,
+      "mean_of_worst_fifth": -124.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.8,
+       "grain_sorghum": 60.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2406,
+       "grain_sorghum": 3782
+      }
+     },
+     "WWSF": {
+      "mean": -64.1,
+      "mean_before_land_rent": -17.1,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.3,
+      "mean_of_worst_fifth": -149.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 31.1,
+       "grain_sorghum": 73.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2091,
+       "grain_sorghum": 4589
+      }
+     },
+     "WSfF": {
+      "mean": -49.6,
+      "mean_before_land_rent": 0.1,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -157.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 36.2,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2433,
+       "sunflower": 1531
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.9,
+     "grain_sorghum": 0.775,
+     "corn": 0.704,
+     "sunflower": 0.769
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 962,
     "share_of_area": {
@@ -2640,6 +4608,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 61.0,
+    "best_three_year_vs_wf_usd_acre": 61.0,
+    "rotations": {
+     "WF": {
+      "mean": -30.0,
+      "mean_before_land_rent": 22.2,
+      "share_of_years_with_profit": 0.13,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -71.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3195
+      }
+     },
+     "WSF": {
+      "mean": 31.0,
+      "mean_before_land_rent": 83.2,
+      "share_of_years_with_profit": 0.6,
+      "share_of_years_covering_costs_before_rent": 0.87,
+      "mean_of_worst_fifth": -52.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.9,
+       "grain_sorghum": 100.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3151,
+       "grain_sorghum": 6302
+      }
+     },
+     "WCF": {
+      "mean": 0.2,
+      "mean_before_land_rent": 52.4,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -89.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.9,
+       "corn": 96.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3154,
+       "corn": 6050
+      }
+     },
+     "WSSF": {
+      "mean": 24.3,
+      "mean_before_land_rent": 76.6,
+      "share_of_years_with_profit": 0.6,
+      "share_of_years_covering_costs_before_rent": 0.77,
+      "mean_of_worst_fifth": -67.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.9,
+       "grain_sorghum": 85.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3151,
+       "grain_sorghum": 5334
+      }
+     },
+     "WWSF": {
+      "mean": 11.7,
+      "mean_before_land_rent": 63.9,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.83,
+      "mean_of_worst_fifth": -68.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.8,
+       "grain_sorghum": 100.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2809,
+       "grain_sorghum": 6296
+      }
+     },
+     "WSfF": {
+      "mean": -43.4,
+      "mean_before_land_rent": 19.7,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -110.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.9,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3154,
+       "sunflower": 1634
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.73,
+     "grain_sorghum": 0.821,
+     "corn": 0.575,
+     "sunflower": 0.556
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 343,
     "share_of_area": {
@@ -2667,7 +4738,7 @@
     1996,
     2025
    ],
-   "land_rent_usd_acre": 44.0,
+   "land_rent_usd_acre": 44.1,
    "best_rotation": "WF",
    "best_of_three": "WF",
    "gain_replacing_fallow_usd_acre": -17.9,
@@ -2771,6 +4842,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 8.8,
+    "best_three_year_vs_wf_usd_acre": 8.8,
+    "rotations": {
+     "WF": {
+      "mean": -28.1,
+      "mean_before_land_rent": 16.0,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -90.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 42.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2836
+      }
+     },
+     "WSF": {
+      "mean": -19.3,
+      "mean_before_land_rent": 26.7,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -96.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.4,
+       "grain_sorghum": 76.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2719,
+       "grain_sorghum": 4801
+      }
+     },
+     "WCF": {
+      "mean": -45.3,
+      "mean_before_land_rent": 0.7,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -174.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.4,
+       "corn": 69.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2714,
+       "corn": 4339
+      }
+     },
+     "WSSF": {
+      "mean": -36.8,
+      "mean_before_land_rent": 8.7,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.43,
+      "mean_of_worst_fifth": -116.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.3,
+       "grain_sorghum": 63.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2707,
+       "grain_sorghum": 3997
+      }
+     },
+     "WWSF": {
+      "mean": -44.9,
+      "mean_before_land_rent": 2.0,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.4,
+      "mean_of_worst_fifth": -123.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 34.8,
+       "grain_sorghum": 76.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2339,
+       "grain_sorghum": 4793
+      }
+     },
+     "WSfF": {
+      "mean": -28.2,
+      "mean_before_land_rent": 21.5,
+      "share_of_years_with_profit": 0.4,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -127.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.7,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2734,
+       "sunflower": 1639
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.814,
+     "grain_sorghum": 0.739,
+     "corn": 0.621,
+     "sunflower": 0.715
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 789,
     "share_of_area": {
@@ -2900,6 +5074,109 @@
     "sunflower": 0.794
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 11.2,
+    "best_three_year_vs_wf_usd_acre": 11.2,
+    "rotations": {
+     "WF": {
+      "mean": -39.8,
+      "mean_before_land_rent": 19.9,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -112.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 44.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3021
+      }
+     },
+     "WSF": {
+      "mean": -28.6,
+      "mean_before_land_rent": 31.2,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -127.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.1,
+       "grain_sorghum": 74.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2765,
+       "grain_sorghum": 4664
+      }
+     },
+     "WCF": {
+      "mean": -54.7,
+      "mean_before_land_rent": 5.1,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -198.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.1,
+       "corn": 65.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2766,
+       "corn": 4119
+      }
+     },
+     "WSSF": {
+      "mean": -47.8,
+      "mean_before_land_rent": 12.0,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -144.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.1,
+       "grain_sorghum": 61.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2761,
+       "grain_sorghum": 3843
+      }
+     },
+     "WWSF": {
+      "mean": -53.0,
+      "mean_before_land_rent": 6.8,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -153.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.5,
+       "grain_sorghum": 74.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2387,
+       "grain_sorghum": 4657
+      }
+     },
+     "WSfF": {
+      "mean": -41.1,
+      "mean_before_land_rent": 17.1,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -149.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.4,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2786,
+       "sunflower": 1487
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.96,
+     "grain_sorghum": 0.785,
+     "corn": 0.768,
+     "sunflower": 0.748
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 1131,
     "share_of_area": {
@@ -2927,7 +5204,7 @@
     1996,
     2025
    ],
-   "land_rent_usd_acre": 44.0,
+   "land_rent_usd_acre": 44.1,
    "best_rotation": "WF",
    "best_of_three": "WF",
    "gain_replacing_fallow_usd_acre": -15.1,
@@ -3031,6 +5308,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 5.4,
+    "best_three_year_vs_wf_usd_acre": 5.4,
+    "rotations": {
+     "WF": {
+      "mean": -45.5,
+      "mean_before_land_rent": -1.5,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.4,
+      "mean_of_worst_fifth": -111.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 38.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2572
+      }
+     },
+     "WSF": {
+      "mean": -40.1,
+      "mean_before_land_rent": 5.9,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -116.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 37.0,
+       "grain_sorghum": 70.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2487,
+       "grain_sorghum": 4405
+      }
+     },
+     "WCF": {
+      "mean": -78.4,
+      "mean_before_land_rent": -32.4,
+      "share_of_years_with_profit": 0.13,
+      "share_of_years_covering_costs_before_rent": 0.37,
+      "mean_of_worst_fifth": -192.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 37.0,
+       "corn": 55.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2490,
+       "corn": 3504
+      }
+     },
+     "WSSF": {
+      "mean": -55.4,
+      "mean_before_land_rent": -9.9,
+      "share_of_years_with_profit": 0.1,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -131.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 37.0,
+       "grain_sorghum": 59.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2486,
+       "grain_sorghum": 3729
+      }
+     },
+     "WWSF": {
+      "mean": -65.0,
+      "mean_before_land_rent": -18.0,
+      "share_of_years_with_profit": 0.13,
+      "share_of_years_covering_costs_before_rent": 0.33,
+      "mean_of_worst_fifth": -151.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 32.3,
+       "grain_sorghum": 70.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2171,
+       "grain_sorghum": 4400
+      }
+     },
+     "WSfF": {
+      "mean": -52.7,
+      "mean_before_land_rent": -3.0,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -145.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 37.1,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2493,
+       "sunflower": 1467
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.779,
+     "grain_sorghum": 0.698,
+     "corn": 0.518,
+     "sunflower": 0.657
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 653,
     "share_of_area": {
@@ -3160,6 +5540,109 @@
     "sunflower": 0.704
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WF",
+    "best_of_three": "WF",
+    "gain_replacing_fallow_usd_acre": -3.1,
+    "best_three_year_vs_wf_usd_acre": -3.1,
+    "rotations": {
+     "WF": {
+      "mean": -51.2,
+      "mean_before_land_rent": -7.2,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.4,
+      "mean_of_worst_fifth": -133.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 38.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2559
+      }
+     },
+     "WSF": {
+      "mean": -54.3,
+      "mean_before_land_rent": -8.3,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.43,
+      "mean_of_worst_fifth": -136.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.5,
+       "grain_sorghum": 66.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2386,
+       "grain_sorghum": 4184
+      }
+     },
+     "WCF": {
+      "mean": -100.0,
+      "mean_before_land_rent": -54.0,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.3,
+      "mean_of_worst_fifth": -229.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.5,
+       "corn": 48.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2389,
+       "corn": 3051
+      }
+     },
+     "WSSF": {
+      "mean": -72.0,
+      "mean_before_land_rent": -26.5,
+      "share_of_years_with_profit": 0.1,
+      "share_of_years_covering_costs_before_rent": 0.33,
+      "mean_of_worst_fifth": -150.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.4,
+       "grain_sorghum": 55.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2383,
+       "grain_sorghum": 3471
+      }
+     },
+     "WWSF": {
+      "mean": -76.0,
+      "mean_before_land_rent": -29.1,
+      "share_of_years_with_profit": 0.13,
+      "share_of_years_covering_costs_before_rent": 0.37,
+      "mean_of_worst_fifth": -175.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 31.7,
+       "grain_sorghum": 66.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2129,
+       "grain_sorghum": 4184
+      }
+     },
+     "WSfF": {
+      "mean": -69.8,
+      "mean_before_land_rent": -20.1,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.33,
+      "mean_of_worst_fifth": -177.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.6,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2397,
+       "sunflower": 1335
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 1.01,
+     "grain_sorghum": 0.767,
+     "corn": 0.67,
+     "sunflower": 0.757
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 468,
     "share_of_area": {
@@ -3289,6 +5772,109 @@
     "sunflower": 0.524
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 18.1,
+    "best_three_year_vs_wf_usd_acre": 18.1,
+    "rotations": {
+     "WF": {
+      "mean": -35.5,
+      "mean_before_land_rent": 8.6,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -94.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2715
+      }
+     },
+     "WSF": {
+      "mean": -17.4,
+      "mean_before_land_rent": 28.6,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -91.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.1,
+       "grain_sorghum": 79.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2628,
+       "grain_sorghum": 4996
+      }
+     },
+     "WCF": {
+      "mean": -39.0,
+      "mean_before_land_rent": 7.0,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -173.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.0,
+       "corn": 74.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2626,
+       "corn": 4695
+      }
+     },
+     "WSSF": {
+      "mean": -32.4,
+      "mean_before_land_rent": 13.1,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -108.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.0,
+       "grain_sorghum": 66.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2624,
+       "grain_sorghum": 4157
+      }
+     },
+     "WWSF": {
+      "mean": -44.4,
+      "mean_before_land_rent": 2.5,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.37,
+      "mean_of_worst_fifth": -126.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 33.9,
+       "grain_sorghum": 79.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2280,
+       "grain_sorghum": 4985
+      }
+     },
+     "WSfF": {
+      "mean": -26.8,
+      "mean_before_land_rent": 22.9,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -119.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.2,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2638,
+       "sunflower": 1722
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.759,
+     "grain_sorghum": 0.726,
+     "corn": 0.6,
+     "sunflower": 0.689
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 741,
     "share_of_area": {
@@ -3420,6 +6006,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 24.0,
+    "best_three_year_vs_wf_usd_acre": 24.0,
+    "rotations": {
+     "WF": {
+      "mean": -19.6,
+      "mean_before_land_rent": 40.2,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.77,
+      "mean_of_worst_fifth": -83.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 49.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3355
+      }
+     },
+     "WSF": {
+      "mean": 4.4,
+      "mean_before_land_rent": 64.2,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.77,
+      "mean_of_worst_fifth": -90.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.8,
+       "grain_sorghum": 82.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3283,
+       "grain_sorghum": 5178
+      }
+     },
+     "WCF": {
+      "mean": 3.9,
+      "mean_before_land_rent": 63.7,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.77,
+      "mean_of_worst_fifth": -148.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.6,
+       "corn": 87.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3267,
+       "corn": 5496
+      }
+     },
+     "WSSF": {
+      "mean": -14.2,
+      "mean_before_land_rent": 45.6,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -116.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.6,
+       "grain_sorghum": 69.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3271,
+       "grain_sorghum": 4341
+      }
+     },
+     "WWSF": {
+      "mean": -15.1,
+      "mean_before_land_rent": 44.7,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -116.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 42.9,
+       "grain_sorghum": 82.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2885,
+       "grain_sorghum": 5151
+      }
+     },
+     "WSfF": {
+      "mean": -5.3,
+      "mean_before_land_rent": 52.9,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.7,
+      "mean_of_worst_fifth": -108.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.9,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3292,
+       "sunflower": 1748
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.805,
+     "grain_sorghum": 0.702,
+     "corn": 0.582,
+     "sunflower": 0.635
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 515,
     "share_of_area": {
@@ -3549,6 +6238,109 @@
     "sunflower": 0.473
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 67.2,
+    "best_three_year_vs_wf_usd_acre": 67.2,
+    "rotations": {
+     "WF": {
+      "mean": -39.7,
+      "mean_before_land_rent": 42.7,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.77,
+      "mean_of_worst_fifth": -108.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 54.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3668
+      }
+     },
+     "WSF": {
+      "mean": 27.5,
+      "mean_before_land_rent": 109.9,
+      "share_of_years_with_profit": 0.5,
+      "share_of_years_covering_costs_before_rent": 0.97,
+      "mean_of_worst_fifth": -75.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 53.3,
+       "grain_sorghum": 114.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3582,
+       "grain_sorghum": 7171
+      }
+     },
+     "WCF": {
+      "mean": 13.0,
+      "mean_before_land_rent": 95.4,
+      "share_of_years_with_profit": 0.4,
+      "share_of_years_covering_costs_before_rent": 0.87,
+      "mean_of_worst_fifth": -104.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 53.3,
+       "corn": 116.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3581,
+       "corn": 7322
+      }
+     },
+     "WSSF": {
+      "mean": 19.2,
+      "mean_before_land_rent": 101.6,
+      "share_of_years_with_profit": 0.5,
+      "share_of_years_covering_costs_before_rent": 0.83,
+      "mean_of_worst_fifth": -94.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 53.3,
+       "grain_sorghum": 96.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3581,
+       "grain_sorghum": 6042
+      }
+     },
+     "WWSF": {
+      "mean": 7.8,
+      "mean_before_land_rent": 90.2,
+      "share_of_years_with_profit": 0.4,
+      "share_of_years_covering_costs_before_rent": 0.83,
+      "mean_of_worst_fifth": -94.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.6,
+       "grain_sorghum": 114.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3201,
+       "grain_sorghum": 7164
+      }
+     },
+     "WSfF": {
+      "mean": -39.6,
+      "mean_before_land_rent": 43.5,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -135.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 53.4,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3590,
+       "sunflower": 1774
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.858,
+     "grain_sorghum": 0.906,
+     "corn": 0.68,
+     "sunflower": 0.58
+    },
+    "practice_match": null
+   },
    "practice": {
     "fields": 261,
     "share_of_area": {
@@ -3680,6 +6472,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 63.0,
+    "best_three_year_vs_wf_usd_acre": 63.0,
+    "rotations": {
+     "WF": {
+      "mean": -30.7,
+      "mean_before_land_rent": 21.5,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -79.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3173
+      }
+     },
+     "WSF": {
+      "mean": 32.3,
+      "mean_before_land_rent": 84.5,
+      "share_of_years_with_profit": 0.6,
+      "share_of_years_covering_costs_before_rent": 0.93,
+      "mean_of_worst_fifth": -50.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.6,
+       "grain_sorghum": 102.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3131,
+       "grain_sorghum": 6429
+      }
+     },
+     "WCF": {
+      "mean": -2.1,
+      "mean_before_land_rent": 50.1,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -110.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.6,
+       "corn": 96.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3133,
+       "corn": 6078
+      }
+     },
+     "WSSF": {
+      "mean": 27.4,
+      "mean_before_land_rent": 79.6,
+      "share_of_years_with_profit": 0.57,
+      "share_of_years_covering_costs_before_rent": 0.83,
+      "mean_of_worst_fifth": -65.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.6,
+       "grain_sorghum": 87.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3131,
+       "grain_sorghum": 5460
+      }
+     },
+     "WWSF": {
+      "mean": 10.9,
+      "mean_before_land_rent": 63.1,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.83,
+      "mean_of_worst_fifth": -69.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.2,
+       "grain_sorghum": 102.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2769,
+       "grain_sorghum": 6418
+      }
+     },
+     "WSfF": {
+      "mean": -42.0,
+      "mean_before_land_rent": 21.1,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -112.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.6,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3134,
+       "sunflower": 1672
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.777,
+     "grain_sorghum": 0.859,
+     "corn": 0.624,
+     "sunflower": 0.589
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 724,
     "share_of_area": {
@@ -3707,7 +6602,7 @@
     1996,
     2025
    ],
-   "land_rent_usd_acre": 82.4,
+   "land_rent_usd_acre": 82.3,
    "best_rotation": "WSF",
    "best_of_three": "WSF",
    "gain_replacing_fallow_usd_acre": 21.0,
@@ -3809,6 +6704,109 @@
     "sunflower": 0.627
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 63.0,
+    "best_three_year_vs_wf_usd_acre": 63.0,
+    "rotations": {
+     "WF": {
+      "mean": -52.3,
+      "mean_before_land_rent": 30.1,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -115.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 50.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3418
+      }
+     },
+     "WSF": {
+      "mean": 10.7,
+      "mean_before_land_rent": 93.0,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.87,
+      "mean_of_worst_fifth": -104.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 49.7,
+       "grain_sorghum": 108.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3340,
+       "grain_sorghum": 6787
+      }
+     },
+     "WCF": {
+      "mean": -13.6,
+      "mean_before_land_rent": 68.8,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.73,
+      "mean_of_worst_fifth": -171.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 49.6,
+       "corn": 104.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3335,
+       "corn": 6574
+      }
+     },
+     "WSSF": {
+      "mean": 1.4,
+      "mean_before_land_rent": 83.8,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.73,
+      "mean_of_worst_fifth": -124.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 49.6,
+       "grain_sorghum": 91.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3337,
+       "grain_sorghum": 5715
+      }
+     },
+     "WWSF": {
+      "mean": -11.0,
+      "mean_before_land_rent": 71.4,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -127.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 44.1,
+       "grain_sorghum": 107.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2968,
+       "grain_sorghum": 6746
+      }
+     },
+     "WSfF": {
+      "mean": -56.0,
+      "mean_before_land_rent": 27.2,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -157.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 49.8,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3349,
+       "sunflower": 1648
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.812,
+     "grain_sorghum": 0.892,
+     "corn": 0.644,
+     "sunflower": 0.573
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 233,
     "share_of_area": {
@@ -3940,6 +6938,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 69.1,
+    "best_three_year_vs_wf_usd_acre": 69.1,
+    "rotations": {
+     "WF": {
+      "mean": -28.3,
+      "mean_before_land_rent": 23.9,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -76.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3216
+      }
+     },
+     "WSF": {
+      "mean": 40.8,
+      "mean_before_land_rent": 93.0,
+      "share_of_years_with_profit": 0.63,
+      "share_of_years_covering_costs_before_rent": 0.97,
+      "mean_of_worst_fifth": -45.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.6,
+       "grain_sorghum": 105.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3204,
+       "grain_sorghum": 6631
+      }
+     },
+     "WCF": {
+      "mean": 10.8,
+      "mean_before_land_rent": 63.0,
+      "share_of_years_with_profit": 0.47,
+      "share_of_years_covering_costs_before_rent": 0.77,
+      "mean_of_worst_fifth": -102.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.7,
+       "corn": 101.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3206,
+       "corn": 6390
+      }
+     },
+     "WSSF": {
+      "mean": 39.1,
+      "mean_before_land_rent": 91.3,
+      "share_of_years_with_profit": 0.57,
+      "share_of_years_covering_costs_before_rent": 0.9,
+      "mean_of_worst_fifth": -58.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.6,
+       "grain_sorghum": 90.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3204,
+       "grain_sorghum": 5694
+      }
+     },
+     "WWSF": {
+      "mean": 24.3,
+      "mean_before_land_rent": 76.5,
+      "share_of_years_with_profit": 0.5,
+      "share_of_years_covering_costs_before_rent": 0.93,
+      "mean_of_worst_fifth": -53.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 43.7,
+       "grain_sorghum": 105.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2940,
+       "grain_sorghum": 6631
+      }
+     },
+     "WSfF": {
+      "mean": -33.9,
+      "mean_before_land_rent": 29.1,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -113.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.6,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3204,
+       "sunflower": 1752
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.801,
+     "grain_sorghum": 0.943,
+     "corn": 0.698,
+     "sunflower": 0.666
+    },
+    "practice_match": null
+   },
    "practice": {
     "fields": 471,
     "share_of_area": {
@@ -4069,6 +7170,109 @@
     "sunflower": 0.583
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 21.3,
+    "best_three_year_vs_wf_usd_acre": 21.3,
+    "rotations": {
+     "WF": {
+      "mean": -12.9,
+      "mean_before_land_rent": 46.9,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.73,
+      "mean_of_worst_fifth": -93.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 52.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3512
+      }
+     },
+     "WSF": {
+      "mean": 8.4,
+      "mean_before_land_rent": 68.2,
+      "share_of_years_with_profit": 0.5,
+      "share_of_years_covering_costs_before_rent": 0.77,
+      "mean_of_worst_fifth": -93.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 50.1,
+       "grain_sorghum": 85.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3372,
+       "grain_sorghum": 5379
+      }
+     },
+     "WCF": {
+      "mean": 8.4,
+      "mean_before_land_rent": 68.2,
+      "share_of_years_with_profit": 0.5,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -153.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 50.0,
+       "corn": 92.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3359,
+       "corn": 5830
+      }
+     },
+     "WSSF": {
+      "mean": -11.1,
+      "mean_before_land_rent": 48.7,
+      "share_of_years_with_profit": 0.4,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -113.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 49.9,
+       "grain_sorghum": 71.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3358,
+       "grain_sorghum": 4473
+      }
+     },
+     "WWSF": {
+      "mean": -13.6,
+      "mean_before_land_rent": 46.2,
+      "share_of_years_with_profit": 0.4,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -122.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 43.2,
+       "grain_sorghum": 85.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2904,
+       "grain_sorghum": 5365
+      }
+     },
+     "WSfF": {
+      "mean": 2.4,
+      "mean_before_land_rent": 60.7,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.73,
+      "mean_of_worst_fifth": -119.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 50.3,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3385,
+       "sunflower": 1855
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.965,
+     "grain_sorghum": 0.815,
+     "corn": 0.787,
+     "sunflower": 0.791
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 1062,
     "share_of_area": {
@@ -4198,6 +7402,109 @@
     "sunflower": 0.563
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 64.5,
+    "best_three_year_vs_wf_usd_acre": 64.5,
+    "rotations": {
+     "WF": {
+      "mean": -54.3,
+      "mean_before_land_rent": 28.0,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -120.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 50.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3424
+      }
+     },
+     "WSF": {
+      "mean": 10.2,
+      "mean_before_land_rent": 92.6,
+      "share_of_years_with_profit": 0.47,
+      "share_of_years_covering_costs_before_rent": 0.87,
+      "mean_of_worst_fifth": -90.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 50.4,
+       "grain_sorghum": 110.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3390,
+       "grain_sorghum": 6918
+      }
+     },
+     "WCF": {
+      "mean": -17.3,
+      "mean_before_land_rent": 65.1,
+      "share_of_years_with_profit": 0.4,
+      "share_of_years_covering_costs_before_rent": 0.77,
+      "mean_of_worst_fifth": -152.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 50.4,
+       "corn": 106.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3391,
+       "corn": 6672
+      }
+     },
+     "WSSF": {
+      "mean": 4.0,
+      "mean_before_land_rent": 86.3,
+      "share_of_years_with_profit": 0.47,
+      "share_of_years_covering_costs_before_rent": 0.87,
+      "mean_of_worst_fifth": -108.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 50.4,
+       "grain_sorghum": 93.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3390,
+       "grain_sorghum": 5896
+      }
+     },
+     "WWSF": {
+      "mean": -9.7,
+      "mean_before_land_rent": 72.7,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.83,
+      "mean_of_worst_fifth": -108.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 45.1,
+       "grain_sorghum": 110.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3034,
+       "grain_sorghum": 6917
+      }
+     },
+     "WSfF": {
+      "mean": -54.9,
+      "mean_before_land_rent": 28.3,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -146.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 50.4,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3391,
+       "sunflower": 1693
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.931,
+     "grain_sorghum": 1.013,
+     "corn": 0.864,
+     "sunflower": 0.675
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 345,
     "share_of_area": {
@@ -4329,6 +7636,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 70.7,
+    "best_three_year_vs_wf_usd_acre": 70.7,
+    "rotations": {
+     "WF": {
+      "mean": -23.1,
+      "mean_before_land_rent": 29.1,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.7,
+      "mean_of_worst_fifth": -82.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3288
+      }
+     },
+     "WSF": {
+      "mean": 47.6,
+      "mean_before_land_rent": 99.8,
+      "share_of_years_with_profit": 0.53,
+      "share_of_years_covering_costs_before_rent": 0.93,
+      "mean_of_worst_fifth": -46.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.7,
+       "grain_sorghum": 108.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3207,
+       "grain_sorghum": 6786
+      }
+     },
+     "WCF": {
+      "mean": 31.2,
+      "mean_before_land_rent": 83.4,
+      "share_of_years_with_profit": 0.5,
+      "share_of_years_covering_costs_before_rent": 0.8,
+      "mean_of_worst_fifth": -117.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.7,
+       "corn": 111.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3208,
+       "corn": 6993
+      }
+     },
+     "WSSF": {
+      "mean": 44.9,
+      "mean_before_land_rent": 97.1,
+      "share_of_years_with_profit": 0.5,
+      "share_of_years_covering_costs_before_rent": 0.87,
+      "mean_of_worst_fifth": -57.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.7,
+       "grain_sorghum": 91.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3206,
+       "grain_sorghum": 5764
+      }
+     },
+     "WWSF": {
+      "mean": 26.5,
+      "mean_before_land_rent": 78.7,
+      "share_of_years_with_profit": 0.5,
+      "share_of_years_covering_costs_before_rent": 0.83,
+      "mean_of_worst_fifth": -69.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 42.7,
+       "grain_sorghum": 108.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2873,
+       "grain_sorghum": 6781
+      }
+     },
+     "WSfF": {
+      "mean": -26.6,
+      "mean_before_land_rent": 36.4,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -126.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.7,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3208,
+       "sunflower": 1802
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.867,
+     "grain_sorghum": 0.962,
+     "corn": 0.836,
+     "sunflower": 0.691
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 475,
     "share_of_area": {
@@ -4460,6 +7870,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 68.6,
+    "best_three_year_vs_wf_usd_acre": 68.6,
+    "rotations": {
+     "WF": {
+      "mean": -46.9,
+      "mean_before_land_rent": 35.4,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -104.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 52.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3557
+      }
+     },
+     "WSF": {
+      "mean": 21.7,
+      "mean_before_land_rent": 104.0,
+      "share_of_years_with_profit": 0.5,
+      "share_of_years_covering_costs_before_rent": 0.97,
+      "mean_of_worst_fifth": -70.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 52.1,
+       "grain_sorghum": 113.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3507,
+       "grain_sorghum": 7137
+      }
+     },
+     "WCF": {
+      "mean": 12.7,
+      "mean_before_land_rent": 95.0,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.9,
+      "mean_of_worst_fifth": -89.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 52.2,
+       "corn": 119.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3510,
+       "corn": 7488
+      }
+     },
+     "WSSF": {
+      "mean": 14.5,
+      "mean_before_land_rent": 96.8,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.83,
+      "mean_of_worst_fifth": -88.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 52.1,
+       "grain_sorghum": 96.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3507,
+       "grain_sorghum": 6032
+      }
+     },
+     "WWSF": {
+      "mean": 0.7,
+      "mean_before_land_rent": 83.1,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.87,
+      "mean_of_worst_fifth": -90.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.6,
+       "grain_sorghum": 113.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3132,
+       "grain_sorghum": 7109
+      }
+     },
+     "WSfF": {
+      "mean": -45.2,
+      "mean_before_land_rent": 37.9,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -130.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 52.2,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3510,
+       "sunflower": 1756
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.852,
+     "grain_sorghum": 0.924,
+     "corn": 0.733,
+     "sunflower": 0.593
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 145,
     "share_of_area": {
@@ -4487,7 +8000,7 @@
     1996,
     2025
    ],
-   "land_rent_usd_acre": 44.0,
+   "land_rent_usd_acre": 44.1,
    "best_rotation": "WSF",
    "best_of_three": "WSF",
    "gain_replacing_fallow_usd_acre": 4.9,
@@ -4589,6 +8102,109 @@
     "sunflower": 0.716
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 7.0,
+    "best_three_year_vs_wf_usd_acre": 7.0,
+    "rotations": {
+     "WF": {
+      "mean": -32.4,
+      "mean_before_land_rent": 11.6,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -93.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2782
+      }
+     },
+     "WSF": {
+      "mean": -25.4,
+      "mean_before_land_rent": 20.6,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -102.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.2,
+       "grain_sorghum": 75.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2634,
+       "grain_sorghum": 4712
+      }
+     },
+     "WCF": {
+      "mean": -54.9,
+      "mean_before_land_rent": -8.9,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -178.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.1,
+       "corn": 65.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2631,
+       "corn": 4113
+      }
+     },
+     "WSSF": {
+      "mean": -42.7,
+      "mean_before_land_rent": 2.8,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.43,
+      "mean_of_worst_fifth": -121.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.0,
+       "grain_sorghum": 62.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2625,
+       "grain_sorghum": 3908
+      }
+     },
+     "WWSF": {
+      "mean": -51.5,
+      "mean_before_land_rent": -4.5,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.37,
+      "mean_of_worst_fifth": -132.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 33.6,
+       "grain_sorghum": 75.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2263,
+       "grain_sorghum": 4706
+      }
+     },
+     "WSfF": {
+      "mean": -35.8,
+      "mean_before_land_rent": 13.8,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -140.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.4,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2647,
+       "sunflower": 1593
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.845,
+     "grain_sorghum": 0.742,
+     "corn": 0.636,
+     "sunflower": 0.718
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 1026,
     "share_of_area": {
@@ -4720,6 +8336,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WF",
+    "best_of_three": "WF",
+    "gain_replacing_fallow_usd_acre": -1.0,
+    "best_three_year_vs_wf_usd_acre": -1.0,
+    "rotations": {
+     "WF": {
+      "mean": -46.3,
+      "mean_before_land_rent": -2.3,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.4,
+      "mean_of_worst_fifth": -117.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 38.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2580
+      }
+     },
+     "WSF": {
+      "mean": -47.3,
+      "mean_before_land_rent": -1.3,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.43,
+      "mean_of_worst_fifth": -125.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 36.3,
+       "grain_sorghum": 67.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2444,
+       "grain_sorghum": 4251
+      }
+     },
+     "WCF": {
+      "mean": -87.5,
+      "mean_before_land_rent": -41.5,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.33,
+      "mean_of_worst_fifth": -215.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 36.4,
+       "corn": 51.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2451,
+       "corn": 3244
+      }
+     },
+     "WSSF": {
+      "mean": -64.4,
+      "mean_before_land_rent": -18.9,
+      "share_of_years_with_profit": 0.1,
+      "share_of_years_covering_costs_before_rent": 0.37,
+      "mean_of_worst_fifth": -140.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 36.3,
+       "grain_sorghum": 56.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2441,
+       "grain_sorghum": 3564
+      }
+     },
+     "WWSF": {
+      "mean": -71.4,
+      "mean_before_land_rent": -24.5,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.33,
+      "mean_of_worst_fifth": -166.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 31.8,
+       "grain_sorghum": 67.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2136,
+       "grain_sorghum": 4250
+      }
+     },
+     "WSfF": {
+      "mean": -61.1,
+      "mean_before_land_rent": -11.4,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.4,
+      "mean_of_worst_fifth": -168.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 36.5,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2456,
+       "sunflower": 1382
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.865,
+     "grain_sorghum": 0.701,
+     "corn": 0.51,
+     "sunflower": 0.659
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 437,
     "share_of_area": {
@@ -4851,6 +8570,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 12.1,
+    "best_three_year_vs_wf_usd_acre": 12.1,
+    "rotations": {
+     "WF": {
+      "mean": -23.7,
+      "mean_before_land_rent": 36.1,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.73,
+      "mean_of_worst_fifth": -89.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 49.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3305
+      }
+     },
+     "WSF": {
+      "mean": -11.6,
+      "mean_before_land_rent": 48.2,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.77,
+      "mean_of_worst_fifth": -108.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.5,
+       "grain_sorghum": 76.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3195,
+       "grain_sorghum": 4777
+      }
+     },
+     "WCF": {
+      "mean": -32.2,
+      "mean_before_land_rent": 27.6,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -173.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.5,
+       "corn": 70.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3196,
+       "corn": 4428
+      }
+     },
+     "WSSF": {
+      "mean": -31.7,
+      "mean_before_land_rent": 28.0,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -131.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.5,
+       "grain_sorghum": 63.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3194,
+       "grain_sorghum": 4002
+      }
+     },
+     "WWSF": {
+      "mean": -29.4,
+      "mean_before_land_rent": 30.3,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -128.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 41.7,
+       "grain_sorghum": 76.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2807,
+       "grain_sorghum": 4773
+      }
+     },
+     "WSfF": {
+      "mean": -24.0,
+      "mean_before_land_rent": 34.2,
+      "share_of_years_with_profit": 0.47,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -127.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.6,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3200,
+       "sunflower": 1559
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.906,
+     "grain_sorghum": 0.739,
+     "corn": 0.644,
+     "sunflower": 0.68
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 808,
     "share_of_area": {
@@ -4980,6 +8802,109 @@
     "sunflower": 0.864
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 10.7,
+    "best_three_year_vs_wf_usd_acre": 10.7,
+    "rotations": {
+     "WF": {
+      "mean": -21.6,
+      "mean_before_land_rent": 38.2,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -92.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 49.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3353
+      }
+     },
+     "WSF": {
+      "mean": -10.9,
+      "mean_before_land_rent": 48.8,
+      "share_of_years_with_profit": 0.47,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -107.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.6,
+       "grain_sorghum": 78.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3131,
+       "grain_sorghum": 4907
+      }
+     },
+     "WCF": {
+      "mean": -31.0,
+      "mean_before_land_rent": 28.8,
+      "share_of_years_with_profit": 0.4,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -179.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.5,
+       "corn": 73.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3129,
+       "corn": 4603
+      }
+     },
+     "WSSF": {
+      "mean": -32.2,
+      "mean_before_land_rent": 27.6,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -129.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.5,
+       "grain_sorghum": 64.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3127,
+       "grain_sorghum": 4040
+      }
+     },
+     "WWSF": {
+      "mean": -31.3,
+      "mean_before_land_rent": 28.5,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -130.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 40.5,
+       "grain_sorghum": 78.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2724,
+       "grain_sorghum": 4894
+      }
+     },
+     "WSfF": {
+      "mean": -22.2,
+      "mean_before_land_rent": 36.0,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -131.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.8,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3150,
+       "sunflower": 1613
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.936,
+     "grain_sorghum": 0.808,
+     "corn": 0.784,
+     "sunflower": 0.784
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 1265,
     "share_of_area": {
@@ -5007,7 +8932,7 @@
     1996,
     2025
    ],
-   "land_rent_usd_acre": 82.4,
+   "land_rent_usd_acre": 82.3,
    "best_rotation": "WSF",
    "best_of_three": "WSF",
    "gain_replacing_fallow_usd_acre": 39.0,
@@ -5109,6 +9034,109 @@
     "sunflower": 0.622
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 63.6,
+    "best_three_year_vs_wf_usd_acre": 63.6,
+    "rotations": {
+     "WF": {
+      "mean": -42.1,
+      "mean_before_land_rent": 40.2,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.7,
+      "mean_of_worst_fifth": -108.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 53.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3612
+      }
+     },
+     "WSF": {
+      "mean": 21.5,
+      "mean_before_land_rent": 103.8,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.9,
+      "mean_of_worst_fifth": -89.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 52.4,
+       "grain_sorghum": 111.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3526,
+       "grain_sorghum": 6965
+      }
+     },
+     "WCF": {
+      "mean": 2.6,
+      "mean_before_land_rent": 85.0,
+      "share_of_years_with_profit": 0.47,
+      "share_of_years_covering_costs_before_rent": 0.8,
+      "mean_of_worst_fifth": -134.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 52.4,
+       "corn": 110.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3527,
+       "corn": 6929
+      }
+     },
+     "WSSF": {
+      "mean": 12.2,
+      "mean_before_land_rent": 94.6,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.83,
+      "mean_of_worst_fifth": -110.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 52.4,
+       "grain_sorghum": 93.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3526,
+       "grain_sorghum": 5866
+      }
+     },
+     "WWSF": {
+      "mean": 1.9,
+      "mean_before_land_rent": 84.3,
+      "share_of_years_with_profit": 0.4,
+      "share_of_years_covering_costs_before_rent": 0.8,
+      "mean_of_worst_fifth": -109.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.8,
+       "grain_sorghum": 110.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3144,
+       "grain_sorghum": 6944
+      }
+     },
+     "WSfF": {
+      "mean": -45.6,
+      "mean_before_land_rent": 37.5,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -136.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 52.5,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3533,
+       "sunflower": 1698
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.875,
+     "grain_sorghum": 0.901,
+     "corn": 0.65,
+     "sunflower": 0.578
+    },
+    "practice_match": null
+   },
    "practice": {
     "fields": 487,
     "share_of_area": {
@@ -5240,6 +9268,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 62.9,
+    "best_three_year_vs_wf_usd_acre": 62.9,
+    "rotations": {
+     "WF": {
+      "mean": -26.5,
+      "mean_before_land_rent": 25.7,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.7,
+      "mean_of_worst_fifth": -75.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3243
+      }
+     },
+     "WSF": {
+      "mean": 36.4,
+      "mean_before_land_rent": 88.6,
+      "share_of_years_with_profit": 0.6,
+      "share_of_years_covering_costs_before_rent": 0.97,
+      "mean_of_worst_fifth": -46.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.7,
+       "grain_sorghum": 102.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3208,
+       "grain_sorghum": 6445
+      }
+     },
+     "WCF": {
+      "mean": 3.1,
+      "mean_before_land_rent": 55.3,
+      "share_of_years_with_profit": 0.47,
+      "share_of_years_covering_costs_before_rent": 0.73,
+      "mean_of_worst_fifth": -98.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.7,
+       "corn": 97.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3209,
+       "corn": 6132
+      }
+     },
+     "WSSF": {
+      "mean": 31.2,
+      "mean_before_land_rent": 83.4,
+      "share_of_years_with_profit": 0.57,
+      "share_of_years_covering_costs_before_rent": 0.83,
+      "mean_of_worst_fifth": -59.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.7,
+       "grain_sorghum": 87.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3208,
+       "grain_sorghum": 5490
+      }
+     },
+     "WWSF": {
+      "mean": 19.3,
+      "mean_before_land_rent": 71.5,
+      "share_of_years_with_profit": 0.5,
+      "share_of_years_covering_costs_before_rent": 0.87,
+      "mean_of_worst_fifth": -62.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 43.2,
+       "grain_sorghum": 102.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2904,
+       "grain_sorghum": 6442
+      }
+     },
+     "WSfF": {
+      "mean": -38.4,
+      "mean_before_land_rent": 24.6,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -110.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 47.7,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3209,
+       "sunflower": 1678
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.782,
+     "grain_sorghum": 0.843,
+     "corn": 0.573,
+     "sunflower": 0.576
+    },
+    "practice_match": null
+   },
    "practice": {
     "fields": 445,
     "share_of_area": {
@@ -5267,7 +9398,7 @@
     1996,
     2025
    ],
-   "land_rent_usd_acre": 44.0,
+   "land_rent_usd_acre": 44.1,
    "best_rotation": "WF",
    "best_of_three": "WF",
    "gain_replacing_fallow_usd_acre": -37.5,
@@ -5369,6 +9500,109 @@
     "sunflower": 0.977
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WF",
+    "best_of_three": "WF",
+    "gain_replacing_fallow_usd_acre": -4.1,
+    "best_three_year_vs_wf_usd_acre": -4.1,
+    "rotations": {
+     "WF": {
+      "mean": -45.8,
+      "mean_before_land_rent": -1.8,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.43,
+      "mean_of_worst_fifth": -126.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2638
+      }
+     },
+     "WSF": {
+      "mean": -49.9,
+      "mean_before_land_rent": -3.9,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.4,
+      "mean_of_worst_fifth": -136.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.3,
+       "grain_sorghum": 68.8
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2375,
+       "grain_sorghum": 4316
+      }
+     },
+     "WCF": {
+      "mean": -91.5,
+      "mean_before_land_rent": -45.5,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.27,
+      "mean_of_worst_fifth": -232.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.4,
+       "corn": 52.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2380,
+       "corn": 3299
+      }
+     },
+     "WSSF": {
+      "mean": -68.0,
+      "mean_before_land_rent": -22.5,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.3,
+      "mean_of_worst_fifth": -147.0,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.3,
+       "grain_sorghum": 56.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2373,
+       "grain_sorghum": 3550
+      }
+     },
+     "WWSF": {
+      "mean": -73.0,
+      "mean_before_land_rent": -26.0,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.33,
+      "mean_of_worst_fifth": -174.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 31.4,
+       "grain_sorghum": 68.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2111,
+       "grain_sorghum": 4314
+      }
+     },
+     "WSfF": {
+      "mean": -64.0,
+      "mean_before_land_rent": -14.3,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.37,
+      "mean_of_worst_fifth": -181.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 35.6,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2395,
+       "sunflower": 1392
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 1.085,
+     "grain_sorghum": 0.801,
+     "corn": 0.745,
+     "sunflower": 0.816
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 900,
     "share_of_area": {
@@ -5498,6 +9732,109 @@
     "sunflower": 0.923
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 7.8,
+    "best_three_year_vs_wf_usd_acre": 7.8,
+    "rotations": {
+     "WF": {
+      "mean": -42.1,
+      "mean_before_land_rent": 2.0,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.4,
+      "mean_of_worst_fifth": -122.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2665
+      }
+     },
+     "WSF": {
+      "mean": -34.3,
+      "mean_before_land_rent": 11.7,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -114.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 38.1,
+       "grain_sorghum": 72.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2564,
+       "grain_sorghum": 4574
+      }
+     },
+     "WCF": {
+      "mean": -69.7,
+      "mean_before_land_rent": -23.7,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -208.5,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 38.2,
+       "corn": 59.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2572,
+       "corn": 3716
+      }
+     },
+     "WSSF": {
+      "mean": -48.9,
+      "mean_before_land_rent": -3.4,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.37,
+      "mean_of_worst_fifth": -127.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 38.1,
+       "grain_sorghum": 61.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2564,
+       "grain_sorghum": 3865
+      }
+     },
+     "WWSF": {
+      "mean": -57.4,
+      "mean_before_land_rent": -10.5,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.37,
+      "mean_of_worst_fifth": -153.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 33.8,
+       "grain_sorghum": 72.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2272,
+       "grain_sorghum": 4574
+      }
+     },
+     "WSfF": {
+      "mean": -47.6,
+      "mean_before_land_rent": 2.1,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -158.6,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 38.2,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2567,
+       "sunflower": 1517
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 1.005,
+     "grain_sorghum": 0.859,
+     "corn": 0.899,
+     "sunflower": 0.879
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 638,
     "share_of_area": {
@@ -5627,6 +9964,109 @@
     "sunflower": 0.674
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 17.6,
+    "best_three_year_vs_wf_usd_acre": 17.6,
+    "rotations": {
+     "WF": {
+      "mean": -26.0,
+      "mean_before_land_rent": 33.8,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -98.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3256
+      }
+     },
+     "WSF": {
+      "mean": -8.4,
+      "mean_before_land_rent": 51.3,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.73,
+      "mean_of_worst_fifth": -107.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 45.8,
+       "grain_sorghum": 80.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3083,
+       "grain_sorghum": 5055
+      }
+     },
+     "WCF": {
+      "mean": -19.6,
+      "mean_before_land_rent": 40.2,
+      "share_of_years_with_profit": 0.5,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -175.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 45.8,
+       "corn": 80.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3081,
+       "corn": 5066
+      }
+     },
+     "WSSF": {
+      "mean": -28.0,
+      "mean_before_land_rent": 31.8,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -130.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 45.8,
+       "grain_sorghum": 66.5
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3079,
+       "grain_sorghum": 4171
+      }
+     },
+     "WWSF": {
+      "mean": -30.9,
+      "mean_before_land_rent": 28.9,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -131.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.9,
+       "grain_sorghum": 80.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2681,
+       "grain_sorghum": 5027
+      }
+     },
+     "WSfF": {
+      "mean": -17.9,
+      "mean_before_land_rent": 40.4,
+      "share_of_years_with_profit": 0.43,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -127.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.0,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3094,
+       "sunflower": 1686
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.918,
+     "grain_sorghum": 0.791,
+     "corn": 0.78,
+     "sunflower": 0.757
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 1569,
     "share_of_area": {
@@ -5654,7 +10094,7 @@
     1996,
     2025
    ],
-   "land_rent_usd_acre": 59.8,
+   "land_rent_usd_acre": 59.7,
    "best_rotation": "WSF",
    "best_of_three": "WSF",
    "gain_replacing_fallow_usd_acre": 6.5,
@@ -5758,6 +10198,109 @@
    "yield_factor_borrowed": [
     "sunflower"
    ],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 14.5,
+    "best_three_year_vs_wf_usd_acre": 14.5,
+    "rotations": {
+     "WF": {
+      "mean": -36.7,
+      "mean_before_land_rent": 23.1,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -114.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 46.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3097
+      }
+     },
+     "WSF": {
+      "mean": -22.2,
+      "mean_before_land_rent": 37.6,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -112.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 44.7,
+       "grain_sorghum": 76.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3003,
+       "grain_sorghum": 4782
+      }
+     },
+     "WCF": {
+      "mean": -44.2,
+      "mean_before_land_rent": 15.6,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -193.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 44.6,
+       "corn": 71.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3002,
+       "corn": 4469
+      }
+     },
+     "WSSF": {
+      "mean": -41.9,
+      "mean_before_land_rent": 17.9,
+      "share_of_years_with_profit": 0.23,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -130.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 44.6,
+       "grain_sorghum": 63.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3000,
+       "grain_sorghum": 3977
+      }
+     },
+     "WWSF": {
+      "mean": -43.1,
+      "mean_before_land_rent": 16.7,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -140.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 38.8,
+       "grain_sorghum": 76.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2612,
+       "grain_sorghum": 4776
+      }
+     },
+     "WSfF": {
+      "mean": -33.6,
+      "mean_before_land_rent": 24.7,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.57,
+      "mean_of_worst_fifth": -145.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 44.8,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3014,
+       "sunflower": 1558
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.873,
+     "grain_sorghum": 0.723,
+     "corn": 0.623,
+     "sunflower": 0.661
+    },
+    "practice_match": true
+   },
    "practice": {
     "fields": 581,
     "share_of_area": {
@@ -5785,7 +10328,7 @@
     1996,
     2025
    ],
-   "land_rent_usd_acre": 59.8,
+   "land_rent_usd_acre": 59.7,
    "best_rotation": "WF",
    "best_of_three": "WF",
    "gain_replacing_fallow_usd_acre": -17.1,
@@ -5887,6 +10430,109 @@
     "sunflower": 0.811
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 6.5,
+    "best_three_year_vs_wf_usd_acre": 6.5,
+    "rotations": {
+     "WF": {
+      "mean": -30.0,
+      "mean_before_land_rent": 29.8,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.73,
+      "mean_of_worst_fifth": -102.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 48.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3254
+      }
+     },
+     "WSF": {
+      "mean": -23.5,
+      "mean_before_land_rent": 36.3,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -116.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 45.5,
+       "grain_sorghum": 75.1
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3060,
+       "grain_sorghum": 4711
+      }
+     },
+     "WCF": {
+      "mean": -47.3,
+      "mean_before_land_rent": 12.5,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -188.3,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 45.5,
+       "corn": 69.2
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3057,
+       "corn": 4346
+      }
+     },
+     "WSSF": {
+      "mean": -44.9,
+      "mean_before_land_rent": 14.9,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -137.1,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 45.4,
+       "grain_sorghum": 62.0
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3054,
+       "grain_sorghum": 3892
+      }
+     },
+     "WWSF": {
+      "mean": -44.0,
+      "mean_before_land_rent": 15.8,
+      "share_of_years_with_profit": 0.3,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -141.9,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.5,
+       "grain_sorghum": 74.9
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2656,
+       "grain_sorghum": 4704
+      }
+     },
+     "WSfF": {
+      "mean": -34.1,
+      "mean_before_land_rent": 24.1,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.6,
+      "mean_of_worst_fifth": -146.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 45.8,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 3081,
+       "sunflower": 1518
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.998,
+     "grain_sorghum": 0.765,
+     "corn": 0.723,
+     "sunflower": 0.724
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 684,
     "share_of_area": {
@@ -5914,7 +10560,7 @@
     1996,
     2025
    ],
-   "land_rent_usd_acre": 44.0,
+   "land_rent_usd_acre": 44.1,
    "best_rotation": "WF",
    "best_of_three": "WF",
    "gain_replacing_fallow_usd_acre": -7.1,
@@ -6016,6 +10662,109 @@
     "sunflower": 0.769
    },
    "yield_factor_borrowed": [],
+   "well_managed": {
+    "best_rotation": "WSF",
+    "best_of_three": "WSF",
+    "gain_replacing_fallow_usd_acre": 6.1,
+    "best_three_year_vs_wf_usd_acre": 6.1,
+    "rotations": {
+     "WF": {
+      "mean": -27.8,
+      "mean_before_land_rent": 16.3,
+      "share_of_years_with_profit": 0.2,
+      "share_of_years_covering_costs_before_rent": 0.67,
+      "mean_of_worst_fifth": -93.7,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 42.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2853
+      }
+     },
+     "WSF": {
+      "mean": -21.7,
+      "mean_before_land_rent": 24.3,
+      "share_of_years_with_profit": 0.27,
+      "share_of_years_covering_costs_before_rent": 0.63,
+      "mean_of_worst_fifth": -99.8,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.5,
+       "grain_sorghum": 76.7
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2656,
+       "grain_sorghum": 4814
+      }
+     },
+     "WCF": {
+      "mean": -44.6,
+      "mean_before_land_rent": 1.4,
+      "share_of_years_with_profit": 0.33,
+      "share_of_years_covering_costs_before_rent": 0.5,
+      "mean_of_worst_fifth": -180.4,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.4,
+       "corn": 72.4
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2652,
+       "corn": 4545
+      }
+     },
+     "WSSF": {
+      "mean": -39.6,
+      "mean_before_land_rent": 5.9,
+      "share_of_years_with_profit": 0.13,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -117.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.4,
+       "grain_sorghum": 63.3
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2647,
+       "grain_sorghum": 3972
+      }
+     },
+     "WWSF": {
+      "mean": -46.7,
+      "mean_before_land_rent": 0.3,
+      "share_of_years_with_profit": 0.17,
+      "share_of_years_covering_costs_before_rent": 0.47,
+      "mean_of_worst_fifth": -130.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 34.3,
+       "grain_sorghum": 76.6
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2304,
+       "grain_sorghum": 4808
+      }
+     },
+     "WSfF": {
+      "mean": -31.3,
+      "mean_before_land_rent": 18.3,
+      "share_of_years_with_profit": 0.37,
+      "share_of_years_covering_costs_before_rent": 0.53,
+      "mean_of_worst_fifth": -131.2,
+      "mean_yield_bu_acre": {
+       "winter_wheat": 39.8,
+       "sunflower": null
+      },
+      "mean_yield_kg_ha": {
+       "winter_wheat": 2678,
+       "sunflower": 1636
+      }
+     }
+    },
+    "yield_factor": {
+     "winter_wheat": 0.866,
+     "grain_sorghum": 0.797,
+     "corn": 0.81,
+     "sunflower": 0.798
+    },
+    "practice_match": false
+   },
    "practice": {
     "fields": 1130,
     "share_of_area": {
