@@ -1,0 +1,222 @@
+{
+ "source": "NASA ECOSTRESS L2T LSTE V2 (70 m), cloud-masked; crop classes from USDA CDL of the same year",
+ "note": "Surface temperature, not air temperature. One afternoon per scene; values depend on overpass time.",
+ "scenes": [
+  {
+   "scene": "2023_07_30_200805_28721_006_14SKH",
+   "time_utc": "2023-07-30 20:08",
+   "local_solar_time": "13:20",
+   "fields": {
+    "ks071-001": {
+     "lst_c": 42.3,
+     "crop": "sorghum"
+    },
+    "ks071-002": {
+     "lst_c": 53.3,
+     "crop": "fallow"
+    },
+    "ks071-003": {
+     "lst_c": 52.1,
+     "crop": "winter wheat"
+    },
+    "ks071-004": {
+     "lst_c": 52.5,
+     "crop": "fallow"
+    },
+    "ks071-005": {
+     "lst_c": 45.5,
+     "crop": "sorghum"
+    }
+   },
+   "by_crop_class": {
+    "corn": {
+     "mean_c": 44.4,
+     "pixels": 6574
+    },
+    "sorghum": {
+     "mean_c": 45.5,
+     "pixels": 9245
+    },
+    "winter wheat (ripe in June, stubble from July)": {
+     "mean_c": 49.2,
+     "pixels": 23377
+    },
+    "fallow": {
+     "mean_c": 50.5,
+     "pixels": 20401
+    },
+    "grass/pasture": {
+     "mean_c": 46.7,
+     "pixels": 15971
+    }
+   },
+   "image": "docs/img/ecostress_2023-07-30.png",
+   "colour_scale_c": [
+    40.3,
+    53.8
+   ]
+  },
+  {
+   "scene": "2024_08_17_191142_34675_009_14SKH",
+   "time_utc": "2024-08-17 19:11",
+   "local_solar_time": "12:23",
+   "fields": {
+    "ks071-001": {
+     "lst_c": 50.6,
+     "crop": "fallow"
+    },
+    "ks071-002": {
+     "lst_c": 48.1,
+     "crop": "winter wheat"
+    },
+    "ks071-003": {
+     "lst_c": 42.8,
+     "crop": "corn"
+    },
+    "ks071-004": {
+     "lst_c": 49.1,
+     "crop": "winter wheat"
+    },
+    "ks071-005": {
+     "lst_c": 47.7,
+     "crop": "corn"
+    }
+   },
+   "by_crop_class": {
+    "corn": {
+     "mean_c": 46.8,
+     "pixels": 10447
+    },
+    "sorghum": {
+     "mean_c": 44.6,
+     "pixels": 11373
+    },
+    "winter wheat (ripe in June, stubble from July)": {
+     "mean_c": 49.4,
+     "pixels": 20409
+    },
+    "fallow": {
+     "mean_c": 49.3,
+     "pixels": 17627
+    },
+    "grass/pasture": {
+     "mean_c": 49.1,
+     "pixels": 16627
+    }
+   },
+   "image": "docs/img/ecostress_2024-08-17.png",
+   "colour_scale_c": [
+    41.1,
+    52.6
+   ]
+  },
+  {
+   "scene": "2022_06_16_211220_22371_009_14SKH",
+   "time_utc": "2022-06-16 21:12",
+   "local_solar_time": "14:24",
+   "fields": {
+    "ks071-001": {
+     "lst_c": 51.4,
+     "crop": "winter wheat"
+    },
+    "ks071-002": {
+     "lst_c": 51.3,
+     "crop": "winter wheat"
+    },
+    "ks071-003": {
+     "lst_c": 48.5,
+     "crop": "fallow"
+    },
+    "ks071-004": {
+     "lst_c": 49.9,
+     "crop": "sorghum"
+    },
+    "ks071-005": {
+     "lst_c": 51.0,
+     "crop": "corn"
+    }
+   },
+   "by_crop_class": {
+    "corn": {
+     "mean_c": 50.5,
+     "pixels": 4432
+    },
+    "sorghum": {
+     "mean_c": 50.7,
+     "pixels": 13198
+    },
+    "winter wheat (ripe in June, stubble from July)": {
+     "mean_c": 50.7,
+     "pixels": 18942
+    },
+    "fallow": {
+     "mean_c": 50.7,
+     "pixels": 23994
+    },
+    "grass/pasture": {
+     "mean_c": 50.9,
+     "pixels": 15468
+    }
+   },
+   "image": "docs/img/ecostress_2022-06-16.png",
+   "colour_scale_c": [
+    47.5,
+    53.6
+   ]
+  },
+  {
+   "scene": "2021_08_24_181434_17774_012_14SKH",
+   "time_utc": "2021-08-24 18:14",
+   "local_solar_time": "11:26",
+   "fields": {
+    "ks071-001": {
+     "lst_c": 52.4,
+     "crop": "fallow"
+    },
+    "ks071-002": {
+     "lst_c": 53.6,
+     "crop": "fallow"
+    },
+    "ks071-003": {
+     "lst_c": 45.9,
+     "crop": "corn"
+    },
+    "ks071-004": {
+     "lst_c": 53.3,
+     "crop": "winter wheat"
+    },
+    "ks071-005": {
+     "lst_c": 52.9,
+     "crop": "winter wheat"
+    }
+   },
+   "by_crop_class": {
+    "corn": {
+     "mean_c": 47.1,
+     "pixels": 5673
+    },
+    "sorghum": {
+     "mean_c": 47.2,
+     "pixels": 13237
+    },
+    "winter wheat (ripe in June, stubble from July)": {
+     "mean_c": 52.4,
+     "pixels": 21835
+    },
+    "fallow": {
+     "mean_c": 52.8,
+     "pixels": 19282
+    },
+    "grass/pasture": {
+     "mean_c": 52.5,
+     "pixels": 16025
+    }
+   },
+   "image": "docs/img/ecostress_2021-08-24.png",
+   "colour_scale_c": [
+    41.8,
+    55.8
+   ]
+  }
+ ]
+}
