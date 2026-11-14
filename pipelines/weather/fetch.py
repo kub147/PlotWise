@@ -89,6 +89,42 @@ def gridmet_daily(lon, lat, today=None, refresh=False):
     return out
 
 
+def gridmet_daily_points(points, today=None, refresh=False):
+    """gridMET daily for many points at once: one request per year for all points together.
+
+    points: list of (id, lon, lat). Returns {id: {date: {band: value}}} in the same units as gridmet_daily().
+    getRegion over a MultiPoint returns one row per pixel and day; each point takes the pixel nearest to it."""
+    import hashlib
+    today = today or dt.date.today()
+    bands = ["pr", "tmmx", "tmmn", "eto", "srad", "vs"]
+    tag = f"points_{len(points)}_" + hashlib.md5(repr(sorted(points)).encode()).hexdigest()[:8]
+
+    def fetch_year(y):
+        ee = ee_api()
+        col = ee.ImageCollection(GRIDMET).filterDate(f"{y}-01-01", f"{y + 1}-01-01").select(bands)
+        rows = col.getRegion(ee.Geometry.MultiPoint([[lon, lat] for _, lon, lat in points]), 4000).getInfo()
+        idx = [rows[0].index(k) for k in ["longitude", "latitude", "time"] + bands]
+        return [[r[i] for i in idx] for r in rows[1:]]
+
+    out = {pid: {} for pid, _, _ in points}
+    for y in range(START_YEAR, today.year + 1):
+        rows = _cached(f"{tag}/gridmet_{y}", lambda y=y: fetch_year(y),
+                       growing=(y >= today.year - 1 and today < dt.date(y + 1, 3, 1)), refresh=refresh)
+        pixels = {(r[0], r[1]) for r in rows}
+        nearest = {}                                   # point id -> its pixel
+        for pid, lon, lat in points:
+            if pixels:
+                px = min(pixels, key=lambda p: (p[0] - lon) ** 2 + (p[1] - lat) ** 2)
+                if abs(px[0] - lon) > 0.05 or abs(px[1] - lat) > 0.05:
+                    raise SystemExit(f"gridMET {y}: no pixel within 0.05 degrees of {pid} ({lon}, {lat})")
+                nearest[px] = nearest.get(px, []) + [pid]
+        for r in rows:
+            for pid in nearest.get((r[0], r[1]), []):
+                out[pid][_utc_date(r[2]).isoformat()] = dict(zip(bands, r[3:]))
+        print(f"   gridMET {y}: {len(rows)} rows for {len(points)} points", flush=True)
+    return out
+
+
 def prism_monthly(lon, lat, refresh=False):
     """PRISM monthly precipitation, mm. One request. The collection mixes AN81 and AN91 releases; if a month
     appears twice the later image in the collection is kept and the number of such months is reported."""

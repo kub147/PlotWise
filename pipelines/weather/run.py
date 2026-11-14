@@ -5,6 +5,8 @@ Usage (from the repo root):
     python3 pipelines/weather/run.py crosscheck      # step 1: precipitation cross-check table, nothing else
     python3 pipelines/weather/run.py all             # cross-check, then weather CSV and climate JSON for every field
 
+    python3 pipelines/weather/run.py counties        # weather CSV only, for every county point in counties.geojson
+
 Options: --field <field_id> (one field only), --refresh (ignore the raw cache).
 
 Writes:
@@ -12,6 +14,7 @@ Writes:
     data/processed/weather/sources.md                which product fills each column, and how many days were filled
     data/processed/climate/<field_id>.json           trends, year types, monthly water balance, GRACE, SMAP, cross-check
     data/processed/climate/<field_id>_precip_crosscheck.md / .png
+    data/processed/weather/counties/<county_id>.csv  same columns, at the county point (lon, lat) of counties.geojson
 Fields come from data/processed/fields.geojson; until that file exists a single point at Tribune is used.
 """
 import argparse, csv, datetime as dt, json, os, sys
@@ -108,7 +111,43 @@ def build(field, gridmet, power, cc, refresh):
     return dict(field_id=fid, lon=lon, lat=lat, first=rows[0]["date"], last=rows[-1]["date"], counts=counts)
 
 
-def write_sources(summaries):
+def write_csv(path, rows):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(compute.COLUMNS)
+        for r in rows:
+            w.writerow([r["date"].isoformat()] + [r[c] for c in compute.COLUMNS[1:]])
+
+
+def counties(refresh):
+    """Weather CSV for every county point. gridMET comes in one request per year for all counties together;
+    NASA POWER needs one HTTP request per county. No climate summary and no cross-check at this level."""
+    path = os.path.join(PROCESSED, "counties.geojson")
+    if not os.path.exists(path):
+        raise SystemExit("data/processed/counties.geojson not found (owner: B)")
+    with open(path) as f:
+        points = [(ft["properties"]["county_id"], float(ft["properties"]["lon"]), float(ft["properties"]["lat"]))
+                  for ft in json.load(f)["features"]]
+    print(f"{len(points)} county points; gridMET in one request per year for all of them")
+    gridmet = fetch.gridmet_daily_points(points, refresh=refresh)
+    summaries = []
+    for n, (cid, lon, lat) in enumerate(points, 1):
+        power = fetch.power_daily(lon, lat, refresh=refresh)
+        rows, counts = compute.build_daily(gridmet[cid], power, lat)
+        compute.check_daily(rows)
+        write_csv(os.path.join(PROCESSED, "weather", "counties", f"{cid}.csv"), rows)
+        print(f"[{n}/{len(points)}] {cid}: {len(rows)} days, {rows[0]['date']} to {rows[-1]['date']}", flush=True)
+        summaries.append(dict(field_id=cid, lon=lon, lat=lat, first=rows[0]["date"], last=rows[-1]["date"], counts=counts))
+    ends = {s["last"] for s in summaries}
+    if len(ends) > 1:
+        print(f"   note: county files end on different days: {sorted(str(e) for e in ends)}")
+    write_sources(summaries, os.path.join("counties", "sources.md"),
+                  "County files: one point per county (`lon`, `lat` in counties.geojson, the county centroid), not a county mean. "
+                  "Treat them as indicative, as docs/transect.md says for all county results.")
+
+
+def write_sources(summaries, file_name="sources.md", extra=None):
     primary = dict(precip_mm="gridMET `pr` (mm/day)", tmax_c="gridMET `tmmx` (K − 273.15)", tmin_c="gridMET `tmmn` (K − 273.15)",
                    eto_mm="gridMET `eto` (grass reference ET, ASCE Penman-Monteith, mm/day)",
                    srad_mj_m2="NASA POWER `ALLSKY_SFC_SW_DWN` (MJ/m²/day)", wind_m_s="NASA POWER `WS2M` (m/s at 2 m)")
@@ -117,7 +156,9 @@ def write_sources(summaries):
                     srad_mj_m2="gridMET `srad` × 0.0864 (W/m² → MJ/m²/day)",
                     wind_m_s="gridMET `vs` × 0.748 (10 m → 2 m, FAO-56 eq. 47)")
     lines = ["# Weather files: sources", "",
-             f"Generated {dt.date.today().isoformat()} by `pipelines/weather/run.py`. One CSV per field, daily, no gaps.", "",
+             f"Generated {dt.date.today().isoformat()} by `pipelines/weather/run.py`. One CSV per field, daily, no gaps.", ""]
+    lines += [extra, ""] if extra else []
+    lines += [
              "| Column | Primary source | Fallback when the primary has no value |", "| :--- | :--- | :--- |"]
     lines += [f"| `{c}` | {primary[c]} | {fallback[c]} |" for c in compute.COLUMNS[1:]]
     lines += ["",
@@ -134,16 +175,18 @@ def write_sources(summaries):
         for c in compute.COLUMNS[1:]:
             lines += [f"| `{c}` | {src} | {n} |" for src, n in s["counts"][c].items()]
         lines.append("")
-    with open(os.path.join(PROCESSED, "weather", "sources.md"), "w") as f:
+    with open(os.path.join(PROCESSED, "weather", file_name), "w") as f:
         f.write("\n".join(lines))
-    print("wrote data/processed/weather/sources.md")
+    print(f"wrote data/processed/weather/{file_name}")
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("step", choices=["crosscheck", "all"])
+    ap.add_argument("step", choices=["crosscheck", "all", "counties"])
     ap.add_argument("--field"); ap.add_argument("--refresh", action="store_true")
     a = ap.parse_args()
+    if a.step == "counties":
+        return counties(a.refresh)
     fields = load_fields(a.field)
     if a.step == "crosscheck":
         fields = fields[:1] if not a.field else fields       # one field is enough to compare products

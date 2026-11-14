@@ -99,3 +99,17 @@ high here relative to gridMET precipitation. Use it for differences between year
 - For validation level 4 compare modelled crop ET with `et_apr_oct_mm` per year in `openet_summary.json` (`yearly[]`, with the CDL crop of that year), or with the monthly values in `<field_id>_openet.csv`. Use `et_min` / `et_max` as the uncertainty band.
 - Expect modelled ET to be about 20% below OpenET in absolute terms (see the result above): compare the year-to-year pattern (correlation, ranking of years), not the level.
 - OpenET is itself a model ensemble driven by gridMET reference ET, so it is not fully independent of our weather input.
+
+## County weather (transect map)
+
+```bash
+python3 pipelines/weather/run.py counties
+```
+
+Writes `data/processed/weather/counties/<county_id>.csv` (same columns as the field files) for every county in
+`data/processed/counties.geojson`, at the county point (`lon`, `lat`), plus `counties/sources.md`.
+gridMET is fetched in one request per year for all county points together; NASA POWER needs one HTTP request per county.
+No climate JSON and no cross-check are produced at county level.
+
+**To D:** a county file is the weather at one point (the county centroid), not a county mean, so treat county results
+as indicative. Rainfall differs within a county by more than between neighbouring centroids in some years.
