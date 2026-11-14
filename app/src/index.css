@@ -87,6 +87,7 @@
   /* Wykresy: zysk i strata (para sprawdzona pod kątem daltonizmu), tło ostrzeżenia. */
   --chart-gain: #1479a8;
   --chart-loss: #cc6a2e;
+  --chart-green: #2a8a57;
   --warning: #fff6db;
   --warning-border: #b98a1b;
   --font-body: 'Inter Variable', system-ui, sans-serif;

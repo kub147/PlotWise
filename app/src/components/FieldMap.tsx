@@ -29,7 +29,7 @@ const STREET_TILES = {
 const LAYER_NOTES: Record<LayerId, string | null> = {
   aerial: null,
   greenness: 'Greenness is not on the map yet. The field card shows how green this field was over the years.',
-  heat: 'Surface heat is not on the map yet. The field card shows the heat images.',
+  heat: 'Surface heat is not on the map yet. The field card shows the heat images where we have them.',
 }
 
 // GeoJSON zapisuje [długość, szerokość]; Leaflet chce [szerokość, długość].

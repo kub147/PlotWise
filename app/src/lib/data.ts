@@ -18,6 +18,7 @@ export type FieldProperties = {
   slope_pct: number
   bare_days_per_year: number
   bare_days_note: string
+  ndvi_bare_threshold: number
   boundary_source: string
   awc_mm: number
   texture: string

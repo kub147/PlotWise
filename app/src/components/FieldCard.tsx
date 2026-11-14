@@ -1,26 +1,17 @@
 // Prawa kolumna widoku „My field": karta wybranego pola.
 // Kolejność sekcji jest wiążąca: nazwa i powierzchnia, płodozmian, historia upraw, gleba i goła ziemia,
-// wykres zieloności, dwa zdjęcia, przycisk przejścia do Rotation replay.
+// wykres zieloności, dwa obrazy z góry, przycisk przejścia do Rotation replay.
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { CropLegend, CropTile } from '@/components/CropTile'
 import { Button } from '@/components/ui/button'
 import { Card, CardSection, SectionLabel } from '@/components/ui/card'
+import { FieldPhotos } from '@/components/field/FieldPhotos'
+import { GreennessChart } from '@/components/field/GreennessChart'
 import { fieldShortName, type AppData, type FieldFeature } from '@/lib/data'
+import { useHeatSummary, useNdvi } from '@/lib/fieldMedia'
 import { rotationPhases, toCropLetter, type CropLetter } from '@/lib/rotation'
 import { formatNumber, haToAcres, mmToInches } from '@/lib/units'
-
-// Miejsce na element, który powstanie w kolejnym kroku (wykres, zdjęcie).
-function Slot({ title, note, className }: { title: string; note: string; className?: string }) {
-  return (
-    <div
-      className={`flex flex-col items-center justify-center rounded-md border border-dashed border-input bg-muted px-3 text-center ${className ?? ''}`}
-    >
-      <p className="text-[13px] font-semibold">{title}</p>
-      <p className="text-[13px] text-muted-foreground">{note}</p>
-    </div>
-  )
-}
 
 // Nazwa uprawy z CDL do podpisu: "CDL 60" to klasa bez nazwy w pliku.
 function historyName(name: string) {
@@ -39,6 +30,8 @@ export function FieldCard({ data, field }: FieldCardProps) {
   const phases = rotationPhases(p.current_rotation)
   const hasReplay = data.manifest.results.includes(p.field_id)
   const hasAerial = data.manifest.naip.includes(p.field_id)
+  const ndvi = useNdvi(p.field_id, data.manifest.ndvi.includes(p.field_id))
+  const heat = useHeatSummary()
 
   // Historia upraw: jedna litera na rok, od crop_sequence_first_year.
   const history = [...p.crop_sequence].map((letter, i) => {
@@ -145,23 +138,16 @@ export function FieldCard({ data, field }: FieldCardProps) {
         </p>
       </CardSection>
 
-      {/* 5. Miejsce na wykres zieloności (NDVI) */}
+      {/* 5. Wykres zieloności (NDVI) */}
       <CardSection>
         <SectionLabel>Greenness over the years</SectionLabel>
-        <Slot title="Greenness chart" note="Not built yet." className="h-36" />
+        <GreennessChart fieldId={p.field_id} state={ndvi} threshold={p.ndvi_bare_threshold} />
       </CardSection>
 
-      {/* 6. Dwa miejsca na zdjęcia */}
+      {/* 6. Zdjęcie lotnicze i temperatura powierzchni */}
       <CardSection>
         <SectionLabel>From above</SectionLabel>
-        <div className="grid grid-cols-2 gap-3">
-          <Slot
-            title="Aerial photo"
-            note={hasAerial ? 'Not built yet.' : 'No aerial photo for this field yet.'}
-            className="aspect-square"
-          />
-          <Slot title="Surface heat" note="Not built yet." className="aspect-square" />
-        </div>
+        <FieldPhotos fieldId={p.field_id} fieldLabel={fieldShortName(p)} hasAerial={hasAerial} heat={heat} />
       </CardSection>
 
       {/* 7. Przejście do Rotation replay */}
@@ -179,7 +165,7 @@ export function FieldCard({ data, field }: FieldCardProps) {
               Replay the last 30 years on this field
             </Button>
             <p className="mt-2 text-[13px] text-muted-foreground">
-              The replay is not ready for this field yet. It is ready for the Tribune fields.
+              The replay is not ready for this field yet.
             </p>
           </>
         )}
