@@ -51,7 +51,7 @@ Owner = workstream in [work-plan.md](work-plan.md).
 | Dataset | Why | Access |
 | :--- | :--- | :--- |
 | **gridMET** | Daily 4 km weather with reference ET already computed, 1979 → today; used in our baseline | GEE `IDAHO_EPSCOR/GRIDMET`; drought indices in `GRIDMET/DROUGHT` |
-| **Crop Sequence Boundaries (USDA NASS)** | Field polygons for the whole US, each with its 8-year crop sequence. Gives us real field outlines and the "current rotation" in one file | Download `NationalCSB_2018-2025_rev23.zip` (or 2017–2024) from the NASS CSB page; clip to the county. Not in GEE |
+| **Crop Sequence Boundaries (USDA NASS)** | Field polygons for the whole US, each with its 8-year crop sequence. Gives us real field outlines and the "current rotation" in one file | `NationalCSB_2018-2025_rev23.zip` (3.8 GB) on the NASS CSB page; the server refuses scripted downloads, so get it in a browser if needed. Not in GEE. Workstream B derives equivalent polygons from CDL sequences instead (`pipelines/fields/delineate_fields.py`) |
 | **POLARIS / SoilGrids** | Gridded soil properties when a raster is easier than SSURGO polygons | GEE `projects/sat-io/open-datasets/polaris/*`, `projects/soilgrids-isric/*` |
 | **K-State Tribune trial tables** | Measured yields, soil water and economics by rotation — our validation data | `reference/*.csv` (transcribed from the open reports, with citations) |
 | **K-State AgManager budgets** | Cost per acre for dryland wheat, sorghum, corn in western Kansas | agmanager.info → Farm Management Guides, non-irrigated crops |
