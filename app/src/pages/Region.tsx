@@ -258,7 +258,7 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
                   <Stat label={t('Best rotation')} value={t(rotationLabel(model.best_rotation) ?? model.best_rotation)} />
                   <Stat
                     label={t('Sorghum in place of fallow')}
-                    value={`${model.gain_replacing_fallow_usd_acre > 0 ? '+' : ''}${formatUsd(model.gain_replacing_fallow_usd_acre)} /acre`}
+                    value={`${model.gain_replacing_fallow_usd_acre > 0 ? '+' : ''}${formatUsd(model.gain_replacing_fallow_usd_acre)} ${t('/acre')}`}
                   />
                 </dl>
                 {result?.practice?.most_common_of_three && (

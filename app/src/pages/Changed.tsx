@@ -147,10 +147,10 @@ function WaterStorage({ grace }: { grace: Climate['grace'] }) {
                 tick={{ fontSize: 12, fill: 'var(--muted-foreground)' }}
               />
               <YAxis
-                width={44}
+                width={56}
                 tickLine={false}
                 axisLine={false}
-                tickFormatter={(value: number) => `${value} in`}
+                tickFormatter={(value: number) => t('{n} in (axis)', { n: value })}
                 tick={{ fontSize: 12, fill: 'var(--muted-foreground)' }}
               />
               <ReferenceLine y={0} stroke="var(--foreground)" strokeWidth={1} />
@@ -165,8 +165,8 @@ function WaterStorage({ grace }: { grace: Climate['grace'] }) {
                         {new Date(point.time).toLocaleDateString(locale, { year: 'numeric', month: 'short', timeZone: 'UTC' })}
                       </p>
                       <p>
-                        <span className="font-mono font-semibold">{signed(point.inches, 1)} in</span> vs the 2004–2009
-                        average
+                        <span className="font-mono font-semibold">{t('{n} in', { n: signed(point.inches, 1) })}</span>{' '}
+                        {t('vs the 2004–2009 average')}
                       </p>
                     </div>
                   )
@@ -332,7 +332,7 @@ export function Changed({ data, selected }: ChangedProps) {
   const heat = useHeatSummary()
 
   if (climateState.status === 'loading') {
-    return <p className="p-6 text-muted-foreground">Loading the climate record…</p>
+    return <p className="p-6 text-muted-foreground">{t('Loading the climate record…')}</p>
   }
   if (climateState.status === 'missing') {
     return (
@@ -417,7 +417,7 @@ export function Changed({ data, selected }: ChangedProps) {
                 return (
                   <tr key={trend.indicator} className="border-b border-border">
                     <th scope="row" className="py-1.5 pr-3 font-medium">
-                      {info?.title ?? trend.label}
+                      {t(info?.title ?? trend.label)}
                     </th>
                     <td className="py-1.5 pr-3 font-mono">{slopeText(info?.kind ?? 'days', trend.slope_per_decade, t)}</td>
                     <td className="py-1.5 pr-3">{trend.reliable ? t('Yes') : t('No')}</td>
@@ -428,9 +428,7 @@ export function Changed({ data, selected }: ChangedProps) {
             </tbody>
           </table>
           <p className="mt-2 text-[13px] text-muted-foreground">
-            “Reliable” means a standard trend test (Mann-Kendall) gives less than a 5% chance that the change is just
-            year-to-year noise. Weather comes from grids 2.5 to 30 miles wide: it describes the area, not the single
-            field.
+            {t('“Reliable” means a standard trend test (Mann-Kendall) gives less than a 5% chance that the change is just year-to-year noise. Weather comes from grids 2.5 to 30 miles wide: it describes the area, not the single field.')}
           </p>
         </div>
       </details>

@@ -85,7 +85,7 @@ export function RotationCard({ rotation, yearCount, fieldId, evidence }: Rotatio
                 <CropTile letter={letter} className="h-6 w-6 text-[13px]" />
                 <span>{t(CROP_NAMES[letter])}</span>
                 <span className="ml-auto font-mono font-medium">
-                  {converted ? `${formatNumber(converted.value)} ${converted.unit}` : `${formatNumber(kgHa)} kg/ha`}
+                  {converted ? `${formatNumber(converted.value)} ${t(converted.unit)}` : `${formatNumber(kgHa)} kg/ha`}
                 </span>
               </li>
             )

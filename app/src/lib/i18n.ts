@@ -17,9 +17,17 @@ const EN: Record<string, string> = {
   'Aerial photo (tab)': 'Aerial photo',
   'Greenness (tab)': 'Greenness',
   'Surface heat (tab)': 'Surface heat',
+  '{n} in (axis)': '{n} in',
 }
 
+// Dev only: every text shown in Polish without an entry in lib/pl.ts is reported once in the console.
+const reportedMissing = new Set<string>()
+
 export function translate(lang: Lang, text: string, vars?: Record<string, string | number>): string {
+  if (import.meta.env.DEV && lang === 'pl' && text && !(text in PL) && !reportedMissing.has(text)) {
+    reportedMissing.add(text)
+    console.warn('[i18n] missing Polish text:', text)
+  }
   const base = lang === 'pl' ? (PL[text] ?? text) : (EN[text] ?? text)
   if (!vars) return base
   return base.replace(/\{(\w+)\}/g, (match, name: string) => (name in vars ? String(vars[name]) : match))
