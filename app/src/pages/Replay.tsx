@@ -10,6 +10,7 @@ import { YearChart } from '@/components/replay/YearChart'
 import { SegmentedControl } from '@/components/ui/segmented-control'
 import { fieldShortName, type AppData, type FieldFeature } from '@/lib/data'
 import { useEvidence } from '@/lib/evidence'
+import { useT, type Translate } from '@/lib/i18n'
 import {
   DEFAULT_WEIGHTS,
   hasScenario,
@@ -39,7 +40,7 @@ const SCENARIO_TEXT: Record<Scenario, string> = {
 const PROXY_BUDGET_REGIONS = ['NC', 'SC']
 
 // Sentence on how stable the ranking is, built from the field's data (ranking_sensitivity), not hard-coded.
-function stabilitySentence(sensitivity: RankingSensitivity): string {
+function stabilitySentence(sensitivity: RankingSensitivity, t: Translate): string {
   const shares = Object.entries(sensitivity.share_of_wins)
     .filter(([, share]) => share > 0)
     .sort((a, b) => b[1] - a[1])
@@ -48,9 +49,17 @@ function stabilitySentence(sensitivity: RankingSensitivity): string {
   const label = (id: string) => rotationLabel(id) ?? id
   const percent = (share: number) => `${Math.round(share * 100)}%`
   if (sensitivity.stable || !second) {
-    return `Across random priorities, ${label(first[0])} comes out on top about ${percent(first[1])} of the time. Different priorities can still change the order.`
+    return t('Across random priorities, {first} comes out on top about {share} of the time. Different priorities can still change the order.', {
+      first: label(first[0]),
+      share: percent(first[1]),
+    })
   }
-  return `It is a close call. Across random priorities, ${label(first[0])} comes out on top about ${percent(first[1])} of the time and ${label(second[0])} about ${percent(second[1])}. Your priorities decide.`
+  return t('It is a close call. Across random priorities, {first} comes out on top about {share} of the time and {second} about {share2}. Your priorities decide.', {
+    first: label(first[0]),
+    share: percent(first[1]),
+    second: label(second[0]),
+    share2: percent(second[1]),
+  })
 }
 
 type ReplayProps = {
@@ -62,6 +71,7 @@ export function Replay({ data, selected }: ReplayProps) {
   const fieldId = selected.properties.field_id
   const state = useFieldResults(fieldId, data.manifest.results.includes(fieldId))
   const evidence = useEvidence()
+  const t = useT()
   const [weights, setWeights] = useState<Weights>(DEFAULT_WEIGHTS)
   const [chosenScenario, setScenario] = useState<Scenario>('county_average')
   // The chosen rotation is kept with its field: a new field goes back to the default choice.
@@ -85,10 +95,14 @@ export function Replay({ data, selected }: ReplayProps) {
   return (
     <div className="mx-auto flex max-w-[1680px] flex-col gap-6 p-4 lg:p-6">
       <header>
-        <h1 className="text-[34px] font-semibold leading-tight">Rotation replay</h1>
+        <h1 className="text-[34px] font-semibold leading-tight">{t('Rotation replay')}</h1>
         <p className="mt-1 text-[15px] text-muted-foreground">
           {results
-            ? `Every rotation replayed on ${fieldShortName(selected.properties)} through each year from ${results.period[0]} to ${results.period[1]}`
+            ? t('Every rotation replayed on {field} through each year from {from} to {to}', {
+                field: fieldShortName(selected.properties),
+                from: results.period[0],
+                to: results.period[1],
+              })
             : fieldShortName(selected.properties)}
         </p>
       </header>
@@ -97,9 +111,10 @@ export function Replay({ data, selected }: ReplayProps) {
       <p className="flex gap-3 rounded-3xl bg-warning px-5 py-4 text-[15px] leading-snug">
         <TriangleAlert aria-hidden className="mt-0.5 h-5 w-5 shrink-0 text-warning-border" />
         <span>
-          <strong className="font-medium">Read this as a comparison, not as farm profit.</strong>{' '}
-          {allLose ? 'Every rotation shows a loss on average because we' : 'The numbers are low because we'} count full
-          costs including land rent, and leave out crop insurance and program payments.
+          <strong className="font-medium">{t('Read this as a comparison, not as farm profit.')}</strong>{' '}
+          {allLose
+            ? t('Every rotation shows a loss on average because we count full costs including land rent, and leave out crop insurance and program payments.')
+            : t('The numbers are low because we count full costs including land rent, and leave out crop insurance and program payments.')}
         </span>
       </p>
 
@@ -107,38 +122,38 @@ export function Replay({ data, selected }: ReplayProps) {
         <section aria-labelledby="scenario-heading" className="pw-sheet rounded-3xl px-5 py-4">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <h2 id="scenario-heading" className="text-[15px] font-semibold">
-              How does this field yield?
+              {t('How does this field yield?')}
             </h2>
             <SegmentedControl
-              options={SCENARIO_OPTIONS}
-              label="Yield level used in the replay"
+              options={SCENARIO_OPTIONS.map((option) => ({ ...option, label: t(option.label) }))}
+              label={t('Yield level used in the replay')}
               value={scenario}
               onValueChange={setScenario}
             />
           </div>
           <p className="mt-2 max-w-[900px] text-[13px] leading-snug text-muted-foreground" aria-live="polite">
-            {SCENARIO_TEXT[scenario]}
+            {t(SCENARIO_TEXT[scenario])}
             {scenario === 'well_managed' &&
               PROXY_BUDGET_REGIONS.includes(results?.cost_region ?? '') &&
-              ' For this county the budgets come from wetter central Kansas, so these numbers are probably optimistic.'}{' '}
-            Neither level is a forecast.
+              ` ${t('For this county the budgets come from wetter central Kansas, so these numbers are probably optimistic.')}`}{' '}
+            {t('Neither level is a forecast.')}
           </p>
         </section>
       )}
 
-      {state.status === 'loading' && <p className="text-muted-foreground">Loading the replay…</p>}
-      {state.status === 'error' && <p role="alert">The replay could not be loaded. {state.message}</p>}
+      {state.status === 'loading' && <p className="text-muted-foreground">{t('Loading the replay…')}</p>}
+      {state.status === 'error' && <p role="alert">{t('The replay could not be loaded.')} {state.message}</p>}
       {state.status === 'missing' && (
         <div className="pw-sheet rounded-[28px] p-6">
-          <h2 className="text-[19px] font-semibold">The replay is not ready for this field yet</h2>
+          <h2 className="text-[19px] font-semibold">{t('The replay is not ready for this field yet')}</h2>
           <p className="mt-1 text-[15px] text-muted-foreground">
-            The engine has not produced results for this field yet. Tribune 001 has the full replay.
+            {t('The engine has not produced results for this field yet. Tribune 001 has the full replay.')}
           </p>
           <Link
             to={{ pathname: '/replay', search: `?field=${DEFAULT_FIELD_ID}` }}
             className="mt-2 inline-flex min-h-11 items-center text-[15px] font-semibold text-primary underline underline-offset-4"
           >
-            Open the replay for Tribune 001
+            {t('Open the replay for Tribune 001')}
           </Link>
         </div>
       )}
@@ -153,15 +168,15 @@ export function Replay({ data, selected }: ReplayProps) {
           <div className="flex min-w-0 flex-col gap-5">
             <section aria-labelledby="ranking-heading">
               <h2 id="ranking-heading" className="text-[19px] font-semibold">
-                Rotations ranked by your priorities
+                {t('Rotations ranked by your priorities')}
               </h2>
               <p className="mb-3 mt-1 text-[13px] text-muted-foreground">
-                Select a rotation to read why, the evidence and what to check.
+                {t('Select a rotation to read why, the evidence and what to check.')}
                 {results.current_rotation === null &&
-                  ' This field has no fallow, which is not one of the modeled rotations, so none is marked as yours.'}
+                  ` ${t('This field has no fallow, which is not one of the modeled rotations, so none is marked as yours.')}`}
               </p>
               <RankingList ranked={ranked} selectedId={shown.rotation.id} onSelect={(id) => setChoice({ fieldId, rotationId: id })} />
-              <p className="mt-3 text-[15px] leading-snug">{stabilitySentence(view.sensitivity)}</p>
+              <p className="mt-3 text-[15px] leading-snug">{stabilitySentence(view.sensitivity, t)}</p>
             </section>
 
             <YearChart rotation={shown.rotation} site={results.site} />

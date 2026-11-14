@@ -1,10 +1,10 @@
 @import 'tailwindcss';
 
-/* Fonty ładujemy lokalnie (bez zewnętrznego CDN). */
-/* Jeden miękki, lekko zaokrąglony krój na całą aplikację. */
+/* Fonts are loaded locally (no external CDN). */
+/* One soft, slightly rounded typeface for the whole app. */
 @import '@fontsource-variable/geologica';
 
-/* Mapowanie zmiennych motywu na klasy Tailwind (nazwy jak w shadcn/ui). */
+/* Mapping of the theme variables to Tailwind classes (names as in shadcn/ui). */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -50,14 +50,14 @@
   --color-leaf: var(--leaf);
   --color-leaf-deep: var(--leaf-deep);
   --color-leaf-soft: var(--leaf-soft);
-  /* Dwa poziomy miękkiego cienia w ciepłym odcieniu: karta leżąca i karta uniesiona. */
+  /* Two levels of soft shadow in a warm tone: a resting card and a lifted card. */
   --shadow-soft: 0 1px 2px rgb(20 50 35 / 0.04), 0 8px 24px rgb(20 50 35 / 0.07);
   --shadow-lift: 0 2px 6px rgb(20 50 35 / 0.06), 0 18px 44px rgb(20 50 35 / 0.16);
 }
 
-/* Motyw „Open sky": lekki i jasny, jak na telefonie. W tle powoli płynie kolorowa „mgła" (niebo, młoda zieleń,
-   pszenica, sorgo), a nawigacja, panele i karty to półprzezroczyste szkło, przez które ta mgła i mapa prześwitują.
-   Akcentem jest zieleń z logo. */
+/* "Open sky" theme: light and bright, like on a phone. A colourful "mist" drifts slowly in the background (sky, young green,
+   wheat, sorghum), and the navigation, panels and cards are translucent glass that the mist and the map show through.
+   The accent is the green of the logo. */
 :root {
   --leaf: #0c8a45;
   --leaf-deep: #06733a;
@@ -85,9 +85,9 @@
   --bar-active: var(--leaf);
   --bar-border: #e3e9e5;
   --map-frame: #dfe6e1;
-  /* Uprawy. Zestaw sprawdzony walidatorem palet: każda para różni się wyraźnie także przy zaburzeniach
-     widzenia barw (najgorsza para: kukurydza–sorgo), a na każdym kafelku i tak jest litera.
-     Pszenica = dojrzały łan, sorgo = rdzawe wiechy, kukurydza = zielony łan, ugór = goła ziemia. */
+  /* Crops. The set was checked with the palette validator: every pair stays clearly apart for colour-vision
+     deficiencies too (worst pair: corn–sorghum), and every tile carries a letter anyway.
+     Wheat = ripe field, sorghum = rusty heads, corn = green field, fallow = bare ground. */
   --crop-w: #f7c544;
   --crop-w-fg: #1d2420;
   --crop-s: #ea6a47;
@@ -98,13 +98,13 @@
   --crop-f-fg: #ffffff;
   --crop-o: #93a0c4;
   --crop-o-fg: #1d2420;
-  /* Wykresy: zysk i strata (para sprawdzona pod kątem daltonizmu), tło ostrzeżenia. */
+  /* Charts: gain and loss (a pair checked for colour blindness), warning background. */
   --chart-gain: #1479a8;
   --chart-loss: #cc6a2e;
   --chart-green: #2a8a57;
   --warning: rgb(255 236 189 / 0.8);
   --warning-border: #b9770e;
-  /* Kolory kafelków z liczbami w karcie pola: woda, ziemia, próchnica, nachylenie. */
+  /* Tints of the number tiles in the field card: water, soil, organic matter, slope. */
   --tint-water: rgb(64 156 255 / 0.14);
   --tint-soil: rgb(196 140 84 / 0.18);
   --tint-life: rgb(47 214 123 / 0.16);
@@ -113,7 +113,7 @@
   --font-head: 'Geologica Variable', system-ui, sans-serif;
   --font-num: 'Geologica Variable', system-ui, sans-serif;
   --radius: 16px;
-  /* Ruch jak w telefonie: szybki start, miękkie wyhamowanie z lekkim odbiciem. */
+  /* Motion as on a phone: quick start, soft landing with a slight bounce. */
   --ease-spring: cubic-bezier(0.3, 1.35, 0.5, 1);
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -133,8 +133,8 @@
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
-  /* Kolorowa mgła w tle: dwie warstwy miękkich plam, które bardzo powoli dryfują w przeciwne strony.
-     Nieruchome względem ekranu; szkło nad nimi rozmywa je jeszcze bardziej. */
+  /* Colourful mist in the background: two layers of soft blobs that drift very slowly in opposite directions.
+     Fixed to the screen; the glass above blurs them further. */
   body::before,
   body::after {
     content: '';
@@ -170,8 +170,8 @@
   }
 }
 
-/* Liczby i kody: ten sam krój, cyfry o stałej szerokości, żeby kolumny się nie rozjeżdżały.
-   Klasa font-mono zostaje w komponentach jako „to jest liczba", ale nie przełącza na krój maszynowy. */
+/* Numbers and codes: same typeface, fixed-width digits so that columns stay aligned.
+   The font-mono class stays in the components as "this is a number" but does not switch to a typewriter face. */
 .font-mono {
   font-variant-numeric: tabular-nums lining-nums;
   letter-spacing: -0.01em;
@@ -194,8 +194,8 @@
   }
 }
 
-/* „Szkło": półprzezroczysta biała powierzchnia, która rozmywa i podbija kolory tego, co pod nią
-   (mgłę, mapę albo przewijaną treść). Jasna krawędź u góry udaje odbicie światła. */
+/* "Glass": a translucent white surface that blurs and lifts the colours of whatever is under it
+   (mist, map or scrolling content). A light edge at the top imitates a reflection. */
 .pw-glass {
   background: linear-gradient(180deg, rgb(255 255 255 / 0.74), rgb(255 255 255 / 0.56));
   -webkit-backdrop-filter: blur(26px) saturate(1.9);
@@ -206,7 +206,7 @@
     0 1px 2px rgb(20 50 35 / 0.05),
     0 14px 36px rgb(20 50 35 / 0.14);
 }
-/* Karta: to samo szkło, ale gęstsze, żeby dłuższy tekst czytał się pewnie. */
+/* Card: the same glass, but denser, so that longer text reads safely. */
 .pw-sheet {
   background: rgb(255 255 255 / 0.8);
   -webkit-backdrop-filter: blur(30px) saturate(1.8);
@@ -215,19 +215,19 @@
     inset 0 1px 0 rgb(255 255 255 / 0.95),
     var(--shadow-soft);
 }
-/* Wybrany element na szkle: zielona obwódka i mocniejszy cień (zastępuje cień karty). */
+/* Selected element on glass: green ring and a stronger shadow (replaces the card shadow). */
 .pw-selected {
   box-shadow:
     0 0 0 2px var(--leaf),
     var(--shadow-lift);
 }
-/* Zielony gradient z logo: główny przycisk, paski dopasowania, miejsce pierwsze w rankingu. */
+/* Green gradient of the logo: main button, fit bars, first place in the ranking. */
 .pw-brand {
   background: var(--brand-gradient);
   color: #ffffff;
 }
 
-/* Wciśnięcie: element lekko się ugina pod palcem i wraca. */
+/* Press: the element gives slightly under the finger and returns. */
 .pw-press {
   transition:
     transform 0.25s var(--ease-spring),
@@ -238,7 +238,7 @@
   transform: scale(0.975);
 }
 
-/* Karta pola wjeżdża miękko po wybraniu innego pola (odpowiedź na akcję użytkownika). */
+/* The field card rises in softly after another field is selected (a response to the user's action). */
 @keyframes pw-rise {
   from {
     opacity: 0;
@@ -249,14 +249,14 @@
   animation: pw-rise 0.42s var(--ease-out);
 }
 
-/* Wąski, dyskretny pasek przewijania w pływających panelach. */
+/* Narrow, discreet scrollbar in the floating panels. */
 .pw-scroll {
   scrollbar-width: thin;
   scrollbar-color: rgb(20 50 35 / 0.22) transparent;
 }
 
-/* Suwak: natywny <input type="range"> o wysokości 44 px. Tor wypełnia się złotem do bieżącej wartości (--fill),
-   uchwyt jest biały i rzuca cień, jak w telefonie. */
+/* Slider: a native <input type="range"> 44 px high. The track fills with gold up to the current value (--fill),
+   the thumb is white and casts a shadow, as on a phone. */
 .pw-range {
   appearance: none;
   -webkit-appearance: none;
@@ -299,7 +299,7 @@
   box-shadow: 0 0 0 0.5px rgb(20 50 35 / 0.12), 0 3px 8px rgb(20 50 35 / 0.22);
 }
 
-/* Leaflet: kontrolki i podpisy w kroju aplikacji. */
+/* Leaflet: controls and labels in the app's typeface. */
 .leaflet-container {
   font-family: var(--font-body);
   background: var(--muted);
@@ -315,7 +315,7 @@
 .leaflet-tooltip::before {
   display: none;
 }
-/* Przyciski powiększania jako jedna zaokrąglona „szklana" pastylka. */
+/* Zoom buttons as one rounded "glass" pill. */
 .leaflet-bar {
   border: 0 !important;
   border-radius: 16px !important;
@@ -332,7 +332,7 @@
   backdrop-filter: blur(16px);
   border-color: var(--border) !important;
 }
-/* Na szerokim ekranie mapa leży pod pływającymi panelami: kontrolki przesuwamy w wolny środek. */
+/* On a wide screen the map lies under the floating panels: the controls move into the free middle. */
 @media (min-width: 1024px) {
   .pw-map-bleed .leaflet-bottom.leaflet-right {
     right: 404px;

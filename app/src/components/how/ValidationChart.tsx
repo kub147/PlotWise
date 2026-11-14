@@ -12,7 +12,8 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { CROP_WORD, percent, yearList, type ValidationSeries } from '@/lib/validation'
+import { useT } from '@/lib/i18n'
+import { CROP_WORD, CROP_WORD_GENITIVE, percent, yearList, type ValidationSeries } from '@/lib/validation'
 
 type Point = { year: number; measured: number; engine: number }
 
@@ -20,18 +21,19 @@ const MEASURED_COLOR = 'var(--foreground)'
 const ENGINE_COLOR = 'var(--chart-gain)'
 
 function ChartTooltip({ active, payload }: { active?: boolean; payload?: { payload: Point }[] }) {
+  const t = useT()
   if (!active || !payload?.length) return null
   const point = payload[0].payload
   return (
     <div className="pw-glass rounded-2xl px-3.5 py-2.5 text-[13px]">
       <p className="font-mono font-semibold">{point.year}</p>
       <p>
-        Measured <span className="font-mono font-semibold">{Math.round(point.measured)}</span> bu/acre
+        {t('Measured')} <span className="font-mono font-semibold">{Math.round(point.measured)}</span> {t('bu/acre')}
       </p>
       <p>
-        Engine <span className="font-mono font-semibold">{Math.round(point.engine)}</span> bu/acre
+        {t('Engine')} <span className="font-mono font-semibold">{Math.round(point.engine)}</span> {t('bu/acre')}
       </p>
-      {point.measured === 0 && <p className="text-muted-foreground">The trial harvested nothing</p>}
+      {point.measured === 0 && <p className="text-muted-foreground">{t('The trial harvested nothing')}</p>}
     </div>
   )
 }
@@ -49,6 +51,7 @@ type ValidationChartProps = {
 }
 
 export function ValidationChart({ series, zeroYears }: ValidationChartProps) {
+  const t = useT()
   const data: Point[] = series.years.map((year, i) => ({
     year,
     measured: series.measured_bu_acre[i],
@@ -59,9 +62,10 @@ export function ValidationChart({ series, zeroYears }: ValidationChartProps) {
   // A label every four years, starting on a year divisible by four (1996, 2000, …).
   const ticks: number[] = []
   for (let year = Math.ceil(firstYear / 4) * 4; year <= lastYear; year += 4) ticks.push(year)
-  const crop = CROP_WORD[series.crop] ?? series.crop
+  const crop = t(CROP_WORD[series.crop] ?? series.crop)
+  const cropGenitive = t(CROP_WORD_GENITIVE[series.crop] ?? CROP_WORD[series.crop] ?? series.crop)
   // "Wheat after fallow (WSSF)" -> "Wheat after fallow"
-  const title = series.label.replace(/\s*\(.*\)$/, '')
+  const title = t(series.label.replace(/\s*\(.*\)$/, ''))
   const headingId = `validation-${series.id}`
 
   return (
@@ -70,8 +74,11 @@ export function ValidationChart({ series, zeroYears }: ValidationChartProps) {
         {title}
       </h3>
       <p className="mt-1 text-[13px] leading-snug text-muted-foreground">
-        Yield in bushels per acre, {firstYear}–{lastYear}. The engine follows {percent(series.r2)}% of the measured
-        year-to-year swings.
+        {t('Yield in bushels per acre, {from} to {to}. The engine follows {percent}% of the measured year-to-year swings.', {
+          from: firstYear,
+          to: lastYear,
+          percent: percent(series.r2),
+        })}
       </p>
 
       <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1.5 text-[13px]">
@@ -80,21 +87,25 @@ export function ValidationChart({ series, zeroYears }: ValidationChartProps) {
             <line x1="0" y1="5" x2="28" y2="5" stroke={MEASURED_COLOR} strokeWidth="2" />
             <circle cx="14" cy="5" r="3.5" fill={MEASURED_COLOR} />
           </svg>
-          Measured at the Tribune trials
+          {t('Measured at the Tribune trials')}
         </li>
         <li className="flex items-center gap-2">
           <svg width="28" height="10" aria-hidden>
             <line x1="0" y1="5" x2="28" y2="5" stroke={ENGINE_COLOR} strokeWidth="2" strokeDasharray="5 4" />
             <rect x="11" y="2" width="6" height="6" fill={ENGINE_COLOR} />
           </svg>
-          Engine, from gridded weather
+          {t('Engine, from gridded weather')}
         </li>
       </ul>
 
       <div
         className="mt-2 h-[260px]"
         role="img"
-        aria-label={`Line chart of measured and modeled ${crop} yield at Tribune, ${firstYear} to ${lastYear}. The table below has the same numbers.`}
+        aria-label={t('Line chart of measured and modeled {crop} yield at Tribune, {from} to {to}. The table below has the same numbers.', {
+          crop: cropGenitive,
+          from: firstYear,
+          to: lastYear,
+        })}
       >
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 22, right: 10, bottom: 0, left: 0 }}>
@@ -153,26 +164,29 @@ export function ValidationChart({ series, zeroYears }: ValidationChartProps) {
       {zeroYears.length > 0 && (
         <p className="mt-2 flex items-start gap-1.5 text-[13px] leading-snug text-muted-foreground">
           <span className="mt-0.5 h-3 w-3 shrink-0 rounded-sm bg-muted-foreground/25 ring-1 ring-inset ring-input" aria-hidden />
-          Shaded: {yearList(zeroYears)}, when the trial lost the whole {crop} crop.
+          {t('Shaded: {years}, when the trial lost the whole {crop} crop.', {
+            years: yearList(zeroYears).replace(' and ', ` ${t('and')} `),
+            crop: cropGenitive,
+          })}
         </p>
       )}
 
       <details className="mt-1">
         <summary className="flex min-h-11 cursor-pointer items-center text-[15px] font-medium text-primary underline underline-offset-4">
-          Show the numbers as a table
+          {t('Show the numbers as a table')}
         </summary>
         <div className="pw-scroll max-h-72 overflow-auto rounded-2xl bg-foreground/[0.03]">
           <table className="w-full text-left text-[13px]">
             <thead className="sticky top-0 bg-muted">
               <tr>
                 <th scope="col" className="px-3 py-2 font-semibold">
-                  Year
+                  {t('Year')}
                 </th>
                 <th scope="col" className="px-3 py-2 text-right font-semibold">
-                  Measured, bu/acre
+                  {t('Measured, bu/acre')}
                 </th>
                 <th scope="col" className="px-3 py-2 text-right font-semibold">
-                  Engine, bu/acre
+                  {t('Engine, bu/acre')}
                 </th>
               </tr>
             </thead>

@@ -1,12 +1,13 @@
-// Lewa kolumna Rotation replay: cztery suwaki priorytetów 0–100 i reset do wag początkowych (2:2:1:1).
-// Kryteria są takie, jak liczy silnik (engine/scoring.py): income, dry_year_safety, water, soil.
+// Left column of Rotation replay: four priority sliders 0–100 and a reset to the starting weights.
+// The criteria are the ones the engine scores (engine/scoring.py): income, dry_year_safety, water, soil.
 import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { useT } from '@/lib/i18n'
 import { CRITERIA, DEFAULT_WEIGHTS, type Criterion, type Weights } from '@/lib/results'
 import { cn } from '@/lib/utils'
 
-// Nazwy i opisy prostym językiem. Opis mówi, co dokładnie mierzy wynik w silniku.
+// Names and hints in plain language. The hint says exactly what the engine score measures.
 const CRITERION_TEXT: Record<Criterion, { label: string; hint: string }> = {
   income: { label: 'Net return', hint: 'Average return per acre over all replayed years.' },
   dry_year_safety: { label: 'Holding up in dry years', hint: 'Average return per acre in the dry years only.' },
@@ -23,14 +24,15 @@ export function WeightSliders({ weights, onChange }: WeightSlidersProps) {
   const isDefault = CRITERIA.every((criterion) => weights[criterion] === DEFAULT_WEIGHTS[criterion])
   // On a phone the sliders start folded so the ranking is not four screens down; on a wide screen they always show.
   const [open, setOpen] = useState(false)
+  const t = useT()
   return (
     <section aria-labelledby="priorities-heading" className="flex flex-col gap-4">
       <div>
         <h2 id="priorities-heading" className="text-[19px] font-semibold">
-          Your priorities
+          {t('Your priorities')}
         </h2>
         <p className="mt-1 text-[13px] text-muted-foreground">
-          Move a slider to the right for what matters more to you. The ranking updates as you move.
+          {t('Move a slider to the right for what matters more to you. The ranking updates as you move.')}
         </p>
         <button
           type="button"
@@ -39,7 +41,11 @@ export function WeightSliders({ weights, onChange }: WeightSlidersProps) {
           onClick={() => setOpen(!open)}
           className="mt-2 flex min-h-11 w-full items-center justify-between gap-2 rounded-2xl bg-foreground/5 px-4 text-[15px] font-medium lg:hidden"
         >
-          {open ? 'Hide the sliders' : isDefault ? 'Change priorities (starting weights)' : 'Change priorities (changed)'}
+          {open
+            ? t('Hide the sliders')
+            : isDefault
+              ? t('Change priorities (starting weights)')
+              : t('Change priorities (changed)')}
           <ChevronDown aria-hidden className={cn('h-5 w-5 transition-transform', open && 'rotate-180')} />
         </button>
       </div>
@@ -54,7 +60,7 @@ export function WeightSliders({ weights, onChange }: WeightSlidersProps) {
           <div key={criterion}>
             <div className="flex items-baseline justify-between gap-3">
               <label htmlFor={id} className="text-[15px] font-semibold">
-                {text.label}
+                {t(text.label)}
               </label>
               <output htmlFor={id} className="font-mono text-[15px] font-medium">
                 {value}
@@ -73,19 +79,17 @@ export function WeightSliders({ weights, onChange }: WeightSlidersProps) {
               style={{ ['--fill' as string]: `${value}%` }}
             />
             <p id={`${id}-hint`} className="text-[13px] leading-snug text-muted-foreground">
-              {text.hint}
+              {t(text.hint)}
             </p>
           </div>
         )
       })}
 
       <p className="text-[13px] leading-snug text-muted-foreground">
-        Rain use and soil start at half weight. Both go up with how often a crop is grown, so together they start
-        level with one money priority.
+        {t('Rain use and soil start at half weight. Both go up with how often a crop is grown, so together they start level with one money priority.')}
       </p>
-
       <Button variant="outline" width="full" disabled={isDefault} onClick={() => onChange(DEFAULT_WEIGHTS)}>
-        Reset to starting weights
+        {t('Reset to starting weights')}
       </Button>
       </div>
     </section>

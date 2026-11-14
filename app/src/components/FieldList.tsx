@@ -1,6 +1,7 @@
-// Lewa kolumna widoku „My field": lista pól demo pogrupowana według miejscowości.
+// Left column of the "My field" view: the demo fields grouped by site.
 import { CropTile } from '@/components/CropTile'
 import { fieldShortName, type AppData, type FieldFeature } from '@/lib/data'
+import { useT } from '@/lib/i18n'
 import { rotationPhases } from '@/lib/rotation'
 import { cn } from '@/lib/utils'
 
@@ -11,7 +12,8 @@ type FieldListProps = {
 }
 
 export function FieldList({ data, selectedId, onSelect }: FieldListProps) {
-  // Grupy w kolejności, w jakiej miejscowości pojawiają się w pliku (Tribune, Colby, Hays).
+  const t = useT()
+  // Groups in the order the sites appear in the file (Tribune, Colby, Hays).
   const groups = new Map<string, FieldFeature[]>()
   for (const field of data.fields) {
     const site = field.properties.site
@@ -19,18 +21,18 @@ export function FieldList({ data, selectedId, onSelect }: FieldListProps) {
   }
 
   return (
-    <nav aria-label="Demo fields" className="flex flex-col gap-5">
+    <nav aria-label={t('Demo fields')} className="flex flex-col gap-5">
       <div>
-        <h2 className="text-[21px] font-semibold">Demo fields</h2>
+        <h2 className="text-[21px] font-semibold">{t('Demo fields')}</h2>
         <p className="mt-1 text-[13px] text-muted-foreground">
-          {data.fields.length} dryland fields at {groups.size} sites in western Kansas.
+          {t('{fields} dryland fields at {sites} sites in western Kansas.', { fields: data.fields.length, sites: groups.size })}
         </p>
       </div>
 
       {/* Phone: a drop-down instead of the long list, so the map and the field card are one swipe away */}
       <div className="lg:hidden">
         <label htmlFor="field-select" className="sr-only">
-          Choose a field
+          {t('Choose a field')}
         </label>
         <select
           id="field-select"
@@ -42,7 +44,7 @@ export function FieldList({ data, selectedId, onSelect }: FieldListProps) {
             <optgroup key={site} label={site}>
               {fields.map((field) => (
                 <option key={field.properties.field_id} value={field.properties.field_id}>
-                  {fieldShortName(field.properties)} · {field.properties.current_rotation}
+                  {fieldShortName(field.properties)} · {t(field.properties.current_rotation)}
                 </option>
               ))}
             </optgroup>
@@ -59,7 +61,7 @@ export function FieldList({ data, selectedId, onSelect }: FieldListProps) {
               className="mb-1.5 flex items-baseline justify-between gap-2 px-3 text-[15px] font-semibold"
             >
               <span>{site}</span>
-              {county && <span className="text-[13px] font-normal tracking-normal text-muted-foreground">{county} County</span>}
+              {county && <span className="text-[13px] font-normal tracking-normal text-muted-foreground">{t('{name} County', { name: county })}</span>}
             </h3>
             <ul className="flex flex-col gap-1">
               {fields.map((field) => {
@@ -81,20 +83,20 @@ export function FieldList({ data, selectedId, onSelect }: FieldListProps) {
                       <span className="flex items-center justify-between gap-2">
                         <span className="font-mono text-[15px] font-medium">{fieldShortName(p)}</span>
                         {phases ? (
-                          <span className="flex gap-0.5" aria-label={`Rotation ${phases.join('-')}`}>
+                          <span className="flex gap-0.5" aria-label={t('Rotation {rotation}', { rotation: phases.join('-') })}>
                             {phases.map((letter, i) => (
                               <CropTile key={i} letter={letter} className="h-6 w-6 text-[13px]" />
                             ))}
                           </span>
                         ) : (
                           <span className="rounded-full bg-foreground/[0.06] px-2.5 py-0.5 text-[13px]">
-                            No fallow
+                            {t('No fallow')}
                           </span>
                         )}
                       </span>
-                      <span className="text-[13px] leading-snug text-muted-foreground">{p.name}</span>
+                      <span className="text-[13px] leading-snug text-muted-foreground">{t(p.name)}</span>
                       {!hasReplay && (
-                        <span className="text-[13px] font-medium text-muted-foreground">Replay not ready yet</span>
+                        <span className="text-[13px] font-medium text-muted-foreground">{t('Replay not ready yet')}</span>
                       )}
                     </button>
                   </li>

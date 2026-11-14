@@ -1,19 +1,19 @@
-// Rejestr dowodów z crops-economics/reference/evidence.md.
-// Czytamy plik w przeglądarce, żeby opisy E01… i zdanie o ubezpieczeniach nie były przepisane ręcznie.
+// Evidence register from crops-economics/reference/evidence.md.
+// The file is read in the browser so that the E01… entries and the insurance sentence are not retyped by hand.
 import { useEffect, useState } from 'react'
 import { dataUrl } from '@/lib/data'
 
 export type EvidenceItem = { id: string; finding: string; source: string; status: string }
 export type Evidence = {
   items: Record<string, EvidenceItem>
-  // Zdanie o ubezpieczeniach na każdą kartę (odpowiedź 5 w evidence.md); null, gdy nie znaleziono.
+  // Insurance sentence for every card (answer 5 in evidence.md); null when not found.
   insuranceSentence: string | null
 }
 
 export function parseEvidence(markdown: string): Evidence {
   const items: Record<string, EvidenceItem> = {}
   for (const line of markdown.split('\n')) {
-    // Wiersz tabeli: | E07 | finding | source | status |
+    // Table row: | E07 | finding | source | status |
     const cells = line.split('|').map((cell) => cell.trim())
     if (cells.length >= 6 && /^E\d+$/.test(cells[1])) {
       items[cells[1]] = { id: cells[1], finding: cells[2], source: cells[3], status: cells[4] }
@@ -23,7 +23,7 @@ export function parseEvidence(markdown: string): Evidence {
   return { items, insuranceSentence: insurance ? insurance[1] : null }
 }
 
-// Plik jest wspólny dla wszystkich pól, więc pobieramy go raz.
+// The file is shared by all fields, so it is fetched once.
 let cache: Promise<Evidence> | null = null
 
 function loadEvidence(): Promise<Evidence> {
@@ -45,7 +45,7 @@ export function useEvidence(): Evidence | null {
         if (!cancelled) setEvidence(loaded)
       })
       .catch(() => {
-        // Bez rejestru karta pokaże same identyfikatory; nie zmyślamy opisów.
+        // Without the register the card shows the IDs only; we do not make up descriptions.
         if (!cancelled) setEvidence({ items: {}, insuranceSentence: null })
       })
     return () => {

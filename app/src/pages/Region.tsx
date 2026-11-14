@@ -22,6 +22,7 @@ import {
 import type { Scenario } from '@/lib/results'
 import { rotationLabel } from '@/lib/rotation'
 import { formatNumber, formatUsd, haToAcres, mmToInches } from '@/lib/units'
+import { useT } from '@/lib/i18n'
 
 const LAYER_OPTIONS: { value: RegionLayer; label: string }[] = [
   { value: 'fallow', label: 'Fallow today' },
@@ -47,6 +48,7 @@ function countyBounds(counties: CountyCollection, countyId: string): LatLngBound
 
 // Horizontal bars of the rotation classes; every bar carries its own label and number.
 function RotationShares({ shares }: { shares: Record<RotationClass, number> }) {
+  const t = useT()
   return (
     <ul className="flex flex-col gap-2">
       {ROTATION_CLASSES.map((rotation) => {
@@ -57,7 +59,7 @@ function RotationShares({ shares }: { shares: Record<RotationClass, number> }) {
             <div className="flex items-baseline justify-between gap-3 text-[13px]">
               <span className="flex items-center gap-2">
                 <span className="h-3 w-3 shrink-0 rounded-sm ring-1 ring-inset ring-input" style={{ background: style.color }} aria-hidden />
-                {style.label}
+                {t(style.label)}
               </span>
               <span className="font-mono font-semibold">{percent(share)}</span>
             </div>
@@ -81,6 +83,7 @@ function Stat({ label, value }: { label: string; value: string }) {
 }
 
 function RegionContent({ data, selectedField }: { data: RegionData; selectedField: FieldFeature }) {
+  const t = useT()
   const fields = useCountyFields()
   const [layer, setLayer] = useState<RegionLayer>('fallow')
   const [scenario, setScenario] = useState<Scenario>('county_average')
@@ -112,20 +115,18 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
     <div className="mx-auto grid max-w-[1680px] grid-cols-1 gap-4 p-4 lg:h-full lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-5 lg:p-5">
       <div className="flex min-w-0 flex-col gap-3 lg:min-h-0">
         <header>
-          <h1 className="text-[34px] font-semibold leading-tight">Region</h1>
+          <h1 className="text-[34px] font-semibold leading-tight">{t('Region')}</h1>
           <p className="mt-1 text-[15px] text-muted-foreground">
-            {data.counties.features.length} western Kansas counties · {formatNumber(data.rotations.fields)} fields ·{' '}
-            {formatNumber(haToAcres(data.rotations.area_ha) / 1e6, 1)} million acres read from satellite crop maps,{' '}
-            {data.rotations.years}
+            {t('{counties} western Kansas counties · {fields} fields · {acres} million acres read from satellite crop maps, {years}', { counties: data.counties.features.length, fields: formatNumber(data.rotations.fields), acres: formatNumber(haToAcres(data.rotations.area_ha) / 1e6, 1), years: data.rotations.years })}
           </p>
         </header>
 
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <SegmentedControl label="County map layer" options={LAYER_OPTIONS} value={layer} onValueChange={setLayer} />
+          <SegmentedControl label={t('County map layer')} options={LAYER_OPTIONS.map((item) => ({ ...item, label: t(item.label) }))} value={layer} onValueChange={setLayer} />
           {layer === 'model' && (
             <SegmentedControl
-              label="Yield level used by the model"
-              options={SCENARIO_OPTIONS}
+              label={t('Yield level used by the model')}
+              options={SCENARIO_OPTIONS.map((item) => ({ ...item, label: t(item.label) }))}
               value={scenario}
               onValueChange={setScenario}
             />
@@ -146,22 +147,22 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
         </div>
 
         <div className="pw-sheet rounded-3xl px-5 py-4">
-          <h2 className="text-[15px] font-semibold">{info.title}</h2>
+          <h2 className="text-[15px] font-semibold">{t(info.title)}</h2>
           <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1.5 text-[13px]">
             {info.legend.map((item) => (
               <li key={item.label} className="flex items-center gap-1.5">
                 <span className="h-3 w-5 rounded-sm ring-1 ring-inset ring-input" style={{ background: item.color }} aria-hidden />
-                {item.label}
+              {t(item.label)}
               </li>
             ))}
           </ul>
           <p className="mt-2 text-[13px] leading-snug text-muted-foreground">
-            {info.source}
-            {layer === 'model' && ` ${data.results.caution}`}
+            {t(info.source)}
+            {layer === 'model' && ` ${t(data.results.caution)}`}
           </p>
           <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]">
             <span className="text-muted-foreground">
-              {fields ? 'Field outlines, coloured by rotation as in the rotation list, are drawn for three counties. Zoom to:' : 'Zoom to:'}
+              {fields ? t('Field outlines, coloured by rotation as in the rotation list, are drawn for three counties. Zoom to:') : t('Zoom to:')}
             </span>
             {OUTLINE_COUNTIES.map((id) => {
               const name = names.find((entry) => entry.id === id)?.name
@@ -183,12 +184,10 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
       <div className="flex min-w-0 flex-col gap-4 lg:min-h-0 lg:overflow-y-auto lg:pr-1">
         <Card>
           <CardSection>
-            <SectionLabel>What farmers grow across the region</SectionLabel>
+            <SectionLabel>{t('What farmers grow across the region')}</SectionLabel>
             <RotationShares shares={data.rotations.share_of_area} />
             <p className="mt-3 text-[13px] leading-snug text-muted-foreground">
-              Share of the area of {formatNumber(data.rotations.fields)} fields, from the crop grown each year{' '}
-              {data.rotations.years} (USDA Cropland Data Layer). These are fields of 100 acres or more with one clear
-              crop sequence: a sample of clean fields, not all cropland.
+              {t('Share of the area of {count} fields, from the crop grown each year {years} (USDA Cropland Data Layer). These are fields of 100 acres or more with one clear crop sequence: a sample of clean fields, not all cropland.', { count: formatNumber(data.rotations.fields), years: data.rotations.years })}
             </p>
           </CardSection>
         </Card>
@@ -196,7 +195,7 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
         <Card aria-live="polite">
           <CardSection>
             <label htmlFor="county-select" className="text-[15px] font-medium text-foreground">
-              County
+              {t('County')}
             </label>
             <select
               id="county-select"
@@ -206,28 +205,28 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
             >
               {names.map((entry) => (
                 <option key={entry.id} value={entry.id}>
-                  {entry.name} County
+                  {entry.name} {t('County')}
                 </option>
               ))}
             </select>
-            <p className="mt-1 text-[13px] text-muted-foreground">Or select a county on the map.</p>
+            <p className="mt-1 text-[13px] text-muted-foreground">{t('Or select a county on the map.')}</p>
           </CardSection>
 
           {county && (
             <CardSection>
-              <SectionLabel>Fallow</SectionLabel>
+              <SectionLabel>{t('Fallow')}</SectionLabel>
               <dl className="grid grid-cols-3 gap-3">
-                <Stat label="In 2008" value={percent(county.fallow_share_2008)} />
-                <Stat label="Today" value={percent(county.fallow_share_latest)} />
-                {result && <Stat label="Rain a year" value={`${formatNumber(mmToInches(result.precip_mm_per_year), 1)} in`} />}
+                <Stat label={t('In 2008')} value={percent(county.fallow_share_2008)} />
+                <Stat label={t('Today')} value={percent(county.fallow_share_latest)} />
+                {result && <Stat label={t('Rain a year')} value={`${formatNumber(mmToInches(result.precip_mm_per_year), 1)} in`} />}
               </dl>
-              <p className="mt-2 text-[13px] text-muted-foreground">Share of the county's cropland left fallow.</p>
+              <p className="mt-2 text-[13px] text-muted-foreground">{t("Share of the county's cropland left fallow.")}</p>
             </CardSection>
           )}
 
           {practice && (
             <CardSection>
-              <SectionLabel>What farmers grow here</SectionLabel>
+              <SectionLabel>{t('What farmers grow here')}</SectionLabel>
               {practice.fields > 0 ? (
                 <>
                   <RotationShares
@@ -236,46 +235,45 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
                     ) as Record<RotationClass, number>}
                   />
                   <p className="mt-3 text-[13px] text-muted-foreground">
-                    {formatNumber(practice.fields)} fields, {formatNumber(haToAcres(practice.area_ha))} acres.
+                    {t('{fields} fields, {acres} acres.', { fields: formatNumber(practice.fields), acres: formatNumber(haToAcres(practice.area_ha)) })}
                   </p>
                 </>
               ) : (
-                <p className="text-[15px]">No field in this county passed the filter.</p>
+                <p className="text-[15px]">{t('No field in this county passed the filter.')}</p>
               )}
             </CardSection>
           )}
 
           <CardSection>
-            <SectionLabel>What the model says</SectionLabel>
+            <SectionLabel>{t('What the model says')}</SectionLabel>
             <SegmentedControl
-              label="Yield level used by the model"
-              options={SCENARIO_OPTIONS}
+              label={t('Yield level used by the model')}
+              options={SCENARIO_OPTIONS.map((item) => ({ ...item, label: t(item.label) }))}
               value={scenario}
               onValueChange={setScenario}
             />
             {model ? (
               <>
                 <dl className="mt-3 grid grid-cols-2 gap-3">
-                  <Stat label="Best rotation" value={rotationLabel(model.best_rotation) ?? model.best_rotation} />
+                  <Stat label={t('Best rotation')} value={t(rotationLabel(model.best_rotation) ?? model.best_rotation)} />
                   <Stat
-                    label="Sorghum in place of fallow"
+                    label={t('Sorghum in place of fallow')}
                     value={`${model.gain_replacing_fallow_usd_acre > 0 ? '+' : ''}${formatUsd(model.gain_replacing_fallow_usd_acre)} /acre`}
                   />
                 </dl>
                 {result?.practice?.most_common_of_three && (
                   <p className="mt-2 text-[15px] leading-snug">
                     {result.practice.most_common_of_three === model.best_rotation
-                      ? 'This is also the rotation farmers here grow most often.'
-                      : `Farmers here most often grow ${rotationLabel(result.practice.most_common_of_three)}. Where the model and farmers disagree, trust local experience first: the model leaves out crop insurance, program payments and workload.`}
+                      ? t('This is also the rotation farmers here grow most often.')
+                      : t('Farmers here most often grow {rotation}. Where the model and farmers disagree, trust local experience first: the model leaves out crop insurance, program payments and workload.', { rotation: t(rotationLabel(result.practice.most_common_of_three) ?? result.practice.most_common_of_three) })}
                   </p>
                 )}
               </>
             ) : (
-              <p className="mt-3 text-[15px]">The model has no result for this county at this yield level.</p>
+              <p className="mt-3 text-[15px]">{t('The model has no result for this county at this yield level.')}</p>
             )}
             <p className="mt-2 text-[13px] leading-snug text-muted-foreground">
-              Sorghum in place of fallow: wheat – sorghum – fallow minus wheat – fallow, average per acre a year,
-              1996–2025. One point stands for the whole county, so read it as a direction, not a number for a field.
+              {t('Sorghum in place of fallow: wheat – sorghum – fallow minus wheat – fallow, average per acre a year, 1996–2025. One point stands for the whole county, so read it as a direction, not a number for a field.')}
             </p>
           </CardSection>
         </Card>
@@ -285,12 +283,13 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
 }
 
 export function Region({ selected }: { selected: FieldFeature }) {
+  const t = useT()
   const state = useRegionData()
-  if (state.status === 'loading') return <p className="p-6 text-muted-foreground">Loading the county map…</p>
+  if (state.status === 'loading') return <p className="p-6 text-muted-foreground">{t('Loading the county map…')}</p>
   if (state.status === 'error') {
     return (
       <p role="alert" className="p-6">
-        The county data could not be loaded. {state.message}
+        {t('The county data could not be loaded.')} {state.message}
       </p>
     )
   }

@@ -1,6 +1,6 @@
-// Prawa kolumna widoku „My field": karta wybranego pola.
-// Kolejność sekcji jest wiążąca: nazwa i powierzchnia, płodozmian, historia upraw, gleba i goła ziemia,
-// wykres zieloności, dwa obrazy z góry, przycisk przejścia do Rotation replay.
+// Right column of the "My field" view: the card of the selected field.
+// The order of the sections is fixed: name and area, rotation, crop history, soil and bare ground,
+// greenness chart, two images from above, button to Rotation replay.
 import { ArrowRight, Droplets, Sprout, Sun, TrendingUp, type LucideIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
@@ -11,16 +11,17 @@ import { FieldPhotos } from '@/components/field/FieldPhotos'
 import { GreennessChart } from '@/components/field/GreennessChart'
 import { fieldShortName, type AppData, type FieldFeature } from '@/lib/data'
 import { useHeatSummary, useNdvi } from '@/lib/fieldMedia'
+import { useT, type Translate } from '@/lib/i18n'
 import { rotationPhases, toCropLetter, type CropLetter } from '@/lib/rotation'
 import { formatNumber, haToAcres, mmToInches } from '@/lib/units'
 
-// Nazwa uprawy z CDL do podpisu: "CDL 60" to klasa bez nazwy w pliku.
-function historyName(name: string) {
+// CDL crop name for the caption: "CDL 60" is a class with no name in the file.
+function historyName(name: string, t: Translate) {
   const code = /^CDL (\d+)$/.exec(name)
-  return code ? `other crop (CDL class ${code[1]})` : name
+  return code ? t('other crop (CDL class {code})', { code: code[1] }) : t(name)
 }
 
-// Kafelek z jedną liczbą: ikona, liczba, jednostka i opis, na lekko zabarwionym tle.
+// Tile with one number: icon, number, unit and label on a lightly tinted background.
 function StatTile({
   icon: Icon,
   tint,
@@ -59,11 +60,12 @@ export function FieldCard({ data, field }: FieldCardProps) {
   const hasAerial = data.manifest.naip.includes(p.field_id)
   const ndvi = useNdvi(p.field_id, data.manifest.ndvi.includes(p.field_id))
   const heat = useHeatSummary()
+  const t = useT()
 
-  // Historia upraw: jedna litera na rok, od crop_sequence_first_year.
+  // Crop history: one letter per year, starting at crop_sequence_first_year.
   const history = [...p.crop_sequence].map((letter, i) => {
     const year = p.crop_sequence_first_year + i
-    return { year, letter: toCropLetter(letter), name: historyName(p.crop_history_names[String(year)] ?? 'no data') }
+    return { year, letter: toCropLetter(letter), name: historyName(p.crop_history_names[String(year)] ?? 'no data', t) }
   })
   const firstYear = history[0]?.year
   const lastYear = history[history.length - 1]?.year
@@ -74,19 +76,19 @@ export function FieldCard({ data, field }: FieldCardProps) {
 
   return (
     <Card>
-      {/* 1. Nazwa i powierzchnia */}
+      {/* 1. Name and area */}
       <CardSection>
         <p className="font-mono text-[13px] font-medium text-muted-foreground">{fieldShortName(p)}</p>
-        <h2 className="mt-0.5 text-[21px] font-semibold leading-tight">{p.name}</h2>
+        <h2 className="mt-0.5 text-[21px] font-semibold leading-tight">{t(p.name)}</h2>
         <p className="mt-1.5 text-[15px] text-muted-foreground">
-          <span className="font-mono font-semibold text-foreground">{formatNumber(haToAcres(p.area_ha))}</span> acres in{' '}
-          {county ? `${county} County, Kansas` : 'Kansas'}
+          <span className="font-mono font-semibold text-foreground">{formatNumber(haToAcres(p.area_ha))}</span>{' '}
+          {county ? t('acres in {name} County, Kansas', { name: county }) : t('acres in Kansas')}
         </p>
       </CardSection>
 
-      {/* 2. Aktualny płodozmian */}
+      {/* 2. Rotation today */}
       <CardSection>
-        <SectionLabel>Rotation today</SectionLabel>
+        <SectionLabel>{t('Rotation today')}</SectionLabel>
         {phases ? (
           <div className="flex items-center gap-3">
             <span className="flex gap-1">
@@ -97,14 +99,14 @@ export function FieldCard({ data, field }: FieldCardProps) {
             <span className="font-mono text-[15px] font-medium">{phases.join('-')}</span>
           </div>
         ) : (
-          <p className="text-[15px]">No fallow – not one of the modeled rotations.</p>
+          <p className="text-[15px]">{t('No fallow – not one of the modeled rotations.')}</p>
         )}
       </CardSection>
 
-      {/* 3. Historia upraw */}
+      {/* 3. Crop history */}
       <CardSection>
         <SectionLabel>
-          What grew here, {firstYear}–{lastYear}
+          {t('What grew here, {from}–{to}', { from: firstYear ?? '', to: lastYear ?? '' })}
         </SectionLabel>
         <ol
           className="grid gap-[2px]"
@@ -130,62 +132,61 @@ export function FieldCard({ data, field }: FieldCardProps) {
             {otherYears.map((entry) => `${entry.year}: ${entry.name}`).join('; ')}.
           </p>
         )}
-        <p className="mt-2 text-[13px] text-muted-foreground">Read from the USDA Cropland Data Layer, one crop per year.</p>
+        <p className="mt-2 text-[13px] text-muted-foreground">{t('Read from the USDA Cropland Data Layer, one crop per year.')}</p>
       </CardSection>
 
-      {/* 4. Gleba i dni z gołą ziemią */}
+      {/* 4. Soil and bare-ground days */}
       <CardSection>
-        <SectionLabel>Soil and bare ground</SectionLabel>
+        <SectionLabel>{t('Soil and bare ground')}</SectionLabel>
         <p className="text-[15px] font-medium">{p.soil_map_unit}</p>
-        {/* Cztery liczby jako kolorowe kafelki: kolor mówi, czego dotyczy liczba (woda, ziemia, próchnica, nachylenie) */}
+        {/* Four numbers as tinted tiles: the tint says what the number is about (water, soil, organic matter, slope) */}
         <dl className="mt-3 grid grid-cols-2 gap-2.5">
-          <StatTile icon={Droplets} tint="var(--tint-water)" label="Water the soil can hold for plants" unit="in, top 5 ft">
+          <StatTile icon={Droplets} tint="var(--tint-water)" label={t('Water the soil can hold for plants')} unit={t('in, top 5 ft')}>
             {formatNumber(mmToInches(p.awc_mm), 1)}
           </StatTile>
-          <StatTile icon={Sun} tint="var(--tint-soil)" label="Days a year with bare ground" unit="seen from satellite">
+          <StatTile icon={Sun} tint="var(--tint-soil)" label={t('Days a year with bare ground')} unit={t('seen from satellite')}>
             {formatNumber(p.bare_days_per_year)}
           </StatTile>
-          <StatTile icon={Sprout} tint="var(--tint-life)" label="Organic matter">
+          <StatTile icon={Sprout} tint="var(--tint-life)" label={t('Organic matter')}>
             {formatNumber(p.organic_matter_pct, 1)}%
           </StatTile>
-          <StatTile icon={TrendingUp} tint="var(--tint-slope)" label="Slope">
+          <StatTile icon={TrendingUp} tint="var(--tint-slope)" label={t('Slope')}>
             {formatNumber(p.slope_pct, 1)}%
           </StatTile>
         </dl>
         <p className="mt-3 text-[13px] text-muted-foreground">
-          Bare ground means no green cover, averaged over the last 8 years. Standing stubble still protects the soil and
-          is not counted. Soil from the USDA soil survey (SSURGO).
+          {t('Bare ground means no green cover, averaged over the last 8 years. Standing stubble still protects the soil and is not counted. Soil from the USDA soil survey (SSURGO).')}
         </p>
       </CardSection>
 
-      {/* 5. Wykres zieloności (NDVI) */}
+      {/* 5. Greenness chart (NDVI) */}
       <CardSection>
-        <SectionLabel>Greenness over the years</SectionLabel>
+        <SectionLabel>{t('Greenness over the years')}</SectionLabel>
         <GreennessChart fieldId={p.field_id} state={ndvi} threshold={p.ndvi_bare_threshold} />
       </CardSection>
 
-      {/* 6. Zdjęcie lotnicze i temperatura powierzchni */}
+      {/* 6. Aerial photo and surface temperature */}
       <CardSection>
-        <SectionLabel>From above</SectionLabel>
+        <SectionLabel>{t('From above')}</SectionLabel>
         <FieldPhotos fieldId={p.field_id} fieldLabel={fieldShortName(p)} hasAerial={hasAerial} heat={heat} />
       </CardSection>
 
-      {/* 7. Przejście do Rotation replay */}
+      {/* 7. Link to Rotation replay */}
       <CardSection>
         {hasReplay ? (
           <Button asChild width="full">
             <Link to={{ pathname: '/replay', search: `?field=${p.field_id}` }}>
-              Replay the last 30 years on this field
+              {t('Replay the last 30 years on this field')}
               <ArrowRight aria-hidden className="h-4 w-4" />
             </Link>
           </Button>
         ) : (
           <>
             <Button width="full" disabled>
-              Replay the last 30 years on this field
+              {t('Replay the last 30 years on this field')}
             </Button>
             <p className="mt-2 text-[13px] text-muted-foreground">
-              The replay is not ready for this field yet.
+              {t('The replay is not ready for this field yet.')}
             </p>
           </>
         )}

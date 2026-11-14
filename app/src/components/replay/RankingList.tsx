@@ -1,5 +1,6 @@
-// Środkowa kolumna Rotation replay: ranking płodozmianów według priorytetów farmera.
+// Middle column of Rotation replay: rotations ranked by the farmer's priorities.
 import { CropTile } from '@/components/CropTile'
+import { useT } from '@/lib/i18n'
 import type { RankedRotation } from '@/lib/results'
 import { rotationDisplayName, rotationPhases } from '@/lib/rotation'
 import { formatUsd } from '@/lib/units'
@@ -12,6 +13,7 @@ type RankingListProps = {
 }
 
 export function RankingList({ ranked, selectedId, onSelect }: RankingListProps) {
+  const t = useT()
   return (
     <ol className="flex flex-col gap-2">
       {ranked.map(({ rotation, fit, place }) => {
@@ -34,7 +36,7 @@ export function RankingList({ ranked, selectedId, onSelect }: RankingListProps) 
                   'flex h-8 w-8 items-center justify-center rounded-full font-mono text-[15px] font-medium',
                   place === 1 ? 'pw-brand shadow-[0_4px_12px_rgb(15_154_76/0.35)]' : 'bg-foreground/[0.06] text-muted-foreground',
                 )}
-                aria-label={`Place ${place}`}
+                aria-label={t('Place {place}', { place })}
               >
                 {place}
               </span>
@@ -46,18 +48,18 @@ export function RankingList({ ranked, selectedId, onSelect }: RankingListProps) 
                       <CropTile key={i} letter={letter} className="h-7 w-7" />
                     ))}
                   </span>
-                  <span className="text-[15px] font-semibold">{rotationDisplayName(rotation.name)}</span>
+                  <span className="text-[15px] font-semibold">{rotationDisplayName(t(rotation.name))}</span>
                 </span>
                 {(rotation.is_current || rotation.status === 'optional') && (
                   <span className="flex flex-wrap gap-1.5">
                     {rotation.is_current && (
                       <span className="rounded-full bg-leaf-soft px-2.5 py-0.5 text-[13px] font-medium text-accent-foreground">
-                        Your rotation today
+                        {t('Your rotation today')}
                       </span>
                     )}
                     {rotation.status === 'optional' && (
                       <span className="rounded-full bg-foreground/[0.06] px-2.5 py-0.5 text-[13px] text-muted-foreground">
-                        Optional
+                        {t('Optional')}
                       </span>
                     )}
                   </span>
@@ -66,10 +68,10 @@ export function RankingList({ ranked, selectedId, onSelect }: RankingListProps) 
 
               <span className="col-start-2 flex flex-col sm:col-start-3 sm:items-end">
                 <span className="font-mono text-[19px] font-semibold">{formatUsd(rotation.summary.mean)}</span>
-                <span className="text-[13px] text-muted-foreground">average per acre a year</span>
+                <span className="text-[13px] text-muted-foreground">{t('average per acre a year')}</span>
               </span>
 
-              {/* Pasek dopasowania: długość i liczba, kolor nie niesie znaczenia */}
+              {/* Fit bar: length and number; colour carries no meaning */}
               <span className="col-span-full flex items-center gap-3">
                 <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-foreground/[0.07]" aria-hidden>
                   <span
@@ -78,7 +80,7 @@ export function RankingList({ ranked, selectedId, onSelect }: RankingListProps) 
                   />
                 </span>
                 <span className="w-[5.5rem] text-right text-[13px] text-muted-foreground">
-                  Fit <span className="font-mono font-semibold text-foreground">{fitPercent}</span> of 100
+                  {t('Fit')} <span className="font-mono font-semibold text-foreground">{fitPercent}</span> {t('of 100')}
                 </span>
               </span>
             </button>

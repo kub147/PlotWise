@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
-// Łączy klasy Tailwind i usuwa konflikty (standard shadcn/ui).
+// Joins Tailwind classes and removes conflicts (shadcn/ui standard).
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }

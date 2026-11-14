@@ -1,7 +1,8 @@
-// Pliki klimatu (climate/<field_id>.json) i podsumowanie płodozmianów w hrabstwach.
-// Typy opisują tylko klucze używane w aplikacji; potwierdzone w prawdziwych plikach.
+// Climate files (climate/<field_id>.json) and the county rotation summary.
+// The types describe only the keys the app uses; confirmed in the real files.
 import { useEffect, useState } from 'react'
 import { dataUrl } from '@/lib/data'
+import type { Translate } from '@/lib/i18n'
 import { mmToInches } from '@/lib/units'
 
 export type Trend = {
@@ -15,7 +16,7 @@ export type Trend = {
   mean_second_half: number
   slope_per_decade: number
   mk_p: number
-  // true, gdy test Manna-Kendalla daje p < 0.05 (reguła zapisana w pliku jako trend_rule).
+  // true when the Mann-Kendall test gives p < 0.05 (the rule is stored in the file as trend_rule).
   reliable: boolean
 }
 
@@ -29,7 +30,7 @@ export type PrecipRow = {
 export type Climate = {
   field_id: string
   trends: Trend[]
-  // rok -> wskaźnik -> wartość (te same nazwy wskaźników co w trends)
+  // year -> measure -> value (same measure names as in trends)
   yearly: Record<string, Record<string, number>>
   precip_crosscheck: { windows: { annual: { rows: PrecipRow[] } } }
   grace: {
@@ -58,10 +59,10 @@ export type CountyRotations = {
 
 export type JsonState<T> = { status: 'loading' } | { status: 'missing' } | { status: 'ready'; data: T }
 
-// Pobrane pliki trzymamy w pamięci: te same dane czyta kilka widoków.
+// Fetched files are kept in memory: several views read the same data.
 const jsonCache = new Map<string, Promise<unknown>>()
 
-// Wczytuje plik JSON z public data. `path` równe null oznacza, że pliku nie ma w manifeście.
+// Loads a JSON file from the data folder. `path` equal to null means the manifest has no such file.
 export function useJson<T>(path: string | null): JsonState<T> {
   const [loaded, setLoaded] = useState<{ path: string; state: JsonState<T> } | null>(null)
   useEffect(() => {
@@ -80,7 +81,7 @@ export function useJson<T>(path: string | null): JsonState<T> {
         if (!cancelled) setLoaded({ path, state: { status: 'ready', data: data as T } })
       })
       .catch(() => {
-        // Brak pliku pokazujemy jako brak danych.
+        // A missing file is shown as missing data.
         if (!cancelled) setLoaded({ path, state: { status: 'missing' } })
       })
     return () => {
@@ -92,8 +93,8 @@ export function useJson<T>(path: string | null): JsonState<T> {
   return loaded?.path === path ? loaded.state : { status: 'loading' }
 }
 
-// Jak pokazać wskaźnik farmerowi: nazwa prostym językiem i przeliczenie na jednostki amerykańskie.
-// kind: 'gdd' stopniodni (°C·dzień -> °F·dzień), 'days' liczba dni, 'doy' dzień roku (data), 'mm' milimetry -> cale.
+// How to show a measure to a farmer: a plain-language name and the conversion to US units.
+// kind: 'gdd' degree days (°C·day -> °F·day), 'days' a count of days, 'doy' day of year (a date), 'mm' millimetres -> inches.
 export type IndicatorKind = 'gdd' | 'days' | 'doy' | 'mm'
 
 export const INDICATORS: Record<string, { title: string; kind: IndicatorKind }> = {
@@ -114,26 +115,30 @@ export const INDICATORS: Record<string, { title: string; kind: IndicatorKind }> 
 const number = (value: number, digits: number) =>
   value.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })
 
-// Dzień roku -> "Oct 20" (rok nieprzestępny jako wzorzec).
-export function dayOfYearLabel(doy: number) {
+// Day of year -> "Oct 20" (a non-leap year as the pattern).
+export function dayOfYearLabel(doy: number, locale: string) {
   const date = new Date(Date.UTC(2001, 0, Math.round(doy)))
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' })
+  return date.toLocaleDateString(locale, { month: 'short', day: 'numeric', timeZone: 'UTC' })
 }
 
-// Wartość wskaźnika w jednostkach amerykańskich, do osi i podpowiedzi.
-export function indicatorValue(kind: IndicatorKind, value: number): string {
-  if (kind === 'gdd') return `${number(value * 1.8, 0)} °F·days`
-  if (kind === 'doy') return dayOfYearLabel(value)
-  if (kind === 'mm') return `${number(mmToInches(value), 1)} in`
-  return `${number(value, 0)} days`
+// Value of a measure in US units, for axes and tooltips.
+export function indicatorValue(kind: IndicatorKind, value: number, t: Translate, locale: string): string {
+  if (kind === 'gdd') return t('{n} °F·days', { n: number(value * 1.8, 0) })
+  if (kind === 'doy') return dayOfYearLabel(value, locale)
+  if (kind === 'mm') return t('{n} in', { n: number(mmToInches(value), 1) })
+  return t('{n} days', { n: number(value, 0) })
 }
 
-// Zmiana na dekadę słowami: "+138 °F·days per decade", "4.6 days later per decade".
-export function slopeText(kind: IndicatorKind, slope: number): string {
+// Change per decade in words: "+138 °F·days per decade", "4.6 days later per decade".
+export function slopeText(kind: IndicatorKind, slope: number, t: Translate): string {
   const sign = slope > 0 ? '+' : slope < 0 ? '−' : ''
   const size = Math.abs(slope)
-  if (kind === 'gdd') return `${sign}${number(size * 1.8, 0)} °F·days per decade`
-  if (kind === 'doy') return `${number(size, 1)} days ${slope >= 0 ? 'later' : 'earlier'} per decade`
-  if (kind === 'mm') return `${sign}${number(mmToInches(size), 1)} in per decade`
-  return `${sign}${number(size, 1)} days per decade`
+  if (kind === 'gdd') return t('{n} °F·days per decade', { n: sign + number(size * 1.8, 0) })
+  if (kind === 'doy') {
+    return slope >= 0
+      ? t('{n} days later per decade', { n: number(size, 1) })
+      : t('{n} days earlier per decade', { n: number(size, 1) })
+  }
+  if (kind === 'mm') return t('{n} in per decade', { n: sign + number(mmToInches(size), 1) })
+  return t('{n} days per decade', { n: sign + number(size, 1) })
 }

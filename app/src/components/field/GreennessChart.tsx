@@ -1,5 +1,5 @@
-// Wykres zieloności pola (NDVI z Landsata) od 2008 r. Jedna seria, więc bez legendy: tytuł mówi, co widać.
-// Szary pas na dole to wartości poniżej progu gołej ziemi z fields.geojson (ndvi_bare_threshold).
+// Field greenness chart (Landsat NDVI) since 2008. One series, so no legend: the title says what is shown.
+// The grey band at the bottom marks values below the bare-ground threshold from fields.geojson (ndvi_bare_threshold).
 import {
   CartesianGrid,
   Line,
@@ -13,6 +13,7 @@ import {
 } from 'recharts'
 import { dataUrl } from '@/lib/data'
 import type { NdviPoint, NdviState } from '@/lib/fieldMedia'
+import { useDateLocale, useT } from '@/lib/i18n'
 
 const DAY_FORMAT: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }
 
@@ -25,15 +26,17 @@ function ChartTooltip({
   payload?: { payload: NdviPoint }[]
   threshold: number
 }) {
+  const t = useT()
+  const locale = useDateLocale()
   if (!active || !payload?.length) return null
   const point = payload[0].payload
   return (
     <div className="pw-glass rounded-2xl px-3.5 py-2.5 text-[13px]">
-      <p className="font-semibold">{new Date(point.time).toLocaleDateString('en-US', DAY_FORMAT)}</p>
+      <p className="font-semibold">{new Date(point.time).toLocaleDateString(locale, DAY_FORMAT)}</p>
       <p>
-        Greenness <span className="font-mono font-semibold">{point.ndvi.toFixed(2)}</span>
+        {t('Greenness')} <span className="font-mono font-semibold">{point.ndvi.toFixed(2)}</span>
       </p>
-      {point.ndvi < threshold && <p className="text-muted-foreground">Counted as bare ground</p>}
+      {point.ndvi < threshold && <p className="text-muted-foreground">{t('Counted as bare ground')}</p>}
     </div>
   )
 }
@@ -41,34 +44,35 @@ function ChartTooltip({
 type GreennessChartProps = {
   fieldId: string
   state: NdviState
-  // Próg gołej ziemi z fields.geojson (ndvi_bare_threshold).
+  // Bare-ground threshold from fields.geojson (ndvi_bare_threshold).
   threshold: number
 }
 
 export function GreennessChart({ fieldId, state, threshold }: GreennessChartProps) {
+  const t = useT()
   if (state.status === 'loading') {
-    return <p className="text-[13px] text-muted-foreground">Loading the greenness record…</p>
+    return <p className="text-[13px] text-muted-foreground">{t('Loading the greenness record…')}</p>
   }
   if (state.status === 'missing' || state.points.length === 0) {
-    return <p className="text-[13px] text-muted-foreground">No greenness record for this field yet.</p>
+    return <p className="text-[13px] text-muted-foreground">{t('No greenness record for this field yet.')}</p>
   }
 
   const points = state.points
   const firstYear = new Date(points[0].time).getUTCFullYear()
   const lastYear = new Date(points[points.length - 1].time).getUTCFullYear()
-  // Oś czasu od 1 stycznia pierwszego roku do 1 stycznia roku po ostatnim; podpis co dwa lata.
+  // Time axis from 1 January of the first year to 1 January after the last year; a label every two years.
   const domain: [number, number] = [Date.UTC(firstYear, 0, 1), Date.UTC(lastYear + 1, 0, 1)]
   const ticks: number[] = []
   for (let year = firstYear; year <= lastYear + 1; year += 2) ticks.push(Date.UTC(year, 0, 1))
 
   return (
     <div>
-      {/* Wykres jest szerszy niż karta i przewija się w poziomie, żeby 18 lat było czytelne */}
+      {/* The chart is wider than the card and scrolls sideways so that 18 years stay readable */}
       <div className="pw-scroll overflow-x-auto rounded-2xl bg-foreground/[0.03]">
         <div
           className="h-[220px] min-w-[760px] pr-2 pt-3"
           role="img"
-          aria-label={`Line chart of field greenness from ${firstYear} to ${lastYear}. Green peaks are growing crops; the low stretches are bare ground.`}
+          aria-label={t('Line chart of field greenness from {from} to {to}. Green peaks are growing crops; the low stretches are bare ground.', { from: firstYear, to: lastYear })}
         >
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={points} margin={{ top: 4, right: 8, bottom: 0, left: 0 }}>
@@ -109,15 +113,13 @@ export function GreennessChart({ fieldId, state, threshold }: GreennessChartProp
         </div>
       </div>
       <p className="mt-2 text-[13px] leading-snug text-muted-foreground">
-        Greenness (NDVI) seen by Landsat satellites, {points.length} clear days. Near 0 is bare soil; higher means more
-        green plants. In the grey band (below {threshold}) the field counts as bare ground. Scroll sideways to see all
-        years.{' '}
+        {t('Greenness (NDVI) seen by Landsat satellites, {days} clear days. Near 0 is bare soil; higher means more green plants. In the grey band (below {threshold}) the field counts as bare ground. Scroll sideways to see all years.', { days: points.length, threshold })}{' '}
         <a
           href={dataUrl(`ndvi/${fieldId}.csv`)}
           download
           className="font-medium text-primary underline underline-offset-2"
         >
-          Download the numbers (CSV)
+          {t('Download the numbers (CSV)')}
         </a>
       </p>
     </div>

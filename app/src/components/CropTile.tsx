@@ -1,4 +1,5 @@
-// Kafelek uprawy: zawsze litera plus kolor, nigdy sam kolor.
+// Crop tile: always a letter plus a colour, never colour alone.
+import { useT } from '@/lib/i18n'
 import { CROP_NAMES, toCropLetter, type CropLetter } from '@/lib/rotation'
 import { cn } from '@/lib/utils'
 
@@ -8,7 +9,7 @@ const TILE_CLASS: Record<CropLetter, string> = {
   C: 'bg-crop-c text-crop-c-fg',
   F: 'bg-crop-f text-crop-f-fg',
   O: 'bg-crop-o text-crop-o-fg',
-  // Słonecznik (tylko w opcjonalnym W-Sf-F): bez własnego koloru, wyróżnia go gruba ramka i dwie litery.
+  // Sunflower (only in the optional W-Sf-F): no colour of its own; a thick ring and two letters set it apart.
   Sf: 'bg-card text-foreground ring-[1.5px] ring-inset ring-foreground text-[13px]',
 }
 
@@ -34,14 +35,15 @@ export function CropTile({ letter, size = 'badge', className }: CropTileProps) {
   )
 }
 
-// Legenda liter używanych w aplikacji.
+// Legend of the letters used in the app.
 export function CropLegend({ letters }: { letters: CropLetter[] }) {
+  const t = useT()
   return (
     <ul className="flex flex-wrap gap-x-4 gap-y-1.5 text-[13px] text-muted-foreground">
       {letters.map((letter) => (
         <li key={letter} className="flex items-center gap-1.5">
           <CropTile letter={letter} className="h-5 w-5 text-[13px]" />
-          {CROP_NAMES[letter]}
+          {t(CROP_NAMES[letter])}
         </li>
       ))}
     </ul>

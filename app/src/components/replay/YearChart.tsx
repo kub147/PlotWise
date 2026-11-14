@@ -13,6 +13,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+import { useT } from '@/lib/i18n'
 import type { RotationResult } from '@/lib/results'
 import { rotationDisplayName } from '@/lib/rotation'
 import { formatUsd } from '@/lib/units'
@@ -34,13 +35,18 @@ type Point = { year: number; value: number }
 function ChartTooltip({ active, payload }: { active?: boolean; payload?: { payload: Point }[] }) {
   if (!active || !payload?.length) return null
   const point = payload[0].payload
+  return <TooltipBody point={point} />
+}
+
+function TooltipBody({ point }: { point: Point }) {
+  const t = useT()
   return (
     <div className="pw-glass rounded-2xl px-3.5 py-2.5 text-[13px]">
       <p className="font-mono font-semibold">{point.year}</p>
       <p>
-        <span className="font-mono font-semibold">{formatUsd(point.value)}</span> per acre
+        <span className="font-mono font-semibold">{formatUsd(point.value)}</span> {t('per acre')}
       </p>
-      {FAILURE_YEARS.includes(point.year) && <p className="text-muted-foreground">Crop failure year at Tribune</p>}
+      {FAILURE_YEARS.includes(point.year) && <p className="text-muted-foreground">{t('Crop failure year at Tribune')}</p>}
     </div>
   )
 }
@@ -55,21 +61,25 @@ export function YearChart({ rotation, site }: YearChartProps) {
   const data: Point[] = rotation.net_return_usd_acre.map(([year, value]) => ({ year, value }))
   const firstYear = data[0]?.year
   const lastYear = data[data.length - 1]?.year
-  const name = rotationDisplayName(rotation.name)
+  const t = useT()
+  const name = rotationDisplayName(t(rotation.name))
 
   return (
     <section aria-labelledby="year-chart-heading">
       <h2 id="year-chart-heading" className="text-[19px] font-semibold">
-        Year by year
+        {t('Year by year')}
       </h2>
       <p className="mt-1 text-[13px] text-muted-foreground">
-        {name}: return per acre in each year, {firstYear}–{lastYear}, in 2025 dollars. Hover or tap a bar for the
-        number.
+        {t('{name}: return per acre in each year, {from}–{to}, in 2025 dollars. Hover or tap a bar for the number.', {
+          name,
+          from: firstYear ?? '',
+          to: lastYear ?? '',
+        })}
       </p>
 
       {/* On a narrow screen the chart scrolls sideways instead of shrinking */}
       <div className="mt-3 overflow-x-auto pw-sheet rounded-3xl p-4">
-        <div className="h-[300px] min-w-[600px]" role="img" aria-label={`Bar chart of yearly net return per acre for ${name}. The table below has the same numbers.`}>
+        <div className="h-[300px] min-w-[600px]" role="img" aria-label={t('Bar chart of yearly net return per acre for {name}. The table below has the same numbers.', { name })}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data} margin={{ top: 22, right: 8, bottom: 0, left: 0 }} barCategoryGap={2}>
               <CartesianGrid vertical={false} stroke="var(--border)" />
@@ -116,32 +126,32 @@ export function YearChart({ rotation, site }: YearChartProps) {
 
         <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1.5 text-[13px] text-muted-foreground">
           <li className="flex items-center gap-1.5">
-            <span className="h-3 w-3 rounded-sm bg-chart-gain" aria-hidden /> Year above zero
+            <span className="h-3 w-3 rounded-sm bg-chart-gain" aria-hidden /> {t('Year above zero')}
           </li>
           <li className="flex items-center gap-1.5">
-            <span className="h-3 w-3 rounded-sm bg-chart-loss" aria-hidden /> Year below zero
+            <span className="h-3 w-3 rounded-sm bg-chart-loss" aria-hidden /> {t('Year below zero')}
           </li>
           <li className="flex items-center gap-1.5">
             <span className="h-3 w-3 rounded-sm bg-muted-foreground/25 ring-1 ring-inset ring-input" aria-hidden />
-            Shaded: {FAILURE_YEARS.join(', ')}, years the K-State field trials at Tribune lost a whole crop
-            {site && site !== 'Tribune' && `. Shown for reference: ${site} had its own weather in those years`}
+            {t('Shaded: {years}, years the K-State field trials at Tribune lost a whole crop', { years: FAILURE_YEARS.join(', ') })}
+            {site && site !== 'Tribune' && t('. Shown for reference: {site} had its own weather in those years', { site })}
           </li>
         </ul>
       </div>
 
       <details className="mt-2">
         <summary className="flex min-h-11 cursor-pointer items-center text-[15px] font-medium text-primary underline underline-offset-4">
-          Show the numbers as a table
+          {t('Show the numbers as a table')}
         </summary>
         <div className="pw-sheet pw-scroll max-h-72 overflow-auto rounded-3xl">
           <table className="w-full text-left text-[13px]">
             <thead className="sticky top-0 bg-muted">
               <tr>
                 <th scope="col" className="px-3 py-2 font-semibold">
-                  Year
+                  {t('Year')}
                 </th>
                 <th scope="col" className="px-3 py-2 text-right font-semibold">
-                  Return per acre
+                  {t('Return per acre')}
                 </th>
               </tr>
             </thead>
@@ -151,7 +161,7 @@ export function YearChart({ rotation, site }: YearChartProps) {
                   <td className="px-3 py-1.5 font-mono">
                     {point.year}
                     {FAILURE_YEARS.includes(point.year) && (
-                      <span className="ml-2 font-sans text-muted-foreground">crop failure year at Tribune</span>
+                      <span className="ml-2 font-sans text-muted-foreground">{t('crop failure year at Tribune')}</span>
                     )}
                   </td>
                   <td className="px-3 py-1.5 text-right font-mono">{formatUsd(point.value)}</td>

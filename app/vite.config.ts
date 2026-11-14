@@ -3,14 +3,14 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
-// base './' — ścieżki względne, więc build działa pod dowolnym adresem (GitHub Pages) razem z HashRouter.
+// base './' — relative paths, so the build works under any URL (GitHub Pages) together with HashRouter.
 export default defineConfig({
   base: './',
-  // Pliki statyczne (favicon i kopie danych z sync-data) leżą w static/, nie w domyślnym public/.
+  // Static files (favicon and the data copies made by sync-data) live in static/, not in the default public/.
   publicDir: 'static',
   build: {
-    // Wynik trafia do build/, a nie do domyślnego dist/. Katalogu nie czyścimy przed budowaniem:
-    // na dysku exFAT usuwanie folderów zostawiało zablokowane wpisy i build się wywracał.
+    // Output goes to build/, not the default dist/. The folder is not emptied before building:
+    // on an exFAT drive deleting folders left locked entries and the build failed.
     outDir: 'build',
     emptyOutDir: false,
   },

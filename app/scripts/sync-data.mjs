@@ -1,5 +1,5 @@
-// Kopiuje dane innych części projektu do app/static/ (katalog plików statycznych Vite), żeby aplikacja mogła je wczytać jako pliki statyczne.
-// Uruchamiany automatycznie przed `npm run dev` i `npm run build`. Nie zmienia plików źródłowych.
+// Copies the data of the other workstreams into app/static/ (Vite's static folder) so that the app can load them as static files.
+// Runs automatically before `npm run dev` and `npm run build`. It never changes the source files.
 import { cpSync, existsSync, mkdirSync, readdirSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -10,8 +10,8 @@ const processed = join(repo, 'data', 'processed')
 const outData = join(appDir, 'static', 'data')
 const outImg = join(appDir, 'static', 'img')
 
-// Katalogów nie usuwamy: gdy działa `npm run dev`, Windows blokuje je i usuwanie kończy się błędem EPERM.
-// Nadpisujemy pliki, a na końcu kasujemy tylko te, których już nie ma w źródłach.
+// Folders are not deleted: on some drives Windows keeps them locked and the delete fails with EPERM.
+// Files are overwritten, and at the end only those no longer present in the sources are removed.
 mkdirSync(outData, { recursive: true })
 mkdirSync(outImg, { recursive: true })
 
@@ -29,7 +29,7 @@ function copyFile(from, to) {
   return true
 }
 
-// Kopiuje pliki z katalogu pasujące do wzorca i zwraca ich nazwy.
+// Copies the files of a folder that match the pattern and returns their names.
 function copyMatching(fromDir, toDir, pattern) {
   if (!existsSync(fromDir)) {
     missing.push(fromDir)
@@ -40,7 +40,7 @@ function copyMatching(fromDir, toDir, pattern) {
   return names
 }
 
-// Pojedyncze pliki
+// Single files
 copyFile(join(processed, 'fields.geojson'), join(outData, 'fields.geojson'))
 copyFile(join(processed, 'counties.geojson'), join(outData, 'counties.geojson'))
 copyFile(join(processed, 'county_rotation_summary.json'), join(outData, 'county_rotation_summary.json'))
@@ -56,17 +56,17 @@ if (existsSync(join(processed, 'results', 'validation.json'))) {
 copyFile(join(processed, 'heat', 'ecostress_summary.json'), join(outData, 'ecostress_summary.json'))
 copyFile(join(repo, 'crops-economics', 'reference', 'evidence.md'), join(outData, 'evidence.md'))
 
-// Pliki per pole. Wzorzec ks<fips>-<nr> pomija sample.json i pliki pomocnicze.
+// Per-field files. The pattern ks<fips>-<no> skips sample.json and helper files.
 const fieldJson = /^ks\d{3}-\d{3}\.json$/
 const fieldCsv = /^ks\d{3}-\d{3}\.csv$/
 const climate = copyMatching(join(processed, 'climate'), join(outData, 'climate'), fieldJson)
 const results = copyMatching(join(processed, 'results'), join(outData, 'results'), fieldJson)
 const ndvi = copyMatching(join(processed, 'ndvi'), join(outData, 'ndvi'), fieldCsv)
 
-// Obrazki
+// Images
 const images = copyMatching(join(repo, 'docs', 'img'), outImg, /\.png$/)
 
-// Manifest: aplikacja sprawdza w nim, co istnieje dla danego pola, zamiast zgadywać.
+// Manifest: the app looks up what exists for a field here instead of guessing.
 const idOf = (name) => name.replace(/\.(json|csv)$/, '')
 const manifest = {
   climate: climate.map(idOf),
@@ -80,7 +80,7 @@ const manifest = {
 writeFileSync(join(outData, 'manifest.json'), JSON.stringify(manifest, null, 1))
 written.add(join(outData, 'manifest.json'))
 
-// Usuwa pliki z poprzedniej kopii, których nie ma już w źródłach.
+// Removes files of the previous copy that are no longer in the sources.
 function pruneStale(dir) {
   for (const name of readdirSync(dir)) {
     const path = join(dir, name)
@@ -95,6 +95,6 @@ console.log(
   `sync-data: ${climate.length} climate, ${results.length} results, ${ndvi.length} ndvi, ${images.length} images`,
 )
 if (missing.length > 0) {
-  console.error('sync-data: brakuje plików źródłowych:\n  ' + missing.join('\n  '))
+  console.error('sync-data: missing source files:\n  ' + missing.join('\n  '))
   process.exit(1)
 }

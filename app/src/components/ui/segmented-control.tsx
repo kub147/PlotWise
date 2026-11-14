@@ -1,6 +1,6 @@
-// Przełącznik segmentowy (grupa radio z przesuwanym znacznikiem).
-// Zaadaptowany z 21st.dev („Segmented Control", autor ddoemonn): zachowana obsługa klawiatury
-// i semantyka radiogroup, animacja zrobiona w CSS zamiast biblioteki motion, kolory z motywu.
+// Segmented control (radio group with a sliding thumb).
+// Adapted from 21st.dev ("Segmented Control" by ddoemonn): keyboard handling kept,
+// and the radiogroup semantics; the animation is done in CSS instead of the motion library; colours come from the theme.
 import { useRef, type KeyboardEvent } from 'react'
 import { cn } from '@/lib/utils'
 
@@ -8,11 +8,11 @@ export type SegmentedOption<T extends string> = { value: T; label: string }
 
 type SegmentedControlProps<T extends string> = {
   options: SegmentedOption<T>[]
-  // Opis grupy dla czytników ekranu.
+  // Group description for screen readers.
   label: string
   value: T
   onValueChange: (value: T) => void
-  // 'surface' = na karcie, 'glass' = nad mapą (półprzezroczyste tło), 'bar' = na pasku nawigacji.
+  // 'surface' = on a card, 'glass' = over the map (translucent background), 'bar' = on the navigation bar.
   tone?: 'surface' | 'glass' | 'bar'
   className?: string
 }
@@ -62,11 +62,11 @@ export function SegmentedControl<T extends string>({
       )}
       style={{ gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))` }}
     >
-      {/* Przesuwany znacznik wybranej opcji */}
+      {/* Sliding thumb of the selected option */}
       <span
         aria-hidden
         className={cn(
-          // Biały, lekko uniesiony znacznik, który przeskakuje sprężyście do wybranej opcji.
+          // White, slightly raised thumb that springs to the selected option.
           'pointer-events-none absolute inset-y-[3px] left-[3px] rounded-full bg-card shadow-soft transition-transform duration-300 ease-[var(--ease-spring)]',
         )}
         style={{ width: `calc((100% - 6px) / ${count})`, transform: `translateX(${index * 100}%)` }}

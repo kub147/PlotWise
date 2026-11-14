@@ -1,15 +1,15 @@
-// Dane do karty pola: seria zieloności (NDVI z Landsata) i sceny temperatury powierzchni (ECOSTRESS).
+// Data for the field card: greenness series (Landsat NDVI) and surface temperature scenes (ECOSTRESS).
 import { useEffect, useState } from 'react'
 import { dataUrl } from '@/lib/data'
 
-// Adres obrazka skopiowanego z docs/img przez sync-data.
+// URL of an image copied from docs/img by sync-data.
 export function imageUrl(fileName: string) {
   return `${import.meta.env.BASE_URL}img/${fileName}`
 }
 
 export type NdviPoint = { time: number; ndvi: number }
 
-// Plik CSV ma kolumny: date,ndvi,sensor.
+// The CSV file has the columns: date,ndvi,sensor.
 export function parseNdviCsv(csv: string): NdviPoint[] {
   const points: NdviPoint[] = []
   for (const line of csv.trim().split(/\r?\n/).slice(1)) {
@@ -24,7 +24,7 @@ export function parseNdviCsv(csv: string): NdviPoint[] {
 export type NdviState = { status: 'loading' } | { status: 'missing' } | { status: 'ready'; points: NdviPoint[] }
 
 export function useNdvi(fieldId: string, available: boolean): NdviState {
-  // Serię pamiętamy razem z identyfikatorem pola, żeby po zmianie pola nie pokazać starej.
+  // The series is kept with its field id so that an old one never shows after the field changes.
   const [loaded, setLoaded] = useState<{ fieldId: string; state: NdviState } | null>(null)
   useEffect(() => {
     if (!available) return
@@ -38,7 +38,7 @@ export function useNdvi(fieldId: string, available: boolean): NdviState {
         if (!cancelled) setLoaded({ fieldId, state: { status: 'ready', points: parseNdviCsv(csv) } })
       })
       .catch(() => {
-        // Brak pliku pokazujemy jako brak danych, nie zastępujemy go niczym.
+        // A missing file is shown as missing data; nothing is put in its place.
         if (!cancelled) setLoaded({ fieldId, state: { status: 'missing' } })
       })
     return () => {
@@ -50,7 +50,7 @@ export function useNdvi(fieldId: string, available: boolean): NdviState {
   return loaded?.fieldId === fieldId ? loaded.state : { status: 'loading' }
 }
 
-// Jedna scena ECOSTRESS: jedno popołudnie, temperatura powierzchni (nie powietrza) w °C.
+// One ECOSTRESS scene: one moment, surface temperature (not air temperature) in °C.
 export type HeatScene = {
   scene: string
   time_utc: string
@@ -63,7 +63,7 @@ export type HeatScene = {
 
 export type HeatSummary = { source: string; note: string; scenes: HeatScene[] }
 
-// Plik jest wspólny dla wszystkich pól, więc pobieramy go raz.
+// The file is shared by all fields, so it is fetched once.
 let heatCache: Promise<HeatSummary | null> | null = null
 
 export function useHeatSummary(): HeatSummary | null {

@@ -1,4 +1,4 @@
-// Przycisk w stylu shadcn/ui, przepięty na zmienne motywu. Każdy rozmiar ma co najmniej 44 px wysokości.
+// Button in the shadcn/ui style, wired to the theme variables. Every size is at least 44 px high.
 import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
 import type { ButtonHTMLAttributes } from 'react'
@@ -24,7 +24,7 @@ const buttonVariants = cva(
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants> & {
-    // asChild: nadaje wygląd przycisku elementowi potomnemu, np. linkowi <a>.
+    // asChild: gives the button look to the child element, e.g. an <a> link.
     asChild?: boolean
   }
 

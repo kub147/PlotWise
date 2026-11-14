@@ -14,6 +14,7 @@ import {
   type RotationClass,
 } from '@/lib/region'
 import type { Scenario } from '@/lib/results'
+import { useT } from '@/lib/i18n'
 
 const STREET_TILES = {
   url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -57,6 +58,7 @@ type RegionMapProps = {
 }
 
 export function RegionMap({ counties, results, fields, layer, scenario, selectedId, onSelect, focus }: RegionMapProps) {
+  const t = useT()
   // The selected county is drawn again on top so its outline is not hidden by its neighbours.
   const selected = useMemo(
     () => counties.features.find((feature) => feature.properties.county_id === selectedId) ?? null,
@@ -94,7 +96,7 @@ export function RegionMap({ counties, results, fields, layer, scenario, selected
           })}
           onEachFeature={(feature, leafletLayer: Layer) => {
             leafletLayer.on('click', () => onSelect(feature.properties.county_id))
-            leafletLayer.bindTooltip(`${feature.properties.name} County`, { sticky: true })
+            leafletLayer.bindTooltip(`${feature.properties.name} ${t('County')}`, { sticky: true })
           }}
         />
         {fields && (
