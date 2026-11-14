@@ -1,14 +1,15 @@
 # Workstream B — fields, soil and vegetation
 
-Produces `data/processed/fields.geojson` (five demo fields in Greeley County, Kansas) and one NDVI series per field in `data/processed/ndvi/`.
+Produces `data/processed/fields.geojson` (11 demo fields at three sites: Tribune, Colby and Hays, Kansas), one NDVI series per field in `data/processed/ndvi/`, and a county layer for the western Kansas transect (`data/processed/counties.geojson`, see `docs/transect.md`).
 
 ## Run
 
 ```bash
 export EE_PROJECT=<your-ee-project>
-python3 pipelines/fields/delineate_fields.py     # candidate polygons for the county -> data/raw/fields/ (not committed)
+python3 pipelines/fields/delineate_fields.py --fips 20071   # candidate polygons per county (also 20193, 20051) -> data/raw/fields/ (not committed)
 python3 pipelines/fields/build_fields.py         # demo fields with all attributes -> data/processed/
 python3 pipelines/fields/soil_sda.py             # smoke test of the soil lookup
+python3 pipelines/fields/county_layer.py         # 46 western Kansas counties -> data/processed/counties.geojson
 ```
 
 Needs `earthengine-api` and `shapely`. Soil Data Access needs no key.

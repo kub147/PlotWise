@@ -11,6 +11,7 @@ Hackathon weekend, 14–15 November 2026. The direction is set; the engine has a
 Start here:
 - [`docs/project-brief.md`](docs/project-brief.md) — goal, product, why Tribune (Kansas), the engine, validation, scope.
 - [`docs/work-plan.md`](docs/work-plan.md) — five workstreams, timeline, file formats, a brief for each person.
+- [`docs/transect.md`](docs/transect.md) — why the demo covers three sites and 46 counties, and what each workstream does next.
 - [`docs/data-sources.md`](docs/data-sources.md) — every dataset on the challenge page: access, role, priority.
 - [`docs/research-evidence.md`](docs/research-evidence.md) — what K-State field trials say and how we use it.
 - [`docs/problem-and-solution.md`](docs/problem-and-solution.md) — first sketch of the problem and an example walkthrough.

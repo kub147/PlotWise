@@ -18,17 +18,23 @@ from soil_sda import field_soil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..", "..")
-COUNTY = "20071"
 NDVI_BARE = 0.25          # field-mean Landsat NDVI below this = no green cover. Fallow years, May-Aug: median 0.18, p90 0.26
 FIRST_YEAR = 2008         # first CDL year for Kansas
 
-# (field_id, name, lon, lat of the candidate polygon centroid)
+# (field_id, county FIPS, site, name, lon, lat of the candidate polygon centroid)
+# Three sites along the rainfall gradient of western Kansas, each next to a K-State research station.
 DEMO_FIELDS = [
-    ("ks071-001", "Wheat-sorghum-fallow field, 2 km north of the Tribune station", -101.7572, 38.4912),
-    ("ks071-002", "Wheat-fallow field, south-west of Tribune", -101.7751, 38.4131),
-    ("ks071-003", "Wheat-corn-fallow field", -101.7947, 38.4329),
-    ("ks071-004", "Field that moved from wheat-fallow to wheat-sorghum-fallow", -101.6736, 38.4766),
-    ("ks071-005", "Continuously cropped field (no fallow in 8 years) - contrast", -101.8164, 38.4711),
+    ("ks071-001", "20071", "Tribune", "Wheat-sorghum-fallow field, 2 km north of the Tribune station", -101.7572, 38.4912),
+    ("ks071-002", "20071", "Tribune", "Wheat-fallow field, south-west of Tribune", -101.7751, 38.4131),
+    ("ks071-003", "20071", "Tribune", "Wheat-corn-fallow field", -101.7947, 38.4329),
+    ("ks071-004", "20071", "Tribune", "Field that moved from wheat-fallow to wheat-sorghum-fallow", -101.6736, 38.4766),
+    ("ks071-005", "20071", "Tribune", "Continuously cropped field (no fallow in 8 years) - contrast", -101.8164, 38.4711),
+    ("ks193-001", "20193", "Colby", "Wheat-corn-fallow field near Colby", -101.0228, 39.4351),
+    ("ks193-002", "20193", "Colby", "Wheat-sorghum-fallow field near Colby", -101.0126, 39.4341),
+    ("ks193-003", "20193", "Colby", "Wheat-fallow field south of Colby", -101.0793, 39.2239),
+    ("ks051-001", "20051", "Hays", "Wheat-sorghum-fallow field east of Hays", -99.2577, 38.8600),
+    ("ks051-002", "20051", "Hays", "Wheat-fallow field in eastern Ellis County", -99.0728, 38.8165),
+    ("ks051-003", "20051", "Hays", "Continuously cropped field (no fallow in 8 years) near Hays", -99.2215, 38.7948),
 ]
 CDL_NAMES = {1: "corn", 4: "sorghum", 5: "soybean", 6: "sunflower", 24: "winter wheat", 28: "oats", 29: "millet",
              36: "alfalfa", 61: "fallow", 176: "grass/pasture", 205: "triticale", 236: "double crop wheat/sorghum"}
@@ -88,12 +94,13 @@ def bare_days(series, threshold=NDVI_BARE):
 
 def main():
     ee.Initialize(project=os.environ["EE_PROJECT"])
-    cands = json.load(open(os.path.join(ROOT, "data", "raw", "fields", f"candidates_{COUNTY}.geojson")))["features"]
-    chosen = []
-    for fid, name, lon, lat in DEMO_FIELDS:
-        f = min(cands, key=lambda c: math.hypot(c["properties"]["lon"] - lon, c["properties"]["lat"] - lat))
+    cands, chosen, meta = {}, [], {}
+    for fid, fips, site, name, lon, lat in DEMO_FIELDS:
+        if fips not in cands:
+            cands[fips] = json.load(open(os.path.join(ROOT, "data", "raw", "fields", f"candidates_{fips}.geojson")))["features"]
+        f = min(cands[fips], key=lambda c: math.hypot(c["properties"]["lon"] - lon, c["properties"]["lat"] - lat))
         assert math.hypot(f["properties"]["lon"] - lon, f["properties"]["lat"] - lat) < 0.002, fid
-        chosen.append((fid, name, f))
+        chosen.append((fid, name, f)); meta[fid] = (fips, site)
     fields = ee.FeatureCollection([ee.Feature(ee.Geometry(f["geometry"]).buffer(-30), {"field_id": fid}) for fid, _, f in chosen])
 
     # crop history and slope
@@ -109,8 +116,10 @@ def main():
 
     # NDVI
     rows = []
-    for y in range(FIRST_YEAR, dt.date.today().year + 1):
-        rows += landsat_ndvi(fields, y)
+    for site in sorted({m[1] for m in meta.values()}):       # one site at a time keeps each request small
+        part = fields.filter(ee.Filter.inList("field_id", [fid for fid, m in meta.items() if m[1] == site]))
+        for y in range(FIRST_YEAR, dt.date.today().year + 1):
+            rows += landsat_ndvi(part, y)
     os.makedirs(os.path.join(ROOT, "data", "processed", "ndvi"), exist_ok=True)
     series = {}
     for fid, d, v, s in sorted(rows):
@@ -132,7 +141,7 @@ def main():
         peak = round(sum(summer.values()) / len(summer), 2) if summer else None
         geom = shape(f["geometry"])
         soil = field_soil(geom.simplify(0.0002).wkt)
-        props = dict(field_id=fid, name=name, county_fips=COUNTY, area_ha=f["properties"]["area_ha"],
+        props = dict(field_id=fid, name=name, site=meta[fid][1], county_fips=meta[fid][0], area_ha=f["properties"]["area_ha"],
                      lon=f["properties"]["lon"], lat=f["properties"]["lat"],
                      crop_history=history, crop_history_names={y: CDL_NAMES.get(c, f"CDL {c}") for y, c in history.items()},
                      crop_sequence=letters, crop_sequence_first_year=years[0],
@@ -148,7 +157,7 @@ def main():
                      boundary_source="Connected regions of identical 2018-2025 CDL crop sequences (delineate_fields.py); not a surveyed boundary",
                      **soil)
         features.append({"type": "Feature", "properties": props, "geometry": f["geometry"]})
-        print(fid, props["current_rotation"], letters, "| fallow", props["fallow_share"], "| slope %", props["slope_pct"],
+        print(fid, props["site"], props["current_rotation"], letters, "| fallow", props["fallow_share"], "| slope %", props["slope_pct"],
               "| AWC", props["awc_mm"], props["soil_series"], "| bare d/yr", props["bare_days_per_year"], "| peak NDVI", peak, "| irrigated?", props["probably_irrigated"], "| NDVI obs", props["ndvi_observations"])
     out = os.path.join(ROOT, "data", "processed", "fields.geojson")
     json.dump({"type": "FeatureCollection", "features": features}, open(out, "w"), indent=1)
