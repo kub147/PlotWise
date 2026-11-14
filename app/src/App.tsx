@@ -3,10 +3,13 @@ import { HashRouter, Route, Routes } from 'react-router-dom'
 import { TopBar } from '@/components/TopBar'
 import { useAppData } from '@/lib/data'
 import { useSelectedField } from '@/lib/selection'
+import { Changed } from '@/pages/Changed'
 import { EmptyPage } from '@/pages/EmptyPage'
+import { How } from '@/pages/How'
 import { MyField } from '@/pages/MyField'
 import { Region } from '@/pages/Region'
 import { Replay } from '@/pages/Replay'
+import { Season } from '@/pages/Season'
 
 function Shell() {
   const state = useAppData()
@@ -27,11 +30,11 @@ function Shell() {
         {state.status === 'ready' && selected && (
           <Routes>
             <Route path="/" element={<MyField data={state.data} selected={selected} onSelect={select} />} />
-            <Route path="/changed" element={<EmptyPage title="What has changed" />} />
+            <Route path="/changed" element={<Changed data={state.data} selected={selected} />} />
             <Route path="/replay" element={<Replay data={state.data} selected={selected} />} />
             <Route path="/region" element={<Region selected={selected} />} />
-            <Route path="/season" element={<EmptyPage title="This season" />} />
-            <Route path="/how" element={<EmptyPage title="How we know" />} />
+            <Route path="/season" element={<Season data={state.data} selected={selected} />} />
+            <Route path="/how" element={<How data={state.data} />} />
             <Route path="*" element={<EmptyPage title="Page not found" />} />
           </Routes>
         )}
