@@ -51,12 +51,39 @@ longitude −0.56) and fell in 39 of 46 counties between 2008 and the latest CDL
   `awc_mm` from SSURGO near the centroid, and CDL statistics for 2008 and the latest year (`fallow_share_*`, `summer_to_wheat_*`,
   crop hectares). County centroids are not fields; treat county results as indicative.
 
+## Field map of the whole transect
+
+`pipelines/fields/delineate_all.py` and `transect_rotations.py` read the 2018–2025 crop sequence of every clean field of at least 40 ha in the 46 counties:
+**31,660 fields, 2.12 million ha.**
+
+![Fields by rotation](img/transect_fields.png)
+
+| Longitude band | Counties | Fields | Wheat–fallow | Wheat–sorghum–fallow | Wheat–corn–fallow | No fallow in 8 years |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 102°–101° W | 14 | 13,458 | 5.0% | 7.5% | 9.9% | 22.4% |
+| 101°–100° W | 10 | 8,376 | 1.9% | 16.1% | 7.9% | 29.3% |
+| 100°–99° W | 15 | 7,417 | 4.8% | 29.3% | 2.3% | 23.0% |
+| 99°–98.3° W | 7 | 2,409 | 0.4% | 2.0% | 0.5% | 81.9% |
+
+Shares of field area; the rest are other sequences with fallow (45% overall), i.e. fields that do not follow a fixed rotation.
+
+What the map shows:
+- **East of 99° W fallow is gone** (82% of field area had no fallow in eight years). That is where the transect should stop.
+- **Wheat–sorghum–fallow is the rotation of the centre and south; wheat–corn–fallow of the north-west.** Farmers choose corn where it is cooler and sorghum where it is hotter.
+  The engine should reproduce this split; if it ranks corn first around Hays, where almost nobody grows it, the corn model is the first suspect.
+- **Strict wheat–fallow is rare everywhere (4%)** and concentrated along the Colorado border.
+- **"No fallow" in the west is mostly irrigation** (the round fields in the south-west and north-west); in the east it is dryland continuous cropping. Do not read the two as the same thing.
+
+Per-county numbers are in `data/processed/county_field_rotations.json` (`rotations`, `fallow_based_share`, `three_year_share`); polygons for the three demo counties
+(Greeley, Thomas, Ellis; 3,042 fields) are in `data/processed/county_fields.geojson` with a `county_id`. Polygons for all 46 counties are not committed (too heavy for the app);
+they can be rebuilt with the two scripts.
+
 ## Next steps per workstream
 
 | | Task |
 | :--- | :--- |
 | **A** | Run the weather pipeline for the six new fields. For the county map: a weather CSV per `county_id` at the centroid in `counties.geojson` (same format, e.g. `data/processed/weather/counties/ks071.csv`); climate JSON is not needed for counties |
 | **C** | Add north-west and north-central Kansas dryland budgets to `costs.csv` with a region key; tell D which counties use which. County yields for all 46 counties for validation |
-| **D** | Replay the new fields; replay each county (`awc_mm` and weather from the county layer) and write one small file with best rotation, mean return per rotation and share of profitable years per county; compare modelled and NASS yields per county, corn first |
+| **D** | Compare, per county, the rotation the engine ranks first with what farmers practise (`county_field_rotations.json`). Replay the new fields; replay each county (`awc_mm` and weather from the county layer) and write one small file with best rotation, mean return per rotation and share of profitable years per county; compare modelled and NASS yields per county, corn first |
 | **E** | Site switch (Tribune / Colby / Hays) in the field view; county map coloured by best rotation or by the gain from replacing fallow; the story "the answer depends on where you farm" |
 | **B** | Done for now. On request: more fields per site, NDVI charts and previews for the new fields |

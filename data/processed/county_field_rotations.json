@@ -1,0 +1,1580 @@
+{
+ "years": "2018-2025",
+ "note": "Fields of at least 40 ha with an identical CDL crop sequence in all pixels and cropland in every year; a sample of clean fields, not all cropland.",
+ "fields": 31660,
+ "area_ha": 2122650,
+ "share_of_area": {
+  "W-F": 0.038,
+  "W-S-F": 0.142,
+  "W-C-F": 0.071,
+  "W-F to 3-year": 0.015,
+  "no fallow": 0.283,
+  "other with fallow": 0.451
+ },
+ "counties": {
+  "ks007": {
+   "name": "Barber",
+   "lon": -98.6847,
+   "fields": 175,
+   "area_ha": 13262,
+   "rotations": {
+    "W-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-S-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-C-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-F to 3-year": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "no fallow": {
+     "fields": 164,
+     "share_of_area": 0.952
+    },
+    "other with fallow": {
+     "fields": 11,
+     "share_of_area": 0.048
+    }
+   },
+   "fallow_based_share": 0.048,
+   "three_year_share": 0.0
+  },
+  "ks009": {
+   "name": "Barton",
+   "lon": -98.7565,
+   "fields": 425,
+   "area_ha": 23206,
+   "rotations": {
+    "W-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-S-F": {
+     "fields": 11,
+     "share_of_area": 0.026
+    },
+    "W-C-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-F to 3-year": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "no fallow": {
+     "fields": 321,
+     "share_of_area": 0.759
+    },
+    "other with fallow": {
+     "fields": 93,
+     "share_of_area": 0.215
+    }
+   },
+   "fallow_based_share": 0.241,
+   "three_year_share": 0.026
+  },
+  "ks023": {
+   "name": "Cheyenne",
+   "lon": -101.7311,
+   "fields": 922,
+   "area_ha": 58436,
+   "rotations": {
+    "W-F": {
+     "fields": 99,
+     "share_of_area": 0.136
+    },
+    "W-S-F": {
+     "fields": 49,
+     "share_of_area": 0.049
+    },
+    "W-C-F": {
+     "fields": 111,
+     "share_of_area": 0.135
+    },
+    "W-F to 3-year": {
+     "fields": 31,
+     "share_of_area": 0.033
+    },
+    "no fallow": {
+     "fields": 162,
+     "share_of_area": 0.155
+    },
+    "other with fallow": {
+     "fields": 470,
+     "share_of_area": 0.493
+    }
+   },
+   "fallow_based_share": 0.845,
+   "three_year_share": 0.216
+  },
+  "ks025": {
+   "name": "Clark",
+   "lon": -99.8203,
+   "fields": 215,
+   "area_ha": 15603,
+   "rotations": {
+    "W-F": {
+     "fields": 13,
+     "share_of_area": 0.062
+    },
+    "W-S-F": {
+     "fields": 73,
+     "share_of_area": 0.417
+    },
+    "W-C-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-F to 3-year": {
+     "fields": 6,
+     "share_of_area": 0.025
+    },
+    "no fallow": {
+     "fields": 12,
+     "share_of_area": 0.039
+    },
+    "other with fallow": {
+     "fields": 111,
+     "share_of_area": 0.457
+    }
+   },
+   "fallow_based_share": 0.961,
+   "three_year_share": 0.442
+  },
+  "ks033": {
+   "name": "Comanche",
+   "lon": -99.2719,
+   "fields": 124,
+   "area_ha": 7618,
+   "rotations": {
+    "W-F": {
+     "fields": 1,
+     "share_of_area": 0.007
+    },
+    "W-S-F": {
+     "fields": 4,
+     "share_of_area": 0.03
+    },
+    "W-C-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-F to 3-year": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "no fallow": {
+     "fields": 18,
+     "share_of_area": 0.143
+    },
+    "other with fallow": {
+     "fields": 101,
+     "share_of_area": 0.82
+    }
+   },
+   "fallow_based_share": 0.857,
+   "three_year_share": 0.03
+  },
+  "ks039": {
+   "name": "Decatur",
+   "lon": -100.4599,
+   "fields": 860,
+   "area_ha": 57122,
+   "rotations": {
+    "W-F": {
+     "fields": 1,
+     "share_of_area": 0.001
+    },
+    "W-S-F": {
+     "fields": 2,
+     "share_of_area": 0.002
+    },
+    "W-C-F": {
+     "fields": 268,
+     "share_of_area": 0.344
+    },
+    "W-F to 3-year": {
+     "fields": 2,
+     "share_of_area": 0.002
+    },
+    "no fallow": {
+     "fields": 156,
+     "share_of_area": 0.174
+    },
+    "other with fallow": {
+     "fields": 431,
+     "share_of_area": 0.477
+    }
+   },
+   "fallow_based_share": 0.826,
+   "three_year_share": 0.348
+  },
+  "ks047": {
+   "name": "Edwards",
+   "lon": -99.3121,
+   "fields": 568,
+   "area_ha": 32706,
+   "rotations": {
+    "W-F": {
+     "fields": 25,
+     "share_of_area": 0.054
+    },
+    "W-S-F": {
+     "fields": 79,
+     "share_of_area": 0.158
+    },
+    "W-C-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-F to 3-year": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "no fallow": {
+     "fields": 367,
+     "share_of_area": 0.627
+    },
+    "other with fallow": {
+     "fields": 97,
+     "share_of_area": 0.161
+    }
+   },
+   "fallow_based_share": 0.373,
+   "three_year_share": 0.158
+  },
+  "ks051": {
+   "name": "Ellis",
+   "lon": -99.3172,
+   "fields": 252,
+   "area_ha": 14577,
+   "rotations": {
+    "W-F": {
+     "fields": 3,
+     "share_of_area": 0.012
+    },
+    "W-S-F": {
+     "fields": 103,
+     "share_of_area": 0.459
+    },
+    "W-C-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-F to 3-year": {
+     "fields": 2,
+     "share_of_area": 0.007
+    },
+    "no fallow": {
+     "fields": 16,
+     "share_of_area": 0.06
+    },
+    "other with fallow": {
+     "fields": 128,
+     "share_of_area": 0.462
+    }
+   },
+   "fallow_based_share": 0.94,
+   "three_year_share": 0.466
+  },
+  "ks055": {
+   "name": "Finney",
+   "lon": -100.7373,
+   "fields": 1384,
+   "area_ha": 101676,
+   "rotations": {
+    "W-F": {
+     "fields": 8,
+     "share_of_area": 0.005
+    },
+    "W-S-F": {
+     "fields": 304,
+     "share_of_area": 0.282
+    },
+    "W-C-F": {
+     "fields": 18,
+     "share_of_area": 0.013
+    },
+    "W-F to 3-year": {
+     "fields": 6,
+     "share_of_area": 0.004
+    },
+    "no fallow": {
+     "fields": 467,
+     "share_of_area": 0.278
+    },
+    "other with fallow": {
+     "fields": 581,
+     "share_of_area": 0.418
+    }
+   },
+   "fallow_based_share": 0.722,
+   "three_year_share": 0.298
+  },
+  "ks057": {
+   "name": "Ford",
+   "lon": -99.8879,
+   "fields": 1090,
+   "area_ha": 73491,
+   "rotations": {
+    "W-F": {
+     "fields": 77,
+     "share_of_area": 0.068
+    },
+    "W-S-F": {
+     "fields": 443,
+     "share_of_area": 0.462
+    },
+    "W-C-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-F to 3-year": {
+     "fields": 19,
+     "share_of_area": 0.017
+    },
+    "no fallow": {
+     "fields": 214,
+     "share_of_area": 0.162
+    },
+    "other with fallow": {
+     "fields": 337,
+     "share_of_area": 0.292
+    }
+   },
+   "fallow_based_share": 0.838,
+   "three_year_share": 0.479
+  },
+  "ks063": {
+   "name": "Gove",
+   "lon": -100.4829,
+   "fields": 810,
+   "area_ha": 57876,
+   "rotations": {
+    "W-F": {
+     "fields": 5,
+     "share_of_area": 0.004
+    },
+    "W-S-F": {
+     "fields": 31,
+     "share_of_area": 0.051
+    },
+    "W-C-F": {
+     "fields": 118,
+     "share_of_area": 0.155
+    },
+    "W-F to 3-year": {
+     "fields": 1,
+     "share_of_area": 0.001
+    },
+    "no fallow": {
+     "fields": 142,
+     "share_of_area": 0.152
+    },
+    "other with fallow": {
+     "fields": 513,
+     "share_of_area": 0.637
+    }
+   },
+   "fallow_based_share": 0.848,
+   "three_year_share": 0.206
+  },
+  "ks065": {
+   "name": "Graham",
+   "lon": -99.8833,
+   "fields": 591,
+   "area_ha": 35628,
+   "rotations": {
+    "W-F": {
+     "fields": 1,
+     "share_of_area": 0.001
+    },
+    "W-S-F": {
+     "fields": 82,
+     "share_of_area": 0.142
+    },
+    "W-C-F": {
+     "fields": 44,
+     "share_of_area": 0.08
+    },
+    "W-F to 3-year": {
+     "fields": 4,
+     "share_of_area": 0.006
+    },
+    "no fallow": {
+     "fields": 108,
+     "share_of_area": 0.185
+    },
+    "other with fallow": {
+     "fields": 352,
+     "share_of_area": 0.586
+    }
+   },
+   "fallow_based_share": 0.815,
+   "three_year_share": 0.228
+  },
+  "ks067": {
+   "name": "Grant",
+   "lon": -101.308,
+   "fields": 525,
+   "area_ha": 31101,
+   "rotations": {
+    "W-F": {
+     "fields": 9,
+     "share_of_area": 0.029
+    },
+    "W-S-F": {
+     "fields": 47,
+     "share_of_area": 0.103
+    },
+    "W-C-F": {
+     "fields": 6,
+     "share_of_area": 0.011
+    },
+    "W-F to 3-year": {
+     "fields": 4,
+     "share_of_area": 0.009
+    },
+    "no fallow": {
+     "fields": 183,
+     "share_of_area": 0.313
+    },
+    "other with fallow": {
+     "fields": 276,
+     "share_of_area": 0.535
+    }
+   },
+   "fallow_based_share": 0.687,
+   "three_year_share": 0.123
+  },
+  "ks069": {
+   "name": "Gray",
+   "lon": -100.4378,
+   "fields": 974,
+   "area_ha": 66800,
+   "rotations": {
+    "W-F": {
+     "fields": 11,
+     "share_of_area": 0.011
+    },
+    "W-S-F": {
+     "fields": 257,
+     "share_of_area": 0.323
+    },
+    "W-C-F": {
+     "fields": 2,
+     "share_of_area": 0.002
+    },
+    "W-F to 3-year": {
+     "fields": 15,
+     "share_of_area": 0.013
+    },
+    "no fallow": {
+     "fields": 343,
+     "share_of_area": 0.324
+    },
+    "other with fallow": {
+     "fields": 346,
+     "share_of_area": 0.328
+    }
+   },
+   "fallow_based_share": 0.676,
+   "three_year_share": 0.338
+  },
+  "ks071": {
+   "name": "Greeley",
+   "lon": -101.806,
+   "fields": 1221,
+   "area_ha": 90077,
+   "rotations": {
+    "W-F": {
+     "fields": 121,
+     "share_of_area": 0.109
+    },
+    "W-S-F": {
+     "fields": 148,
+     "share_of_area": 0.129
+    },
+    "W-C-F": {
+     "fields": 110,
+     "share_of_area": 0.09
+    },
+    "W-F to 3-year": {
+     "fields": 51,
+     "share_of_area": 0.037
+    },
+    "no fallow": {
+     "fields": 62,
+     "share_of_area": 0.043
+    },
+    "other with fallow": {
+     "fields": 729,
+     "share_of_area": 0.592
+    }
+   },
+   "fallow_based_share": 0.957,
+   "three_year_share": 0.256
+  },
+  "ks075": {
+   "name": "Hamilton",
+   "lon": -101.7912,
+   "fields": 981,
+   "area_ha": 73142,
+   "rotations": {
+    "W-F": {
+     "fields": 126,
+     "share_of_area": 0.151
+    },
+    "W-S-F": {
+     "fields": 97,
+     "share_of_area": 0.116
+    },
+    "W-C-F": {
+     "fields": 23,
+     "share_of_area": 0.022
+    },
+    "W-F to 3-year": {
+     "fields": 38,
+     "share_of_area": 0.038
+    },
+    "no fallow": {
+     "fields": 44,
+     "share_of_area": 0.031
+    },
+    "other with fallow": {
+     "fields": 653,
+     "share_of_area": 0.642
+    }
+   },
+   "fallow_based_share": 0.969,
+   "three_year_share": 0.176
+  },
+  "ks081": {
+   "name": "Haskell",
+   "lon": -100.8712,
+   "fields": 635,
+   "area_ha": 40964,
+   "rotations": {
+    "W-F": {
+     "fields": 11,
+     "share_of_area": 0.017
+    },
+    "W-S-F": {
+     "fields": 61,
+     "share_of_area": 0.105
+    },
+    "W-C-F": {
+     "fields": 10,
+     "share_of_area": 0.014
+    },
+    "W-F to 3-year": {
+     "fields": 13,
+     "share_of_area": 0.017
+    },
+    "no fallow": {
+     "fields": 303,
+     "share_of_area": 0.492
+    },
+    "other with fallow": {
+     "fields": 237,
+     "share_of_area": 0.354
+    }
+   },
+   "fallow_based_share": 0.508,
+   "three_year_share": 0.136
+  },
+  "ks083": {
+   "name": "Hodgeman",
+   "lon": -99.8979,
+   "fields": 620,
+   "area_ha": 40922,
+   "rotations": {
+    "W-F": {
+     "fields": 93,
+     "share_of_area": 0.164
+    },
+    "W-S-F": {
+     "fields": 213,
+     "share_of_area": 0.378
+    },
+    "W-C-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-F to 3-year": {
+     "fields": 32,
+     "share_of_area": 0.046
+    },
+    "no fallow": {
+     "fields": 46,
+     "share_of_area": 0.067
+    },
+    "other with fallow": {
+     "fields": 236,
+     "share_of_area": 0.345
+    }
+   },
+   "fallow_based_share": 0.933,
+   "three_year_share": 0.424
+  },
+  "ks093": {
+   "name": "Kearny",
+   "lon": -101.3198,
+   "fields": 962,
+   "area_ha": 71694,
+   "rotations": {
+    "W-F": {
+     "fields": 56,
+     "share_of_area": 0.066
+    },
+    "W-S-F": {
+     "fields": 205,
+     "share_of_area": 0.238
+    },
+    "W-C-F": {
+     "fields": 14,
+     "share_of_area": 0.01
+    },
+    "W-F to 3-year": {
+     "fields": 18,
+     "share_of_area": 0.018
+    },
+    "no fallow": {
+     "fields": 177,
+     "share_of_area": 0.179
+    },
+    "other with fallow": {
+     "fields": 492,
+     "share_of_area": 0.488
+    }
+   },
+   "fallow_based_share": 0.821,
+   "three_year_share": 0.267
+  },
+  "ks097": {
+   "name": "Kiowa",
+   "lon": -99.286,
+   "fields": 343,
+   "area_ha": 19596,
+   "rotations": {
+    "W-F": {
+     "fields": 12,
+     "share_of_area": 0.032
+    },
+    "W-S-F": {
+     "fields": 17,
+     "share_of_area": 0.049
+    },
+    "W-C-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-F to 3-year": {
+     "fields": 4,
+     "share_of_area": 0.011
+    },
+    "no fallow": {
+     "fields": 213,
+     "share_of_area": 0.609
+    },
+    "other with fallow": {
+     "fields": 97,
+     "share_of_area": 0.299
+    }
+   },
+   "fallow_based_share": 0.391,
+   "three_year_share": 0.06
+  },
+  "ks101": {
+   "name": "Lane",
+   "lon": -100.4664,
+   "fields": 789,
+   "area_ha": 55136,
+   "rotations": {
+    "W-F": {
+     "fields": 34,
+     "share_of_area": 0.046
+    },
+    "W-S-F": {
+     "fields": 169,
+     "share_of_area": 0.233
+    },
+    "W-C-F": {
+     "fields": 16,
+     "share_of_area": 0.022
+    },
+    "W-F to 3-year": {
+     "fields": 20,
+     "share_of_area": 0.027
+    },
+    "no fallow": {
+     "fields": 61,
+     "share_of_area": 0.083
+    },
+    "other with fallow": {
+     "fields": 489,
+     "share_of_area": 0.59
+    }
+   },
+   "fallow_based_share": 0.917,
+   "three_year_share": 0.281
+  },
+  "ks109": {
+   "name": "Logan",
+   "lon": -101.1484,
+   "fields": 1131,
+   "area_ha": 82615,
+   "rotations": {
+    "W-F": {
+     "fields": 31,
+     "share_of_area": 0.027
+    },
+    "W-S-F": {
+     "fields": 63,
+     "share_of_area": 0.054
+    },
+    "W-C-F": {
+     "fields": 175,
+     "share_of_area": 0.149
+    },
+    "W-F to 3-year": {
+     "fields": 21,
+     "share_of_area": 0.021
+    },
+    "no fallow": {
+     "fields": 170,
+     "share_of_area": 0.162
+    },
+    "other with fallow": {
+     "fields": 671,
+     "share_of_area": 0.587
+    }
+   },
+   "fallow_based_share": 0.838,
+   "three_year_share": 0.224
+  },
+  "ks119": {
+   "name": "Meade",
+   "lon": -100.3662,
+   "fields": 653,
+   "area_ha": 39596,
+   "rotations": {
+    "W-F": {
+     "fields": 17,
+     "share_of_area": 0.03
+    },
+    "W-S-F": {
+     "fields": 58,
+     "share_of_area": 0.1
+    },
+    "W-C-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-F to 3-year": {
+     "fields": 8,
+     "share_of_area": 0.012
+    },
+    "no fallow": {
+     "fields": 400,
+     "share_of_area": 0.59
+    },
+    "other with fallow": {
+     "fields": 170,
+     "share_of_area": 0.267
+    }
+   },
+   "fallow_based_share": 0.41,
+   "three_year_share": 0.112
+  },
+  "ks129": {
+   "name": "Morton",
+   "lon": -101.7992,
+   "fields": 468,
+   "area_ha": 32797,
+   "rotations": {
+    "W-F": {
+     "fields": 9,
+     "share_of_area": 0.019
+    },
+    "W-S-F": {
+     "fields": 49,
+     "share_of_area": 0.125
+    },
+    "W-C-F": {
+     "fields": 6,
+     "share_of_area": 0.01
+    },
+    "W-F to 3-year": {
+     "fields": 4,
+     "share_of_area": 0.013
+    },
+    "no fallow": {
+     "fields": 99,
+     "share_of_area": 0.169
+    },
+    "other with fallow": {
+     "fields": 301,
+     "share_of_area": 0.663
+    }
+   },
+   "fallow_based_share": 0.831,
+   "three_year_share": 0.148
+  },
+  "ks135": {
+   "name": "Ness",
+   "lon": -99.9162,
+   "fields": 741,
+   "area_ha": 47699,
+   "rotations": {
+    "W-F": {
+     "fields": 65,
+     "share_of_area": 0.083
+    },
+    "W-S-F": {
+     "fields": 265,
+     "share_of_area": 0.382
+    },
+    "W-C-F": {
+     "fields": 9,
+     "share_of_area": 0.012
+    },
+    "W-F to 3-year": {
+     "fields": 19,
+     "share_of_area": 0.025
+    },
+    "no fallow": {
+     "fields": 19,
+     "share_of_area": 0.023
+    },
+    "other with fallow": {
+     "fields": 364,
+     "share_of_area": 0.476
+    }
+   },
+   "fallow_based_share": 0.977,
+   "three_year_share": 0.419
+  },
+  "ks137": {
+   "name": "Norton",
+   "lon": -99.9035,
+   "fields": 515,
+   "area_ha": 33246,
+   "rotations": {
+    "W-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-S-F": {
+     "fields": 4,
+     "share_of_area": 0.006
+    },
+    "W-C-F": {
+     "fields": 47,
+     "share_of_area": 0.11
+    },
+    "W-F to 3-year": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "no fallow": {
+     "fields": 252,
+     "share_of_area": 0.493
+    },
+    "other with fallow": {
+     "fields": 212,
+     "share_of_area": 0.392
+    }
+   },
+   "fallow_based_share": 0.507,
+   "three_year_share": 0.116
+  },
+  "ks141": {
+   "name": "Osborne",
+   "lon": -98.768,
+   "fields": 261,
+   "area_ha": 14286,
+   "rotations": {
+    "W-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-S-F": {
+     "fields": 2,
+     "share_of_area": 0.007
+    },
+    "W-C-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-F to 3-year": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "no fallow": {
+     "fields": 194,
+     "share_of_area": 0.737
+    },
+    "other with fallow": {
+     "fields": 65,
+     "share_of_area": 0.256
+    }
+   },
+   "fallow_based_share": 0.263,
+   "three_year_share": 0.007
+  },
+  "ks145": {
+   "name": "Pawnee",
+   "lon": -99.2366,
+   "fields": 724,
+   "area_ha": 44002,
+   "rotations": {
+    "W-F": {
+     "fields": 25,
+     "share_of_area": 0.04
+    },
+    "W-S-F": {
+     "fields": 177,
+     "share_of_area": 0.262
+    },
+    "W-C-F": {
+     "fields": 9,
+     "share_of_area": 0.012
+    },
+    "W-F to 3-year": {
+     "fields": 14,
+     "share_of_area": 0.016
+    },
+    "no fallow": {
+     "fields": 237,
+     "share_of_area": 0.323
+    },
+    "other with fallow": {
+     "fields": 262,
+     "share_of_area": 0.347
+    }
+   },
+   "fallow_based_share": 0.677,
+   "three_year_share": 0.29
+  },
+  "ks147": {
+   "name": "Phillips",
+   "lon": -99.347,
+   "fields": 233,
+   "area_ha": 13801,
+   "rotations": {
+    "W-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-S-F": {
+     "fields": 7,
+     "share_of_area": 0.035
+    },
+    "W-C-F": {
+     "fields": 15,
+     "share_of_area": 0.066
+    },
+    "W-F to 3-year": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "no fallow": {
+     "fields": 155,
+     "share_of_area": 0.64
+    },
+    "other with fallow": {
+     "fields": 56,
+     "share_of_area": 0.26
+    }
+   },
+   "fallow_based_share": 0.36,
+   "three_year_share": 0.1
+  },
+  "ks151": {
+   "name": "Pratt",
+   "lon": -98.7396,
+   "fields": 471,
+   "area_ha": 27760,
+   "rotations": {
+    "W-F": {
+     "fields": 3,
+     "share_of_area": 0.007
+    },
+    "W-S-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-C-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-F to 3-year": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "no fallow": {
+     "fields": 428,
+     "share_of_area": 0.899
+    },
+    "other with fallow": {
+     "fields": 40,
+     "share_of_area": 0.094
+    }
+   },
+   "fallow_based_share": 0.101,
+   "three_year_share": 0.0
+  },
+  "ks153": {
+   "name": "Rawlins",
+   "lon": -101.0757,
+   "fields": 1062,
+   "area_ha": 69863,
+   "rotations": {
+    "W-F": {
+     "fields": 18,
+     "share_of_area": 0.018
+    },
+    "W-S-F": {
+     "fields": 48,
+     "share_of_area": 0.043
+    },
+    "W-C-F": {
+     "fields": 215,
+     "share_of_area": 0.213
+    },
+    "W-F to 3-year": {
+     "fields": 8,
+     "share_of_area": 0.006
+    },
+    "no fallow": {
+     "fields": 127,
+     "share_of_area": 0.12
+    },
+    "other with fallow": {
+     "fields": 646,
+     "share_of_area": 0.6
+    }
+   },
+   "fallow_based_share": 0.88,
+   "three_year_share": 0.262
+  },
+  "ks163": {
+   "name": "Rooks",
+   "lon": -99.3251,
+   "fields": 345,
+   "area_ha": 20092,
+   "rotations": {
+    "W-F": {
+     "fields": 4,
+     "share_of_area": 0.011
+    },
+    "W-S-F": {
+     "fields": 64,
+     "share_of_area": 0.199
+    },
+    "W-C-F": {
+     "fields": 7,
+     "share_of_area": 0.027
+    },
+    "W-F to 3-year": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "no fallow": {
+     "fields": 102,
+     "share_of_area": 0.302
+    },
+    "other with fallow": {
+     "fields": 168,
+     "share_of_area": 0.461
+    }
+   },
+   "fallow_based_share": 0.698,
+   "three_year_share": 0.226
+  },
+  "ks165": {
+   "name": "Rush",
+   "lon": -99.3092,
+   "fields": 475,
+   "area_ha": 30477,
+   "rotations": {
+    "W-F": {
+     "fields": 15,
+     "share_of_area": 0.027
+    },
+    "W-S-F": {
+     "fields": 230,
+     "share_of_area": 0.541
+    },
+    "W-C-F": {
+     "fields": 1,
+     "share_of_area": 0.002
+    },
+    "W-F to 3-year": {
+     "fields": 10,
+     "share_of_area": 0.02
+    },
+    "no fallow": {
+     "fields": 34,
+     "share_of_area": 0.058
+    },
+    "other with fallow": {
+     "fields": 185,
+     "share_of_area": 0.352
+    }
+   },
+   "fallow_based_share": 0.942,
+   "three_year_share": 0.563
+  },
+  "ks167": {
+   "name": "Russell",
+   "lon": -98.7624,
+   "fields": 145,
+   "area_ha": 8306,
+   "rotations": {
+    "W-F": {
+     "fields": 6,
+     "share_of_area": 0.041
+    },
+    "W-S-F": {
+     "fields": 25,
+     "share_of_area": 0.182
+    },
+    "W-C-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-F to 3-year": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "no fallow": {
+     "fields": 44,
+     "share_of_area": 0.289
+    },
+    "other with fallow": {
+     "fields": 70,
+     "share_of_area": 0.487
+    }
+   },
+   "fallow_based_share": 0.711,
+   "three_year_share": 0.182
+  },
+  "ks171": {
+   "name": "Scott",
+   "lon": -100.9069,
+   "fields": 1026,
+   "area_ha": 71995,
+   "rotations": {
+    "W-F": {
+     "fields": 45,
+     "share_of_area": 0.057
+    },
+    "W-S-F": {
+     "fields": 195,
+     "share_of_area": 0.204
+    },
+    "W-C-F": {
+     "fields": 36,
+     "share_of_area": 0.034
+    },
+    "W-F to 3-year": {
+     "fields": 6,
+     "share_of_area": 0.006
+    },
+    "no fallow": {
+     "fields": 214,
+     "share_of_area": 0.203
+    },
+    "other with fallow": {
+     "fields": 530,
+     "share_of_area": 0.497
+    }
+   },
+   "fallow_based_share": 0.797,
+   "three_year_share": 0.243
+  },
+  "ks175": {
+   "name": "Seward",
+   "lon": -100.8513,
+   "fields": 437,
+   "area_ha": 27335,
+   "rotations": {
+    "W-F": {
+     "fields": 6,
+     "share_of_area": 0.017
+    },
+    "W-S-F": {
+     "fields": 30,
+     "share_of_area": 0.085
+    },
+    "W-C-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-F to 3-year": {
+     "fields": 10,
+     "share_of_area": 0.021
+    },
+    "no fallow": {
+     "fields": 266,
+     "share_of_area": 0.603
+    },
+    "other with fallow": {
+     "fields": 125,
+     "share_of_area": 0.274
+    }
+   },
+   "fallow_based_share": 0.397,
+   "three_year_share": 0.106
+  },
+  "ks179": {
+   "name": "Sheridan",
+   "lon": -100.4418,
+   "fields": 808,
+   "area_ha": 50241,
+   "rotations": {
+    "W-F": {
+     "fields": 2,
+     "share_of_area": 0.002
+    },
+    "W-S-F": {
+     "fields": 7,
+     "share_of_area": 0.007
+    },
+    "W-C-F": {
+     "fields": 164,
+     "share_of_area": 0.209
+    },
+    "W-F to 3-year": {
+     "fields": 1,
+     "share_of_area": 0.001
+    },
+    "no fallow": {
+     "fields": 303,
+     "share_of_area": 0.376
+    },
+    "other with fallow": {
+     "fields": 331,
+     "share_of_area": 0.406
+    }
+   },
+   "fallow_based_share": 0.624,
+   "three_year_share": 0.217
+  },
+  "ks181": {
+   "name": "Sherman",
+   "lon": -101.72,
+   "fields": 1265,
+   "area_ha": 84704,
+   "rotations": {
+    "W-F": {
+     "fields": 17,
+     "share_of_area": 0.013
+    },
+    "W-S-F": {
+     "fields": 7,
+     "share_of_area": 0.005
+    },
+    "W-C-F": {
+     "fields": 163,
+     "share_of_area": 0.142
+    },
+    "W-F to 3-year": {
+     "fields": 13,
+     "share_of_area": 0.009
+    },
+    "no fallow": {
+     "fields": 410,
+     "share_of_area": 0.319
+    },
+    "other with fallow": {
+     "fields": 655,
+     "share_of_area": 0.512
+    }
+   },
+   "fallow_based_share": 0.681,
+   "three_year_share": 0.156
+  },
+  "ks183": {
+   "name": "Smith",
+   "lon": -98.7855,
+   "fields": 487,
+   "area_ha": 27875,
+   "rotations": {
+    "W-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-S-F": {
+     "fields": 11,
+     "share_of_area": 0.022
+    },
+    "W-C-F": {
+     "fields": 13,
+     "share_of_area": 0.025
+    },
+    "W-F to 3-year": {
+     "fields": 1,
+     "share_of_area": 0.002
+    },
+    "no fallow": {
+     "fields": 404,
+     "share_of_area": 0.844
+    },
+    "other with fallow": {
+     "fields": 58,
+     "share_of_area": 0.107
+    }
+   },
+   "fallow_based_share": 0.156,
+   "three_year_share": 0.049
+  },
+  "ks185": {
+   "name": "Stafford",
+   "lon": -98.7175,
+   "fields": 445,
+   "area_ha": 24263,
+   "rotations": {
+    "W-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-S-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-C-F": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "W-F to 3-year": {
+     "fields": 0,
+     "share_of_area": 0.0
+    },
+    "no fallow": {
+     "fields": 407,
+     "share_of_area": 0.911
+    },
+    "other with fallow": {
+     "fields": 38,
+     "share_of_area": 0.089
+    }
+   },
+   "fallow_based_share": 0.089,
+   "three_year_share": 0.0
+  },
+  "ks187": {
+   "name": "Stanton",
+   "lon": -101.7842,
+   "fields": 900,
+   "area_ha": 66278,
+   "rotations": {
+    "W-F": {
+     "fields": 12,
+     "share_of_area": 0.011
+    },
+    "W-S-F": {
+     "fields": 44,
+     "share_of_area": 0.064
+    },
+    "W-C-F": {
+     "fields": 61,
+     "share_of_area": 0.077
+    },
+    "W-F to 3-year": {
+     "fields": 23,
+     "share_of_area": 0.021
+    },
+    "no fallow": {
+     "fields": 216,
+     "share_of_area": 0.198
+    },
+    "other with fallow": {
+     "fields": 544,
+     "share_of_area": 0.629
+    }
+   },
+   "fallow_based_share": 0.802,
+   "three_year_share": 0.162
+  },
+  "ks189": {
+   "name": "Stevens",
+   "lon": -101.312,
+   "fields": 638,
+   "area_ha": 42733,
+   "rotations": {
+    "W-F": {
+     "fields": 1,
+     "share_of_area": 0.001
+    },
+    "W-S-F": {
+     "fields": 40,
+     "share_of_area": 0.06
+    },
+    "W-C-F": {
+     "fields": 4,
+     "share_of_area": 0.005
+    },
+    "W-F to 3-year": {
+     "fields": 7,
+     "share_of_area": 0.011
+    },
+    "no fallow": {
+     "fields": 451,
+     "share_of_area": 0.747
+    },
+    "other with fallow": {
+     "fields": 135,
+     "share_of_area": 0.175
+    }
+   },
+   "fallow_based_share": 0.253,
+   "three_year_share": 0.076
+  },
+  "ks193": {
+   "name": "Thomas",
+   "lon": -101.0555,
+   "fields": 1569,
+   "area_ha": 117015,
+   "rotations": {
+    "W-F": {
+     "fields": 26,
+     "share_of_area": 0.017
+    },
+    "W-S-F": {
+     "fields": 24,
+     "share_of_area": 0.011
+    },
+    "W-C-F": {
+     "fields": 162,
+     "share_of_area": 0.098
+    },
+    "W-F to 3-year": {
+     "fields": 12,
+     "share_of_area": 0.006
+    },
+    "no fallow": {
+     "fields": 598,
+     "share_of_area": 0.418
+    },
+    "other with fallow": {
+     "fields": 747,
+     "share_of_area": 0.45
+    }
+   },
+   "fallow_based_share": 0.582,
+   "three_year_share": 0.116
+  },
+  "ks195": {
+   "name": "Trego",
+   "lon": -99.8727,
+   "fields": 581,
+   "area_ha": 37478,
+   "rotations": {
+    "W-F": {
+     "fields": 6,
+     "share_of_area": 0.012
+    },
+    "W-S-F": {
+     "fields": 176,
+     "share_of_area": 0.315
+    },
+    "W-C-F": {
+     "fields": 21,
+     "share_of_area": 0.039
+    },
+    "W-F to 3-year": {
+     "fields": 6,
+     "share_of_area": 0.008
+    },
+    "no fallow": {
+     "fields": 39,
+     "share_of_area": 0.07
+    },
+    "other with fallow": {
+     "fields": 333,
+     "share_of_area": 0.556
+    }
+   },
+   "fallow_based_share": 0.93,
+   "three_year_share": 0.362
+  },
+  "ks199": {
+   "name": "Wallace",
+   "lon": -101.7636,
+   "fields": 684,
+   "area_ha": 51320,
+   "rotations": {
+    "W-F": {
+     "fields": 11,
+     "share_of_area": 0.018
+    },
+    "W-S-F": {
+     "fields": 5,
+     "share_of_area": 0.006
+    },
+    "W-C-F": {
+     "fields": 114,
+     "share_of_area": 0.165
+    },
+    "W-F to 3-year": {
+     "fields": 12,
+     "share_of_area": 0.015
+    },
+    "no fallow": {
+     "fields": 182,
+     "share_of_area": 0.283
+    },
+    "other with fallow": {
+     "fields": 360,
+     "share_of_area": 0.513
+    }
+   },
+   "fallow_based_share": 0.717,
+   "three_year_share": 0.186
+  },
+  "ks203": {
+   "name": "Wichita",
+   "lon": -101.3474,
+   "fields": 1130,
+   "area_ha": 76237,
+   "rotations": {
+    "W-F": {
+     "fields": 63,
+     "share_of_area": 0.058
+    },
+    "W-S-F": {
+     "fields": 99,
+     "share_of_area": 0.095
+    },
+    "W-C-F": {
+     "fields": 125,
+     "share_of_area": 0.133
+    },
+    "W-F to 3-year": {
+     "fields": 50,
+     "share_of_area": 0.044
+    },
+    "no fallow": {
+     "fields": 196,
+     "share_of_area": 0.152
+    },
+    "other with fallow": {
+     "fields": 597,
+     "share_of_area": 0.518
+    }
+   },
+   "fallow_based_share": 0.848,
+   "three_year_share": 0.272
+  }
+ }
+}

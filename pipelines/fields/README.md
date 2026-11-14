@@ -10,6 +10,8 @@ python3 pipelines/fields/delineate_fields.py --fips 20071   # candidate polygons
 python3 pipelines/fields/build_fields.py         # demo fields with all attributes -> data/processed/
 python3 pipelines/fields/soil_sda.py             # smoke test of the soil lookup
 python3 pipelines/fields/county_layer.py         # 46 western Kansas counties -> data/processed/counties.geojson
+python3 pipelines/fields/delineate_all.py        # candidate polygons for all 46 counties (about 10 minutes)
+python3 pipelines/fields/transect_rotations.py   # rotation of 31,660 fields -> county_field_rotations.json, county_fields.geojson, docs/img/transect_fields.png
 ```
 
 Needs `earthengine-api` and `shapely`. Soil Data Access needs no key.
@@ -53,7 +55,7 @@ The USDA Crop Sequence Boundaries archive (3.8 GB) refuses scripted downloads, s
 
 ## The whole county
 
-`data/processed/county_fields.geojson` (0.8 MB, for the map in the app) holds all 1,221 delineated fields with `rotation`, `sequence` and `area_ha`; totals are in `data/processed/county_rotation_summary.json`; the picture is `docs/img/county_rotations.png`.
+`data/processed/county_fields.geojson` (2 MB, for the map in the app) now holds the fields of the three demo counties (written by `transect_rotations.py`; see `docs/transect.md` for the 46-county map). For Greeley County alone: 1,221 delineated fields with `rotation`, `sequence` and `area_ha`; totals are in `data/processed/county_rotation_summary.json`; the picture is `docs/img/county_rotations.png`.
 
 | Rotation 2018–2025 | Fields | Share of area |
 | :--- | ---: | ---: |
