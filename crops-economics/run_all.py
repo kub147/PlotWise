@@ -1,11 +1,4 @@
-"""Rebuild every workstream C file, in order, then run the tests.
 
-    python crops-economics/run_all.py              # from the repo root (or from inside crops-economics/)
-
-Steps that need a key (NASS_API_KEY, AMS_API_KEY) are skipped with a message when the key is not set
-and their raw files are not there yet. Everything else needs only Python 3.10+ and `pdftotext`
-(poppler-utils) for the K-State PDFs.
-"""
 from __future__ import annotations
 
 import os
@@ -29,19 +22,20 @@ def run(script: str, *args: str) -> bool:
 
 def main() -> int:
     ok = True
-    have_nass = bool(os.environ.get("NASS_API_KEY"))
+    refresh = "--refresh" in sys.argv
 
-    # 1. NASS raw data (prices, county yields, crop progress)
-    if have_nass:
+    if refresh and os.environ.get("NASS_API_KEY"):
         ok &= run("fetch_nass.py")
-    elif not (RAW / "nass/prices_ks.json").exists():
-        print("\n--- NASS_API_KEY not set and no raw NASS files: skipping prices, county yields, crop calendar")
+    elif refresh:
+        print("\n--- --refresh without NASS_API_KEY: NASS data not downloaded")
+    if not (RAW / "nass/prices_ks.json").exists():
+        print("\n--- no raw NASS files here: keeping committed prices.csv, county_yields.csv, "
+              "crop_calendar_ks.csv, county_vs_trial.csv")
 
     nass_ready = (RAW / "nass/prices_ks.json").exists()
     if nass_ready and (RAW / "nass/progress_ks.json").exists():
         ok &= run("derive_crop_calendar.py")
 
-    # 2. CPI (+ prices when NASS data exist). build_prices writes the CPI table in any case.
     r = run("build_prices.py")
     ok &= r or not nass_ready
     if nass_ready:
@@ -51,7 +45,6 @@ def main() -> int:
         else:
             print("\n--- repo reference/kstate_tribune_rotation_yields.csv not found: skipping county vs trial")
 
-    # 3. Crops (uses the crop calendar if present)
     ok &= run("build_crops.py")
 
     # 4. Costs from the K-State PDFs
@@ -59,18 +52,23 @@ def main() -> int:
         print("\n--- pdftotext not found: keeping the committed reference/costs.csv "
               "(install poppler-utils to rebuild it)")
     else:
-        ok &= run("fetch_agmanager.py")
-        ok &= run("parse_agmanager_budgets.py")
-        ok &= run("build_costs.py")
+        if refresh:
+            ok &= run("fetch_agmanager.py")
+        if list((RAW / "agmanager").glob("20*__*.pdf")) if (RAW / "agmanager").exists() else []:
+            ok &= run("parse_agmanager_budgets.py")
+            ok &= run("build_costs.py")
+        else:
+            print("\n--- no K-State PDFs here: keeping committed reference/costs.csv (use --refresh to download)")
 
-    # 5. Tests
+
     print("\n=== tests")
     t = subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", str(ROOT / "tests"), "-v"], cwd=ROOT)
     ok &= t.returncode == 0
 
     print("\nALL OK" if ok else "\nSOME STEPS FAILED - read the messages above")
-    if not nass_ready:
-        print("Still missing: reference/prices.csv, county_yields.csv, crop_calendar_ks.csv (set NASS_API_KEY and rerun)")
+    for f in ("prices.csv", "county_yields.csv", "crop_calendar_ks.csv"):
+        if not (ROOT / "reference" / f).exists():
+            print(f"Missing reference/{f}: run with --refresh and NASS_API_KEY set")
     return 0 if ok else 1
 
 
