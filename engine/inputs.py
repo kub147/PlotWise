@@ -44,7 +44,7 @@ class Weather:
 def load_weather(path: str | Path) -> Weather:
     """Read a weather CSV in the work-plan format (date, precip_mm, tmax_c, tmin_c, eto_mm, ...)."""
     dates, p, e, tx, tn = [], [], [], [], []
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         for r in csv.DictReader(f):
             dates.append(dt.date.fromisoformat(r["date"]))
             p.append(float(r["precip_mm"])); e.append(float(r["eto_mm"]))
@@ -57,14 +57,14 @@ def load_weather(path: str | Path) -> Weather:
 
 def gridmet_cache_to_csv(cache_json: str | Path, out_csv: str | Path) -> None:
     """Convert the cache written by scripts/water_balance_baseline.py into the work-plan CSV format."""
-    raw = json.load(open(cache_json))
+    raw = json.load(open(cache_json, encoding="utf-8"))
     rows = []
     for k, (pr, tx, tn, eto) in raw.items():
         d = dt.datetime.fromtimestamp(int(k) / 1000, dt.timezone.utc).date()
         rows.append((d, pr or 0.0, (tx or 273.15) - 273.15, (tn or 273.15) - 273.15, eto or 0.0))
     rows.sort()
     Path(out_csv).parent.mkdir(parents=True, exist_ok=True)
-    with open(out_csv, "w", newline="") as f:
+    with open(out_csv, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["date", "precip_mm", "tmax_c", "tmin_c", "eto_mm"])
         for d, pr, tx, tn, eto in rows:
@@ -107,7 +107,7 @@ def _f(x):
 
 def load_crops(path: str | Path = CROPS_CSV) -> dict[str, Crop]:
     out = {}
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         for r in csv.DictReader(f):
             if r["crop"] == "fallow":
                 continue
@@ -125,16 +125,16 @@ def load_crops(path: str | Path = CROPS_CSV) -> dict[str, Crop]:
 
 
 def load_rotations(path: str | Path = ROTATIONS_JSON) -> dict[str, dict]:
-    return {r["id"]: r for r in json.load(open(path))["rotations"]}
+    return {r["id"]: r for r in json.load(open(path, encoding="utf-8"))["rotations"]}
 
 
 def load_fields(path: str | Path = FIELDS_GEOJSON) -> dict[str, dict]:
-    return {f["properties"]["field_id"]: f["properties"] for f in json.load(open(path))["features"]}
+    return {f["properties"]["field_id"]: f["properties"] for f in json.load(open(path, encoding="utf-8"))["features"]}
 
 
 def load_tribune_yields(path: str | Path = TRIBUNE_YIELDS) -> dict[str, dict[int, float]]:
     """Measured yields, bu/acre: series name -> {harvest year: yield}."""
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         rows = list(csv.DictReader(l for l in f if not l.startswith("#")))
     out: dict[str, dict[int, float]] = {}
     for r in rows:

@@ -55,9 +55,9 @@ PRACTICE_LABEL = {"WF": "W-F", "WSF": "W-S-F", "WCF": "W-C-F"}   # engine id -> 
 
 
 def load_counties() -> dict[str, dict]:
-    regions = {r["county_fips"]: r["budget_region"] for r in csv.DictReader(open(BUDGET_REGIONS))}
+    regions = {r["county_fips"]: r["budget_region"] for r in csv.DictReader(open(BUDGET_REGIONS, encoding="utf-8"))}
     out = {}
-    for f in json.load(open(COUNTIES_GEOJSON))["features"]:
+    for f in json.load(open(COUNTIES_GEOJSON, encoding="utf-8"))["features"]:
         p = dict(f["properties"])
         p["awc_mm_layer"] = p["awc_mm"]
         if p["awc_mm"] < MIN_AWC_MM:
@@ -82,7 +82,7 @@ def nass_yields() -> dict[tuple[str, str], dict[int, float]]:
     all-practices yield is mostly irrigated corn.
     """
     raw: dict[tuple[str, str, str], dict[int, float]] = {}
-    for r in csv.DictReader(open(COUNTY_YIELDS)):
+    for r in csv.DictReader(open(COUNTY_YIELDS, encoding="utf-8")):
         if r["crop"] in REFERENCE and r["yield_kg_ha"]:
             raw.setdefault(("ks" + r["county_fips"][2:], r["crop"], r["practice"]), {})[int(r["year"])] = float(r["yield_kg_ha"])
     out: dict[tuple[str, str], dict[int, float]] = {}
@@ -149,7 +149,7 @@ def best_of(rotations_out: dict, ids) -> str:
 
 
 def replay_counties(counties, crops, rotations, params, eco, factors) -> dict:
-    practice = json.load(open(FIELD_ROTATIONS))
+    practice = json.load(open(FIELD_ROTATIONS, encoding="utf-8"))
     practice = practice.get("counties", practice)
     out = {}
     for cid, c in counties.items():
@@ -233,7 +233,7 @@ def choice_checks(out: dict) -> dict:
         res[label] = dict(counties=len(rows), spearman=round(_spearman(gain, share), 2),
                           note=f"rank correlation between the model's gain of {a} over {b} and farmers' share of {a} among {a}+{b}")
     # did farmers leave fallow where the model sees the largest gain from leaving it?
-    layer = {f["properties"]["county_id"]: f["properties"] for f in json.load(open(COUNTIES_GEOJSON))["features"]}
+    layer = {f["properties"]["county_id"]: f["properties"] for f in json.load(open(COUNTIES_GEOJSON, encoding="utf-8"))["features"]}
     ids = [cid for cid in out if cid in layer]
     gain = [out[c]["gain_replacing_fallow_usd_acre"] for c in ids]
     drop = [layer[c]["fallow_share_2008"] - layer[c]["fallow_share_latest"] for c in ids]
@@ -317,7 +317,7 @@ def write_report(factors: dict, summary: dict, params: dict) -> None:
           "- Sunflower (WSfF) is replayed but never named best: optional rotation, yield function not validated.",
           "- Factors with fewer than 5 years of county data borrow the median of the cost region: " +
           ", ".join(f"{out[cid]['name']} ({', '.join(v['yield_factor_borrowed'])})" for cid, v in out.items() if v["yield_factor_borrowed"]) + "."]
-    REPORT_MD.write_text("\n".join(L) + "\n")
+    REPORT_MD.write_text("\n".join(L) + "\n", encoding="utf-8")
 
 
 def main():
@@ -327,7 +327,7 @@ def main():
     FACTORS_JSON.write_text(json.dumps(dict(
         _about="Written by python -m engine.counties. factor = mean NASS non-irrigated county yield / mean modelled "
                "trial-level yield over the same years. Multiply a trial-level yield by it to get the county farm level.",
-        reference=REFERENCE, min_years=MIN_YEARS, counties=factors), indent=1))
+        reference=REFERENCE, min_years=MIN_YEARS, counties=factors), indent=1), encoding="utf-8")
     out = replay_counties(counties, crops, rotations, params, eco, factors)
     summary = dict(
         generated=dt.date.today().isoformat(),
@@ -339,7 +339,7 @@ def main():
         agreement_with_practice=agreement(out),
         choice_checks=choice_checks(out),
         counties=out)
-    OUT_JSON.write_text(json.dumps(summary, indent=1))
+    OUT_JSON.write_text(json.dumps(summary, indent=1), encoding="utf-8")
     write_report(factors, summary, params)
     a = summary["agreement_with_practice"]
     print(f"model best of WF/WSF/WCF = most common in practice: {a['model_matches_most_common']}/{a['counties_compared']} "

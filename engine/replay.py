@@ -31,7 +31,7 @@ ROTATION_OF_LABEL = {"W-F": "WF", "W-S-F": "WSF", "W-C-F": "WCF"}   # fields.geo
 def _rent_table() -> dict:
     """(region, cost_key) -> mean land rent of that budget, 2025 USD per acre-year (budget years to 2026)."""
     acc: dict = {}
-    for r in csv.DictReader(open(COSTS_CSV)):
+    for r in csv.DictReader(open(COSTS_CSV, encoding="utf-8")):
         if r["land_rent_usd_acre_year"] and int(r["year"]) <= 2026:
             acc.setdefault((r["region"], r["cost_key"]), []).append(
                 float(r["land_rent_usd_acre_year"]) * float(r["cpi_factor_to_2025"]))

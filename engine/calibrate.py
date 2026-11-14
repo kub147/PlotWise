@@ -95,7 +95,7 @@ def main():
         "rotation_residuals": residual,
         "farm_factor": {**FARM_FACTOR, "_source": "wheat, sorghum: calibration_targets.csv T19 and T20 (county / trial yields); corn, sunflower: ASSUMPTION, same as sorghum"},
     }
-    PARAMS_JSON.write_text(json.dumps(out, indent=1))
+    PARAMS_JSON.write_text(json.dumps(out, indent=1), encoding="utf-8")
     print(json.dumps({k: out[k] for k in ("water", "yield_models", "rotation_residuals")}, indent=1))
     print("written", PARAMS_JSON)
 

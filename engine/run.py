@@ -22,7 +22,7 @@ def dry_years_of(field_id: str) -> list[int]:
     path = inputs.CLIMATE_DIR / f"{field_id}.json"
     if not path.exists():
         return []
-    return [int(y) for y, t in json.load(open(path)).get("year_types", {}).items() if t == "dry"]
+    return [int(y) for y, t in json.load(open(path, encoding="utf-8")).get("year_types", {}).items() if t == "dry"]
 
 
 def field_context(field_id: str) -> tuple[str, dict | None, str]:
@@ -31,7 +31,7 @@ def field_context(field_id: str) -> tuple[str, dict | None, str]:
     cid = field_id.split("-")[0]
     region = load_counties().get(cid, {}).get("budget_region", "SW")
     if FACTORS_JSON.exists():
-        f = json.load(open(FACTORS_JSON))["counties"].get(cid)
+        f = json.load(open(FACTORS_JSON, encoding="utf-8"))["counties"].get(cid)
         if f:
             return region, {crop: v["factor"] for crop, v in f.items()}, cid
     print(f"WARNING: no county yield factors for {cid}: run `python -m engine.counties` first. "
@@ -112,7 +112,7 @@ def main(argv: list[str]) -> None:
         wx = inputs.load_weather(inputs.WEATHER_DIR / f"{fid}.csv")
         res = build_result(fields[fid], wx, crops, rotations, params, eco)
         path = inputs.RESULTS_DIR / f"{fid}.json"
-        path.write_text(json.dumps(res, indent=1))
+        path.write_text(json.dumps(res, indent=1), encoding="utf-8")
         top = res["ranking_sensitivity"]
         print(f"{fid}: current {res['current_rotation']}, default ranking {res['default_ranking']}, "
               f"first under random weights {top['share_of_wins']}")

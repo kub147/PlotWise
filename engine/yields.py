@@ -23,7 +23,7 @@ PARAMS_JSON = Path(__file__).resolve().parent / "params.json"
 
 
 def load_params(path: str | Path = PARAMS_JSON) -> dict:
-    return json.loads(Path(path).read_text())
+    return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
 def kstate_yield(crop: Crop, et_mm: float, longterm: bool = False) -> float:

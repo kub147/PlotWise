@@ -58,7 +58,7 @@ def collect(wx, crops, par, params):
 
 
 def county_check(wx, crops, par, params):
-    rows = list(csv.DictReader(open(COUNTY)))
+    rows = list(csv.DictReader(open(COUNTY, encoding="utf-8")))
     out = []
     for crop_id, rot in (("winter_wheat", "WF"), ("grain_sorghum", "WSF"), ("corn", "WCF")):
         county = {int(r["year"]): float(r["yield_value"]) for r in rows
@@ -82,7 +82,7 @@ def economics_check(wx, crops, params):
     bench = replay_field(field, wx, crops, rotations, params, Economics(), first_year=2008, last_year=2015)
     longrun = replay_field(field, wx, crops, rotations, params, Economics(), first_year=1996, last_year=2020)
     planning = {}
-    for r in csv.DictReader(open(inputs.ROOT / "crops-economics" / "reference" / "costs.csv")):
+    for r in csv.DictReader(open(inputs.ROOT / "crops-economics" / "reference" / "costs.csv", encoding="utf-8")):
         if r["planning_yield"] and r["yield_unit"] == "bu" and r.get("region", "SW") == "SW":
             planning.setdefault(r["cost_key"], []).append(float(r["planning_yield"]))
     return bench, longrun, planning
@@ -215,7 +215,7 @@ def write_report(wx, crops, par, params, data, county, eco):
           "- Sorghum results are firmer than wheat results; corn and sunflower are the least certain.",
           "- Wheat-fallow is probably a little better than shown (section 1).",
           "- Not modelled: hail, disease, winterkill, weeds, nitrogen, planting failures, crop insurance.", ""]
-    DOC.write_text("\n".join(L))
+    DOC.write_text("\n".join(L), encoding="utf-8")
 
 
 def write_figure(data):
@@ -248,7 +248,7 @@ def main():
     county = county_check(wx, crops, par, params)
     write_report(wx, crops, par, params, data, county, economics_check(wx, crops, params))
     write_figure(data)
-    print(DOC.read_text())
+    print("written", DOC, FIG)
 
 
 if __name__ == "__main__":
