@@ -9,9 +9,9 @@ Feature freeze: Sunday 14:00. Owner of this list: workstream E; everyone reviews
       limits, demo format and length. Write them at the top of [submission-text.md](submission-text.md) and trim the
       draft to fit. *(Not done yet: the guide could not be opened from a script.)*
 - [ ] Team page: all members joined, challenge "Field Shift: Adapting Farms with NASA Data" selected.
-- [ ] Repository owner: Settings → Pages → Source: "GitHub Actions". Then check that the "Deploy app to GitHub Pages"
-      workflow ran green and the live address loads on a phone and a laptop.
-- [ ] Repository is public.
+- [x] Repository owner: Settings → Pages → Source: "GitHub Actions". The "Deploy app to GitHub Pages" workflow runs
+      green and https://kub147.github.io/PlotWise/ loads on a laptop. *(Still to check on a real phone.)*
+- [x] Repository is public.
 
 ## App, after the feature freeze
 

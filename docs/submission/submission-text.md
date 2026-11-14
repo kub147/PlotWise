@@ -24,7 +24,7 @@ check locally. The tool does not pick a winner: it shows when the answer depends
 
 - Project demo (video or slides): `[DEMO LINK]`
 - Final project (repository): https://github.com/kub147/PlotWise
-- Live app: `[LIVE APP LINK — expected https://kub147.github.io/PlotWise/ once GitHub Pages is enabled; confirm it loads]`
+- Live app: https://kub147.github.io/PlotWise/
 
 ## Detailed project description
 
