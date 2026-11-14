@@ -1,0 +1,94 @@
+{
+ "_about": "Written by engine/calibrate.py. Do not edit by hand; rerun the script.",
+ "calibration_weather": "engine/validation/tribune_station_gridmet.csv (gridMET pixel of the K-State Tribune station)",
+ "water": {
+  "rain_eff": 1.0,
+  "rain_min_mm": 2.0,
+  "fallow_evap": 0.2,
+  "wet_evap": 0.3,
+  "fallow_dry_frac": 0.3
+ },
+ "water_objective": 0.0557,
+ "water_grid": {
+  "rain_eff": [
+   0.8,
+   0.9,
+   1.0
+  ],
+  "rain_min_mm": [
+   2.0,
+   5.0
+  ],
+  "fallow_evap": [
+   0.15,
+   0.2,
+   0.25,
+   0.3,
+   0.4
+  ],
+  "wet_evap": [
+   0.1,
+   0.3,
+   0.6
+  ],
+  "fallow_dry_frac": [
+   0.3,
+   0.5,
+   0.7
+  ]
+ },
+ "awc_tribune_mm": 320.0,
+ "yield_models": {
+  "winter_wheat": {
+   "intercept_kg_ha": 773.3,
+   "per_mm_et_kg_ha": 8.344,
+   "per_hot_day_kg_ha": -95.59,
+   "fitted_on": [
+    "wheat_wssf",
+    "wheat_wwsf_first"
+   ],
+   "years": [
+    1997,
+    2020
+   ],
+   "n": 24,
+   "r2": 0.457,
+   "r2_leave_one_out": 0.144
+  },
+  "grain_sorghum": {
+   "intercept_kg_ha": -267.5,
+   "per_mm_et_kg_ha": 17.419,
+   "per_hot_day_kg_ha": 0.0,
+   "fitted_on": [
+    "sorghum_wssf_first",
+    "sorghum_wwsf"
+   ],
+   "years": [
+    1996,
+    2020
+   ],
+   "n": 25,
+   "r2": 0.599,
+   "r2_leave_one_out": 0.518
+  }
+ },
+ "rotation_residuals": {
+  "grain_sorghum after grain_sorghum": {
+   "measured_ratio": 0.65,
+   "modelled_ratio": 0.888,
+   "residual_multiplier": 0.732
+  },
+  "winter_wheat after winter_wheat": {
+   "measured_ratio": 0.738,
+   "modelled_ratio": 0.858,
+   "residual_multiplier": 0.86
+  }
+ },
+ "farm_factor": {
+  "winter_wheat": 0.9,
+  "grain_sorghum": 0.8,
+  "corn": 0.8,
+  "sunflower": 0.8,
+  "_source": "wheat, sorghum: calibration_targets.csv T19 and T20 (county / trial yields); corn, sunflower: ASSUMPTION, same as sorghum"
+ }
+}

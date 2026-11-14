@@ -1,0 +1,2616 @@
+{
+ "field_id": "ks071-004",
+ "generated": "2026-11-14",
+ "period": [
+  1996,
+  2025
+ ],
+ "units": {
+  "yield": "kg/ha at farm level (trial level x farm factor)",
+  "net_return": "2025 USD per acre per year, averaged over the whole rotation, fallow acres included; actual Kansas price of each harvest year; crop insurance and government payments excluded",
+  "scores": "0-1 on fixed scales, see scoring_scales"
+ },
+ "current_rotation": "WSF",
+ "current_rotation_note": null,
+ "soil": {
+  "awc_mm": 332,
+  "source": "SSURGO, 0-150 cm (fields.geojson)"
+ },
+ "dry_years": [
+  2000,
+  2002,
+  2006,
+  2008,
+  2010,
+  2011,
+  2012,
+  2013,
+  2020,
+  2022,
+  2024
+ ],
+ "dry_years_source": "year_types in data/processed/climate/<field_id>.json (workstream A)",
+ "rotations": [
+  {
+   "id": "WF",
+   "name": "Wheat - fallow",
+   "phases": [
+    "winter_wheat",
+    "fallow"
+   ],
+   "status": "main",
+   "is_current": false,
+   "yields_kg_ha": {
+    "winter_wheat": [
+     [
+      1996,
+      2977
+     ],
+     [
+      1997,
+      3189
+     ],
+     [
+      1998,
+      3820
+     ],
+     [
+      1999,
+      4419
+     ],
+     [
+      2000,
+      2172
+     ],
+     [
+      2001,
+      2206
+     ],
+     [
+      2002,
+      759
+     ],
+     [
+      2003,
+      2759
+     ],
+     [
+      2004,
+      2015
+     ],
+     [
+      2005,
+      3514
+     ],
+     [
+      2006,
+      2115
+     ],
+     [
+      2007,
+      3350
+     ],
+     [
+      2008,
+      2797
+     ],
+     [
+      2009,
+      2727
+     ],
+     [
+      2010,
+      2788
+     ],
+     [
+      2011,
+      1963
+     ],
+     [
+      2012,
+      1932
+     ],
+     [
+      2013,
+      379
+     ],
+     [
+      2014,
+      1912
+     ],
+     [
+      2015,
+      3403
+     ],
+     [
+      2016,
+      4211
+     ],
+     [
+      2017,
+      4264
+     ],
+     [
+      2018,
+      2752
+     ],
+     [
+      2019,
+      3917
+     ],
+     [
+      2020,
+      2319
+     ],
+     [
+      2021,
+      3010
+     ],
+     [
+      2022,
+      1950
+     ],
+     [
+      2023,
+      2832
+     ],
+     [
+      2024,
+      3338
+     ],
+     [
+      2025,
+      3643
+     ]
+    ]
+   },
+   "mean_yield_kg_ha": {
+    "winter_wheat": 2781
+   },
+   "yield_method": {
+    "winter_wheat": "calibrated on Tribune trial"
+   },
+   "net_return_usd_acre": [
+    [
+     1996,
+     43.1
+    ],
+    [
+     1997,
+     -17.0
+    ],
+    [
+     1998,
+     -25.3
+    ],
+    [
+     1999,
+     -24.3
+    ],
+    [
+     2000,
+     -87.3
+    ],
+    [
+     2001,
+     -87.0
+    ],
+    [
+     2002,
+     -132.8
+    ],
+    [
+     2003,
+     -54.2
+    ],
+    [
+     2004,
+     -84.3
+    ],
+    [
+     2005,
+     -24.6
+    ],
+    [
+     2006,
+     -52.7
+    ],
+    [
+     2007,
+     62.2
+    ],
+    [
+     2008,
+     48.7
+    ],
+    [
+     2009,
+     -21.5
+    ],
+    [
+     2010,
+     -9.9
+    ],
+    [
+     2011,
+     -20.3
+    ],
+    [
+     2012,
+     -16.6
+    ],
+    [
+     2013,
+     -140.1
+    ],
+    [
+     2014,
+     -49.9
+    ],
+    [
+     2015,
+     -4.3
+    ],
+    [
+     2016,
+     -19.3
+    ],
+    [
+     2017,
+     3.5
+    ],
+    [
+     2018,
+     -29.8
+    ],
+    [
+     2019,
+     -12.0
+    ],
+    [
+     2020,
+     -67.4
+    ],
+    [
+     2021,
+     34.4
+    ],
+    [
+     2022,
+     -31.2
+    ],
+    [
+     2023,
+     -42.7
+    ],
+    [
+     2024,
+     -48.6
+    ],
+    [
+     2025,
+     -50.8
+    ]
+   ],
+   "summary": {
+    "mean": -32.1,
+    "p20": -56.8,
+    "worst": -140.1,
+    "worst_year": 2013,
+    "share_of_years_with_loss": 0.83,
+    "mean_of_worst_fifth": -99.8,
+    "mean_in_dry_years": -50.8,
+    "mean_vs_current": -1.1,
+    "share_of_years_better_than_current": 0.53
+   },
+   "indicators": {
+    "bare_days_per_year": 233,
+    "storage_efficiency": 0.2,
+    "water_productivity_kg_mm": 3.03,
+    "crop_water_share": 0.4,
+    "growing_share_of_year": 0.36,
+    "crops_per_year": 0.5,
+    "failed_crop_years": 1,
+    "failed_harvest_share": 0.03
+   },
+   "scores": {
+    "water": 0.2,
+    "soil": 0.0,
+    "income": 0.48,
+    "dry_year_safety": 0.91
+   },
+   "why": "The traditional dryland system of western Kansas: a 14-month fallow stores water so that wheat survives dry years. It is the baseline every other rotation is compared with.",
+   "benefits": [
+    "Highest stored soil water at wheat planting (about 9.4 in in 8 ft at Tribune, E09)",
+    "Simplest system: one crop, one set of equipment"
+   ],
+   "risks": [
+    "One crop in two years",
+    "Long bare or residue-only period (wind erosion, loss of organic matter)",
+    "Lost money on average in 2008-2015 at Tribune (-$18/acre, E07)",
+    "Fallow stores only about 28% of the rain that falls during it (E08)"
+   ],
+   "evidence": [
+    "E01",
+    "E07",
+    "E08",
+    "E09",
+    "E16"
+   ],
+   "gaps": [
+    "How much water fallow really stores on this field (soil-specific; satellites cannot measure it)",
+    "Wheat failures from winterkill, disease and hail are not water effects and are not modelled (E15)",
+    "Stored soil water on this field is modelled from gridded weather, not measured",
+    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum (docs/engine-validation.md)"
+   ],
+   "check_locally": [
+    "Soil probe depth or soil-water reading at planting",
+    "Wind-erosion history of the field",
+    "Current crop insurance coverage (excluded from the economics)"
+   ]
+  },
+  {
+   "id": "WSF",
+   "name": "Wheat - sorghum - fallow",
+   "phases": [
+    "winter_wheat",
+    "grain_sorghum",
+    "fallow"
+   ],
+   "status": "main",
+   "is_current": true,
+   "yields_kg_ha": {
+    "winter_wheat": [
+     [
+      1996,
+      2430
+     ],
+     [
+      1997,
+      3103
+     ],
+     [
+      1998,
+      3311
+     ],
+     [
+      1999,
+      3532
+     ],
+     [
+      2000,
+      1910
+     ],
+     [
+      2001,
+      2169
+     ],
+     [
+      2002,
+      609
+     ],
+     [
+      2003,
+      2747
+     ],
+     [
+      2004,
+      1954
+     ],
+     [
+      2005,
+      3481
+     ],
+     [
+      2006,
+      1164
+     ],
+     [
+      2007,
+      3324
+     ],
+     [
+      2008,
+      2511
+     ],
+     [
+      2009,
+      2708
+     ],
+     [
+      2010,
+      2506
+     ],
+     [
+      2011,
+      1671
+     ],
+     [
+      2012,
+      1890
+     ],
+     [
+      2013,
+      348
+     ],
+     [
+      2014,
+      1908
+     ],
+     [
+      2015,
+      3315
+     ],
+     [
+      2016,
+      4001
+     ],
+     [
+      2017,
+      4264
+     ],
+     [
+      2018,
+      2752
+     ],
+     [
+      2019,
+      3660
+     ],
+     [
+      2020,
+      1584
+     ],
+     [
+      2021,
+      2961
+     ],
+     [
+      2022,
+      1734
+     ],
+     [
+      2023,
+      2809
+     ],
+     [
+      2024,
+      3193
+     ],
+     [
+      2025,
+      3088
+     ]
+    ],
+    "grain_sorghum": [
+     [
+      1996,
+      4969
+     ],
+     [
+      1997,
+      5672
+     ],
+     [
+      1998,
+      5879
+     ],
+     [
+      1999,
+      5093
+     ],
+     [
+      2000,
+      2418
+     ],
+     [
+      2001,
+      4103
+     ],
+     [
+      2002,
+      1543
+     ],
+     [
+      2003,
+      3845
+     ],
+     [
+      2004,
+      4822
+     ],
+     [
+      2005,
+      5817
+     ],
+     [
+      2006,
+      3179
+     ],
+     [
+      2007,
+      5587
+     ],
+     [
+      2008,
+      2985
+     ],
+     [
+      2009,
+      4022
+     ],
+     [
+      2010,
+      5593
+     ],
+     [
+      2011,
+      3905
+     ],
+     [
+      2012,
+      1878
+     ],
+     [
+      2013,
+      3267
+     ],
+     [
+      2014,
+      3815
+     ],
+     [
+      2015,
+      5523
+     ],
+     [
+      2016,
+      7154
+     ],
+     [
+      2017,
+      6619
+     ],
+     [
+      2018,
+      4745
+     ],
+     [
+      2019,
+      5766
+     ],
+     [
+      2020,
+      3743
+     ],
+     [
+      2021,
+      4747
+     ],
+     [
+      2022,
+      3279
+     ],
+     [
+      2023,
+      5236
+     ],
+     [
+      2024,
+      4746
+     ],
+     [
+      2025,
+      5906
+     ]
+    ]
+   },
+   "mean_yield_kg_ha": {
+    "winter_wheat": 2555,
+    "grain_sorghum": 4529
+   },
+   "yield_method": {
+    "winter_wheat": "calibrated on Tribune trial",
+    "grain_sorghum": "calibrated on Tribune trial"
+   },
+   "net_return_usd_acre": [
+    [
+     1996,
+     12.4
+    ],
+    [
+     1997,
+     0.2
+    ],
+    [
+     1998,
+     -45.4
+    ],
+    [
+     1999,
+     -72.4
+    ],
+    [
+     2000,
+     -136.1
+    ],
+    [
+     2001,
+     -101.4
+    ],
+    [
+     2002,
+     -172.7
+    ],
+    [
+     2003,
+     -66.6
+    ],
+    [
+     2004,
+     -100.1
+    ],
+    [
+     2005,
+     -45.2
+    ],
+    [
+     2006,
+     -93.1
+    ],
+    [
+     2007,
+     112.5
+    ],
+    [
+     2008,
+     -22.1
+    ],
+    [
+     2009,
+     -31.2
+    ],
+    [
+     2010,
+     89.5
+    ],
+    [
+     2011,
+     35.4
+    ],
+    [
+     2012,
+     -33.6
+    ],
+    [
+     2013,
+     -109.0
+    ],
+    [
+     2014,
+     -38.2
+    ],
+    [
+     2015,
+     4.3
+    ],
+    [
+     2016,
+     -7.4
+    ],
+    [
+     2017,
+     26.3
+    ],
+    [
+     2018,
+     -31.5
+    ],
+    [
+     2019,
+     -10.2
+    ],
+    [
+     2020,
+     -62.3
+    ],
+    [
+     2021,
+     110.2
+    ],
+    [
+     2022,
+     -14.6
+    ],
+    [
+     2023,
+     -22.0
+    ],
+    [
+     2024,
+     -50.3
+    ],
+    [
+     2025,
+     -54.3
+    ]
+   ],
+   "summary": {
+    "mean": -31.0,
+    "p20": -76.6,
+    "worst": -172.7,
+    "worst_year": 2002,
+    "share_of_years_with_loss": 0.73,
+    "mean_of_worst_fifth": -118.7,
+    "mean_in_dry_years": -51.7,
+    "mean_vs_current": 0.0,
+    "share_of_years_better_than_current": null
+   },
+   "indicators": {
+    "bare_days_per_year": 235,
+    "storage_efficiency": 0.24,
+    "water_productivity_kg_mm": 5.14,
+    "crop_water_share": 0.49,
+    "growing_share_of_year": 0.36,
+    "crops_per_year": 0.67,
+    "failed_crop_years": 2,
+    "failed_harvest_share": 0.03
+   },
+   "scores": {
+    "water": 0.56,
+    "soil": 0.34,
+    "income": 0.49,
+    "dry_year_safety": 0.9
+   },
+   "why": "Adds a drought-tolerant summer crop between wheat and fallow: two crops in three years instead of one in two. Researched in western Kansas for forty years.",
+   "benefits": [
+    "Only rotation with a positive average net return at Tribune 2008-2015 (< $6/acre, E07)",
+    "More total grain than wheat-fallow at Colby, Garden City and Tribune (E16)",
+    "Shorter fallows store water more efficiently (E16)",
+    "Sorghum needs only about 7 in of water use before it makes grain (E17)"
+   ],
+   "risks": [
+    "Sorghum failed completely in 2002 and 2012 at Tribune (E02)",
+    "Less stored water for wheat than after a full fallow (E09)"
+   ],
+   "evidence": [
+    "E02",
+    "E07",
+    "E09",
+    "E16",
+    "E17"
+   ],
+   "gaps": [
+    "Local sorghum price and basis (AMS Market News)",
+    "No pest, disease or hail modelling",
+    "Stored soil water on this field is modelled from gridded weather, not measured",
+    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum (docs/engine-validation.md)"
+   ],
+   "check_locally": [
+    "Elevator or feedlot buying sorghum nearby, and the basis",
+    "Planter set-up for sorghum",
+    "Herbicide carry-over between wheat and sorghum"
+   ]
+  },
+  {
+   "id": "WCF",
+   "name": "Wheat - corn - fallow",
+   "phases": [
+    "winter_wheat",
+    "corn",
+    "fallow"
+   ],
+   "status": "main",
+   "is_current": false,
+   "yields_kg_ha": {
+    "winter_wheat": [
+     [
+      1996,
+      2415
+     ],
+     [
+      1997,
+      3089
+     ],
+     [
+      1998,
+      3320
+     ],
+     [
+      1999,
+      3517
+     ],
+     [
+      2000,
+      1874
+     ],
+     [
+      2001,
+      2168
+     ],
+     [
+      2002,
+      606
+     ],
+     [
+      2003,
+      2747
+     ],
+     [
+      2004,
+      1965
+     ],
+     [
+      2005,
+      3481
+     ],
+     [
+      2006,
+      1170
+     ],
+     [
+      2007,
+      3323
+     ],
+     [
+      2008,
+      2531
+     ],
+     [
+      2009,
+      2707
+     ],
+     [
+      2010,
+      2511
+     ],
+     [
+      2011,
+      1673
+     ],
+     [
+      2012,
+      1889
+     ],
+     [
+      2013,
+      348
+     ],
+     [
+      2014,
+      1908
+     ],
+     [
+      2015,
+      3325
+     ],
+     [
+      2016,
+      4005
+     ],
+     [
+      2017,
+      4264
+     ],
+     [
+      2018,
+      2752
+     ],
+     [
+      2019,
+      3631
+     ],
+     [
+      2020,
+      1581
+     ],
+     [
+      2021,
+      2961
+     ],
+     [
+      2022,
+      1742
+     ],
+     [
+      2023,
+      2810
+     ],
+     [
+      2024,
+      3199
+     ],
+     [
+      2025,
+      3080
+     ]
+    ],
+    "corn": [
+     [
+      1996,
+      3715
+     ],
+     [
+      1997,
+      6127
+     ],
+     [
+      1998,
+      7333
+     ],
+     [
+      1999,
+      5127
+     ],
+     [
+      2000,
+      0
+     ],
+     [
+      2001,
+      2566
+     ],
+     [
+      2002,
+      0
+     ],
+     [
+      2003,
+      2165
+     ],
+     [
+      2004,
+      3939
+     ],
+     [
+      2005,
+      6975
+     ],
+     [
+      2006,
+      0
+     ],
+     [
+      2007,
+      6233
+     ],
+     [
+      2008,
+      0
+     ],
+     [
+      2009,
+      2320
+     ],
+     [
+      2010,
+      6261
+     ],
+     [
+      2011,
+      1679
+     ],
+     [
+      2012,
+      0
+     ],
+     [
+      2013,
+      0
+     ],
+     [
+      2014,
+      1545
+     ],
+     [
+      2015,
+      6243
+     ],
+     [
+      2016,
+      9880
+     ],
+     [
+      2017,
+      9698
+     ],
+     [
+      2018,
+      4284
+     ],
+     [
+      2019,
+      6422
+     ],
+     [
+      2020,
+      1308
+     ],
+     [
+      2021,
+      3832
+     ],
+     [
+      2022,
+      0
+     ],
+     [
+      2023,
+      5167
+     ],
+     [
+      2024,
+      4526
+     ],
+     [
+      2025,
+      6536
+     ]
+    ]
+   },
+   "mean_yield_kg_ha": {
+    "winter_wheat": 2553,
+    "corn": 3796
+   },
+   "yield_method": {
+    "winter_wheat": "calibrated on Tribune trial",
+    "corn": "K-State function as published"
+   },
+   "net_return_usd_acre": [
+    [
+     1996,
+     -15.9
+    ],
+    [
+     1997,
+     14.1
+    ],
+    [
+     1998,
+     -11.2
+    ],
+    [
+     1999,
+     -73.2
+    ],
+    [
+     2000,
+     -198.3
+    ],
+    [
+     2001,
+     -141.4
+    ],
+    [
+     2002,
+     -226.0
+    ],
+    [
+     2003,
+     -118.7
+    ],
+    [
+     2004,
+     -114.8
+    ],
+    [
+     2005,
+     -23.6
+    ],
+    [
+     2006,
+     -202.1
+    ],
+    [
+     2007,
+     119.8
+    ],
+    [
+     2008,
+     -114.1
+    ],
+    [
+     2009,
+     -83.3
+    ],
+    [
+     2010,
+     93.3
+    ],
+    [
+     2011,
+     -80.7
+    ],
+    [
+     2012,
+     -146.1
+    ],
+    [
+     2013,
+     -227.7
+    ],
+    [
+     2014,
+     -124.0
+    ],
+    [
+     2015,
+     28.1
+    ],
+    [
+     2016,
+     65.6
+    ],
+    [
+     2017,
+     87.1
+    ],
+    [
+     2018,
+     -43.6
+    ],
+    [
+     2019,
+     5.2
+    ],
+    [
+     2020,
+     -161.2
+    ],
+    [
+     2021,
+     54.6
+    ],
+    [
+     2022,
+     -164.8
+    ],
+    [
+     2023,
+     -48.4
+    ],
+    [
+     2024,
+     -67.1
+    ],
+    [
+     2025,
+     -45.1
+    ]
+   ],
+   "summary": {
+    "mean": -65.5,
+    "p20": -149.1,
+    "worst": -227.7,
+    "worst_year": 2013,
+    "share_of_years_with_loss": 0.73,
+    "mean_of_worst_fifth": -196.7,
+    "mean_in_dry_years": -135.9,
+    "mean_vs_current": -34.5,
+    "share_of_years_better_than_current": 0.33
+   },
+   "indicators": {
+    "bare_days_per_year": 227,
+    "storage_efficiency": 0.24,
+    "water_productivity_kg_mm": 4.6,
+    "crop_water_share": 0.52,
+    "growing_share_of_year": 0.38,
+    "crops_per_year": 0.67,
+    "failed_crop_years": 7,
+    "failed_harvest_share": 0.15
+   },
+   "scores": {
+    "water": 0.68,
+    "soil": 0.34,
+    "income": 0.14,
+    "dry_year_safety": 0.2
+   },
+   "why": "Same structure as wheat-sorghum-fallow but with corn, which pays more per bushel and has a wider market. In Greeley County 17% of wheat fields go to corn the next year (CDL pixel sequences 2010-2024, project brief).",
+   "benefits": [
+    "Wider market than sorghum",
+    "Same equipment calendar as WSF"
+   ],
+   "risks": [
+    "Corn needs about 11 in of water use before it makes grain, sorghum about 7 in (E17)",
+    "At Tribune sorghum yielded about twice as much as corn in the same rotation (E11)",
+    "Net return below -$35/acre on average 2008-2015 (E07)"
+   ],
+   "evidence": [
+    "E07",
+    "E11",
+    "E17"
+   ],
+   "gaps": [
+    "Corn yield in very dry years is close to zero; the distribution matters more than the mean",
+    "Stored soil water on this field is modelled from gridded weather, not measured",
+    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum (docs/engine-validation.md)"
+   ],
+   "check_locally": [
+    "Seed and fertiliser cost per acre against the K-State budget",
+    "Hybrid choice for dryland"
+   ]
+  },
+  {
+   "id": "WSSF",
+   "name": "Wheat - sorghum - sorghum - fallow",
+   "phases": [
+    "winter_wheat",
+    "grain_sorghum",
+    "grain_sorghum",
+    "fallow"
+   ],
+   "status": "main",
+   "is_current": false,
+   "yields_kg_ha": {
+    "winter_wheat": [
+     [
+      1996,
+      2430
+     ],
+     [
+      1997,
+      3089
+     ],
+     [
+      1998,
+      3311
+     ],
+     [
+      1999,
+      3502
+     ],
+     [
+      2000,
+      1876
+     ],
+     [
+      2001,
+      2168
+     ],
+     [
+      2002,
+      608
+     ],
+     [
+      2003,
+      2747
+     ],
+     [
+      2004,
+      1954
+     ],
+     [
+      2005,
+      3481
+     ],
+     [
+      2006,
+      1164
+     ],
+     [
+      2007,
+      3322
+     ],
+     [
+      2008,
+      2510
+     ],
+     [
+      2009,
+      2707
+     ],
+     [
+      2010,
+      2506
+     ],
+     [
+      2011,
+      1666
+     ],
+     [
+      2012,
+      1890
+     ],
+     [
+      2013,
+      348
+     ],
+     [
+      2014,
+      1908
+     ],
+     [
+      2015,
+      3315
+     ],
+     [
+      2016,
+      4000
+     ],
+     [
+      2017,
+      4264
+     ],
+     [
+      2018,
+      2752
+     ],
+     [
+      2019,
+      3634
+     ],
+     [
+      2020,
+      1574
+     ],
+     [
+      2021,
+      2957
+     ],
+     [
+      2022,
+      1733
+     ],
+     [
+      2023,
+      2808
+     ],
+     [
+      2024,
+      3192
+     ],
+     [
+      2025,
+      3085
+     ]
+    ],
+    "grain_sorghum": [
+     [
+      1996,
+      4243
+     ],
+     [
+      1997,
+      4465
+     ],
+     [
+      1998,
+      4509
+     ],
+     [
+      1999,
+      4263
+     ],
+     [
+      2000,
+      1981
+     ],
+     [
+      2001,
+      3453
+     ],
+     [
+      2002,
+      1294
+     ],
+     [
+      2003,
+      3290
+     ],
+     [
+      2004,
+      4148
+     ],
+     [
+      2005,
+      4407
+     ],
+     [
+      2006,
+      2693
+     ],
+     [
+      2007,
+      4655
+     ],
+     [
+      2008,
+      2548
+     ],
+     [
+      2009,
+      3273
+     ],
+     [
+      2010,
+      4650
+     ],
+     [
+      2011,
+      3315
+     ],
+     [
+      2012,
+      1495
+     ],
+     [
+      2013,
+      2820
+     ],
+     [
+      2014,
+      3212
+     ],
+     [
+      2015,
+      4637
+     ],
+     [
+      2016,
+      6055
+     ],
+     [
+      2017,
+      5423
+     ],
+     [
+      2018,
+      3867
+     ],
+     [
+      2019,
+      4506
+     ],
+     [
+      2020,
+      3168
+     ],
+     [
+      2021,
+      3973
+     ],
+     [
+      2022,
+      2805
+     ],
+     [
+      2023,
+      4442
+     ],
+     [
+      2024,
+      3736
+     ],
+     [
+      2025,
+      5014
+     ]
+    ]
+   },
+   "mean_yield_kg_ha": {
+    "winter_wheat": 2550,
+    "grain_sorghum": 3745
+   },
+   "yield_method": {
+    "winter_wheat": "calibrated on Tribune trial",
+    "grain_sorghum": "calibrated on Tribune trial"
+   },
+   "net_return_usd_acre": [
+    [
+     1996,
+     -6.1
+    ],
+    [
+     1997,
+     -25.9
+    ],
+    [
+     1998,
+     -75.7
+    ],
+    [
+     1999,
+     -96.8
+    ],
+    [
+     2000,
+     -163.3
+    ],
+    [
+     2001,
+     -120.3
+    ],
+    [
+     2002,
+     -193.0
+    ],
+    [
+     2003,
+     -86.1
+    ],
+    [
+     2004,
+     -117.2
+    ],
+    [
+     2005,
+     -81.6
+    ],
+    [
+     2006,
+     -103.7
+    ],
+    [
+     2007,
+     96.5
+    ],
+    [
+     2008,
+     -58.2
+    ],
+    [
+     2009,
+     -58.3
+    ],
+    [
+     2010,
+     96.0
+    ],
+    [
+     2011,
+     38.4
+    ],
+    [
+     2012,
+     -64.5
+    ],
+    [
+     2013,
+     -108.3
+    ],
+    [
+     2014,
+     -53.5
+    ],
+    [
+     2015,
+     -14.6
+    ],
+    [
+     2016,
+     -22.0
+    ],
+    [
+     2017,
+     4.8
+    ],
+    [
+     2018,
+     -57.8
+    ],
+    [
+     2019,
+     -41.5
+    ],
+    [
+     2020,
+     -69.6
+    ],
+    [
+     2021,
+     106.5
+    ],
+    [
+     2022,
+     -20.0
+    ],
+    [
+     2023,
+     -36.6
+    ],
+    [
+     2024,
+     -74.6
+    ],
+    [
+     2025,
+     -62.7
+    ]
+   ],
+   "summary": {
+    "mean": -49.0,
+    "p20": -98.2,
+    "worst": -193.0,
+    "worst_year": 2002,
+    "share_of_years_with_loss": 0.83,
+    "mean_of_worst_fifth": -134.3,
+    "mean_in_dry_years": -65.5,
+    "mean_vs_current": -18.0,
+    "share_of_years_better_than_current": 0.1
+   },
+   "indicators": {
+    "bare_days_per_year": 236,
+    "storage_efficiency": 0.26,
+    "water_productivity_kg_mm": 5.46,
+    "crop_water_share": 0.54,
+    "growing_share_of_year": 0.35,
+    "crops_per_year": 0.75,
+    "failed_crop_years": 2,
+    "failed_harvest_share": 0.02
+   },
+   "scores": {
+    "water": 0.76,
+    "soil": 0.5,
+    "income": 0.31,
+    "dry_year_safety": 0.79
+   },
+   "why": "More intensive: three crops in four years. Tested at Tribune since 1996, so the effect of a second sorghum crop is measured, not guessed.",
+   "benefits": [
+    "Three crops in four years",
+    "Shortest share of time in fallow of the tested rotations"
+   ],
+   "risks": [
+    "Second sorghum yields about 65% of the first (E05)",
+    "About 1.5 in less soil water at planting of the second sorghum (E06)"
+   ],
+   "evidence": [
+    "E01",
+    "E02",
+    "E05",
+    "E06"
+   ],
+   "gaps": [
+    "No K-State budget for the second sorghum year",
+    "Stored soil water on this field is modelled from gridded weather, not measured",
+    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum (docs/engine-validation.md)"
+   ],
+   "check_locally": [
+    "Weed and disease pressure in sorghum after sorghum",
+    "Grazing sorghum residue as an extra income"
+   ]
+  },
+  {
+   "id": "WWSF",
+   "name": "Wheat - wheat - sorghum - fallow",
+   "phases": [
+    "winter_wheat",
+    "winter_wheat",
+    "grain_sorghum",
+    "fallow"
+   ],
+   "status": "main",
+   "is_current": false,
+   "yields_kg_ha": {
+    "winter_wheat": [
+     [
+      1996,
+      1898
+     ],
+     [
+      1997,
+      2790
+     ],
+     [
+      1998,
+      3027
+     ],
+     [
+      1999,
+      3110
+     ],
+     [
+      2000,
+      1539
+     ],
+     [
+      2001,
+      1992
+     ],
+     [
+      2002,
+      406
+     ],
+     [
+      2003,
+      2555
+     ],
+     [
+      2004,
+      1658
+     ],
+     [
+      2005,
+      3144
+     ],
+     [
+      2006,
+      934
+     ],
+     [
+      2007,
+      3068
+     ],
+     [
+      2008,
+      1867
+     ],
+     [
+      2009,
+      2498
+     ],
+     [
+      2010,
+      2244
+     ],
+     [
+      2011,
+      1275
+     ],
+     [
+      2012,
+      1730
+     ],
+     [
+      2013,
+      297
+     ],
+     [
+      2014,
+      1743
+     ],
+     [
+      2015,
+      3028
+     ],
+     [
+      2016,
+      3291
+     ],
+     [
+      2017,
+      3676
+     ],
+     [
+      2018,
+      2197
+     ],
+     [
+      2019,
+      3330
+     ],
+     [
+      2020,
+      1224
+     ],
+     [
+      2021,
+      2689
+     ],
+     [
+      2022,
+      1276
+     ],
+     [
+      2023,
+      2565
+     ],
+     [
+      2024,
+      2767
+     ],
+     [
+      2025,
+      2718
+     ]
+    ],
+    "grain_sorghum": [
+     [
+      1996,
+      4969
+     ],
+     [
+      1997,
+      5659
+     ],
+     [
+      1998,
+      5870
+     ],
+     [
+      1999,
+      5086
+     ],
+     [
+      2000,
+      2413
+     ],
+     [
+      2001,
+      4101
+     ],
+     [
+      2002,
+      1542
+     ],
+     [
+      2003,
+      3845
+     ],
+     [
+      2004,
+      4822
+     ],
+     [
+      2005,
+      5812
+     ],
+     [
+      2006,
+      3177
+     ],
+     [
+      2007,
+      5586
+     ],
+     [
+      2008,
+      2984
+     ],
+     [
+      2009,
+      4013
+     ],
+     [
+      2010,
+      5592
+     ],
+     [
+      2011,
+      3904
+     ],
+     [
+      2012,
+      1876
+     ],
+     [
+      2013,
+      3267
+     ],
+     [
+      2014,
+      3815
+     ],
+     [
+      2015,
+      5522
+     ],
+     [
+      2016,
+      7153
+     ],
+     [
+      2017,
+      6619
+     ],
+     [
+      2018,
+      4703
+     ],
+     [
+      2019,
+      5751
+     ],
+     [
+      2020,
+      3739
+     ],
+     [
+      2021,
+      4744
+     ],
+     [
+      2022,
+      3279
+     ],
+     [
+      2023,
+      5234
+     ],
+     [
+      2024,
+      4743
+     ],
+     [
+      2025,
+      5903
+     ]
+    ]
+   },
+   "mean_yield_kg_ha": {
+    "winter_wheat": 2218,
+    "grain_sorghum": 4524
+   },
+   "yield_method": {
+    "winter_wheat": "calibrated on Tribune trial",
+    "grain_sorghum": "calibrated on Tribune trial"
+   },
+   "net_return_usd_acre": [
+    [
+     1996,
+     -19.7
+    ],
+    [
+     1997,
+     -19.0
+    ],
+    [
+     1998,
+     -60.5
+    ],
+    [
+     1999,
+     -88.3
+    ],
+    [
+     2000,
+     -158.0
+    ],
+    [
+     2001,
+     -120.4
+    ],
+    [
+     2002,
+     -202.3
+    ],
+    [
+     2003,
+     -78.8
+    ],
+    [
+     2004,
+     -124.4
+    ],
+    [
+     2005,
+     -54.4
+    ],
+    [
+     2006,
+     -128.1
+    ],
+    [
+     2007,
+     103.3
+    ],
+    [
+     2008,
+     -46.7
+    ],
+    [
+     2009,
+     -39.7
+    ],
+    [
+     2010,
+     45.7
+    ],
+    [
+     2011,
+     -17.9
+    ],
+    [
+     2012,
+     -41.4
+    ],
+    [
+     2013,
+     -150.3
+    ],
+    [
+     2014,
+     -57.6
+    ],
+    [
+     2015,
+     -8.5
+    ],
+    [
+     2016,
+     -42.8
+    ],
+    [
+     2017,
+     3.0
+    ],
+    [
+     2018,
+     -56.6
+    ],
+    [
+     2019,
+     -23.7
+    ],
+    [
+     2020,
+     -102.8
+    ],
+    [
+     2021,
+     91.1
+    ],
+    [
+     2022,
+     -60.4
+    ],
+    [
+     2023,
+     -45.3
+    ],
+    [
+     2024,
+     -76.3
+    ],
+    [
+     2025,
+     -85.1
+    ]
+   ],
+   "summary": {
+    "mean": -55.5,
+    "p20": -106.3,
+    "worst": -202.3,
+    "worst_year": 2002,
+    "share_of_years_with_loss": 0.87,
+    "mean_of_worst_fifth": -147.2,
+    "mean_in_dry_years": -85.3,
+    "mean_vs_current": -24.6,
+    "share_of_years_better_than_current": 0.0
+   },
+   "indicators": {
+    "bare_days_per_year": 202,
+    "storage_efficiency": 0.25,
+    "water_productivity_kg_mm": 4.87,
+    "crop_water_share": 0.53,
+    "growing_share_of_year": 0.45,
+    "crops_per_year": 0.75,
+    "failed_crop_years": 2,
+    "failed_harvest_share": 0.03
+   },
+   "scores": {
+    "water": 0.72,
+    "soil": 0.5,
+    "income": 0.24,
+    "dry_year_safety": 0.62
+   },
+   "why": "For a farmer who wants to stay mostly in wheat: a second wheat crop replaces part of the fallow. Measured at Tribune since 1996.",
+   "benefits": [
+    "Three crops in four years with familiar wheat equipment"
+   ],
+   "risks": [
+    "Recrop wheat yields about 75% of the first wheat (E03)",
+    "About 3 in (40%) less soil water at recrop-wheat planting (E06)",
+    "Wheat-on-wheat raises disease and grassy-weed risk (check locally)"
+   ],
+   "evidence": [
+    "E01",
+    "E03",
+    "E06"
+   ],
+   "gaps": [
+    "No K-State budget for recrop wheat in southwest Kansas",
+    "Stored soil water on this field is modelled from gridded weather, not measured",
+    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum (docs/engine-validation.md)"
+   ],
+   "check_locally": [
+    "Cheat and other grassy weeds",
+    "Wheat streak mosaic and volunteer wheat control between crops"
+   ]
+  },
+  {
+   "id": "WSfF",
+   "name": "Wheat - sunflower - fallow",
+   "phases": [
+    "winter_wheat",
+    "sunflower",
+    "fallow"
+   ],
+   "status": "optional",
+   "is_current": false,
+   "yields_kg_ha": {
+    "winter_wheat": [
+     [
+      1996,
+      2461
+     ],
+     [
+      1997,
+      3124
+     ],
+     [
+      1998,
+      3325
+     ],
+     [
+      1999,
+      3628
+     ],
+     [
+      2000,
+      1944
+     ],
+     [
+      2001,
+      2172
+     ],
+     [
+      2002,
+      633
+     ],
+     [
+      2003,
+      2750
+     ],
+     [
+      2004,
+      1959
+     ],
+     [
+      2005,
+      3488
+     ],
+     [
+      2006,
+      1213
+     ],
+     [
+      2007,
+      3328
+     ],
+     [
+      2008,
+      2571
+     ],
+     [
+      2009,
+      2713
+     ],
+     [
+      2010,
+      2523
+     ],
+     [
+      2011,
+      1723
+     ],
+     [
+      2012,
+      1895
+     ],
+     [
+      2013,
+      350
+     ],
+     [
+      2014,
+      1910
+     ],
+     [
+      2015,
+      3323
+     ],
+     [
+      2016,
+      4020
+     ],
+     [
+      2017,
+      4264
+     ],
+     [
+      2018,
+      2752
+     ],
+     [
+      2019,
+      3674
+     ],
+     [
+      2020,
+      1678
+     ],
+     [
+      2021,
+      2968
+     ],
+     [
+      2022,
+      1751
+     ],
+     [
+      2023,
+      2814
+     ],
+     [
+      2024,
+      3208
+     ],
+     [
+      2025,
+      3104
+     ]
+    ],
+    "sunflower": [
+     [
+      1996,
+      1717
+     ],
+     [
+      1997,
+      2072
+     ],
+     [
+      1998,
+      2171
+     ],
+     [
+      1999,
+      1737
+     ],
+     [
+      2000,
+      318
+     ],
+     [
+      2001,
+      1209
+     ],
+     [
+      2002,
+      0
+     ],
+     [
+      2003,
+      1081
+     ],
+     [
+      2004,
+      1615
+     ],
+     [
+      2005,
+      2177
+     ],
+     [
+      2006,
+      735
+     ],
+     [
+      2007,
+      2046
+     ],
+     [
+      2008,
+      637
+     ],
+     [
+      2009,
+      1149
+     ],
+     [
+      2010,
+      2030
+     ],
+     [
+      2011,
+      1168
+     ],
+     [
+      2012,
+      49
+     ],
+     [
+      2013,
+      832
+     ],
+     [
+      2014,
+      1081
+     ],
+     [
+      2015,
+      1981
+     ],
+     [
+      2016,
+      2895
+     ],
+     [
+      2017,
+      2613
+     ],
+     [
+      2018,
+      1551
+     ],
+     [
+      2019,
+      2158
+     ],
+     [
+      2020,
+      1043
+     ],
+     [
+      2021,
+      1621
+     ],
+     [
+      2022,
+      822
+     ],
+     [
+      2023,
+      1849
+     ],
+     [
+      2024,
+      1563
+     ],
+     [
+      2025,
+      2220
+     ]
+    ]
+   },
+   "mean_yield_kg_ha": {
+    "winter_wheat": 2576,
+    "sunflower": 1471
+   },
+   "yield_method": {
+    "winter_wheat": "calibrated on Tribune trial",
+    "sunflower": "K-State function as published"
+   },
+   "net_return_usd_acre": [
+    [
+     1996,
+     5.6
+    ],
+    [
+     1997,
+     3.9
+    ],
+    [
+     1998,
+     -24.6
+    ],
+    [
+     1999,
+     -90.4
+    ],
+    [
+     2000,
+     -170.2
+    ],
+    [
+     2001,
+     -121.0
+    ],
+    [
+     2002,
+     -208.7
+    ],
+    [
+     2003,
+     -92.5
+    ],
+    [
+     2004,
+     -79.0
+    ],
+    [
+     2005,
+     -40.7
+    ],
+    [
+     2006,
+     -138.3
+    ],
+    [
+     2007,
+     115.1
+    ],
+    [
+     2008,
+     -44.8
+    ],
+    [
+     2009,
+     -55.2
+    ],
+    [
+     2010,
+     41.9
+    ],
+    [
+     2011,
+     1.4
+    ],
+    [
+     2012,
+     -124.2
+    ],
+    [
+     2013,
+     -146.7
+    ],
+    [
+     2014,
+     -52.5
+    ],
+    [
+     2015,
+     42.4
+    ],
+    [
+     2016,
+     54.5
+    ],
+    [
+     2017,
+     58.1
+    ],
+    [
+     2018,
+     -34.2
+    ],
+    [
+     2019,
+     14.2
+    ],
+    [
+     2020,
+     -101.7
+    ],
+    [
+     2021,
+     84.6
+    ],
+    [
+     2022,
+     -63.8
+    ],
+    [
+     2023,
+     -51.2
+    ],
+    [
+     2024,
+     -81.1
+    ],
+    [
+     2025,
+     -23.1
+    ]
+   ],
+   "summary": {
+    "mean": -44.1,
+    "p20": -105.6,
+    "worst": -208.7,
+    "worst_year": 2002,
+    "share_of_years_with_loss": 0.67,
+    "mean_of_worst_fifth": -151.5,
+    "mean_in_dry_years": -94.2,
+    "mean_vs_current": -13.1,
+    "share_of_years_better_than_current": 0.33
+   },
+   "indicators": {
+    "bare_days_per_year": 234,
+    "storage_efficiency": 0.23,
+    "water_productivity_kg_mm": 2.93,
+    "crop_water_share": 0.49,
+    "growing_share_of_year": 0.36,
+    "crops_per_year": 0.67,
+    "failed_crop_years": 4,
+    "failed_harvest_share": 0.08
+   },
+   "scores": {
+    "water": 0.56,
+    "soil": 0.34,
+    "income": 0.36,
+    "dry_year_safety": 0.55
+   },
+   "why": "A summer crop with the lowest water threshold in the K-State functions (about 5.4 in, E17) and its own K-State budget for western Kansas (E26).",
+   "benefits": [
+    "Lowest threshold ET of the tested crops (E17)",
+    "Deep roots use water below the wheat root zone (FAO-56 root depth 0.8-1.5 m, E25)"
+   ],
+   "risks": [
+    "Little residue left after harvest: more erosion risk during the next fallow (ASSUMPTION, residue_class 'low')",
+    "Smaller and more distant markets than wheat or sorghum"
+   ],
+   "evidence": [
+    "E17",
+    "E25",
+    "E26"
+   ],
+   "gaps": [
+    "No Tribune year-by-year sunflower yields to validate against",
+    "Residue effect on the next fallow is not quantified",
+    "Stored soil water on this field is modelled from gridded weather, not measured",
+    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum (docs/engine-validation.md)"
+   ],
+   "check_locally": [
+    "Nearest crusher or buyer for oil sunflower",
+    "Bird and insect pressure"
+   ]
+  }
+ ],
+ "rotations_not_modelled": {
+  "WS-forage": "no yield function for one of its crops",
+  "WW": "used for validation only"
+ },
+ "default_weights": {
+  "water": 0.25,
+  "soil": 0.25,
+  "income": 0.25,
+  "dry_year_safety": 0.25
+ },
+ "default_ranking": [
+  "WSSF",
+  "WSF",
+  "WWSF",
+  "WSfF",
+  "WF",
+  "WCF"
+ ],
+ "ranking_sensitivity": {
+  "weight_sets_tested": 5000,
+  "share_of_wins": {
+   "WF": 0.0,
+   "WSF": 0.42,
+   "WCF": 0.0,
+   "WSSF": 0.58,
+   "WWSF": 0.0,
+   "WSfF": 0.0
+  },
+  "most_often_first": "WSSF",
+  "stable": false,
+  "note": "Share of all possible priority weightings under which each rotation ranks first. Below about 0.6 for the leader, the ranking depends on the farmer's priorities."
+ },
+ "scoring_scales": {
+  "water": {
+   "zero_at": 0.35,
+   "one_at": 0.6
+  },
+  "soil": {
+   "zero_at": 0.5,
+   "one_at": 1.0
+  },
+  "income": {
+   "zero_at": -80.0,
+   "one_at": 20.0
+  },
+  "dry_year_safety": {
+   "zero_at": -160.0,
+   "one_at": -40.0
+  }
+ },
+ "farm_factor": {
+  "winter_wheat": 0.9,
+  "grain_sorghum": 0.8,
+  "corn": 0.8,
+  "sunflower": 0.8,
+  "_source": "wheat, sorghum: calibration_targets.csv T19 and T20 (county / trial yields); corn, sunflower: ASSUMPTION, same as sorghum"
+ },
+ "assumptions": [
+  "Every phase of a rotation is present every year (land split evenly between phases)",
+  "Costs before 2016 equal the mean real 2016-2026 K-State budget cost (crops-economics/HANDOVER.md, A2)",
+  "Corn and sunflower: K-State yield function as published, farm factor assumed equal to sorghum; not validated year by year",
+  "Sorghum at the 1996-2020 average yield level; measured trial yields rose by about 2 bu/acre per year, so today's sorghum is probably understated",
+  "The model stores less water in a 14-month fallow than measured at Tribune, so wheat-fallow is probably somewhat better than shown",
+  "Scores use fixed scales chosen by the team; they are value judgements",
+  "Differences of a few dollars per acre between rotations are inside the model's error"
+ ],
+ "validation": "docs/engine-validation.md"
+}
