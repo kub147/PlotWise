@@ -62,7 +62,6 @@ export function ValidationChart({ series, zeroYears }: ValidationChartProps) {
   // A label every four years, starting on a year divisible by four (1996, 2000, …).
   const ticks: number[] = []
   for (let year = Math.ceil(firstYear / 4) * 4; year <= lastYear; year += 4) ticks.push(year)
-  const crop = t(CROP_WORD[series.crop] ?? series.crop)
   const cropGenitive = t(CROP_WORD_GENITIVE[series.crop] ?? CROP_WORD[series.crop] ?? series.crop)
   // "Wheat after fallow (WSSF)" -> "Wheat after fallow"
   const title = t(series.label.replace(/\s*\(.*\)$/, ''))
