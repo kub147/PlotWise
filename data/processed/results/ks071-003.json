@@ -2706,7 +2706,7 @@
     "How much water fallow really stores on this field (soil-specific; satellites cannot measure it)",
     "Wheat failures from winterkill, disease and hail are not water effects and are not modelled (E15)",
     "Stored soil water on this field is modelled from gridded weather, not measured",
-    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum (docs/engine-validation.md)"
+    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum"
    ],
    "check_locally": [
     "Soil probe depth or soil-water reading at planting",
@@ -3153,7 +3153,7 @@
     "Local sorghum price and basis (AMS Market News)",
     "No pest, disease or hail modelling",
     "Stored soil water on this field is modelled from gridded weather, not measured",
-    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum (docs/engine-validation.md)"
+    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum"
    ],
    "check_locally": [
     "Elevator or feedlot buying sorghum nearby, and the basis",
@@ -3596,7 +3596,7 @@
    "gaps": [
     "Corn yield in very dry years is close to zero; the distribution matters more than the mean",
     "Stored soil water on this field is modelled from gridded weather, not measured",
-    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum (docs/engine-validation.md)"
+    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum"
    ],
    "check_locally": [
     "Seed and fertiliser cost per acre against the K-State budget",
@@ -4039,7 +4039,7 @@
    "gaps": [
     "No K-State budget for the second sorghum year",
     "Stored soil water on this field is modelled from gridded weather, not measured",
-    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum (docs/engine-validation.md)"
+    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum"
    ],
    "check_locally": [
     "Weed and disease pressure in sorghum after sorghum",
@@ -4481,7 +4481,7 @@
    "gaps": [
     "No K-State budget for recrop wheat in southwest Kansas",
     "Stored soil water on this field is modelled from gridded weather, not measured",
-    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum (docs/engine-validation.md)"
+    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum"
    ],
    "check_locally": [
     "Cheat and other grassy weeds",
@@ -4923,7 +4923,7 @@
     "No Tribune year-by-year sunflower yields to validate against",
     "Residue effect on the next fallow is not quantified",
     "Stored soil water on this field is modelled from gridded weather, not measured",
-    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum (docs/engine-validation.md)"
+    "Yields are long-run estimates; a single year can be far off, wheat more than sorghum"
    ],
    "check_locally": [
     "Nearest crusher or buyer for oil sunflower",
