@@ -15,6 +15,8 @@ type SegmentedControlProps<T extends string> = {
   // 'surface' = on a card, 'glass' = over the map (translucent background), 'bar' = on the navigation bar.
   tone?: 'surface' | 'glass' | 'bar'
   className?: string
+  // Class of the frame around the control (see below), e.g. to make it span the full width.
+  frameClassName?: string
 }
 
 export function SegmentedControl<T extends string>({
@@ -24,6 +26,7 @@ export function SegmentedControl<T extends string>({
   onValueChange,
   tone = 'surface',
   className,
+  frameClassName,
 }: SegmentedControlProps<T>) {
   const buttons = useRef<(HTMLButtonElement | null)[]>([])
   const count = Math.max(1, options.length)
@@ -52,48 +55,54 @@ export function SegmentedControl<T extends string>({
   }
 
   return (
-    <div
-      role="radiogroup"
-      aria-label={label}
-      className={cn(
-        'relative inline-grid rounded-full p-[3px]',
-        tone === 'glass' ? 'pw-glass' : 'bg-foreground/[0.06]',
-        className,
-      )}
-      style={{ gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))` }}
-    >
-      {/* Sliding thumb of the selected option */}
-      <span
-        aria-hidden
+    // Frame: as wide as the control, but never wider than the place it sits in. The control itself always takes the
+    // room its labels need (equal columns as wide as the longest label), so with long labels in a tight spot
+    // (Polish, a narrow screen) it scrolls sideways inside the frame instead of printing the labels over each other.
+    <div className={cn('pw-scroll-none inline-block max-w-full overflow-x-auto rounded-full align-middle', frameClassName)}>
+      <div
+        role="radiogroup"
+        aria-label={label}
         className={cn(
-          // White, slightly raised thumb that springs to the selected option.
-          'pointer-events-none absolute inset-y-[3px] left-[3px] rounded-full bg-card shadow-soft transition-transform duration-300 ease-[var(--ease-spring)]',
+          'relative grid w-max rounded-full p-[3px]',
+          tone === 'glass' ? 'pw-glass' : 'bg-foreground/[0.06]',
+          className,
         )}
-        style={{ width: `calc((100% - 6px) / ${count})`, transform: `translateX(${index * 100}%)` }}
-      />
-      {options.map((option, i) => {
-        const checked = i === index
-        return (
-          <button
-            key={option.value}
-            ref={(node) => {
-              buttons.current[i] = node
-            }}
-            type="button"
-            role="radio"
-            aria-checked={checked}
-            tabIndex={checked ? 0 : -1}
-            onClick={() => onValueChange(option.value)}
-            onKeyDown={(event) => onKeyDown(event, i)}
-            className={cn(
-              'relative z-10 min-h-[38px] whitespace-nowrap rounded-full px-4 text-[13px] transition-colors',
-              checked ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground',
-            )}
-          >
-            {option.label}
-          </button>
-        )
-      })}
+        style={{ gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))` }}
+      >
+        {/* Sliding thumb of the selected option */}
+        <span
+          aria-hidden
+          className={cn(
+            // White, slightly raised thumb that springs to the selected option.
+            'pointer-events-none absolute inset-y-[3px] left-[3px] rounded-full bg-card shadow-soft transition-transform duration-300 ease-[var(--ease-spring)]',
+          )}
+          style={{ width: `calc((100% - 6px) / ${count})`, transform: `translateX(${index * 100}%)` }}
+        />
+        {options.map((option, i) => {
+          const checked = i === index
+          return (
+            <button
+              key={option.value}
+              ref={(node) => {
+                buttons.current[i] = node
+              }}
+              type="button"
+              role="radio"
+              aria-checked={checked}
+              tabIndex={checked ? 0 : -1}
+              onClick={() => onValueChange(option.value)}
+              onKeyDown={(event) => onKeyDown(event, i)}
+              className={cn(
+                // The focus ring stays inside the control's own padding, so the frame does not clip it.
+                'relative z-10 min-h-[38px] whitespace-nowrap rounded-full px-4 text-[13px] transition-colors focus-visible:outline-offset-0',
+                checked ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground',
+              )}
+            >
+              {option.label}
+            </button>
+          )
+        })}
+      </div>
     </div>
   )
 }

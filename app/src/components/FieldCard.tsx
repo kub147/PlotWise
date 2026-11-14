@@ -1,6 +1,8 @@
 // Right column of the "My field" view: the card of the selected field.
-// The order of the sections is fixed: name and area, rotation, crop history, soil and bare ground,
-// greenness chart, two images from above, button to Rotation replay.
+// The order of the sections is fixed: name and area, rotation, three tiles "from above" (they open the popup with
+// the aerial photo, the greenness chart and the heat images), crop history, soil and bare ground.
+// The tiles sit high so that they are in view without scrolling, on a small laptop screen too.
+// The button to Rotation replay is pinned to the bottom of the card on a wide screen, so it is always in view.
 import { ArrowRight, Droplets, Sprout, Sun, TrendingUp, type LucideIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
@@ -8,9 +10,8 @@ import { CropLegend, CropTile } from '@/components/CropTile'
 import { Button } from '@/components/ui/button'
 import { Card, CardSection, SectionLabel } from '@/components/ui/card'
 import { FieldPhotos } from '@/components/field/FieldPhotos'
-import { GreennessChart } from '@/components/field/GreennessChart'
 import { fieldShortName, type AppData, type FieldFeature } from '@/lib/data'
-import { useHeatSummary, useNdvi } from '@/lib/fieldMedia'
+import type { HeatScene, NdviState, ViewerTab } from '@/lib/fieldMedia'
 import { useT, type Translate } from '@/lib/i18n'
 import { rotationPhases, toCropLetter, type CropLetter } from '@/lib/rotation'
 import { formatNumber, haToAcres, mmToInches } from '@/lib/units'
@@ -50,16 +51,19 @@ function StatTile({
 type FieldCardProps = {
   data: AppData
   field: FieldFeature
+  ndvi: NdviState
+  // Heat scenes that contain this field, newest first.
+  heatScenes: HeatScene[]
+  // Opens the popup with the views from above on the given view.
+  onOpenViewer: (tab: ViewerTab) => void
 }
 
-export function FieldCard({ data, field }: FieldCardProps) {
+export function FieldCard({ data, field, ndvi, heatScenes, onOpenViewer }: FieldCardProps) {
   const p = field.properties
   const county = data.countyNames[p.county_fips]
   const phases = rotationPhases(p.current_rotation)
   const hasReplay = data.manifest.results.includes(p.field_id)
   const hasAerial = data.manifest.naip.includes(p.field_id)
-  const ndvi = useNdvi(p.field_id, data.manifest.ndvi.includes(p.field_id))
-  const heat = useHeatSummary()
   const t = useT()
 
   // Crop history: one letter per year, starting at crop_sequence_first_year.
@@ -103,7 +107,20 @@ export function FieldCard({ data, field }: FieldCardProps) {
         )}
       </CardSection>
 
-      {/* 3. Crop history */}
+      {/* 3. From above: aerial photo, greenness, surface heat. Each tile opens the popup on that view. */}
+      <CardSection>
+        <SectionLabel>{t('From above')}</SectionLabel>
+        <FieldPhotos
+          fieldId={p.field_id}
+          fieldLabel={fieldShortName(p)}
+          hasAerial={hasAerial}
+          ndvi={ndvi}
+          heatScenes={heatScenes}
+          onOpen={onOpenViewer}
+        />
+      </CardSection>
+
+      {/* 4. Crop history */}
       <CardSection>
         <SectionLabel>
           {t('What grew here, {from}–{to}', { from: firstYear ?? '', to: lastYear ?? '' })}
@@ -135,7 +152,7 @@ export function FieldCard({ data, field }: FieldCardProps) {
         <p className="mt-2 text-[13px] text-muted-foreground">{t('Read from the USDA Cropland Data Layer, one crop per year.')}</p>
       </CardSection>
 
-      {/* 4. Soil and bare-ground days */}
+      {/* 5. Soil and bare-ground days */}
       <CardSection>
         <SectionLabel>{t('Soil and bare ground')}</SectionLabel>
         <p className="text-[15px] font-medium">{p.soil_map_unit}</p>
@@ -159,23 +176,11 @@ export function FieldCard({ data, field }: FieldCardProps) {
         </p>
       </CardSection>
 
-      {/* 5. Greenness chart (NDVI) */}
-      <CardSection>
-        <SectionLabel>{t('Greenness over the years')}</SectionLabel>
-        <GreennessChart fieldId={p.field_id} state={ndvi} threshold={p.ndvi_bare_threshold} />
-      </CardSection>
-
-      {/* 6. Aerial photo and surface temperature */}
-      <CardSection>
-        <SectionLabel>{t('From above')}</SectionLabel>
-        <FieldPhotos fieldId={p.field_id} fieldLabel={fieldShortName(p)} hasAerial={hasAerial} heat={heat} />
-      </CardSection>
-
-      {/* 7. Link to Rotation replay */}
-      <CardSection>
+      {/* 6. Link to Rotation replay. On a wide screen the card scrolls inside its panel and this stays at the bottom. */}
+      <div className="border-t border-border px-6 py-4 lg:sticky lg:bottom-0 lg:z-10 lg:rounded-b-[28px] lg:bg-card/90 lg:backdrop-blur-xl">
         {hasReplay ? (
           <Button asChild width="full">
-            <Link to={{ pathname: '/replay', search: `?field=${p.field_id}` }}>
+            <Link to={{ pathname: '/replay', search: `?field=${p.field_id}` }} className="py-2 text-center leading-snug">
               {t('Replay the last 30 years on this field')}
               <ArrowRight aria-hidden className="h-4 w-4" />
             </Link>
@@ -190,7 +195,7 @@ export function FieldCard({ data, field }: FieldCardProps) {
             </p>
           </>
         )}
-      </CardSection>
+      </div>
     </Card>
   )
 }

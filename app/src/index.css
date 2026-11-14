@@ -351,3 +351,81 @@
     animation-duration: 0s !important;
   }
 }
+
+/* Popup with the views of a field from above (FieldViewer): a native <dialog> opened with showModal().
+   Wide screen: a window in the middle that fades in and settles from slightly smaller (a modal has no trigger to grow
+   from, so it stays centred). Phone: a sheet that rises from the bottom edge. Closing runs the same motion backwards. */
+.pw-dialog {
+  width: min(1080px, calc(100vw - 32px));
+  height: min(780px, calc(100dvh - 32px));
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 28px;
+  overflow: hidden;
+  background: var(--card);
+  color: var(--foreground);
+  box-shadow: 0 4px 12px rgb(20 50 35 / 0.1), 0 32px 80px rgb(20 50 35 / 0.28);
+  opacity: 0;
+  transform: translateY(8px) scale(0.97);
+  transition:
+    opacity 0.2s var(--ease-out),
+    transform 0.24s var(--ease-out),
+    overlay 0.24s allow-discrete,
+    display 0.24s allow-discrete;
+}
+.pw-dialog[open] {
+  opacity: 1;
+  transform: none;
+}
+@starting-style {
+  .pw-dialog[open] {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+}
+.pw-dialog::backdrop {
+  background: rgb(16 28 22 / 0);
+  transition:
+    background-color 0.24s var(--ease-out),
+    overlay 0.24s allow-discrete,
+    display 0.24s allow-discrete;
+}
+.pw-dialog[open]::backdrop {
+  background: rgb(16 28 22 / 0.45);
+}
+@starting-style {
+  .pw-dialog[open]::backdrop {
+    background: rgb(16 28 22 / 0);
+  }
+}
+@media (max-width: 1023px) {
+  .pw-dialog {
+    width: 100vw;
+    height: calc(100dvh - 28px);
+    margin: auto 0 0;
+    border-radius: 28px 28px 0 0;
+    transform: translateY(6%);
+  }
+  @starting-style {
+    .pw-dialog[open] {
+      transform: translateY(6%);
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pw-dialog,
+  .pw-dialog::backdrop {
+    transition: none;
+  }
+}
+
+/* Sideways scroll without a visible bar (a segmented control in a tight spot: the cut-off label shows there is more). */
+.pw-scroll-none {
+  scrollbar-width: none;
+}
+.pw-scroll-none::-webkit-scrollbar {
+  display: none;
+}

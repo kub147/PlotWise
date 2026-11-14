@@ -9,8 +9,18 @@ export type Translate = (text: string, vars?: Record<string, string | number>) =
 
 const STORAGE_KEY = 'plotwise-lang'
 
+// Keys that carry a hint for the translator, not text to show: Polish needs another case or a shorter word there,
+// English does not.
+const EN: Record<string, string> = {
+  'wheat in genitive': 'wheat',
+  'sorghum in genitive': 'sorghum',
+  'Aerial photo (tab)': 'Aerial photo',
+  'Greenness (tab)': 'Greenness',
+  'Surface heat (tab)': 'Surface heat',
+}
+
 export function translate(lang: Lang, text: string, vars?: Record<string, string | number>): string {
-  const base = lang === 'pl' ? (PL[text] ?? text) : text
+  const base = lang === 'pl' ? (PL[text] ?? text) : (EN[text] ?? text)
   if (!vars) return base
   return base.replace(/\{(\w+)\}/g, (match, name: string) => (name in vars ? String(vars[name]) : match))
 }

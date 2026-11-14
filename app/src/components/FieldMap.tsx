@@ -1,13 +1,15 @@
 // Middle of the "My field" view: Leaflet map with the field outlines, a layer switch and a search box.
 // The repo has no NDVI or ECOSTRESS raster tiles, so those two layers show a plain base map
-// and a note on where to find the images (spec 5.1 allows this).
+// and a note with a button that opens the popup with that view of the selected field (spec 5.1 allows this).
 import 'leaflet/dist/leaflet.css'
 import { Browser, type LatLngBoundsExpression, type LatLngTuple } from 'leaflet'
+import { ArrowUpRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { CircleMarker, MapContainer, Polygon, TileLayer, Tooltip, ZoomControl, useMap } from 'react-leaflet'
 import { MapSearch, type MapTarget } from '@/components/MapSearch'
 import { SegmentedControl } from '@/components/ui/segmented-control'
 import { fieldShortName, type County, type FieldFeature } from '@/lib/data'
+import type { ViewerTab } from '@/lib/fieldMedia'
 import { useT } from '@/lib/i18n'
 
 type LayerId = 'aerial' | 'greenness' | 'heat'
@@ -28,10 +30,19 @@ const STREET_TILES = {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }
 
-const LAYER_NOTES: Record<LayerId, string | null> = {
-  aerial: null,
-  greenness: 'Greenness is not on the map yet. The field card shows how green this field was over the years.',
-  heat: 'Surface heat is not on the map yet. The field card shows the heat images where we have them.',
+// Note for a layer the map cannot draw yet, the button that opens that view in the popup,
+// and the note when the selected field has no such data either.
+const LAYER_NOTES: Record<Exclude<LayerId, 'aerial'>, { note: string; action: string; none: string }> = {
+  greenness: {
+    note: 'Greenness is not on the map yet. You can open the record for the selected field.',
+    action: 'Open the greenness chart',
+    none: 'Greenness is not on the map yet, and there is no greenness record for this field.',
+  },
+  heat: {
+    note: 'Surface heat is not on the map yet. You can open the heat images for the selected field.',
+    action: 'Open the heat images',
+    none: 'Surface heat is not on the map yet, and there are no heat images for this field. We have them for the Tribune fields.',
+  },
 }
 
 // GeoJSON stores [longitude, latitude]; Leaflet wants [latitude, longitude].
@@ -70,9 +81,12 @@ type FieldMapProps = {
   counties: County[]
   selected: FieldFeature
   onSelect: (fieldId: string) => void
+  // Whether the selected field has a greenness record and heat images to open.
+  viewerHas: { greenness: boolean; heat: boolean }
+  onOpenViewer: (tab: ViewerTab) => void
 }
 
-export function FieldMap({ fields, counties, selected, onSelect }: FieldMapProps) {
+export function FieldMap({ fields, counties, selected, onSelect, viewerHas, onOpenViewer }: FieldMapProps) {
   const t = useT()
   const [layer, setLayer] = useState<LayerId>('aerial')
   // County or place found by the search; shown as a pin until a field is picked.
@@ -81,7 +95,8 @@ export function FieldMap({ fields, counties, selected, onSelect }: FieldMapProps
   // Outlines must be light on the aerial photo and dark on the light base map.
   const outline = layer === 'aerial' ? '#ffffff' : '#2a221c'
   const highlight = layer === 'aerial' ? '#ffd60a' : '#b5179e'
-  const note = LAYER_NOTES[layer]
+  const note = layer === 'aerial' ? null : LAYER_NOTES[layer]
+  const canOpen = layer !== 'aerial' && viewerHas[layer]
 
   const selectField = (fieldId: string) => {
     setTarget(null)
@@ -150,7 +165,7 @@ export function FieldMap({ fields, counties, selected, onSelect }: FieldMapProps
           onGoTo={setTarget}
           className="z-20 w-full max-w-[420px]"
         />
-        <div className="max-w-full self-start overflow-x-auto rounded-full">
+        <div className="max-w-full self-start">
           <SegmentedControl
             label={t('Map layer')}
             options={LAYERS.map((option) => ({ ...option, label: t(option.label) }))}
@@ -161,13 +176,23 @@ export function FieldMap({ fields, counties, selected, onSelect }: FieldMapProps
         </div>
       </div>
 
-      {note && (
-        <p
+      {note && layer !== 'aerial' && (
+        <div
           role="status"
-          className="pw-glass absolute bottom-3 left-3 z-[1000] max-w-[min(26rem,calc(100%-5rem))] rounded-2xl px-4 py-3 text-[13px] text-foreground lg:bottom-4 lg:left-[336px]"
+          className="pw-glass absolute bottom-3 left-3 z-[1000] flex max-w-[min(26rem,calc(100%-5rem))] flex-col items-start gap-2.5 rounded-2xl px-4 py-3 text-[13px] text-foreground lg:bottom-4 lg:left-[336px]"
         >
-          {t(note)}
-        </p>
+          <p>{t(canOpen ? note.note : note.none)}</p>
+          {canOpen && (
+            <button
+              type="button"
+              onClick={() => onOpenViewer(layer)}
+              className="pw-press pw-brand inline-flex min-h-10 items-center gap-1.5 rounded-full px-4 text-[13px] font-medium"
+            >
+              {t(note.action)}
+              <ArrowUpRight aria-hidden className="h-4 w-4" />
+            </button>
+          )}
+        </div>
       )}
     </div>
   )

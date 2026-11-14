@@ -63,6 +63,30 @@ export type HeatScene = {
 
 export type HeatSummary = { source: string; note: string; scenes: HeatScene[] }
 
+// Scenes that contain a field, newest first.
+export function heatScenesFor(heat: HeatSummary | null, fieldId: string): HeatScene[] {
+  return (heat?.scenes ?? [])
+    .filter((scene) => fieldId in scene.fields)
+    .sort((a, b) => b.time_utc.localeCompare(a.time_utc))
+}
+
+// The three views of a field from above (tiles in the field card, tabs of the popup).
+export type ViewerTab = 'aerial' | 'greenness' | 'heat'
+
+export const VIEWER_TAB_LABEL: Record<ViewerTab, string> = {
+  aerial: 'Aerial photo',
+  greenness: 'Greenness',
+  heat: 'Surface heat',
+}
+
+// Labels of the popup's tabs. Same words in English; Polish gets one short word each so that all three tabs
+// fit on a phone (the "(tab)" keys are resolved in lib/i18n.ts and lib/pl.ts).
+export const VIEWER_TAB_SHORT: Record<ViewerTab, string> = {
+  aerial: 'Aerial photo (tab)',
+  greenness: 'Greenness (tab)',
+  heat: 'Surface heat (tab)',
+}
+
 // The file is shared by all fields, so it is fetched once.
 let heatCache: Promise<HeatSummary | null> | null = null
 

@@ -44,6 +44,7 @@ function Logo() {
 
 // Field history in miniature: one bar per year in the crop colour. Decorative (the full history with
 // captions is in the field card), so hidden from screen readers. Changes smoothly when another field is selected.
+// It is the one flexible part of the bar: when the labels are long (Polish) it narrows so that nothing is cut off.
 function HistoryStrip({ field }: { field: FieldFeature }) {
   const p = field.properties
   const first = p.crop_sequence_first_year
@@ -53,7 +54,7 @@ function HistoryStrip({ field }: { field: FieldFeature }) {
     <span
       aria-hidden
       title={t('What grew on {field}, {from}–{to}', { field: fieldShortName(p), from: first, to: first + letters.length - 1 })}
-      className="flex h-3 w-9 shrink-0 overflow-hidden rounded-full sm:w-28"
+      className="flex h-3 w-9 min-w-9 shrink overflow-hidden rounded-full sm:w-28"
     >
       {letters.map((letter, i) => (
         <span key={i} className={cn('flex-1 transition-colors duration-500', CROP_FILL_CLASS[toCropLetter(letter)])} />
@@ -88,25 +89,27 @@ export function TopBar({ selected }: TopBarProps) {
                     end={tab.to === '/'}
                     className={({ isActive }) =>
                       cn(
-                        'pw-press flex min-h-10 items-center whitespace-nowrap rounded-full px-3 text-[15px] xl:px-4',
+                        'pw-press flex min-h-10 items-center whitespace-nowrap rounded-full px-3 text-[15px] 2xl:px-4',
                         isActive
                           ? 'bg-card font-medium text-foreground shadow-soft'
                           : 'text-muted-foreground hover:bg-foreground/5 hover:text-foreground',
                       )
                     }
                   >
-                    {t(tab.label)}
+                    {/* Narrow laptop: the short label from the phone tab bar, so the bar fits in both languages */}
+                    <span className="xl:hidden">{t(tab.short)}</span>
+                    <span className="hidden xl:inline">{t(tab.label)}</span>
                   </NavLink>
                 </li>
               ))}
             </ul>
           </nav>
 
-          <div className="ml-auto flex items-center gap-1.5">
+          <div className="ml-auto flex min-w-0 items-center gap-1.5">
             {selected && (
-              <p className="flex min-h-10 items-center gap-2.5 rounded-full bg-foreground/5 px-3 text-[14px] font-medium sm:px-3.5 sm:text-[15px]">
+              <p className="flex min-h-10 min-w-0 items-center gap-2.5 rounded-full bg-foreground/5 px-3 text-[14px] font-medium sm:px-3.5 sm:text-[15px]">
                 <span className="sr-only">{t('Selected field:')}</span>
-                <span className="whitespace-nowrap font-mono">{fieldShortName(selected.properties)}</span>
+                <span className="shrink-0 whitespace-nowrap font-mono">{fieldShortName(selected.properties)}</span>
                 <HistoryStrip field={selected} />
               </p>
             )}
@@ -116,7 +119,7 @@ export function TopBar({ selected }: TopBarProps) {
               aria-label={t('How we know')}
               className={({ isActive }) =>
                 cn(
-                  'pw-press flex min-h-10 min-w-10 items-center justify-center gap-2 whitespace-nowrap rounded-full px-2.5 text-[15px] xl:px-4',
+                  'pw-press flex min-h-10 min-w-10 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full px-2.5 text-[15px] xl:px-3 2xl:px-4',
                   isActive
                     ? 'bg-card font-medium text-foreground shadow-soft'
                     : 'text-muted-foreground hover:bg-foreground/5 hover:text-foreground',
