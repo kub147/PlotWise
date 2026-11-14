@@ -1,11 +1,7 @@
-"""Download the K-State AgManager dryland cost-return budgets used for reference/costs.csv.
+"""Download K-State AgManager dryland cost-return budget PDFs (2016-2027) to data/raw/agmanager/.
 
-Budget years 2016-2027, Southwest / Western Kansas, non-irrigated: wheat (W-F), wheat (W-S/C-F),
-grain sorghum (W-S-F), corn (W-C-F), oil-type sunflower (W-SF-F). No key needed.
-
-    python scripts/fetch_agmanager.py
-
-Output (raw, not committed): data/raw/agmanager/<budget year>__<file name>.pdf
+Regions: Southwest, Northwest, North Central, South Central and Western Kansas.
+Crops: wheat, grain sorghum, corn, oil-type sunflower. Files already on disk are not downloaded again.
 """
 from __future__ import annotations
 
@@ -23,9 +19,9 @@ PAGES = {
        for y in range(2016, 2027)},
     2027: f"{SITE}/farm-budgets/2027-farm-management-guides-non-irrigated-crops",
 }
-WANT = re.compile(r"(southwest|_sw|sw_|western)", re.I)
+WANT = re.compile(r"(southwest|northwest|north central|south central|western|^(SW|NW|NC|SC)_)", re.I)
 CROP = re.compile(r"(wheat|sorghum|corn|sunflower|fallow)", re.I)
-SKIP = re.compile(r"(durum|silage|confection|forage|hay|double)", re.I)
+SKIP = re.compile(r"(durum|silage|confection|forage|hay|double|soybean|alfalfa|cotton|canola|irrigat)", re.I)
 HEADERS = {"User-Agent": "field-shift-research-script"}
 
 
@@ -52,7 +48,7 @@ def main() -> None:
             name = urllib.parse.unquote(link.rsplit("/", 1)[-1])
             if not (WANT.search(name) and CROP.search(name)) or SKIP.search(name):
                 continue
-            # links appear as relative paths, or absolute on agmanager.info without "www"
+
             path = re.sub(r"^https?://(www\.)?agmanager\.info", "", link)
             url = SITE + urllib.parse.quote(urllib.parse.unquote(path))
             target = OUT / f"{year}__{name.replace(' ', '_')}"

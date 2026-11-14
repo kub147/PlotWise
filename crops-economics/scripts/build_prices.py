@@ -1,17 +1,7 @@
-"""Build reference/prices.csv: Kansas marketing-year prices received, nominal and in 2025 dollars.
+"""Build reference/prices.csv (Kansas marketing-year prices) and reference/cpi_u_annual.csv.
 
-Inputs
-    data/raw/nass/prices_ks.json   (from fetch_nass.py; needs NASS_API_KEY once)
-    data/raw/fred_CPIAUCSL.csv     (CPI-U, monthly, seasonally adjusted; downloaded here if missing)
-Output
-    reference/prices.csv
-    reference/cpi_u_annual.csv
-
-Conventions (see reference/README.md):
-- `year` is the first calendar year of the marketing year = the harvest year of that crop
-  (wheat MY Jun-May, corn / sorghum / sunflower MY Sep-Aug).
-- Real prices use the calendar-year average CPI-U of `year`, rebased to 2025 = 1.
-- NASS reports grain sorghum and sunflower in $/cwt; converted to $/bu (sorghum, 56 lb) and $/kg.
+Prices are converted to USD per bushel and per kg ($/cwt for sorghum and sunflower) and to 2025 USD
+with the annual average CPI-U of the harvest year. A single missing CPI month is linearly interpolated.
 """
 from __future__ import annotations
 
@@ -23,7 +13,8 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from units import BUSHEL_KG, CWT_KG, LB_KG  # noqa: E402
+from units import BUSHEL_KG, CWT_KG, LB_KG
+
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -56,6 +47,8 @@ def annual_cpi() -> dict[int, float]:
     with CPI_RAW.open() as f:
         obs = [(r["observation_date"][:7], r["CPIAUCSL"]) for r in csv.DictReader(f)]
     vals = [float(v) if v not in ("", ".") else None for _, v in obs]
+
+
     for i, v in enumerate(vals):
         if v is None and 0 < i < len(vals) - 1 and vals[i - 1] is not None and vals[i + 1] is not None:
             vals[i] = (vals[i - 1] + vals[i + 1]) / 2
@@ -72,7 +65,7 @@ def to_number(s: str) -> float | None:
     s = s.strip().replace(",", "")
     try:
         return float(s)
-    except ValueError:  
+    except ValueError:
         return None
 
 
@@ -94,7 +87,7 @@ def main() -> None:
         return
     rows = json.loads(NASS_RAW.read_text())
 
-    series = defaultdict(dict)  
+    series = defaultdict(dict)
     for r in rows:
         if r.get("reference_period_desc") != "MARKETING YEAR" or r.get("agg_level_desc") != "STATE":
             continue

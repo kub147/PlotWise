@@ -12,8 +12,8 @@ ROOT = Path(__file__).resolve().parent.parent
 REF = ROOT / "reference"
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from lookup import Economics  # noqa: E402
-from units import bu_acre_to_kg_ha  # noqa: E402
+from lookup import Economics 
+from units import bu_acre_to_kg_ha  
 
 
 def rows(name: str) -> list[dict]:
@@ -48,7 +48,6 @@ class TestCrops(unittest.TestCase):
                 total = sum(int(x) for x in r["stage_lengths_days"].split("/"))
                 self.assertEqual(total, int(r["season_days"]), r["crop"])
                 self.assertEqual((int(r["plant_doy"]) - 1 + total) % 365 + 1, int(r["maturity_doy"]), r["crop"])
-                # harvest is on or after maturity (within 60 days)
                 gap = (int(r["harvest_doy"]) - int(r["maturity_doy"])) % 365
                 self.assertLessEqual(gap, 60, r["crop"])
                 stages = [int(x) for x in r["stage_lengths_days"].split("/")]
@@ -104,18 +103,33 @@ class TestCosts(unittest.TestCase):
             self.assertIn("agmanager.info", r["source"])
 
     def test_cycle_equals_kstate_budget(self):
-        # WF 2020: wheat phase + fallow phase == K-State wheat W-F total minus crop insurance
-        c = {(int(r["year"]), r["cost_key"]): r for r in rows("costs.csv")}
+        # SW W-F 2018-2026: wheat phase + fallow phase == K-State wheat W-F total minus crop insurance
+        c = {(int(r["year"]), r.get("region", "SW"), r["cost_key"]): r for r in rows("costs.csv")}
         for y in range(2018, 2027):
-            w = c[(y, "wheat|W-F")]
-            f = c[(y, "fallow|any")]
+            w = c[(y, "SW", "wheat|W-F")]
+            f = c[(y, "SW", "fallow|any")]
             expected = float(w["kstate_total_usd_acre"]) - float(w["crop_insurance_usd_acre"])
             self.assertAlmostEqual(float(w["cost_usd_per_acre"]) + float(f["cost_usd_per_acre"]), expected,
                                    delta=0.05, msg=y)
 
+    def test_unique_and_regions(self):
+        keys = [(r["year"], r["region"], r["cost_key"]) for r in rows("costs.csv")]
+        self.assertEqual(len(keys), len(set(keys)), "duplicate (year, region, cost_key)")
+        self.assertEqual({r["region"] for r in rows("costs.csv")}, {"SW", "NW", "NC", "SC"})
+
+    def test_every_rotation_has_cost_in_every_region(self):
+        rot = json.loads((REF / "rotations.json").read_text())["rotations"]
+        have = {(r["region"], r["cost_key"]) for r in rows("costs.csv")}
+        for reg in ("SW", "NW", "NC", "SC"):
+            for r in rot:
+                if r.get("status") in ("stretch", "validation_only"):
+                    continue
+                for p in r["phase_details"]:
+                    self.assertIn((reg, p["cost_key"]), have, (reg, r["id"]))
+
     def test_lookup_fallback(self):
         e = Economics()
-        mean = e.mean_real_cost["sorghum|W-S-F"]
+        mean = e.mean_real_cost[("SW", "sorghum|W-S-F")]
         self.assertAlmostEqual(e.phase_cost_usd_per_acre(2005, "sorghum|W-S-F"), mean)
         self.assertLess(e.phase_cost_usd_per_acre(2005, "sorghum|W-S-F", real=False), mean)
 
@@ -164,6 +178,31 @@ class TestCountyVsTrial(unittest.TestCase):
         for r in rows("county_vs_trial.csv"):
             self.assertTrue(0.2 < float(r["ratio_of_means"]) < 1.5, r)
             self.assertGreater(int(r["years"]), 0)
+
+
+
+@unittest.skipUnless((REF / "county_budget_regions.csv").exists(), "county_budget_regions.csv not built yet")
+class TestCountyRegions(unittest.TestCase):
+    def test_regions_valid(self):
+        for r in rows("county_budget_regions.csv"):
+            self.assertIn(r["budget_region"], {"SW", "NW", "NC", "SC", "unknown"})
+            if r["in_study_area"] == "true":
+                self.assertNotEqual(r["budget_region"], "unknown", r)
+
+    def test_every_study_county_has_region(self):
+        from study_area import load_counties
+        study = load_counties()
+        if not study:
+            self.skipTest("team counties.geojson not found")
+        have = {r["county_fips"][2:] for r in rows("county_budget_regions.csv")}
+        missing = sorted(set(study) - have)
+        self.assertFalse(missing, f"study-area counties without a budget region (rerun fetch): {missing}")
+
+    def test_demo_counties(self):
+        reg = {r["county_name"]: r["budget_region"] for r in rows("county_budget_regions.csv")}
+        for name, want in (("Greeley", "SW"), ("Thomas", "NW"), ("Ellis", "NC")):
+            if name in reg:
+                self.assertEqual(reg[name], want, name)
 
 
 if __name__ == "__main__":

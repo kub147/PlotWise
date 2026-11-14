@@ -1,7 +1,7 @@
 crop,area,trial_series,years,first_year,last_year,mean_county_bu_acre,mean_trial_bu_acre,ratio_of_means,median_yearly_ratio,pearson_r,source
 grain_sorghum,Greeley County,sorghum_wssf_first,7,1996,2005,61.1,85.3,0.717,0.687,0.687,"NASS QuickStats non-irrigated yields (E27) vs Schlegel, Holman, Burnett 2021 Tables 1-2 (E01, E02)"
 grain_sorghum,West Central district,sorghum_wssf_first,12,1996,2007,62.2,73.4,0.848,0.852,0.852,"NASS QuickStats non-irrigated yields (E27) vs Schlegel, Holman, Burnett 2021 Tables 1-2 (E01, E02)"
-grain_sorghum,mean of fetched counties,sorghum_wssf_first,12,1996,2007,59.3,73.4,0.808,0.75,0.878,"NASS QuickStats non-irrigated yields (E27) vs Schlegel, Holman, Burnett 2021 Tables 1-2 (E01, E02)"
+grain_sorghum,mean of West Central counties,sorghum_wssf_first,12,1996,2007,60.2,73.4,0.821,0.797,0.85,"NASS QuickStats non-irrigated yields (E27) vs Schlegel, Holman, Burnett 2021 Tables 1-2 (E01, E02)"
 winter_wheat,Greeley County,wheat_wssf+wheat_wwsf_first,14,1997,2013,31.9,37.3,0.854,0.77,0.942,"NASS QuickStats non-irrigated yields (E27) vs Schlegel, Holman, Burnett 2021 Tables 1-2 (E01, E02)"
 winter_wheat,West Central district,wheat_wssf+wheat_wwsf_first,20,1997,2016,36.3,39.3,0.925,0.831,0.801,"NASS QuickStats non-irrigated yields (E27) vs Schlegel, Holman, Burnett 2021 Tables 1-2 (E01, E02)"
-winter_wheat,mean of fetched counties,wheat_wssf+wheat_wwsf_first,19,1997,2016,36.1,38.8,0.931,0.875,0.835,"NASS QuickStats non-irrigated yields (E27) vs Schlegel, Holman, Burnett 2021 Tables 1-2 (E01, E02)"
+winter_wheat,mean of West Central counties,wheat_wssf+wheat_wwsf_first,20,1997,2016,36.2,39.3,0.921,0.815,0.795,"NASS QuickStats non-irrigated yields (E27) vs Schlegel, Holman, Burnett 2021 Tables 1-2 (E01, E02)"

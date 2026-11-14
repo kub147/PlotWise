@@ -1,12 +1,7 @@
-"""Build reference/county_yields.csv: NASS county (and West Central district) yields, for validation level 3.
+"""Build reference/county_yields.csv from NASS county and district yields.
 
-Inputs : data/raw/nass/county_yields_ks.json, data/raw/nass/district_yields_ks.json (fetch_nass.py)
-Output : reference/county_yields.csv
-
-One row per (level, area, year, crop, practice). `practice` keeps NASS's production practice
-(e.g. NON-IRRIGATED, IRRIGATED, ALL PRODUCTION PRACTICES, and for wheat any "FOLLOWING SUMMER FALLOW"
-split if NASS has it). Withheld values ("(D)") are dropped and counted in the printout, so a gap is
-visible rather than silently filled. Dryland validation should use practice == NON-IRRIGATED.
+Keeps winter wheat, grain corn, grain sorghum and sunflower; adds yield in kg/ha, the NASS district
+and in_study_area (county listed in data/processed/counties.geojson). Withheld values are dropped.
 """
 from __future__ import annotations
 
@@ -17,7 +12,8 @@ from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from units import bu_acre_to_kg_ha, lb_acre_to_kg_ha  # noqa: E402
+from units import bu_acre_to_kg_ha, lb_acre_to_kg_ha
+from study_area import load_counties
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -31,15 +27,16 @@ BUCROP = {"winter_wheat": "wheat", "grain_sorghum": "sorghum", "corn": "corn"}
 def keep(r: dict) -> bool:
     sd = r["short_desc"]
     if r["commodity_desc"] == "WHEAT" and "WINTER" not in sd:
-        return False  
+        return False
     if r["commodity_desc"] == "CORN" and "GRAIN" not in sd:
-        return False 
+        return False
     if r["commodity_desc"] == "SORGHUM" and "GRAIN" not in sd:
-        return False 
+        return False
     return r.get("reference_period_desc", "YEAR") == "YEAR"
 
 
 def practice(sd: str) -> str:
+
     head = sd.split(" - ")[0]
     parts = [p.strip() for p in head.split(",")]
     rest = [p for p in parts[1:] if p not in ("WINTER", "GRAIN", "OIL TYPE")]
@@ -47,6 +44,7 @@ def practice(sd: str) -> str:
 
 
 def main() -> None:
+    study = load_counties()
     rows, withheld = [], Counter()
     for path in RAW:
         if not path.exists():
@@ -72,6 +70,8 @@ def main() -> None:
             rows.append({
                 "level": level, "area": area.title(),
                 "county_fips": f'20{r["county_ansi"]}' if level == "county" else "",
+                "nass_district": r.get("asd_desc", "").title(),
+                "in_study_area": (str(r["county_ansi"] in study).lower() if (level == "county" and study) else ""),
                 "year": int(r["year"]), "crop": crop, "practice": practice(r["short_desc"]),
                 "yield_value": v, "yield_unit": unit.lower().replace(" ", ""),
                 "yield_kg_ha": round(kg, 1),
@@ -83,12 +83,18 @@ def main() -> None:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
         w.writeheader()
         w.writerows(rows)
-    summary = Counter((r["level"], r["area"], r["crop"], r["practice"]) for r in rows)
-    for k, n in sorted(summary.items()):
-        yrs = [r["year"] for r in rows if (r["level"], r["area"], r["crop"], r["practice"]) == k]
-        print(f"{k}: {n} years ({min(yrs)}-{max(yrs)})")
-    for k, n in sorted(withheld.items()):
-        print(f"withheld {k}: {n} values")
+    dry = [r for r in rows if r["practice"] == "NON-IRRIGATED"]
+    for crop in sorted({r["crop"] for r in dry}):
+        cs = [r for r in dry if r["crop"] == crop and r["level"] == "county"]
+        sa = [r for r in cs if r["in_study_area"] == "true"]
+        print(f"{crop}: non-irrigated county yields {len(cs)} county-years in {len({r['area'] for r in cs})} "
+              f"counties; study area {len(sa)} county-years in {len({r['area'] for r in sa})} counties")
+    print(f"withheld values dropped: {sum(withheld.values())}")
+    if study:
+        have = {r["county_fips"][2:] for r in dry if r["level"] == "county"}
+        miss = sorted(study[c]["name"] for c in set(study) - have)
+        if miss:
+            print(f"study-area counties with no non-irrigated yields at all: {miss}")
     print(f"wrote {OUT}")
 
 

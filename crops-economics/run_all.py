@@ -1,4 +1,10 @@
+"""Rebuild crops-economics/reference/ and run the tests.
 
+    python crops-economics/run_all.py            uses local raw files only, no downloads
+    python crops-economics/run_all.py --refresh  downloads K-State PDFs and, with NASS_API_KEY set, NASS data
+
+A step whose raw input is missing is skipped and the committed result in reference/ is kept.
+"""
 from __future__ import annotations
 
 import os
@@ -24,6 +30,7 @@ def main() -> int:
     ok = True
     refresh = "--refresh" in sys.argv
 
+
     if refresh and os.environ.get("NASS_API_KEY"):
         ok &= run("fetch_nass.py")
     elif refresh:
@@ -36,18 +43,21 @@ def main() -> int:
     if nass_ready and (RAW / "nass/progress_ks.json").exists():
         ok &= run("derive_crop_calendar.py")
 
+
     r = run("build_prices.py")
     ok &= r or not nass_ready
     if nass_ready:
         ok &= run("build_county_yields.py")
+        ok &= run("build_county_regions.py")
         if (ROOT.parent / "reference/kstate_tribune_rotation_yields.csv").exists():
             ok &= run("compare_county_vs_trial.py")
         else:
             print("\n--- repo reference/kstate_tribune_rotation_yields.csv not found: skipping county vs trial")
 
+
     ok &= run("build_crops.py")
 
-    # 4. Costs from the K-State PDFs
+
     if shutil.which("pdftotext") is None:
         print("\n--- pdftotext not found: keeping the committed reference/costs.csv "
               "(install poppler-utils to rebuild it)")

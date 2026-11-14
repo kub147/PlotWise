@@ -1,13 +1,8 @@
-"""Parse K-State AgManager dryland cost-return budgets (Southwest / Western Kansas) into a flat table.
+"""Read K-State budget PDFs into data/raw/agmanager/budgets_parsed.csv, one row per PDF.
 
-Input : PDFs downloaded from agmanager.info into data/raw/agmanager/ (file names start with the
-        budget year, e.g. "2026__Wheat_(W-F)_Cost-Return_Budget_in_Southwest_KS__Nov-01-2025.pdf").
-Output: data/raw/agmanager/budgets_parsed.csv  (one row per budget, middle / average yield level)
-
-Only the first budget in each PDF is read: that is the middle ("average") yield level.
-Requires `pdftotext` (poppler-utils).
-
-Usage: python scripts/parse_agmanager_budgets.py
+Uses pdftotext. From the middle-yield budget (the first in each PDF) it reads: price, yield, direct costs,
+crop insurance, herbicides, cash rent (rate and acre-years charged), fixed costs and total costs.
+Region, crop and rotation context come from the file name.
 """
 from __future__ import annotations
 
@@ -29,19 +24,40 @@ def money(s: str) -> float:
     return -float(s.replace("-", "")) if neg else float(s.replace("-", ""))
 
 
+def region_of(name: str) -> str:
+    """Budget region from the file name: SW, NW, NC, SC or W (Western Kansas)."""
+    n = name.lower().replace("_", " ")
+    if "southwest" in n or name.startswith(("SW_", "SW ")):
+        return "SW"
+    if "northwest" in n or name.startswith(("NW_", "NW ")):
+        return "NW"
+    if "north central" in n or name.startswith(("NC_", "NC ")):
+        return "NC"
+    if "south central" in n or name.startswith(("SC_", "SC ")):
+        return "SC"
+    if "western" in n:
+        return "W"
+    raise ValueError(f"unknown region in {name}")
+
+
 def classify(name: str) -> tuple[str, str]:
-    """Return (crop, rotation_context) from the file name."""
+    """Crop and rotation context from the file name."""
     n = name.lower()
     if "sunflower" in n:
-        return "sunflower", "W-SF-F"
+        return "sunflower", ("W-SF-F" if "w-sf-f" in n else "dryland")
     if "sorghum" in n:
-        return "sorghum", "W-S-F"
+        return "sorghum", ("W-S-F" if ("w-s-f" in n or "wsf" in n) else "rotation")
     if "corn" in n:
-        return "corn", "W-C-F"
+        return "corn", ("W-C-F" if ("w-c-f" in n or "wcf" in n) else "rotation")
     if "wheat" in n:
         if "w-s_c-f" in n or "wsf" in n:
             return "wheat", "W-S/C-F"
-        return "wheat", "W-F"
+        if "(w-f)" in n or "wheatfallow" in n:
+            return "wheat", "W-F"
+        if "continuous" in n:
+            return "wheat", "continuous"
+        if "rotation" in n:
+            return "wheat", "rotation"
     raise ValueError(f"unknown crop in {name}")
 
 
@@ -54,11 +70,13 @@ def parse(pdf: Path) -> dict:
     text = subprocess.run(["pdftotext", "-layout", str(pdf), "-"], capture_output=True, text=True,
                           check=True).stdout
 
+
     start = text.find("INCOME")
     body = text[start:]
 
     crop, ctx = classify(pdf.name)
     budget_year = int(pdf.name[:4])
+    region = region_of(pdf.name.split("__", 1)[1])
     date_m = first(r"Date:\s*([A-Za-z]{3}-\d{2}-\d{4})", text)
 
     prod = first(r"Product\s*\n\s+(.+?)\s{2,}(bu|cwt|lb)\s+\$([\d.]+)\s+([\d.]+)\s+\$([\d,.]+)", body)
@@ -84,6 +102,10 @@ def parse(pdf: Path) -> dict:
     else:
         raise ValueError(f"no cash rent in {pdf.name}")
 
+
+    herb = first(r"Herbicides.*?\$([\d,]+\.\d\d)\s+_{3,}", body, re.S)
+    herb_v = money(herb.group(1)) if herb else float("nan")
+
     total_spec = first(r"--TOTAL SPECIFIED EXPENSES--\s+(" + MONEY + ")", body)
     total_v = money(total_spec.group(1)) if total_spec else direct_v + fixed_v
     if abs(total_v - (direct_v + fixed_v)) > 1.0:
@@ -92,6 +114,7 @@ def parse(pdf: Path) -> dict:
     return {
         "budget_year": budget_year,
         "budget_date": date_m.group(1) if date_m else "",
+        "region": region,
         "crop": crop,
         "rotation_context": ctx,
         "product": prod.group(1).strip(),
@@ -105,6 +128,7 @@ def parse(pdf: Path) -> dict:
         "cash_rent_acre_years_charged": rent_qty,
         "cash_rent_usd_acre": round(rent_amt, 2),
         "machinery_fixed_usd_acre": round(fixed_v - rent_amt, 2),
+        "herbicides_usd_acre": herb_v,
         "total_specified_usd_acre": round(total_v, 2),
         "source_file": pdf.name,
     }
@@ -116,7 +140,7 @@ def main(folder: str) -> None:
     for pdf in sorted(folder_p.glob("20*__*.pdf")):
         try:
             rows.append(parse(pdf))
-        except Exception as e:  # report and continue: a missing budget must be visible, not silent
+        except Exception as e:
             errors.append(f"{pdf.name}: {e}")
     out = folder_p / "budgets_parsed.csv"
     with out.open("w", newline="") as f:

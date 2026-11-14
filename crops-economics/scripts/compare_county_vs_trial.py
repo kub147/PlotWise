@@ -1,17 +1,9 @@
-"""Compare NASS county yields with the Tribune trial yields (research-evidence open question 4).
+"""Build reference/county_vs_trial.csv: NASS non-irrigated yields vs Tribune trial yields, same years.
 
-Inputs : reference/county_yields.csv (this folder, from build_county_yields.py)
-         <repo root>/reference/kstate_tribune_rotation_yields.csv  (the team's transcribed K-State table;
-         read only, never modified). Another path can be given as the first argument.
-Output : reference/county_vs_trial.csv  (one row per crop and comparison area)
-
-Pairs compared, same year, non-irrigated county yields:
-  winter wheat : trial wheat after fallow  = mean of wheat_wssf and wheat_wwsf_first (those present)
-  grain sorghum: trial sorghum after wheat = sorghum_wssf_first
-Areas: Greeley County, the mean of all fetched counties for that year, and the West Central district.
-
-Reported: number of common years, mean county and trial yields, ratio of means (county / trial),
-median of yearly ratios (years with trial yield > 5 bu/acre), Pearson r of the yearly series.
+Wheat: county vs mean of wheat_wssf and wheat_wwsf_first. Sorghum: county vs sorghum_wssf_first.
+Areas: Greeley County, West Central district, mean of West Central counties.
+Output per area: years, mean yields, ratio of means, median yearly ratio, Pearson r.
+The trial table is read from reference/kstate_tribune_rotation_yields.csv in the repo root.
 """
 from __future__ import annotations
 
@@ -84,14 +76,16 @@ def main() -> None:
             if r["practice"] != "NON-IRRIGATED" or r["crop"] not in TRIAL_COLUMNS:
                 continue
             y, v = int(r["year"]), float(r["yield_value"])
+            district = (r.get("nass_district") or "").upper()
             if r["level"] == "county":
-                all_counties[(r["crop"], y)].append(v)
+                if district in ("", "WEST CENTRAL"):
+                    all_counties[(r["crop"], y)].append(v)
                 if r["area"] == "Greeley":
                     areas[(r["crop"], "Greeley County")][y] = v
-            else:
-                areas[(r["crop"], f'{r["area"]} district')][y] = v
+            elif r["area"].upper() == "WEST CENTRAL":
+                areas[(r["crop"], "West Central district")][y] = v
     for (crop, y), vals in all_counties.items():
-        areas[(crop, "mean of fetched counties")][y] = sum(vals) / len(vals)
+        areas[(crop, "mean of West Central counties")][y] = sum(vals) / len(vals)
 
     rows = []
     for (crop, area), series in sorted(areas.items()):

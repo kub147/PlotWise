@@ -1,17 +1,8 @@
-"""Download the USDA NASS QuickStats series that workstream C needs, as raw JSON.
+"""Download NASS QuickStats data for Kansas to data/raw/nass/ as JSON.
 
-Needs a free API key (https://quickstats.nass.usda.gov/api) in the environment variable NASS_API_KEY.
-
-    export NASS_API_KEY=...            # never commit the key
-    python scripts/fetch_nass.py
-
-Writes (raw, not committed):
-    data/raw/nass/prices_ks.json         Kansas marketing-year prices received, 1990 ->
-    data/raw/nass/county_yields_ks.json  County yields (all practices) for the validation counties, 1990 ->
-    data/raw/nass/district_yields_ks.json  West Central district yields (fallback when a county is withheld)
-    data/raw/nass/progress_ks.json       Kansas weekly crop progress (% planted / harvested), 1995 ->
-
-Then run build_prices.py and build_county_yields.py (they work offline from these files).
+Needs NASS_API_KEY. Downloads marketing-year prices, county and district yields (1990 onward,
+all Kansas counties, in decade chunks) and weekly crop progress (1995 onward).
+A query with no matching rows (HTTP 400) is stored as empty.
 """
 from __future__ import annotations
 
@@ -30,11 +21,8 @@ API = "https://quickstats.nass.usda.gov/api/api_GET/"
 FIRST_YEAR = 1990
 OUT = ROOT / "data/raw/nass"
 
-# Greeley and nearby west-central Kansas counties (Kansas FIPS county codes).
-COUNTIES = {
-    "071": "GREELEY", "199": "WALLACE", "203": "WICHITA", "075": "HAMILTON",
-    "093": "KEARNY", "171": "SCOTT", "109": "LOGAN",
-}
+
+DECADES = [(1990, 1999), (2000, 2009), (2010, 2019), (2020, 2030)]
 COMMODITIES = ["WHEAT", "SORGHUM", "CORN", "SUNFLOWER"]
 
 
@@ -47,7 +35,10 @@ def get(params: dict, key: str) -> list[dict]:
                 return json.load(r).get("data", [])
         except urllib.error.HTTPError as e:
             body = e.read().decode(errors="ignore")
-            if e.code == 400 and "no data" in body.lower():
+            if e.code == 400:
+
+
+                print(f"  (no rows: {body[:80].strip()} for {params})")
                 return []
             if attempt == 3:
                 raise RuntimeError(f"QuickStats {e.code}: {body[:300]} for {params}") from e
@@ -75,11 +66,11 @@ def main() -> None:
 
     county = []
     for c in COMMODITIES:
-        for fips in COUNTIES:
+        for y0, y1 in DECADES:
             rows = get({"source_desc": "SURVEY", "commodity_desc": c, "statisticcat_desc": "YIELD",
-                        "agg_level_desc": "COUNTY", "state_alpha": "KS", "county_ansi": fips,
-                        "year__GE": FIRST_YEAR}, key)
-            print(f"county yield {c} {COUNTIES[fips]}: {len(rows)} rows")
+                        "agg_level_desc": "COUNTY", "state_alpha": "KS",
+                        "year__GE": max(y0, FIRST_YEAR), "year__LE": y1}, key)
+            print(f"county yield {c} {y0}-{y1}: {len(rows)} rows")
             county += rows
     (OUT / "county_yields_ks.json").write_text(json.dumps(county, indent=0))
 
@@ -87,7 +78,7 @@ def main() -> None:
     for c in COMMODITIES:
         rows = get({"source_desc": "SURVEY", "commodity_desc": c, "statisticcat_desc": "YIELD",
                     "agg_level_desc": "AGRICULTURAL DISTRICT", "state_alpha": "KS",
-                    "asd_desc": "WEST CENTRAL", "year__GE": FIRST_YEAR}, key)
+                    "year__GE": FIRST_YEAR}, key)
         print(f"district yield {c}: {len(rows)} rows")
         district += rows
     (OUT / "district_yields_ks.json").write_text(json.dumps(district, indent=0))
@@ -103,7 +94,7 @@ def main() -> None:
     found = sorted({f'{r["agg_level_desc"]} | {r["short_desc"]}' for r in prices + county + district + progress})
     (OUT / "series_found.txt").write_text("\n".join(found))
     print(f"{len(found)} distinct series listed in {OUT / 'series_found.txt'}")
-    print("done; now run build_prices.py, build_county_yields.py, derive_crop_calendar.py, build_crops.py")
+    print("done; now run: python crops-economics/run_all.py")
 
 
 if __name__ == "__main__":

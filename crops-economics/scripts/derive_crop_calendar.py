@@ -1,12 +1,7 @@
-"""Derive typical planting and harvest dates for Kansas from NASS weekly crop progress.
+"""Build reference/crop_calendar_ks.csv from NASS weekly crop progress for Kansas.
 
-Input : data/raw/nass/progress_ks.json  (fetch_nass.py)
-Output: reference/crop_calendar_ks.csv  (read by build_crops.py, which then replaces its ASSUMPTION dates)
-
-For every year, the day of year when 50% of the crop was planted (or harvested) is interpolated
-between the two weekly reports around it; the table gives the median and the 10th / 90th percentile
-over the years. Kansas statewide: western Kansas plants wheat somewhat earlier than the state median,
-so these are a cross-check for the Tribune dates, not a replacement for local knowledge.
+For each year the day when 50% of the crop was planted or harvested is interpolated between weekly
+reports; the file gives the median and the 10th and 90th percentiles over years.
 """
 from __future__ import annotations
 
@@ -23,7 +18,7 @@ ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "data/raw/nass/progress_ks.json"
 OUT = ROOT / "reference/crop_calendar_ks.csv"
 
-SERIES = { 
+SERIES = {
     "winter_wheat": ("WHEAT, WINTER - PROGRESS, MEASURED IN PCT PLANTED",
                      "WHEAT, WINTER - PROGRESS, MEASURED IN PCT HARVESTED"),
     "grain_sorghum": ("SORGHUM - PROGRESS, MEASURED IN PCT PLANTED",
@@ -52,7 +47,7 @@ def pct(values: list[float], q: float) -> float:
 
 def main() -> None:
     rows = json.loads(RAW.read_text())
-    by = defaultdict(list)  
+    by = defaultdict(list)
     for r in rows:
         if not r.get("week_ending"):
             continue

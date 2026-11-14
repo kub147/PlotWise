@@ -25,6 +25,8 @@ State on 2026-11-14. What is done, what is assumed, what still needs a person.
 | A4 | WS-forage | Triticale forage: no yield function, no cost budget, no soil-water threshold | Holman et al. 2021 full text; K-State cover-crop budget tool |
 | A5 | 2026–2027 real dollars | CPI factor from the latest 12 published months | Rebuild in 2027 |
 | A6 | residue_class | Qualitative (high / medium / low) | K-State residue data, if a soil indicator needs numbers |
+| A8 | costs.csv, regions NC and SC | Central-Kansas K-State budgets have no fallow: they are used as proxies for the fallow-based rotations, and the fallow phase gets a weed-control allowance = herbicides of the same year's NW wheat (W-F) budget | A K-State fallow budget for central Kansas (none published) |
+| A9 | county_budget_regions.csv | K-State gives no county list for its budget regions: counties are assigned by NASS agricultural district; West Central and Central districts are split at 38.7 N | Ask K-State (AgManager) or the team's agronomy contact |
 | A7 | fallow cost | Land rent only; fallow operations are inside the next crop (K-State practice, E30) | — (this is a convention, not a guess) |
 
 ## Not done, and why

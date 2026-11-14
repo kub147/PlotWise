@@ -1,14 +1,7 @@
-"""USDA AMS Market News (MARS API): find Kansas grain bid reports and save the latest one.
+"""Download USDA AMS Market News grain reports for Kansas to data/raw/ams/ (needs AMS_API_KEY).
 
-Needs a free MARS API key (https://mymarketnews.ams.usda.gov/mymarketnews-api) in AMS_API_KEY.
-The key is sent as the HTTP basic-auth user name with an empty password (MARS convention).
-
-    export AMS_API_KEY=...
-    python scripts/fetch_ams.py                 # list Kansas grain reports
-    python scripts/fetch_ams.py <slug_id>       # save the latest issue of one report
-
-Output (raw, not committed): data/raw/ams/reports_kansas_grain.json, data/raw/ams/<slug_id>_latest.json
-Use: the "today" price scenario and the "is there a local market for this crop" check on the cards.
+    python fetch_ams.py            list Kansas grain reports
+    python fetch_ams.py <slug_id>  save the latest issue of one report
 """
 from __future__ import annotations
 

@@ -1,10 +1,4 @@
-"""Unit conversions used across workstream C. One place, so every file uses the same factors.
-
-Sources:
-- Bushel weights: USDA standard test weights (wheat 60 lb/bu; corn and grain sorghum 56 lb/bu).
-- 1 lb = 0.45359237 kg (exact, international pound); 1 acre = 0.40468564224 ha (exact);
-  1 inch = 25.4 mm (exact); 1 cwt (US hundredweight) = 100 lb.
-"""
+"""Unit conversion factors: bushel weights (wheat 60 lb, corn and sorghum 56 lb), lb, acre, inch, cwt."""
 LB_KG = 0.45359237
 ACRE_HA = 0.40468564224
 INCH_MM = 25.4

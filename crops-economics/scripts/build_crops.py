@@ -1,19 +1,9 @@
-"""Build reference/crops.csv: one row per crop, every number with its source.
+"""Build reference/crops.csv: one row per crop.
 
-All conversions are done here (inches -> mm, bu/acre -> kg/ha) so they can be audited.
-Units inside the pipeline are metric (work plan, "Files we exchange").
-
-Sources (IDs refer to reference/evidence.md):
-  E17  Stone, Schlegel, Khan, Klocke, Aiken (2006), Water supply: yield relationships..., Table 1
-       (threshold ET, yield per inch of ET, long-term slope, maximum ET) - also reference/kstate_yield_vs_et.csv
-  E23  FAO-56 (Allen et al. 1998) Table 12: Kc ini / mid / end
-  E24  FAO-56 Table 11: lengths of crop development stages
-  E25  FAO-56 Table 22: maximum effective rooting depth and depletion fraction p
-  E29  USDA standard bushel weights
-
-Crop calendar (plant_doy, stage lengths): FAO-56 gives generic stage lengths, not west-central Kansas.
-Values below are marked ASSUMPTION until replaced by derive_crop_calendar.py (NASS Kansas crop progress)
-and checked against field NDVI (workstream B).
+Yield-ET function from Stone et al. (2006) converted to metric; Kc, stage lengths, root depth and p
+from FAO-56 Tables 11, 12 and 22. Planting and harvest days come from reference/crop_calendar_ks.csv
+when available; for winter wheat the initial stage is adjusted so that the season ends at harvest.
+maturity_doy = planting day + sum of stage lengths.
 """
 from __future__ import annotations
 
@@ -22,12 +12,13 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from units import BUSHEL_KG, INCH_MM, LB_KG, bu_acre_to_kg_ha, lb_acre_to_kg_ha  
+from units import BUSHEL_KG, INCH_MM, LB_KG, bu_acre_to_kg_ha, lb_acre_to_kg_ha
+
 
 ROOT = Path(__file__).resolve().parent.parent
 
 OUT = ROOT / "reference/crops.csv"
-CALENDAR = ROOT / "reference/crop_calendar_ks.csv"  
+CALENDAR = ROOT / "reference/crop_calendar_ks.csv"
 
 
 STONE = {
@@ -42,6 +33,8 @@ BUSHEL_CROP = {"winter_wheat": "wheat", "grain_sorghum": "sorghum", "corn": "cor
 EXTRA_BUSHEL_LB = {"proso_millet": 50.0, "field_pea": 60.0}
 
 CROPS = [
+
+
     dict(crop="winter_wheat", name="Winter wheat", plant_doy=268, stages=(171, 47, 40, 21),
          kc=(0.4, 1.15, 0.30), root=1.65, p=0.55, residue="high", fixes_n=False, status="modelled",
          cal_note="planted ~25 Sep, harvested ~1 Jul next year; initial stage includes winter dormancy "
@@ -99,9 +92,12 @@ def main() -> None:
         if cal.get("harvest_doy_median"):
             harvest_obs = int(float(cal["harvest_doy_median"]))
         if crop == "winter_wheat" and harvest_obs:
+
+
             season_obs = (harvest_obs - plant) % 365
             stages[0] = season_obs - sum(stages[1:])
         maturity = doy_add(plant, sum(stages))
+
 
         harvest = harvest_obs if harvest_obs else maturity
         row = {
@@ -124,7 +120,7 @@ def main() -> None:
         if crop in STONE:
             thr_in, slope, slope_lt, max_in, unit = STONE[crop]
             if unit == "bu":
-                conv = lambda v: bu_acre_to_kg_ha(v, BUSHEL_CROP[crop])  # noqa: E731
+                conv = lambda v: bu_acre_to_kg_ha(v, BUSHEL_CROP[crop])
             else:
                 conv = lb_acre_to_kg_ha
             row["threshold_et_mm"] = round(thr_in * INCH_MM, 1)
@@ -145,6 +141,7 @@ def main() -> None:
                          f"root depth and p: FAO-56 Table 22 (E25); calendar: {cal_src}; "
                          f"bushel weight: USDA standard (E29)")
         rows.append(row)
+
 
     rows.append({k: "" for k in rows[0]} | {
         "crop": "fallow", "name": "Fallow (no-till, chemical weed control)", "status": "modelled",

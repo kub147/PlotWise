@@ -1,0 +1,106 @@
+county_fips,county_name,nass_district,lat,budget_region,in_study_area,rule
+20001,Allen,Southeast,,SC,false,NASS district Southeast (ASSUMPTION A9)
+20003,Anderson,East Central,,unknown,false,"NASS district East Central, latitude unknown (ASSUMPTION A9)"
+20005,Atchison,Northeast,,NC,false,NASS district Northeast (ASSUMPTION A9)
+20007,Barber,South Central,37.229,SC,true,NASS district South Central (ASSUMPTION A9)
+20009,Barton,Central,38.479,SC,true,"NASS district Central, latitude 38.48 < 38.7 (ASSUMPTION A9)"
+20011,Bourbon,Southeast,,SC,false,NASS district Southeast (ASSUMPTION A9)
+20013,Brown,Northeast,,NC,false,NASS district Northeast (ASSUMPTION A9)
+20015,Butler,Southeast,,SC,false,NASS district Southeast (ASSUMPTION A9)
+20017,Chase,East Central,,unknown,false,"NASS district East Central, latitude unknown (ASSUMPTION A9)"
+20019,Chautauqua,Southeast,,SC,false,NASS district Southeast (ASSUMPTION A9)
+20021,Cherokee,Southeast,,SC,false,NASS district Southeast (ASSUMPTION A9)
+20023,Cheyenne,Northwest,39.786,NW,true,NASS district Northwest (ASSUMPTION A9)
+20025,Clark,Southwest,37.235,SW,true,NASS district Southwest (ASSUMPTION A9)
+20027,Clay,North Central,,NC,false,NASS district North Central (ASSUMPTION A9)
+20029,Cloud,North Central,,NC,false,NASS district North Central (ASSUMPTION A9)
+20031,Coffey,East Central,,unknown,false,"NASS district East Central, latitude unknown (ASSUMPTION A9)"
+20033,Comanche,South Central,37.191,SC,true,NASS district South Central (ASSUMPTION A9)
+20035,Cowley,Southeast,,SC,false,NASS district Southeast (ASSUMPTION A9)
+20037,Crawford,Southeast,,SC,false,NASS district Southeast (ASSUMPTION A9)
+20039,Decatur,Northwest,39.785,NW,true,NASS district Northwest (ASSUMPTION A9)
+20041,Dickinson,Central,,unknown,false,"NASS district Central, latitude unknown (ASSUMPTION A9)"
+20043,Doniphan,Northeast,,NC,false,NASS district Northeast (ASSUMPTION A9)
+20045,Douglas,East Central,,unknown,false,"NASS district East Central, latitude unknown (ASSUMPTION A9)"
+20047,Edwards,South Central,37.888,SC,true,NASS district South Central (ASSUMPTION A9)
+20049,Elk,Southeast,,SC,false,NASS district Southeast (ASSUMPTION A9)
+20051,Ellis,Central,38.915,NC,true,"NASS district Central, latitude 38.91 >= 38.7 (ASSUMPTION A9)"
+20053,Ellsworth,Central,,unknown,false,"NASS district Central, latitude unknown (ASSUMPTION A9)"
+20055,Finney,Southwest,38.044,SW,true,NASS district Southwest (ASSUMPTION A9)
+20057,Ford,Southwest,37.692,SW,true,NASS district Southwest (ASSUMPTION A9)
+20059,Franklin,East Central,,unknown,false,"NASS district East Central, latitude unknown (ASSUMPTION A9)"
+20061,Geary,East Central,,unknown,false,"NASS district East Central, latitude unknown (ASSUMPTION A9)"
+20063,Gove,West Central,38.916,NW,true,"NASS district West Central, latitude 38.92 >= 38.7 (ASSUMPTION A9)"
+20065,Graham,Northwest,39.35,NW,true,NASS district Northwest (ASSUMPTION A9)
+20067,Grant,Southwest,37.562,SW,true,NASS district Southwest (ASSUMPTION A9)
+20069,Gray,Southwest,37.738,SW,true,NASS district Southwest (ASSUMPTION A9)
+20071,Greeley,West Central,38.48,SW,true,"NASS district West Central, latitude 38.48 < 38.7 (ASSUMPTION A9)"
+20073,Greenwood,Southeast,,SC,false,NASS district Southeast (ASSUMPTION A9)
+20075,Hamilton,Southwest,37.999,SW,true,NASS district Southwest (ASSUMPTION A9)
+20077,Harper,South Central,,SC,false,NASS district South Central (ASSUMPTION A9)
+20079,Harvey,South Central,,SC,false,NASS district South Central (ASSUMPTION A9)
+20081,Haskell,Southwest,37.562,SW,true,NASS district Southwest (ASSUMPTION A9)
+20083,Hodgeman,Southwest,38.087,SW,true,NASS district Southwest (ASSUMPTION A9)
+20085,Jackson,Northeast,,NC,false,NASS district Northeast (ASSUMPTION A9)
+20087,Jefferson,Northeast,,NC,false,NASS district Northeast (ASSUMPTION A9)
+20089,Jewell,North Central,,NC,false,NASS district North Central (ASSUMPTION A9)
+20091,Johnson,East Central,,unknown,false,"NASS district East Central, latitude unknown (ASSUMPTION A9)"
+20093,Kearny,Southwest,38.0,SW,true,NASS district Southwest (ASSUMPTION A9)
+20095,Kingman,South Central,,SC,false,NASS district South Central (ASSUMPTION A9)
+20097,Kiowa,South Central,37.558,SC,true,NASS district South Central (ASSUMPTION A9)
+20099,Labette,Southeast,,SC,false,NASS district Southeast (ASSUMPTION A9)
+20101,Lane,West Central,38.481,SW,true,"NASS district West Central, latitude 38.48 < 38.7 (ASSUMPTION A9)"
+20103,Leavenworth,Northeast,,NC,false,NASS district Northeast (ASSUMPTION A9)
+20105,Lincoln,Central,,unknown,false,"NASS district Central, latitude unknown (ASSUMPTION A9)"
+20107,Linn,East Central,,unknown,false,"NASS district East Central, latitude unknown (ASSUMPTION A9)"
+20109,Logan,West Central,38.917,NW,true,"NASS district West Central, latitude 38.92 >= 38.7 (ASSUMPTION A9)"
+20111,Lyon,East Central,,unknown,false,"NASS district East Central, latitude unknown (ASSUMPTION A9)"
+20113,Mcpherson,Central,,unknown,false,"NASS district Central, latitude unknown (ASSUMPTION A9)"
+20115,Marion,Central,,unknown,false,"NASS district Central, latitude unknown (ASSUMPTION A9)"
+20117,Marshall,Northeast,,NC,false,NASS district Northeast (ASSUMPTION A9)
+20119,Meade,Southwest,37.238,SW,true,NASS district Southwest (ASSUMPTION A9)
+20121,Miami,East Central,,unknown,false,"NASS district East Central, latitude unknown (ASSUMPTION A9)"
+20123,Mitchell,North Central,,NC,false,NASS district North Central (ASSUMPTION A9)
+20125,Montgomery,Southeast,,SC,false,NASS district Southeast (ASSUMPTION A9)
+20127,Morris,East Central,,unknown,false,"NASS district East Central, latitude unknown (ASSUMPTION A9)"
+20129,Morton,Southwest,37.191,SW,true,NASS district Southwest (ASSUMPTION A9)
+20131,Nemaha,Northeast,,NC,false,NASS district Northeast (ASSUMPTION A9)
+20133,Neosho,Southeast,,SC,false,NASS district Southeast (ASSUMPTION A9)
+20135,Ness,West Central,38.479,SW,true,"NASS district West Central, latitude 38.48 < 38.7 (ASSUMPTION A9)"
+20137,Norton,Northwest,39.784,NW,true,NASS district Northwest (ASSUMPTION A9)
+20139,Osage,East Central,,unknown,false,"NASS district East Central, latitude unknown (ASSUMPTION A9)"
+20141,Osborne,North Central,39.35,NC,true,NASS district North Central (ASSUMPTION A9)
+20143,Ottawa,North Central,,NC,false,NASS district North Central (ASSUMPTION A9)
+20145,Pawnee,South Central,38.181,SC,true,NASS district South Central (ASSUMPTION A9)
+20147,Phillips,North Central,39.785,NC,true,NASS district North Central (ASSUMPTION A9)
+20149,Pottawatomie,Northeast,,NC,false,NASS district Northeast (ASSUMPTION A9)
+20151,Pratt,South Central,37.648,SC,true,NASS district South Central (ASSUMPTION A9)
+20153,Rawlins,Northwest,39.785,NW,true,NASS district Northwest (ASSUMPTION A9)
+20155,Reno,South Central,,SC,false,NASS district South Central (ASSUMPTION A9)
+20157,Republic,North Central,,NC,false,NASS district North Central (ASSUMPTION A9)
+20159,Rice,Central,,unknown,false,"NASS district Central, latitude unknown (ASSUMPTION A9)"
+20161,Riley,Northeast,,NC,false,NASS district Northeast (ASSUMPTION A9)
+20163,Rooks,North Central,39.35,NC,true,NASS district North Central (ASSUMPTION A9)
+20165,Rush,Central,38.523,SC,true,"NASS district Central, latitude 38.52 < 38.7 (ASSUMPTION A9)"
+20167,Russell,Central,38.915,NC,true,"NASS district Central, latitude 38.91 >= 38.7 (ASSUMPTION A9)"
+20169,Saline,Central,,unknown,false,"NASS district Central, latitude unknown (ASSUMPTION A9)"
+20171,Scott,West Central,38.482,SW,true,"NASS district West Central, latitude 38.48 < 38.7 (ASSUMPTION A9)"
+20173,Sedgwick,South Central,,SC,false,NASS district South Central (ASSUMPTION A9)
+20175,Seward,Southwest,37.193,SW,true,NASS district Southwest (ASSUMPTION A9)
+20177,Shawnee,East Central,,unknown,false,"NASS district East Central, latitude unknown (ASSUMPTION A9)"
+20179,Sheridan,Northwest,39.35,NW,true,NASS district Northwest (ASSUMPTION A9)
+20181,Sherman,Northwest,39.351,NW,true,NASS district Northwest (ASSUMPTION A9)
+20183,Smith,North Central,39.785,NC,true,NASS district North Central (ASSUMPTION A9)
+20185,Stafford,South Central,38.031,SC,true,NASS district South Central (ASSUMPTION A9)
+20187,Stanton,Southwest,37.563,SW,true,NASS district Southwest (ASSUMPTION A9)
+20189,Stevens,Southwest,37.192,SW,true,NASS district Southwest (ASSUMPTION A9)
+20191,Sumner,South Central,,SC,false,NASS district South Central (ASSUMPTION A9)
+20193,Thomas,Northwest,39.351,NW,true,NASS district Northwest (ASSUMPTION A9)
+20195,Trego,West Central,38.914,NW,true,"NASS district West Central, latitude 38.91 >= 38.7 (ASSUMPTION A9)"
+20197,Wabaunsee,East Central,,unknown,false,"NASS district East Central, latitude unknown (ASSUMPTION A9)"
+20199,Wallace,West Central,38.917,NW,true,"NASS district West Central, latitude 38.92 >= 38.7 (ASSUMPTION A9)"
+20201,Washington,North Central,,NC,false,NASS district North Central (ASSUMPTION A9)
+20203,Wichita,West Central,38.482,SW,true,"NASS district West Central, latitude 38.48 < 38.7 (ASSUMPTION A9)"
+20205,Wilson,Southeast,,SC,false,NASS district Southeast (ASSUMPTION A9)
+20207,Woodson,Southeast,,SC,false,NASS district Southeast (ASSUMPTION A9)
+20209,Wyandotte,Northeast,,NC,false,NASS district Northeast (ASSUMPTION A9)
