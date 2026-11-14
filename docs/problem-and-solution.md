@@ -1,4 +1,4 @@
-# Field Shift: problem statement and example solution
+# PlotWise: problem statement and example solution
 
 NASA Space Apps 2026, challenge "Field Shift: Adapting Farms with NASA Data".
 Team: 5 Geoinformatics students, AGH University of Krakow. Working draft, 2026-11-14.
@@ -31,7 +31,7 @@ Farmers choose crop rotations based on generations of experience, but the condit
 
 NASA has observed temperature, precipitation, soil moisture, vegetation and water storage for decades, but these data are scattered across missions, resolutions and formats, and do not directly answer the farmer's question: *should I change my rotation, to what, and what is the risk?*
 
-**Field Shift** turns NASA Earth observations into a field-level profile of changing conditions, finds bare-soil and high-stress windows, and compares the current rotation with alternatives ranked by the farmer's own priorities. Every suggestion shows its evidence, its uncertainty, and what needs local expert review. It supports farmers' judgment; it does not replace it.
+**PlotWise** turns NASA Earth observations into a field-level profile of changing conditions, finds bare-soil and high-stress windows, and compares the current rotation with alternatives ranked by the farmer's own priorities. Every suggestion shows its evidence, its uncertainty, and what needs local expert review. It supports farmers' judgment; it does not replace it.
 
 ---
 

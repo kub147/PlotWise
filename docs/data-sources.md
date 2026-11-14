@@ -8,7 +8,7 @@ Owner = workstream in [work-plan.md](work-plan.md).
 
 ## NASA resources from the challenge page
 
-| Dataset | What it gives us | Access (tested) | Role in Field Shift | Priority | Owner |
+| Dataset | What it gives us | Access (tested) | Role in PlotWise | Priority | Owner |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **SMAP** | Surface and root-zone soil moisture, 9 km, every 3 h, 2015 → today | GEE `NASA/SMAP/SPL4SMGP/008` (latest image 2026-11-10; root zone at Tribune 0.29 m³/m³), `NASA/SMAP/SPL3SMP_E/006` | "This season" view: today's soil-water percentile for the date; check of modelled soil water (anomalies, not absolute values) | core for view 4 | A |
 | **GPM IMERG** | Precipitation, 0.1°, half-hourly and monthly, 2000 → today | GEE `NASA/GPM_L3/IMERG_V07`, `NASA/GPM_L3/IMERG_MONTHLY_V07` | Second precipitation product for cross-checking; heavy-rain days (erosion risk); global coverage for other regions | support | A |
@@ -23,7 +23,7 @@ Owner = workstream in [work-plan.md](work-plan.md).
 
 ## Other resources from the challenge page
 
-| Dataset | What it gives us | Access (tested) | Role in Field Shift | Priority | Owner |
+| Dataset | What it gives us | Access (tested) | Role in PlotWise | Priority | Owner |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Cropland Data Layer (CDL)** | Crop type per 30 m pixel, every year since 2008 (Kansas) | GEE `USDA/NASS/CDL`; CropScape statistics API, no key (`scripts/cdl_county_history.py`) | The rotation actually practised on each field; county trends; fallow frequency | core | B |
 | **SSURGO / STATSGO2, Web Soil Survey** | Soil map units with texture, organic matter, available water capacity, erodibility, hydrologic group | Soil Data Access REST, no key: `POST https://sdmdataaccess.sc.egov.usda.gov/Tabular/post.rest` (SQL in, JSON out). Web Soil Survey is the same data with a UI | Root-zone water capacity for the engine (replaces the 250 mm assumption); erodibility for soil indicators | core | B |
@@ -41,7 +41,7 @@ Owner = workstream in [work-plan.md](work-plan.md).
 
 ## Partner resources from the challenge page
 
-| Dataset | What it gives us | Access (tested) | Role in Field Shift | Priority | Owner |
+| Dataset | What it gives us | Access (tested) | Role in PlotWise | Priority | Owner |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Sentinel-2** (ESA) | 10–20 m reflectance every 5 days, 2017 → (surface reflectance) | GEE `COPERNICUS/S2_SR_HARMONIZED`; also in HLS | Sharpest view of bare soil and crop cover on the demo fields | core for visuals | B |
 | **ERA5** (ECMWF) | Hourly reanalysis since 1950; ERA5-Land 9 km | GEE `ECMWF/ERA5_LAND/DAILY_AGGR` | Wind speed for a wind-erosion flag; fallback forcing outside the US | support | A |

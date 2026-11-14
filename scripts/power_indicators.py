@@ -1,4 +1,4 @@
-"""Field climate indicators from NASA POWER daily data — Field Shift starter script.
+"""Field climate indicators from NASA POWER daily data — PlotWise starter script.
 
 Usage:
     python3 power_indicators.py --lat 37.97 --lon -100.87 --start 1995 --end 2024 [--out climate.json]

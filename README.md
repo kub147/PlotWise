@@ -1,4 +1,4 @@
-# Field Shift
+# PlotWise
 
 NASA Space Apps Challenge 2026 — [Field Shift: Adapting Farms with NASA Data](https://www.spaceappschallenge.org/2026/challenges/adapting-farms-with-nasa-data/)
 

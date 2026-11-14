@@ -1,4 +1,4 @@
-# Field Shift — project brief
+# PlotWise — project brief
 
 NASA Space Apps 2026 · challenge "Field Shift: Adapting Farms with NASA Data" · working draft, 2026-11-14.
 Submission closes **Sunday 15 November, 23:59 local time**.
