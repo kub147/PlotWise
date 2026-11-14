@@ -1,0 +1,514 @@
+{
+  "_about": "Rotation definitions for the Field Shift engine (workstream C). Crop IDs match reference/crops.csv; cost_key values match reference/costs.csv; evidence IDs (E..) match reference/evidence.md. Every multiplier is relative to the same crop grown in its 'reference' position (wheat after a full fallow; sorghum after wheat).",
+  "_double_counting_warning": "The Tribune multipliers (recrop wheat 0.75, second sorghum 0.65, continuous wheat 0.60) are measured yield ratios. They already contain the effect of LESS STORED SOIL WATER before the second crop (E06: about 40% less soil water at recrop-wheat planting). If the engine's soil-water balance already produces less water for that crop, applying the full multiplier counts the water effect twice. Recommended: run the engine without multipliers first, compare its modelled ratio with the measured one, and apply only the residual (measured / modelled) as the non-water effect (weeds, disease, residue). Keep the multiplier only if it improves leave-one-out R2 (work plan, D step 3).",
+  "rotations": [
+    {
+      "id": "WF",
+      "name": "Wheat - fallow",
+      "cycle_years": 2,
+      "phases": [
+        "winter_wheat",
+        "fallow"
+      ],
+      "phase_details": [
+        {
+          "crop": "winter_wheat",
+          "follows": "fallow",
+          "cost_key": "wheat|W-F",
+          "yield_multiplier": 1.0,
+          "multiplier_source": "reference position"
+        },
+        {
+          "crop": "fallow",
+          "follows": "winter_wheat",
+          "cost_key": "fallow|any",
+          "fallow_months": 14,
+          "fallow_months_source": "E16 (14-month fallow of wheat-fallow)"
+        }
+      ],
+      "tillage": "no-till",
+      "effects": [],
+      "is_baseline": true,
+      "why": "The traditional dryland system of western Kansas: a 14-month fallow stores water so that wheat survives dry years. It is the baseline every other rotation is compared with.",
+      "benefits": [
+        "Highest stored soil water at wheat planting (about 9.4 in in 8 ft at Tribune, E09)",
+        "Simplest system: one crop, one set of equipment"
+      ],
+      "risks": [
+        "One crop in two years",
+        "Long bare or residue-only period (wind erosion, loss of organic matter)",
+        "Lost money on average in 2008-2015 at Tribune (-$18/acre, E07)",
+        "Fallow stores only about 28% of the rain that falls during it (E08)"
+      ],
+      "evidence": [
+        "E01",
+        "E07",
+        "E08",
+        "E09",
+        "E16"
+      ],
+      "gaps": [
+        "How much water fallow really stores on this field (soil-specific; satellites cannot measure it)",
+        "Wheat failures from winterkill, disease and hail are not water effects and are not modelled (E15)"
+      ],
+      "check_locally": [
+        "Soil probe depth or soil-water reading at planting",
+        "Wind-erosion history of the field",
+        "Current crop insurance coverage (excluded from the economics)"
+      ]
+    },
+    {
+      "id": "WSF",
+      "name": "Wheat - sorghum - fallow",
+      "cycle_years": 3,
+      "phases": [
+        "winter_wheat",
+        "grain_sorghum",
+        "fallow"
+      ],
+      "phase_details": [
+        {
+          "crop": "winter_wheat",
+          "follows": "fallow",
+          "cost_key": "wheat|W-S/C-F",
+          "yield_multiplier": 1.0,
+          "multiplier_source": "E07: rotation length had little effect on average wheat yield"
+        },
+        {
+          "crop": "grain_sorghum",
+          "follows": "winter_wheat",
+          "cost_key": "sorghum|W-S-F",
+          "yield_multiplier": 1.0,
+          "multiplier_source": "reference position"
+        },
+        {
+          "crop": "fallow",
+          "follows": "grain_sorghum",
+          "cost_key": "fallow|any",
+          "fallow_months": 11,
+          "fallow_months_source": "E16 (11-month fallows of WSF)"
+        }
+      ],
+      "tillage": "no-till",
+      "effects": [],
+      "is_baseline": false,
+      "why": "Adds a drought-tolerant summer crop between wheat and fallow: two crops in three years instead of one in two. Researched in western Kansas for forty years.",
+      "benefits": [
+        "Only rotation with a positive average net return at Tribune 2008-2015 (< $6/acre, E07)",
+        "More total grain than wheat-fallow at Colby, Garden City and Tribune (E16)",
+        "Shorter fallows store water more efficiently (E16)",
+        "Sorghum needs only about 7 in of water use before it makes grain (E17)"
+      ],
+      "risks": [
+        "Sorghum failed completely in 2002 and 2012 at Tribune (E02)",
+        "Less stored water for wheat than after a full fallow (E09)"
+      ],
+      "evidence": [
+        "E02",
+        "E07",
+        "E09",
+        "E16",
+        "E17"
+      ],
+      "gaps": [
+        "Local sorghum price and basis (AMS Market News)",
+        "No pest, disease or hail modelling"
+      ],
+      "check_locally": [
+        "Elevator or feedlot buying sorghum nearby, and the basis",
+        "Planter set-up for sorghum",
+        "Herbicide carry-over between wheat and sorghum"
+      ]
+    },
+    {
+      "id": "WCF",
+      "name": "Wheat - corn - fallow",
+      "cycle_years": 3,
+      "phases": [
+        "winter_wheat",
+        "corn",
+        "fallow"
+      ],
+      "phase_details": [
+        {
+          "crop": "winter_wheat",
+          "follows": "fallow",
+          "cost_key": "wheat|W-S/C-F",
+          "yield_multiplier": 1.0,
+          "multiplier_source": "E07"
+        },
+        {
+          "crop": "corn",
+          "follows": "winter_wheat",
+          "cost_key": "corn|W-C-F",
+          "yield_multiplier": 1.0,
+          "multiplier_source": "reference position"
+        },
+        {
+          "crop": "fallow",
+          "follows": "corn",
+          "cost_key": "fallow|any",
+          "fallow_months": 11,
+          "fallow_months_source": "E16"
+        }
+      ],
+      "tillage": "no-till",
+      "effects": [],
+      "is_baseline": false,
+      "why": "Same structure as wheat-sorghum-fallow but with corn, which pays more per bushel and has a wider market. In Greeley County 17% of wheat fields go to corn the next year (CDL pixel sequences 2010-2024, project brief).",
+      "benefits": [
+        "Wider market than sorghum",
+        "Same equipment calendar as WSF"
+      ],
+      "risks": [
+        "Corn needs about 11 in of water use before it makes grain, sorghum about 7 in (E17)",
+        "At Tribune sorghum yielded about twice as much as corn in the same rotation (E11)",
+        "Net return below -$35/acre on average 2008-2015 (E07)"
+      ],
+      "evidence": [
+        "E07",
+        "E11",
+        "E17"
+      ],
+      "gaps": [
+        "Corn yield in very dry years is close to zero; the distribution matters more than the mean"
+      ],
+      "check_locally": [
+        "Seed and fertiliser cost per acre against the K-State budget",
+        "Hybrid choice for dryland"
+      ]
+    },
+    {
+      "id": "WSSF",
+      "name": "Wheat - sorghum - sorghum - fallow",
+      "cycle_years": 4,
+      "phases": [
+        "winter_wheat",
+        "grain_sorghum",
+        "grain_sorghum",
+        "fallow"
+      ],
+      "phase_details": [
+        {
+          "crop": "winter_wheat",
+          "follows": "fallow",
+          "cost_key": "wheat|W-S/C-F",
+          "yield_multiplier": 1.0,
+          "multiplier_source": "reference position"
+        },
+        {
+          "crop": "grain_sorghum",
+          "follows": "winter_wheat",
+          "cost_key": "sorghum|W-S-F",
+          "yield_multiplier": 1.0,
+          "multiplier_source": "reference position"
+        },
+        {
+          "crop": "grain_sorghum",
+          "follows": "grain_sorghum",
+          "cost_key": "sorghum|W-S-F",
+          "cost_key_note": "ASSUMPTION: no K-State budget for second-year sorghum; same cost as sorghum after wheat",
+          "yield_multiplier": 0.65,
+          "multiplier_source": "E05: second sorghum crop averages about 65% of the first (Tribune 1996-2020)"
+        },
+        {
+          "crop": "fallow",
+          "follows": "grain_sorghum",
+          "cost_key": "fallow|any",
+          "fallow_months": 11,
+          "fallow_months_source": "E16"
+        }
+      ],
+      "tillage": "no-till",
+      "effects": [
+        {
+          "phase_index": 2,
+          "multiplier": 0.65,
+          "applies_to": "yield",
+          "source": "E05",
+          "see": "_double_counting_warning"
+        }
+      ],
+      "is_baseline": false,
+      "why": "More intensive: three crops in four years. Tested at Tribune since 1996, so the effect of a second sorghum crop is measured, not guessed.",
+      "benefits": [
+        "Three crops in four years",
+        "Shortest share of time in fallow of the tested rotations"
+      ],
+      "risks": [
+        "Second sorghum yields about 65% of the first (E05)",
+        "About 1.5 in less soil water at planting of the second sorghum (E06)"
+      ],
+      "evidence": [
+        "E01",
+        "E02",
+        "E05",
+        "E06"
+      ],
+      "gaps": [
+        "No K-State budget for the second sorghum year"
+      ],
+      "check_locally": [
+        "Weed and disease pressure in sorghum after sorghum",
+        "Grazing sorghum residue as an extra income"
+      ]
+    },
+    {
+      "id": "WWSF",
+      "name": "Wheat - wheat - sorghum - fallow",
+      "cycle_years": 4,
+      "phases": [
+        "winter_wheat",
+        "winter_wheat",
+        "grain_sorghum",
+        "fallow"
+      ],
+      "phase_details": [
+        {
+          "crop": "winter_wheat",
+          "follows": "fallow",
+          "cost_key": "wheat|W-S/C-F",
+          "yield_multiplier": 1.0,
+          "multiplier_source": "reference position"
+        },
+        {
+          "crop": "winter_wheat",
+          "follows": "winter_wheat",
+          "cost_key": "wheat|W-S/C-F",
+          "cost_key_note": "ASSUMPTION: no K-State budget for recrop wheat in SW Kansas; same cost as wheat after fallow in W-S/C-F",
+          "yield_multiplier": 0.75,
+          "multiplier_source": "E03: recrop wheat about 75% of the first wheat (Tribune 1996-2020)"
+        },
+        {
+          "crop": "grain_sorghum",
+          "follows": "winter_wheat",
+          "cost_key": "sorghum|W-S-F",
+          "yield_multiplier": 1.0,
+          "multiplier_source": "reference position"
+        },
+        {
+          "crop": "fallow",
+          "follows": "grain_sorghum",
+          "cost_key": "fallow|any",
+          "fallow_months": 11,
+          "fallow_months_source": "E16"
+        }
+      ],
+      "tillage": "no-till",
+      "effects": [
+        {
+          "phase_index": 1,
+          "multiplier": 0.75,
+          "applies_to": "yield",
+          "source": "E03",
+          "see": "_double_counting_warning"
+        }
+      ],
+      "is_baseline": false,
+      "why": "For a farmer who wants to stay mostly in wheat: a second wheat crop replaces part of the fallow. Measured at Tribune since 1996.",
+      "benefits": [
+        "Three crops in four years with familiar wheat equipment"
+      ],
+      "risks": [
+        "Recrop wheat yields about 75% of the first wheat (E03)",
+        "About 3 in (40%) less soil water at recrop-wheat planting (E06)",
+        "Wheat-on-wheat raises disease and grassy-weed risk (check locally)"
+      ],
+      "evidence": [
+        "E01",
+        "E03",
+        "E06"
+      ],
+      "gaps": [
+        "No K-State budget for recrop wheat in southwest Kansas"
+      ],
+      "check_locally": [
+        "Cheat and other grassy weeds",
+        "Wheat streak mosaic and volunteer wheat control between crops"
+      ]
+    },
+    {
+      "id": "WSfF",
+      "name": "Wheat - sunflower - fallow",
+      "cycle_years": 3,
+      "phases": [
+        "winter_wheat",
+        "sunflower",
+        "fallow"
+      ],
+      "phase_details": [
+        {
+          "crop": "winter_wheat",
+          "follows": "fallow",
+          "cost_key": "wheat|W-S/C-F",
+          "yield_multiplier": 1.0,
+          "multiplier_source": "ASSUMPTION: wheat after fallow treated as in WSF (E07)"
+        },
+        {
+          "crop": "sunflower",
+          "follows": "winter_wheat",
+          "cost_key": "sunflower|W-SF-F",
+          "yield_multiplier": 1.0,
+          "multiplier_source": "reference position"
+        },
+        {
+          "crop": "fallow",
+          "follows": "sunflower",
+          "cost_key": "fallow|any",
+          "fallow_months": 11,
+          "fallow_months_source": "E16 (same timing as WSF)"
+        }
+      ],
+      "tillage": "no-till",
+      "effects": [],
+      "is_baseline": false,
+      "status": "optional",
+      "why": "A summer crop with the lowest water threshold in the K-State functions (about 5.4 in, E17) and its own K-State budget for western Kansas (E26).",
+      "benefits": [
+        "Lowest threshold ET of the tested crops (E17)",
+        "Deep roots use water below the wheat root zone (FAO-56 root depth 0.8-1.5 m, E25)"
+      ],
+      "risks": [
+        "Little residue left after harvest: more erosion risk during the next fallow (ASSUMPTION, residue_class 'low')",
+        "Smaller and more distant markets than wheat or sorghum"
+      ],
+      "evidence": [
+        "E17",
+        "E25",
+        "E26"
+      ],
+      "gaps": [
+        "No Tribune year-by-year sunflower yields to validate against",
+        "Residue effect on the next fallow is not quantified"
+      ],
+      "check_locally": [
+        "Nearest crusher or buyer for oil sunflower",
+        "Bird and insect pressure"
+      ]
+    },
+    {
+      "id": "WS-forage",
+      "name": "Wheat - sorghum - flexible forage (instead of fallow)",
+      "cycle_years": 3,
+      "phases": [
+        "winter_wheat",
+        "grain_sorghum",
+        "spring_triticale_forage"
+      ],
+      "phase_details": [
+        {
+          "crop": "winter_wheat",
+          "follows": "spring_triticale_forage or fallow",
+          "cost_key": "wheat|W-S/C-F",
+          "yield_multiplier": 1.0,
+          "multiplier_source": "E20 (abstract): spring fallow replacement had no significant effect on average wheat yield, 2013-2020"
+        },
+        {
+          "crop": "grain_sorghum",
+          "follows": "winter_wheat",
+          "cost_key": "sorghum|W-S-F",
+          "yield_multiplier": 1.0,
+          "multiplier_source": "E20 (abstract)"
+        },
+        {
+          "crop": "spring_triticale_forage",
+          "follows": "grain_sorghum",
+          "cost_key": "MISSING: no K-State forage-triticale budget found",
+          "conditional": true,
+          "fallback_crop": "fallow"
+        }
+      ],
+      "tillage": "no-till",
+      "decision_rule": {
+        "description": "Plant spring triticale for hay only if plant-available soil water on the planting date is above a threshold; otherwise keep the field in fallow that year.",
+        "variable": "plant_available_soil_water_mm_at_planting",
+        "threshold_mm": null,
+        "threshold_status": "ASSUMPTION needed: no published K-State or USDA-ARS threshold found yet (research-evidence open question 3). Run the engine over a range (e.g. 75-200 mm) and show the result as a sensitivity, not a single answer."
+      },
+      "effects": [],
+      "is_baseline": false,
+      "status": "stretch",
+      "why": "For a farmer with cattle who wants soil cover: a spring forage replaces fallow only in years with enough stored water. Tested near Garden City 2013-2020, where triticale forage gave the highest net return (E20).",
+      "benefits": [
+        "Soil cover and larger, more stable aggregates than fallow (E19)",
+        "Haying the forage did not reduce the soil benefit (E19)",
+        "Forage income; highest net return in the Garden City study (E20, abstract)"
+      ],
+      "risks": [
+        "Less soil water at the next planting (E20)",
+        "Wheat yield losses after cover crops in dry years were reported in earlier abstracts (E20 secondhand, not confirmed)",
+        "No difference in soil organic carbon after 11 years (E19)"
+      ],
+      "evidence": [
+        "E19",
+        "E20"
+      ],
+      "gaps": [
+        "Forage yield-water function for triticale in western Kansas",
+        "Forage cost budget and hay price",
+        "Decision threshold for soil water at planting"
+      ],
+      "check_locally": [
+        "Hay market or own cattle",
+        "Seed cost and availability of spring triticale",
+        "Soil-water threshold with a K-State agronomist"
+      ]
+    },
+    {
+      "id": "WW",
+      "name": "Continuous wheat",
+      "cycle_years": 1,
+      "phases": [
+        "winter_wheat"
+      ],
+      "phase_details": [
+        {
+          "crop": "winter_wheat",
+          "follows": "winter_wheat",
+          "cost_key": "wheat|W-S/C-F",
+          "cost_key_note": "ASSUMPTION: K-State continuous-wheat budgets exist only for central and eastern Kansas",
+          "yield_multiplier": 0.6,
+          "multiplier_source": "E04: continuous wheat about 60% of wheat after fallow in the 4-year rotations"
+        }
+      ],
+      "tillage": "no-till",
+      "effects": [
+        {
+          "phase_index": 0,
+          "multiplier": 0.6,
+          "applies_to": "yield",
+          "source": "E04",
+          "see": "_double_counting_warning"
+        }
+      ],
+      "is_baseline": false,
+      "status": "validation_only",
+      "why": "Part of the Tribune trial: useful to validate the engine at the most intensive end, not a recommendation.",
+      "evidence": [
+        "E04"
+      ],
+      "gaps": [
+        "No southwest Kansas budget"
+      ],
+      "check_locally": []
+    }
+  ],
+  "tillage_effects": {
+    "_about": "Multipliers for conventional tillage relative to no-till, from the long-term WSF tillage study at Tribune (E13, E14). The rotations above assume no-till.",
+    "conventional_vs_no_till": {
+      "winter_wheat": {
+        "multiplier": 0.733,
+        "source": "E13: 20-year average 22 vs 30 bu/acre"
+      },
+      "grain_sorghum": {
+        "multiplier": null,
+        "source": "E14: conventional tillage 'far lower' (17 bu/acre in 2020) but no long-term average given; long-term vs short-term no-till 79 vs 50 bu/acre (ratio 0.63). Do not invent a value."
+      }
+    },
+    "soil_water_at_planting_extra_with_no_till_mm": {
+      "winter_wheat": 25.4,
+      "grain_sorghum": 38.1,
+      "source": "E13: about 1 in (wheat) to 1.5 in (sorghum) more than conventional"
+    }
+  }
+}

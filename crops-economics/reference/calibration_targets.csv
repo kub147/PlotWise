@@ -1,0 +1,21 @@
+target_id,quantity,rotation,crop_or_phase,value_low,value_high,unit,value_metric_low,value_metric_high,unit_metric,period,site,evidence,notes
+T01,precipitation storage efficiency of fallow,WF,fallow,28,28,% of fallow precipitation,28,28,%,2008-2015,Tribune,E08,
+T02,precipitation storage efficiency of fallow,3- and 4-year no-till rotations,fallow,15,19,% of fallow precipitation,15,19,%,2008-2015,Tribune,E08,
+T03,precipitation storage efficiency of fallow,before sorghum or corn,fallow,17,22,% of fallow precipitation,17,22,%,2008-2015,Tribune,E08,research-evidence.md says 'under 17-22%'; check wording in the report table
+T04,available soil water at planting (8 ft profile),WF,winter_wheat,9.4,9.4,in,238.8,238.8,mm,2008-2015,Tribune,E09,8 ft = 2.44 m; engine root zone is shallower (AWC to 1.5 m): compare anomalies or scale
+T05,available soil water at planting (8 ft profile),longer rotations,winter_wheat,5.8,6.1,in,147.3,154.9,mm,2008-2015,Tribune,E09,
+T06,available soil water at planting (8 ft profile),various,grain_sorghum,4.4,5.5,in,111.8,139.7,mm,2008-2015,Tribune,E09,baseline model gave 143 mm vs 135 mm measured (research-evidence section 6)
+T07,available soil water at planting (8 ft profile),various,corn,4.0,5.2,in,101.6,132.1,mm,2008-2015,Tribune,E09,
+T08,soil water at wheat planting after fallow,4-year rotations,winter_wheat,9,9,in,228.6,228.6,mm,1996-2020,Tribune,E06,about 9 in
+T09,soil water at recrop-wheat planting relative to wheat after fallow,WWSF,winter_wheat,-40,-40,%,-40,-40,%,1996-2020,Tribune,E06,about 3 in less
+T10,soil water at second-sorghum planting relative to first,WSSF,grain_sorghum,-1.5,-1.5,in,-38.1,-38.1,mm,1996-2020,Tribune,E06,
+T11,crop water use (season),various,winter_wheat,12.5,16.7,in,317.5,424.2,mm,2008-2015,Tribune,E10,
+T12,crop water use (season),various,grain_sorghum,11.7,12.8,in,297.2,325.1,mm,2008-2015,Tribune,E10,
+T13,crop water use (season),various,corn,12.5,13.3,in,317.5,337.8,mm,2008-2015,Tribune,E10,
+T14,mean yield,4-year rotations,winter_wheat after fallow,42,42,bu/acre,2824.6,2824.6,kg/ha,1996-2020,Tribune,E01,range 0-88; total failure 2002 and 2013
+T15,mean yield,4-year rotations,grain_sorghum after wheat,88,88,bu/acre,5523.8,5523.8,kg/ha,1996-2020,Tribune,E02,range 0-147; total failure 2002 and 2012
+T16,average net return,WSF,rotation,0,6,USD/acre/year,0,14.8,USD/ha/year,2008-2015,Tribune,E07,only rotation with a positive average; insurance and government payments excluded
+T17,average net return,WF,rotation,-18,-18,USD/acre/year,-44.5,-44.5,USD/ha/year,2008-2015,Tribune,E07,
+T18,average net return,all other tested rotations,rotation,,-35,USD/acre/year,,-86.5,USD/ha/year,2008-2015,Tribune,E07,below -35
+T19,farm-level yield factor (county / trial),county vs Tribune,winter_wheat after fallow,0.85,0.93,ratio,0.85,0.93,ratio,1997-2016,Greeley + West Central KS,E32,ratio of means; Greeley 0.85 (n=14); district 0.93 (n=20); use about 0.9 to scale modelled trial-level yields to farm level
+T20,farm-level yield factor (county / trial),county vs Tribune,grain_sorghum after wheat,0.72,0.85,ratio,0.72,0.85,ratio,1996-2007,Greeley + West Central KS,E32,ratio of means; Greeley 0.72 (n=7); district 0.85 (n=12); use about 0.8

@@ -1,0 +1,5 @@
+crop,plant_doy_median,plant_doy_p10,plant_doy_p90,plant_years,harvest_doy_median,harvest_doy_p10,harvest_doy_p90,harvest_years,source
+winter_wheat,278,273,283,33,178,171,185,32,"USDA NASS Crop Progress, Kansas statewide, day when 50% planted/harvested, median over years (derive_crop_calendar.py)"
+grain_sorghum,158,149,164,32,,,,0,"USDA NASS Crop Progress, Kansas statewide, day when 50% planted/harvested, median over years (derive_crop_calendar.py)"
+corn,124,117,131,32,275,267,287,32,"USDA NASS Crop Progress, Kansas statewide, day when 50% planted/harvested, median over years (derive_crop_calendar.py)"
+sunflower,163,156,167,27,301,293,308,26,"USDA NASS Crop Progress, Kansas statewide, day when 50% planted/harvested, median over years (derive_crop_calendar.py)"
