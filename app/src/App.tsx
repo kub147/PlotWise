@@ -5,6 +5,7 @@ import { useAppData } from '@/lib/data'
 import { useSelectedField } from '@/lib/selection'
 import { EmptyPage } from '@/pages/EmptyPage'
 import { MyField } from '@/pages/MyField'
+import { Region } from '@/pages/Region'
 import { Replay } from '@/pages/Replay'
 
 function Shell() {
@@ -27,6 +28,7 @@ function Shell() {
             <Route path="/" element={<MyField data={state.data} selected={selected} onSelect={select} />} />
             <Route path="/changed" element={<EmptyPage title="What has changed" />} />
             <Route path="/replay" element={<Replay data={state.data} selected={selected} />} />
+            <Route path="/region" element={<Region selected={selected} />} />
             <Route path="/season" element={<EmptyPage title="This season" />} />
             <Route path="/how" element={<EmptyPage title="How we know" />} />
             <Route path="*" element={<EmptyPage title="Page not found" />} />

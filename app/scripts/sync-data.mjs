@@ -44,6 +44,10 @@ function copyMatching(fromDir, toDir, pattern) {
 copyFile(join(processed, 'fields.geojson'), join(outData, 'fields.geojson'))
 copyFile(join(processed, 'counties.geojson'), join(outData, 'counties.geojson'))
 copyFile(join(processed, 'county_rotation_summary.json'), join(outData, 'county_rotation_summary.json'))
+// Region page: rotations of 31,660 fields per county, field outlines of the demo counties, engine results per county.
+copyFile(join(processed, 'county_field_rotations.json'), join(outData, 'county_field_rotations.json'))
+copyFile(join(processed, 'county_fields.geojson'), join(outData, 'county_fields.geojson'))
+copyFile(join(processed, 'results', 'counties.json'), join(outData, 'county_results.json'))
 copyFile(join(processed, 'heat', 'ecostress_summary.json'), join(outData, 'ecostress_summary.json'))
 copyFile(join(repo, 'crops-economics', 'reference', 'evidence.md'), join(outData, 'evidence.md'))
 

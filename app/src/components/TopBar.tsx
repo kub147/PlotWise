@@ -11,6 +11,7 @@ const TABS = [
   { to: '/changed', label: 'What has changed' },
   { to: '/replay', label: 'Rotation replay' },
   { to: '/season', label: 'This season' },
+  { to: '/region', label: 'Region' },
 ]
 
 type TopBarProps = {
