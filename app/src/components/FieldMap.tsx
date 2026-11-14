@@ -148,7 +148,7 @@ export function FieldMap({ fields, counties, selected, onSelect }: FieldMapProps
           counties={counties}
           onSelectField={selectField}
           onGoTo={setTarget}
-          className="w-full max-w-[420px]"
+          className="z-20 w-full max-w-[420px]"
         />
         <div className="max-w-full self-start overflow-x-auto rounded-full">
           <SegmentedControl
