@@ -41,9 +41,9 @@ Keys of `climate/<field_id>.json`:
 
 ## Method choices
 
-- Precipitation, Tmax, Tmin and reference ET come from gridMET; radiation and wind from NASA POWER (work plan, A1).
+- Precipitation, Tmax, Tmin and reference ET come from gridMET; radiation and wind from NASA POWER.
   Missing days fall back to the other product with unit conversion; the counts are in `sources.md`.
-- Temperature indicators (GDD, frost dates, hot days) use NASA POWER, water indicators use gridMET (project brief, section 4).
+- Temperature indicators (GDD, frost dates, hot days) use NASA POWER, water indicators use gridMET, because NASA POWER rainfall disagrees with the other records here.
 - Year types: terciles of April–September precipitation minus reference ET over all complete seasons since 1995.
 - SMAP percentile: latest root-zone value against all values within ±7 days of the same calendar date, all years.
   One 3-hourly field per day (the first of each UTC day) keeps the request small; root-zone moisture changes slowly.
@@ -77,11 +77,11 @@ Result for the five demo fields (1999–2024): mean annual OpenET is about 20% a
 (ET / P 1.19–1.21), dryland wheat–fallow included. Over 24 years that cannot be real for a rainfed field, so OpenET is biased
 high here relative to gridMET precipitation. Use it for differences between years, crops and fields, not for absolute ET.
 
-## Hand-over
+## Notes for the engine and the app
 
 **To D (engine)**
 
-- `data/processed/weather/ks071-001.csv` … `ks071-005.csv` are ready: daily, 1994-01-01 to the last gridMET day, no gaps, columns exactly as in the work plan. Units: mm, °C, mm, MJ/m²/day, m/s at 2 m.
+- `data/processed/weather/ks071-001.csv` … `ks071-005.csv` are ready: daily, 1994-01-01 to the last gridMET day, no gaps, columns as listed under "Outputs". Units: mm, °C, mm, MJ/m²/day, m/s at 2 m.
 - `precip_mm`, `tmax_c`, `tmin_c`, `eto_mm` are gridMET (4 km). `eto_mm` is grass reference ET (ASCE Penman-Monteith), the same variable the baseline script uses.
 - `srad_mj_m2` and `wind_m_s` are NASA POWER (about 50 km); the most recent days fall back to gridMET. Counts per source are in `data/processed/weather/sources.md`.
 - The last rows are only a few days old and gridMET revises recent days: re-run the pipeline before the final results.

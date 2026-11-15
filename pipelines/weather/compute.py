@@ -130,7 +130,7 @@ def build_daily(gridmet, power, lat, start=dt.date(1994, 1, 1)):
 
 
 def check_daily(rows):
-    """Raise if the table breaks the contract in work-plan.md (consecutive days, no missing values)."""
+    """Raise if the table breaks its contract (consecutive days from 1994-01-01, no missing values)."""
     for a, b in zip(rows, rows[1:]):
         if (b["date"] - a["date"]).days != 1:
             raise ValueError(f"gap between {a['date']} and {b['date']}")
@@ -214,7 +214,7 @@ def precip_crosscheck(gridmet, power, prism_m, imerg_m):
 
 
 def crosscheck_markdown(cc):
-    """The 'one small table' of the work plan, as Markdown (also readable in a terminal)."""
+    """The cross-check summary table as Markdown (also readable in a terminal)."""
     f = lambda v, spec="": "–" if v is None else format(v, spec)
     lines = []
     for window, title in (("annual", "Annual precipitation"), ("apr_sep", "April–September precipitation")):

@@ -4,7 +4,7 @@ Every resource listed on the challenge page, plus the extras we add. Access was 
 (Earth Engine Python API and plain HTTP). "GEE" = Google Earth Engine asset ID, confirmed to exist.
 
 Priority: **core** = needed for the minimum product · **support** = improves or validates · **skip** = considered, not used, with the reason.
-Owner = workstream in [work-plan.md](work-plan.md).
+Owner = workstream: A weather and water, B fields and soil, C crops and economics, D engine, E app.
 
 ## NASA resources from the challenge page
 

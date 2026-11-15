@@ -35,7 +35,7 @@ def load_fields(only=None):
         for ft in features:
             p = ft["properties"]
             if p.get("lon") is None or p.get("lat") is None:
-                raise SystemExit(f"field {p.get('field_id')} has no lon/lat properties (see work-plan.md)")
+                raise SystemExit(f"field {p.get('field_id')} has no lon/lat properties (see pipelines/fields/README.md)")
             fields.append(dict(field_id=p["field_id"], lon=float(p["lon"]), lat=float(p["lat"])))
     else:
         print("fields.geojson not found: using the Tribune point as field ks071-001")

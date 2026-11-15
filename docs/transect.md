@@ -1,4 +1,4 @@
-# Western Kansas transect — why and what each workstream does next
+# Western Kansas transect: why the demo covers three sites and 46 counties
 
 Decided on 2026-11-14 after the first full engine run. Tribune stays the validation site; the demo widens to three
 sites along the rainfall gradient and to a county map of western Kansas.
@@ -77,13 +77,3 @@ What the map shows:
 Per-county numbers are in `data/processed/county_field_rotations.json` (`rotations`, `fallow_based_share`, `three_year_share`); polygons for the three demo counties
 (Greeley, Thomas, Ellis; 3,042 fields) are in `data/processed/county_fields.geojson` with a `county_id`. Polygons for all 46 counties are not committed (too heavy for the app);
 they can be rebuilt with the two scripts.
-
-## Next steps per workstream
-
-| | Task |
-| :--- | :--- |
-| **A** | Run the weather pipeline for the six new fields. For the county map: a weather CSV per `county_id` at the centroid in `counties.geojson` (same format, e.g. `data/processed/weather/counties/ks071.csv`); climate JSON is not needed for counties |
-| **C** | Add north-west and north-central Kansas dryland budgets to `costs.csv` with a region key; tell D which counties use which. County yields for all 46 counties for validation |
-| **D** | Compare, per county, the rotation the engine ranks first with what farmers practise (`county_field_rotations.json`). Replay the new fields; replay each county (`awc_mm` and weather from the county layer) and write one small file with best rotation, mean return per rotation and share of profitable years per county; compare modelled and NASS yields per county, corn first |
-| **E** | Site switch (Tribune / Colby / Hays) in the field view; county map coloured by best rotation or by the gain from replacing fallow; the story "the answer depends on where you farm" |
-| **B** | Done for now. On request: more fields per site, NDVI charts and previews for the new fields |

@@ -42,7 +42,7 @@ class Weather:
 
 
 def load_weather(path: str | Path) -> Weather:
-    """Read a weather CSV in the work-plan format (date, precip_mm, tmax_c, tmin_c, eto_mm, ...)."""
+    """Read a weather CSV in the pipeline format (date, precip_mm, tmax_c, tmin_c, eto_mm, ...)."""
     dates, p, e, tx, tn = [], [], [], [], []
     with open(path, encoding="utf-8") as f:
         for r in csv.DictReader(f):
@@ -56,7 +56,7 @@ def load_weather(path: str | Path) -> Weather:
 
 
 def gridmet_cache_to_csv(cache_json: str | Path, out_csv: str | Path) -> None:
-    """Convert the cache written by scripts/water_balance_baseline.py into the work-plan CSV format."""
+    """Convert the cache written by scripts/water_balance_baseline.py into the weather CSV format of pipelines/weather."""
     raw = json.load(open(cache_json, encoding="utf-8"))
     rows = []
     for k, (pr, tx, tn, eto) in raw.items():

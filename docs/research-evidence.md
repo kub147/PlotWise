@@ -94,7 +94,7 @@ Kansas Geological Survey: in Greeley, Wichita, Scott and northern Finney countie
 | Do precipitation sums explain Tribune yields? | POWER: wheat R² 0.35, sorghum 0.25. gridMET: wheat 0.31, sorghum 0.61 | `water_balance_baseline.py` (gridMET part) |
 | Does a simple soil-water bucket do better? | Seasonal ET alone: wheat R² 0.44 (leave-one-out 0.29), sorghum R² 0.63 (leave-one-out 0.56) | same |
 | Is modelled stored water realistic? | 143 mm at sorghum planting vs 135 mm measured (2008–2015, 8 ft). Encouraging, but the model's starting water was a guess | same |
-| Do precipitation products agree? | Annual totals POWER vs gridMET: r = 0.78; opposite trends | project brief, section 4 |
+| Do precipitation products agree? | Annual totals POWER vs gridMET: r = 0.78; opposite trends | [why-western-kansas.md](why-western-kansas.md) |
 
 Reading: stored water plus in-season water explains most of the sorghum variation and under half of the wheat variation. The engine is worth building; wheat needs humility.
 
