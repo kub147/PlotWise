@@ -8,6 +8,8 @@ priorities and shows, for every suggestion, the evidence behind it, what is not 
 
 **Live app: https://kub147.github.io/PlotWise/** (English and Polish, with a phone layout)
 
+[Presentation demo](PlotWise_demo.pdf)
+
 NASA Space Apps Challenge 2026, Rzeszów ·
 challenge [Field Shift: Adapting Farms with NASA Data](https://www.spaceappschallenge.org/2026/challenges/adapting-farms-with-nasa-data/)
 
