@@ -245,12 +245,13 @@ function CountyRotationBars({ county, years, note }: { county: CountyRotations['
   )
 }
 
-// ECOSTRESS: the same moment, fallow against sorghum. The scenes cover the Tribune area only.
-function HeatComparison({ heat, nearTribune }: { heat: HeatSummary; nearTribune: boolean }) {
+// ECOSTRESS: the same moment, fallow against sorghum, in the scenes around the site of the selected field.
+function HeatComparison({ heat, site }: { heat: HeatSummary; site: string }) {
   const t = useT()
   const unit = useTempUnit()
   const locale = useDateLocale()
   const rows = heat.scenes
+    .filter((scene) => scene.site === site)
     .map((scene) => ({
       scene,
       fallow: scene.by_crop_class.fallow?.mean_c,
@@ -276,14 +277,13 @@ function HeatComparison({ heat, nearTribune }: { heat: HeatSummary; nearTribune:
     <Card className="p-6">
       <h2 className="text-[19px] font-semibold">{t('Same moment, bare fallow against sorghum')}</h2>
       <p className="mt-1 text-[13px] leading-snug text-muted-foreground">
-        {t('Ground surface temperature around Tribune from NASA’s ECOSTRESS instrument, averaged over all fields of each kind.')}
-        {!nearTribune && ` ${t('This is an example from Greeley County: the heat images cover the Tribune area only, not this field.')}`}
+        {t('Ground surface temperature around {site} from NASA’s ECOSTRESS instrument, averaged over all fields of each kind.', { site })}
       </p>
       <div className="mt-4 grid gap-4 sm:grid-cols-[180px_minmax(0,1fr)]">
         <a href={imageUrl(file)} target="_blank" rel="noreferrer" className="block overflow-hidden rounded-2xl">
           <img
             src={imageUrl(file)}
-            alt={t('Surface heat map around Tribune on {date}; blue is cooler, red is hotter', { date: day(widest.scene.time_utc) })}
+            alt={t('Surface heat map around {site} on {date}; blue is cooler, red is hotter', { site, date: day(widest.scene.time_utc) })}
             loading="lazy"
             className="aspect-square w-full object-cover"
           />
@@ -407,7 +407,7 @@ export function Changed({ data, selected }: ChangedProps) {
         )}
       </div>
 
-      {heat && <HeatComparison heat={heat} nearTribune={p.county_fips === '20071'} />}
+      {heat && <HeatComparison heat={heat} site={p.site} />}
 
       <details className="pw-sheet rounded-[28px]">
         <summary className="flex min-h-14 cursor-pointer items-center px-6 text-[15px] font-medium">

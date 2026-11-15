@@ -19,8 +19,9 @@ Needs `earthengine-api` and `shapely`. Soil Data Access needs no key.
 Extras:
 
 ```bash
-python3 pipelines/fields/heat_stress.py          # ECOSTRESS surface temperature per field and crop class -> data/processed/heat/, docs/img/
-python3 pipelines/fields/render_preview.py       # Sentinel-2 overview and NAIP chip per field -> docs/img/
+python3 pipelines/fields/heat_stress.py          # ECOSTRESS surface temperature per field and crop class at the three sites -> data/processed/heat/, docs/img/
+python3 pipelines/fields/render_preview.py       # NAIP chip per field (add --overview for a Sentinel-2 overview per site) -> docs/img/
+python3 pipelines/fields/greenness_map.py        # mean summer NDVI around each site, for the map of the app -> docs/img/greenness_<site>.png, data/processed/ndvi/summer_map.json
 ```
 
 ```bash
@@ -74,8 +75,9 @@ These are clean fields of at least 40 ha (about 90,000 ha in total), not all cro
 
 ## Heat stress from ECOSTRESS
 
-Land-surface temperature at 70 m on four clear, hot afternoons (`data/processed/heat/ecostress_summary.json`, maps in `docs/img/ecostress_*.png`).
-Crop classes come from the CDL of the same year; class means cover about 25 x 20 km around the demo fields.
+Land-surface temperature at 70 m on four clear, hot days at each site (`data/processed/heat/ecostress_summary.json`, maps in `docs/img/ecostress_*.png`).
+Crop classes come from the CDL of the same year; class means cover the demo fields of the site and 4 km around them (about 25 x 20 km).
+The table and the reading below are for Tribune; Colby and Hays follow.
 
 | Overpass (UTC) | Growing sorghum | Growing corn | Fallow | Wheat (ripe or stubble) | Coolest vs hottest demo field |
 | :--- | ---: | ---: | ---: | ---: | :--- |
@@ -86,10 +88,33 @@ Crop classes come from the CDL of the same year; class means cover about 25 x 20
 
 Reading: in late July and August a transpiring crop keeps the surface about 5 °C cooler than fallow or stubble across the area, and 8–11 °C cooler on the demo fields. In mid-June there is no difference yet. This is surface temperature on single afternoons, not air temperature and not a seasonal average; the size of the gap depends on overpass time and on how much water the crop has. Use it as a picture of what ground cover does on a hot day, and as a check that the CDL crop labels are right. The circles that stay cold in the maps are irrigated pivots.
 
+### Colby and Hays
+
+Scenes were picked by hand from the overpasses that cover the whole area without cloud (maps in `docs/img/ecostress_colby_<date>.png` and `docs/img/ecostress_hays_<date>.png`). The Hays area lies on the edge between two ECOSTRESS tiles, so both tiles of an overpass are joined.
+
+| Site | Overpass (UTC) | Growing sorghum | Growing corn | Fallow | Wheat stubble | Demo fields |
+| :--- | :--- | ---: | ---: | ---: | ---: | :--- |
+| Colby | 2025-08-18 18:00 | 39.6 °C | 40.3 °C | 45.9 °C | 44.8 °C | sorghum field 39.1 °C vs fallow fields 41.9 and 47.1 °C |
+| Colby | 2022-08-13 21:50 | 45.0 °C | 42.8 °C | 47.5 °C | 47.2 °C | sorghum field 42.6 °C vs fallow field 48.1 °C |
+| Colby | 2022-08-05 18:35 | 42.6 °C | 42.3 °C | 46.7 °C | 47.1 °C | sorghum field 38.4 °C vs fallow field 46.5 °C |
+| Colby | 2021-08-24 18:14 | 46.5 °C | 44.9 °C | 52.8 °C | 50.9 °C | corn field 47.5 °C vs fallow field 54.3 °C |
+| Hays | 2025-08-18 18:00 | 52.4 °C | 56.3 °C | 59.2 °C | 58.3 °C | sorghum field 47.6 °C vs wheat stubble fields 61.4 and 59.8 °C |
+| Hays | 2025-08-10 21:15 | 46.5 °C | 48.1 °C | 52.0 °C | 51.4 °C | sorghum field 42.9 °C vs wheat stubble fields 49.9 and 51.9 °C |
+| Hays | 2023-08-03 18:31 | 43.6 °C | 44.0 °C | 48.1 °C | 47.8 °C | sorghum field 41.8 °C vs fallow field 49.8 °C |
+| Hays | 2022-08-13 21:50 | 45.1 °C | 46.6 °C | 49.0 °C | 48.7 °C | sorghum field 42.0 °C vs fallow field 50.3 °C |
+
+The same pattern as at Tribune: in August growing sorghum is 2.5–7 °C cooler than fallow across the area, and the cropped demo field is 5–14 °C cooler than the hottest fallow or stubble field. Around Colby most corn is irrigated (the cold circles), so the corn column there is not a dryland number.
+
+All images are drawn in Web Mercator and every scene in the summary file has `site` and `bounds` (west, south, east, north), so the app lays the newest scene of each site over its map.
+
+## Mean summer greenness for the map
+
+`greenness_map.py` draws the mean NDVI of all clear Landsat 8 and 9 passes in June–August 2021–2025 over the same area as the heat images (`docs/img/greenness_<site>.png`, bounds and colour scale in `data/processed/ndvi/summer_map.json`). The colour scale runs from NDVI 0.1 (bare ground) to 0.6. Land that carries a crop every summer is dark green; wheat (harvested in June) and fallow stay pale. Passes used: 43 at Tribune, 137 at Colby, 94 at Hays (Colby and Hays lie where two Landsat paths overlap).
+
 ## Preview images
 
 - `docs/img/fields_overview_s2.png` — Sentinel-2 true colour, median of 1 July – 15 August 2025, demo fields in yellow.
-- `docs/img/field_<field_id>_naip.png` — NAIP aerial image (2023) of each field.
+- `docs/img/field_<field_id>_naip.png` — NAIP aerial image (2023) of each of the 11 fields.
 
 What the NAIP chips show: `ks071-002` (fallow in 2023) is brown with scattered green patches, which explains its rising fallow-year NDVI: weeds, not a crop. `ks071-005` is a strip inside a larger uniformly green field with no pivot circle, so it is most likely dryland continuous cropping rather than irrigated; its polygon covers only part of the real field.
 

@@ -10,7 +10,10 @@ import { GreennessChart, type CropYear } from '@/components/field/GreennessChart
 import { SegmentedControl } from '@/components/ui/segmented-control'
 import { fieldShortName, type FieldFeature } from '@/lib/data'
 import {
+  clockTime,
+  HEAT_SCALE,
   imageUrl,
+  sceneDate,
   VIEWER_TAB_SHORT,
   type HeatScene,
   type NdviState,
@@ -19,22 +22,6 @@ import {
 import { useDateLocale, useT, useTempUnit } from '@/lib/i18n'
 import type { CropLetter } from '@/lib/rotation'
 import { formatTemp } from '@/lib/units'
-
-// "2023-07-30 20:08" -> "Jul 30, 2023"
-function sceneDate(scene: HeatScene, locale: string) {
-  const date = new Date(`${scene.time_utc.slice(0, 10)}T00:00:00Z`)
-  return date.toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })
-}
-
-// "13:20" -> "1:20 pm" in English; Polish keeps the 24-hour clock.
-function clockTime(time: string, locale: string) {
-  if (locale === 'pl-PL') return time
-  const [hour, minute] = time.split(':').map(Number)
-  return `${((hour + 11) % 12) + 1}:${String(minute).padStart(2, '0')} ${hour < 12 ? 'am' : 'pm'}`
-}
-
-// The colours of the heat images (matplotlib RdYlBu, reversed): blue is cool, red is hot.
-const HEAT_SCALE = 'linear-gradient(to right, #313695, #74add1, #e0f3f8, #ffffbf, #fdae61, #f46d43, #a50026)'
 
 // Picture that fills the free height of the popup without being cropped; a click opens the file itself.
 function LargeImage({ file, alt }: { file: string; alt: string }) {
@@ -107,7 +94,7 @@ function HeatPanel({ field, scenes }: { field: FieldFeature; scenes: HeatScene[]
       <figure className="flex shrink-0 flex-col gap-3 lg:min-h-0 lg:flex-1 lg:shrink">
         <LargeImage
           file={scene.image.split('/').pop() ?? scene.image}
-          alt={t('Surface heat map of the area around Tribune on {date}; blue is cooler, red is hotter', { date: sceneDate(scene, locale) })}
+          alt={t('Surface heat map of the area around {site} on {date}; blue is cooler, red is hotter', { site: scene.site, date: sceneDate(scene, locale) })}
         />
         {/* Colour scale of the image, with the two ends in degrees */}
         <figcaption className="flex items-center gap-3 text-[13px] text-muted-foreground">

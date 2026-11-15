@@ -54,6 +54,8 @@ if (existsSync(join(processed, 'results', 'validation.json'))) {
   copyFile(join(processed, 'results', 'validation.json'), join(outData, 'validation.json'))
 }
 copyFile(join(processed, 'heat', 'ecostress_summary.json'), join(outData, 'ecostress_summary.json'))
+// Map layer "Greenness": where the mean summer NDVI image of each site lies (pipelines/fields/greenness_map.py).
+copyFile(join(processed, 'ndvi', 'summer_map.json'), join(outData, 'ndvi_summer_map.json'))
 copyFile(join(repo, 'crops-economics', 'reference', 'evidence.md'), join(outData, 'evidence.md'))
 
 // Per-field files. The pattern ks<fips>-<no> skips sample.json and helper files.

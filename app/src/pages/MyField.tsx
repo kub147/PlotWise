@@ -31,7 +31,7 @@ export function MyField({ data, selected, onSelect }: MyFieldProps) {
     () => [...p.crop_sequence].map((letter, i) => ({ year: p.crop_sequence_first_year + i, letter: toCropLetter(letter) })),
     [p.crop_sequence, p.crop_sequence_first_year],
   )
-  // What the map can offer to open when one of its layers has nothing to draw.
+  // What the map's layer legend can open in the popup for the selected field.
   const viewerHas = { greenness: ndvi.status !== 'missing', heat: heatScenes.length > 0 }
 
   return (
@@ -43,6 +43,7 @@ export function MyField({ data, selected, onSelect }: MyFieldProps) {
           counties={data.counties}
           selected={selected}
           onSelect={onSelect}
+          heat={heat}
           viewerHas={viewerHas}
           onOpenViewer={setViewer}
         />

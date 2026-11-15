@@ -1,16 +1,39 @@
 // Middle of the "My field" view: Leaflet map with the field outlines, a layer switch and a search box.
-// The repo has no NDVI or ECOSTRESS raster tiles, so those two layers show a plain base map
-// and a note with a button that opens the popup with that view of the selected field (spec 5.1 allows this).
+// The Greenness and Surface heat layers lay one image per site over a plain base map: mean summer greenness
+// (Landsat NDVI) and the newest ECOSTRESS surface temperature scene. A legend names the colours and has a button
+// that opens the popup with that view of the selected field (the chart over the years, the other heat days).
 import 'leaflet/dist/leaflet.css'
 import { Browser, type LatLngBoundsExpression, type LatLngTuple } from 'leaflet'
 import { ArrowUpRight } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { CircleMarker, MapContainer, Polygon, TileLayer, Tooltip, ZoomControl, AttributionControl, useMap } from 'react-leaflet'
+import { useEffect, useMemo, useState } from 'react'
+import {
+  AttributionControl,
+  CircleMarker,
+  ImageOverlay,
+  MapContainer,
+  Pane,
+  Polygon,
+  TileLayer,
+  Tooltip,
+  ZoomControl,
+  useMap,
+} from 'react-leaflet'
 import { MapSearch, type MapTarget } from '@/components/MapSearch'
 import { SegmentedControl } from '@/components/ui/segmented-control'
 import { fieldShortName, type County, type FieldFeature } from '@/lib/data'
-import type { ViewerTab } from '@/lib/fieldMedia'
-import { useT } from '@/lib/i18n'
+import {
+  clockTime,
+  HEAT_SCALE,
+  imageUrl,
+  latestHeatScenes,
+  sceneDate,
+  useGreennessMap,
+  type HeatSummary,
+  type ImageBounds,
+  type ViewerTab,
+} from '@/lib/fieldMedia'
+import { useDateLocale, useT, useTempUnit } from '@/lib/i18n'
+import { formatTemp } from '@/lib/units'
 
 type LayerId = 'aerial' | 'greenness' | 'heat'
 
@@ -30,19 +53,31 @@ const STREET_TILES = {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }
 
-// Note for a layer the map cannot draw yet, the button that opens that view in the popup,
-// and the note when the selected field has no such data either.
-const LAYER_NOTES: Record<Exclude<LayerId, 'aerial'>, { note: string; action: string; none: string }> = {
-  greenness: {
-    note: 'Greenness is shown per field, as a chart. Open it for the selected field.',
-    action: 'Open the greenness chart',
-    none: 'Greenness is shown per field, as a chart, and there is no greenness record for this field.',
-  },
-  heat: {
-    note: 'Surface heat is shown as images of the Tribune area. Open them for the selected field.',
-    action: 'Open the heat images',
-    none: 'Surface heat is shown as images of the Tribune area. They do not cover this field.',
-  },
+// Button of a layer's legend (it opens that view of the selected field in the popup)
+// and the note when there is no image for the area of the selected field.
+const LAYER_NOTES: Record<Exclude<LayerId, 'aerial'>, { action: string; none: string }> = {
+  greenness: { action: 'Open the greenness chart', none: 'No greenness record for this field yet.' },
+  heat: { action: 'Open the heat images', none: 'No surface heat image for this field yet.' },
+}
+
+// Image bounds are west, south, east, north; Leaflet wants [[south, west], [north, east]].
+function toLatLngBounds([west, south, east, north]: ImageBounds): LatLngBoundsExpression {
+  return [
+    [south, west],
+    [north, east],
+  ]
+}
+
+// Colour scale of a map layer: the gradient with a label at each end.
+function ScaleBar({ low, high, gradient, numbers }: { low: string; high: string; gradient: string; numbers?: boolean }) {
+  const end = numbers ? 'font-mono font-medium' : 'text-muted-foreground'
+  return (
+    <div className="flex w-full items-center gap-2.5">
+      <span className={end}>{low}</span>
+      <span aria-hidden className="h-2.5 min-w-10 flex-1 rounded-full" style={{ background: gradient }} />
+      <span className={end}>{high}</span>
+    </div>
+  )
 }
 
 // GeoJSON stores [longitude, latitude]; Leaflet wants [latitude, longitude].
@@ -81,13 +116,17 @@ type FieldMapProps = {
   counties: County[]
   selected: FieldFeature
   onSelect: (fieldId: string) => void
+  // ECOSTRESS scenes of all sites; the surface heat layer shows the newest one of each site.
+  heat: HeatSummary | null
   // Whether the selected field has a greenness record and heat images to open.
   viewerHas: { greenness: boolean; heat: boolean }
   onOpenViewer: (tab: ViewerTab) => void
 }
 
-export function FieldMap({ fields, counties, selected, onSelect, viewerHas, onOpenViewer }: FieldMapProps) {
+export function FieldMap({ fields, counties, selected, onSelect, heat, viewerHas, onOpenViewer }: FieldMapProps) {
   const t = useT()
+  const unit = useTempUnit()
+  const locale = useDateLocale()
   const [layer, setLayer] = useState<LayerId>('aerial')
   // County or place found by the search; shown as a pin until a field is picked.
   const [target, setTarget] = useState<MapTarget | null>(null)
@@ -95,8 +134,19 @@ export function FieldMap({ fields, counties, selected, onSelect, viewerHas, onOp
   // Outlines must be light on the aerial photo and dark on the light base map.
   const outline = layer === 'aerial' ? '#ffffff' : '#2a221c'
   const highlight = layer === 'aerial' ? '#ffd60a' : '#b5179e'
-  const note = layer === 'aerial' ? null : LAYER_NOTES[layer]
   const canOpen = layer !== 'aerial' && viewerHas[layer]
+  // Images of the two data layers: one per site. The legend describes the image around the selected field.
+  const site = selected.properties.site
+  const greenness = useGreennessMap()
+  const heatScenes = useMemo(() => latestHeatScenes(heat), [heat])
+  const heatScene = heatScenes.find((scene) => scene.site === site)
+  const greennessHere = greenness?.sites.some((image) => image.site === site) ?? false
+  const overlays =
+    layer === 'heat'
+      ? heatScenes.map((scene) => ({ file: scene.image, bounds: scene.bounds }))
+      : layer === 'greenness'
+        ? (greenness?.sites ?? []).map((image) => ({ file: image.image, bounds: image.bounds }))
+        : []
 
   const selectField = (fieldId: string) => {
     setTarget(null)
@@ -120,6 +170,16 @@ export function FieldMap({ fields, counties, selected, onSelect, viewerHas, onOp
         className="h-full w-full"
       >
         <TileLayer key={layer} url={tiles.url} attribution={tiles.attribution} maxZoom={18} />
+        {/* Above the base map, below the field outlines (Leaflet's overlay pane is at 400) */}
+        <Pane name="layer-images" style={{ zIndex: 350 }}>
+          {overlays.map((overlay) => (
+            <ImageOverlay
+              key={overlay.file}
+              url={imageUrl(overlay.file.split('/').pop() ?? overlay.file)}
+              bounds={toLatLngBounds(overlay.bounds)}
+            />
+          ))}
+        </Pane>
         <ZoomControl position="bottomright" zoomInTitle={t('Zoom in')} zoomOutTitle={t('Zoom out')} />
         <AttributionControl position="bottomright" prefix="Leaflet" />
         {fields.map((field) => {
@@ -178,19 +238,63 @@ export function FieldMap({ fields, counties, selected, onSelect, viewerHas, onOp
         </div>
       </div>
 
-      {note && layer !== 'aerial' && (
+      {layer !== 'aerial' && (
         <div
           role="status"
-          className="pw-glass absolute bottom-3 left-3 z-[1000] flex max-w-[min(26rem,calc(100%-5rem))] flex-col items-start gap-2.5 rounded-2xl px-4 py-3 text-[13px] text-foreground lg:bottom-4 lg:left-[336px]"
+          className="pw-glass absolute bottom-3 left-3 z-[1000] flex w-[min(24rem,calc(100%-5rem))] flex-col items-start gap-2 rounded-2xl px-4 py-3 text-[13px] text-foreground lg:bottom-4 lg:left-[336px]"
         >
-          <p>{t(canOpen ? note.note : note.none)}</p>
+          {layer === 'heat' && heatScene && (
+            <>
+              <div>
+                <p className="font-semibold">{t('Ground temperature around {site}', { site })}</p>
+                <p className="text-muted-foreground">
+                  {t('{date}, around {time} local solar time', {
+                    date: sceneDate(heatScene, locale),
+                    time: clockTime(heatScene.local_solar_time, locale),
+                  })}
+                </p>
+              </div>
+              <ScaleBar
+                low={formatTemp(heatScene.colour_scale_c[0], unit)}
+                high={formatTemp(heatScene.colour_scale_c[1], unit)}
+                gradient={HEAT_SCALE}
+                numbers
+              />
+              {/* The explanation is left out on a phone, where the map is small */}
+              <p className="hidden text-muted-foreground sm:block">
+                {t('Temperature of the ground surface, not of the air, at one moment of that day. Measured by NASA’s ECOSTRESS instrument.')}
+              </p>
+            </>
+          )}
+          {layer === 'greenness' && greenness && greennessHere && (
+            <>
+              <div>
+                <p className="font-semibold">{t('Average summer greenness around {site}', { site })}</p>
+                <p className="text-muted-foreground">
+                  {t('June–August {from}–{to}, from Landsat satellites', { from: greenness.years[0], to: greenness.years[1] })}
+                </p>
+              </div>
+              <ScaleBar
+                low={t('bare ground')}
+                high={t('dense green crop')}
+                gradient={`linear-gradient(to right, ${greenness.palette.map((colour) => `#${colour}`).join(', ')})`}
+              />
+              <p className="hidden text-muted-foreground sm:block">
+                {t('Wheat is harvested in June, so wheat and fallow fields stay pale. Fields with a crop every summer are dark green.')}
+              </p>
+            </>
+          )}
+          {/* Loaded, and no image covers the selected field */}
+          {((layer === 'heat' && heat && !heatScene) || (layer === 'greenness' && greenness && !greennessHere)) && (
+            <p>{t(LAYER_NOTES[layer].none)}</p>
+          )}
           {canOpen && (
             <button
               type="button"
               onClick={() => onOpenViewer(layer)}
               className="pw-press pw-brand inline-flex min-h-10 items-center gap-1.5 rounded-full px-4 text-[13px] font-medium"
             >
-              {t(note.action)}
+              {t(LAYER_NOTES[layer].action)}
               <ArrowUpRight aria-hidden className="h-4 w-4" />
             </button>
           )}

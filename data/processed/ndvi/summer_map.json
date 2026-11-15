@@ -1,0 +1,60 @@
+{
+ "source": "Landsat 8 and 9 Collection 2 surface reflectance (30 m), cloud-masked",
+ "note": "Mean NDVI of all clear passes in June-August. Wheat is harvested in June, so wheat and fallow land stay low.",
+ "years": [
+  2021,
+  2025
+ ],
+ "months": [
+  6,
+  8
+ ],
+ "colour_scale_ndvi": [
+  0.1,
+  0.6
+ ],
+ "palette": [
+  "8c6d4f",
+  "d9c9a3",
+  "f3efd0",
+  "b6d98a",
+  "5fae5a",
+  "1e7a3c",
+  "0b4f2a"
+ ],
+ "sites": [
+  {
+   "site": "Tribune",
+   "image": "docs/img/greenness_tribune.png",
+   "bounds": [
+    -101.87077,
+    38.3716,
+    -101.62261,
+    38.53082
+   ],
+   "landsat_passes": 43
+  },
+  {
+   "site": "Colby",
+   "image": "docs/img/greenness_colby.png",
+   "bounds": [
+    -101.13056,
+    39.18423,
+    -100.96135,
+    39.47374
+   ],
+   "landsat_passes": 137
+  },
+  {
+   "site": "Hays",
+   "image": "docs/img/greenness_hays.png",
+   "bounds": [
+    -99.30843,
+    38.75545,
+    -99.02176,
+    38.89971
+   ],
+   "landsat_passes": 94
+  }
+ ]
+}

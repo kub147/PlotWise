@@ -12,8 +12,8 @@ Only datasets that feed a number or an image in the product are listed. Datasets
 | GPM IMERG monthly V07 | Precipitation, as one of four records in the rainfall cross-check | What has changed | GEE `NASA/GPM_L3/IMERG_MONTHLY_V07` |
 | GRACE / GRACE-FO mascons | Monthly terrestrial water storage, 2002–2024 (regional) | What has changed | GEE `NASA/GRACE/MASS_GRIDS_V04/MASCON` |
 | SMAP Level 4 (SPL4SMGP) | Root-zone soil moisture, 9 km, 2015 to today; percentile for the calendar date | This season | GEE `NASA/SMAP/SPL4SMGP/008` |
-| Landsat 5, 7, 8, 9 Collection 2 Level 2 (NASA / USGS) | NDVI per field since 2008; bare-ground days | My field | GEE `LANDSAT/LT05/C02/T1_L2`, `LE07`, `LC08`, `LC09` |
-| ECOSTRESS L2T LSTE V2 | Land surface temperature, 70 m, four scenes around Tribune | My field, What has changed | GEE `NASA/ECOSTRESS/L2T_LSTE/V2` |
+| Landsat 5, 7, 8, 9 Collection 2 Level 2 (NASA / USGS) | NDVI per field since 2008; bare-ground days; mean summer NDVI 2021–2025 around each site (map layer) | My field | GEE `LANDSAT/LT05/C02/T1_L2`, `LE07`, `LC08`, `LC09` |
+| ECOSTRESS L2T LSTE V2 | Land surface temperature, 70 m, twelve scenes: four each around Tribune, Colby and Hays | My field, What has changed | GEE `NASA/ECOSTRESS/L2T_LSTE/V2` |
 | SRTM 30 m | Slope per field | My field | GEE `USGS/SRTMGL1_003` |
 
 ## Partner space agency data
@@ -30,7 +30,7 @@ Only datasets that feed a number or an image in the product are listed. Datasets
 | PRISM (Oregon State University) | Monthly precipitation: the reference in the rainfall cross-check | What has changed | GEE `OREGONSTATE/PRISM/ANm` |
 | USDA NASS Cropland Data Layer | Crop per 30 m pixel and year, 2008–2025: field outlines, crop history, county rotations | My field, Region | GEE `USDA/NASS/CDL` |
 | USDA NRCS SSURGO (Soil Data Access) | Soil map unit, texture, organic matter, plant-available water to 5 ft | My field, engine | https://sdmdataaccess.sc.egov.usda.gov |
-| USDA NAIP | 1 m aerial photos of the Tribune demo fields | My field | GEE `USDA/NAIP/DOQQ` |
+| USDA NAIP | 1 m aerial photos of the 11 demo fields | My field | GEE `USDA/NAIP/DOQQ` |
 | USDA NASS QuickStats | Kansas marketing-year prices; dryland county yields | Rotation replay, Region | https://quickstats.nass.usda.gov |
 | K-State AgManager farm budgets | Dryland cost per acre by crop, rotation and region, 2016–2027 | Rotation replay | https://www.agmanager.info/farm-budgets |
 | BLS CPI-U | Conversion to 2025 dollars | Rotation replay | FRED series CPIAUCSL |

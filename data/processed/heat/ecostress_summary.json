@@ -4,6 +4,7 @@
  "scenes": [
   {
    "scene": "2023_07_30_200805_28721_006_14SKH",
+   "site": "Tribune",
    "time_utc": "2023-07-30 20:08",
    "local_solar_time": "13:20",
    "fields": {
@@ -54,10 +55,17 @@
    "colour_scale_c": [
     40.3,
     53.8
+   ],
+   "bounds": [
+    -101.87077,
+    38.3716,
+    -101.62261,
+    38.53082
    ]
   },
   {
    "scene": "2024_08_17_191142_34675_009_14SKH",
+   "site": "Tribune",
    "time_utc": "2024-08-17 19:11",
    "local_solar_time": "12:23",
    "fields": {
@@ -108,10 +116,17 @@
    "colour_scale_c": [
     41.1,
     52.6
+   ],
+   "bounds": [
+    -101.87077,
+    38.3716,
+    -101.62261,
+    38.53082
    ]
   },
   {
    "scene": "2022_06_16_211220_22371_009_14SKH",
+   "site": "Tribune",
    "time_utc": "2022-06-16 21:12",
    "local_solar_time": "14:24",
    "fields": {
@@ -162,10 +177,17 @@
    "colour_scale_c": [
     47.5,
     53.6
+   ],
+   "bounds": [
+    -101.87077,
+    38.3716,
+    -101.62261,
+    38.53082
    ]
   },
   {
    "scene": "2021_08_24_181434_17774_012_14SKH",
+   "site": "Tribune",
    "time_utc": "2021-08-24 18:14",
    "local_solar_time": "11:26",
    "fields": {
@@ -216,6 +238,436 @@
    "colour_scale_c": [
     41.8,
     55.8
+   ],
+   "bounds": [
+    -101.87077,
+    38.3716,
+    -101.62261,
+    38.53082
+   ]
+  },
+  {
+   "scene": "2025_08_18_180014_40359_006_14SLJ",
+   "site": "Colby",
+   "time_utc": "2025-08-18 18:00",
+   "local_solar_time": "11:18",
+   "fields": {
+    "ks193-001": {
+     "lst_c": 41.9,
+     "crop": "fallow"
+    },
+    "ks193-002": {
+     "lst_c": 39.1,
+     "crop": "sorghum"
+    },
+    "ks193-003": {
+     "lst_c": 47.1,
+     "crop": "fallow"
+    }
+   },
+   "by_crop_class": {
+    "corn": {
+     "mean_c": 40.3,
+     "pixels": 44068
+    },
+    "sorghum": {
+     "mean_c": 39.6,
+     "pixels": 4369
+    },
+    "winter wheat (ripe in June, stubble from July)": {
+     "mean_c": 44.8,
+     "pixels": 16123
+    },
+    "fallow": {
+     "mean_c": 45.9,
+     "pixels": 12473
+    },
+    "grass/pasture": {
+     "mean_c": 45.3,
+     "pixels": 11729
+    }
+   },
+   "image": "docs/img/ecostress_colby_2025-08-18.png",
+   "colour_scale_c": [
+    34.1,
+    49.9
+   ],
+   "bounds": [
+    -101.13056,
+    39.18423,
+    -100.96135,
+    39.47374
+   ]
+  },
+  {
+   "scene": "2022_08_13_215024_23273_012_14SLJ",
+   "site": "Colby",
+   "time_utc": "2022-08-13 21:50",
+   "local_solar_time": "15:08",
+   "fields": {
+    "ks193-001": {
+     "lst_c": 48.1,
+     "crop": "fallow"
+    },
+    "ks193-002": {
+     "lst_c": 42.6,
+     "crop": "sorghum"
+    },
+    "ks193-003": {
+     "lst_c": 47.1,
+     "crop": "winter wheat"
+    }
+   },
+   "by_crop_class": {
+    "corn": {
+     "mean_c": 42.8,
+     "pixels": 42940
+    },
+    "sorghum": {
+     "mean_c": 45.0,
+     "pixels": 4863
+    },
+    "winter wheat (ripe in June, stubble from July)": {
+     "mean_c": 47.2,
+     "pixels": 18612
+    },
+    "fallow": {
+     "mean_c": 47.5,
+     "pixels": 10807
+    },
+    "grass/pasture": {
+     "mean_c": 47.4,
+     "pixels": 11202
+    }
+   },
+   "image": "docs/img/ecostress_colby_2022-08-13.png",
+   "colour_scale_c": [
+    33.9,
+    50.2
+   ],
+   "bounds": [
+    -101.13056,
+    39.18423,
+    -100.96135,
+    39.47374
+   ]
+  },
+  {
+   "scene": "2022_08_05_183532_23146_006_14SLJ",
+   "site": "Colby",
+   "time_utc": "2022-08-05 18:35",
+   "local_solar_time": "11:53",
+   "fields": {
+    "ks193-001": {
+     "lst_c": 46.5,
+     "crop": "fallow"
+    },
+    "ks193-002": {
+     "lst_c": 38.4,
+     "crop": "sorghum"
+    },
+    "ks193-003": {
+     "lst_c": 48.5,
+     "crop": "winter wheat"
+    }
+   },
+   "by_crop_class": {
+    "corn": {
+     "mean_c": 42.3,
+     "pixels": 42871
+    },
+    "sorghum": {
+     "mean_c": 42.6,
+     "pixels": 4863
+    },
+    "winter wheat (ripe in June, stubble from July)": {
+     "mean_c": 47.1,
+     "pixels": 18517
+    },
+    "fallow": {
+     "mean_c": 46.7,
+     "pixels": 10772
+    },
+    "grass/pasture": {
+     "mean_c": 46.4,
+     "pixels": 11154
+    }
+   },
+   "image": "docs/img/ecostress_colby_2022-08-05.png",
+   "colour_scale_c": [
+    32.9,
+    51.1
+   ],
+   "bounds": [
+    -101.13056,
+    39.18423,
+    -100.96135,
+    39.47374
+   ]
+  },
+  {
+   "scene": "2021_08_24_181434_17774_012_14SLJ",
+   "site": "Colby",
+   "time_utc": "2021-08-24 18:14",
+   "local_solar_time": "11:32",
+   "fields": {
+    "ks193-001": {
+     "lst_c": 47.5,
+     "crop": "corn"
+    },
+    "ks193-002": {
+     "lst_c": 52.3,
+     "crop": "winter wheat"
+    },
+    "ks193-003": {
+     "lst_c": 54.3,
+     "crop": "fallow"
+    }
+   },
+   "by_crop_class": {
+    "corn": {
+     "mean_c": 44.9,
+     "pixels": 39846
+    },
+    "sorghum": {
+     "mean_c": 46.5,
+     "pixels": 6814
+    },
+    "winter wheat (ripe in June, stubble from July)": {
+     "mean_c": 50.9,
+     "pixels": 18504
+    },
+    "fallow": {
+     "mean_c": 52.8,
+     "pixels": 11729
+    },
+    "grass/pasture": {
+     "mean_c": 52.0,
+     "pixels": 11177
+    }
+   },
+   "image": "docs/img/ecostress_colby_2021-08-24.png",
+   "colour_scale_c": [
+    36.8,
+    55.6
+   ],
+   "bounds": [
+    -101.13056,
+    39.18423,
+    -100.96135,
+    39.47374
+   ]
+  },
+  {
+   "scene": "2025_08_18_180014_40359_006_14SMJ+2025_08_18_180014_40359_006_14SMH",
+   "site": "Hays",
+   "time_utc": "2025-08-18 18:00",
+   "local_solar_time": "11:24",
+   "fields": {
+    "ks051-001": {
+     "lst_c": 47.6,
+     "crop": "sorghum"
+    },
+    "ks051-002": {
+     "lst_c": 61.4,
+     "crop": "winter wheat"
+    },
+    "ks051-003": {
+     "lst_c": 59.8,
+     "crop": "winter wheat"
+    }
+   },
+   "by_crop_class": {
+    "corn": {
+     "mean_c": 56.3,
+     "pixels": 2792
+    },
+    "sorghum": {
+     "mean_c": 52.4,
+     "pixels": 18982
+    },
+    "winter wheat (ripe in June, stubble from July)": {
+     "mean_c": 58.3,
+     "pixels": 21149
+    },
+    "fallow": {
+     "mean_c": 59.2,
+     "pixels": 13811
+    },
+    "grass/pasture": {
+     "mean_c": 56.5,
+     "pixels": 33370
+    }
+   },
+   "image": "docs/img/ecostress_hays_2025-08-18.png",
+   "colour_scale_c": [
+    46.8,
+    62.7
+   ],
+   "bounds": [
+    -99.30843,
+    38.75545,
+    -99.02176,
+    38.89971
+   ]
+  },
+  {
+   "scene": "2025_08_10_211534_40237_009_14SMJ+2025_08_10_211534_40237_009_14SMH",
+   "site": "Hays",
+   "time_utc": "2025-08-10 21:15",
+   "local_solar_time": "14:39",
+   "fields": {
+    "ks051-001": {
+     "lst_c": 42.9,
+     "crop": "sorghum"
+    },
+    "ks051-002": {
+     "lst_c": 49.9,
+     "crop": "winter wheat"
+    },
+    "ks051-003": {
+     "lst_c": 51.9,
+     "crop": "winter wheat"
+    }
+   },
+   "by_crop_class": {
+    "corn": {
+     "mean_c": 48.1,
+     "pixels": 2792
+    },
+    "sorghum": {
+     "mean_c": 46.5,
+     "pixels": 18982
+    },
+    "winter wheat (ripe in June, stubble from July)": {
+     "mean_c": 51.4,
+     "pixels": 21149
+    },
+    "fallow": {
+     "mean_c": 52.0,
+     "pixels": 13811
+    },
+    "grass/pasture": {
+     "mean_c": 50.4,
+     "pixels": 33370
+    }
+   },
+   "image": "docs/img/ecostress_hays_2025-08-10.png",
+   "colour_scale_c": [
+    41.7,
+    57.2
+   ],
+   "bounds": [
+    -99.30843,
+    38.75545,
+    -99.02176,
+    38.89971
+   ]
+  },
+  {
+   "scene": "2023_08_03_183114_28782_006_14SMJ+2023_08_03_183114_28782_006_14SMH",
+   "site": "Hays",
+   "time_utc": "2023-08-03 18:31",
+   "local_solar_time": "11:55",
+   "fields": {
+    "ks051-001": {
+     "lst_c": 49.8,
+     "crop": "fallow"
+    },
+    "ks051-002": {
+     "lst_c": 47.3,
+     "crop": "winter wheat"
+    },
+    "ks051-003": {
+     "lst_c": 41.8,
+     "crop": "sorghum"
+    }
+   },
+   "by_crop_class": {
+    "corn": {
+     "mean_c": 44.0,
+     "pixels": 601
+    },
+    "sorghum": {
+     "mean_c": 43.6,
+     "pixels": 23361
+    },
+    "winter wheat (ripe in June, stubble from July)": {
+     "mean_c": 47.8,
+     "pixels": 20212
+    },
+    "fallow": {
+     "mean_c": 48.1,
+     "pixels": 15894
+    },
+    "grass/pasture": {
+     "mean_c": 47.0,
+     "pixels": 32286
+    }
+   },
+   "image": "docs/img/ecostress_hays_2023-08-03.png",
+   "colour_scale_c": [
+    38.2,
+    51.4
+   ],
+   "bounds": [
+    -99.30843,
+    38.75545,
+    -99.02176,
+    38.89971
+   ]
+  },
+  {
+   "scene": "2022_08_13_215024_23273_012_14SMJ+2022_08_13_215024_23273_012_14SMH",
+   "site": "Hays",
+   "time_utc": "2022-08-13 21:50",
+   "local_solar_time": "15:14",
+   "fields": {
+    "ks051-001": {
+     "lst_c": 42.0,
+     "crop": "sorghum"
+    },
+    "ks051-002": {
+     "lst_c": 50.3,
+     "crop": "fallow"
+    },
+    "ks051-003": {
+     "lst_c": 48.7,
+     "crop": "winter wheat"
+    }
+   },
+   "by_crop_class": {
+    "corn": {
+     "mean_c": 46.6,
+     "pixels": 2076
+    },
+    "sorghum": {
+     "mean_c": 45.1,
+     "pixels": 18892
+    },
+    "winter wheat (ripe in June, stubble from July)": {
+     "mean_c": 48.7,
+     "pixels": 22566
+    },
+    "fallow": {
+     "mean_c": 49.0,
+     "pixels": 17859
+    },
+    "grass/pasture": {
+     "mean_c": 47.7,
+     "pixels": 32511
+    }
+   },
+   "image": "docs/img/ecostress_hays_2022-08-13.png",
+   "colour_scale_c": [
+    41.7,
+    51.3
+   ],
+   "bounds": [
+    -99.30843,
+    38.75545,
+    -99.02176,
+    38.89971
    ]
   }
  ]
