@@ -6,9 +6,8 @@ PlotWise lets a dryland farmer replay 30 real years of weather on their own fiel
 see what each one would have done to yield, income, dry-year risk and soil. It ranks the rotations by the farmer's own
 priorities and shows, for every suggestion, the evidence behind it, what is not known and what to check locally.
 
-**Live app: https://kub147.github.io/PlotWise/** (English and Polish, with a phone layout)
-
 [Presentation demo](PlotWise_demo.pdf)
+**Live app: https://kub147.github.io/PlotWise/** (English and Polish, with a phone layout)
 
 NASA Space Apps Challenge 2026, Rzeszów ·
 challenge [Field Shift: Adapting Farms with NASA Data](https://www.spaceappschallenge.org/2026/challenges/adapting-farms-with-nasa-data/)
