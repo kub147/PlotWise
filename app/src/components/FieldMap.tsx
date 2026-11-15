@@ -4,10 +4,9 @@
 // that opens the popup with that view of the selected field (the chart over the years, the other heat days).
 import 'leaflet/dist/leaflet.css'
 import { Browser, type LatLngBoundsExpression, type LatLngTuple } from 'leaflet'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Info } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import {
-  AttributionControl,
   CircleMarker,
   ImageOverlay,
   MapContainer,
@@ -43,14 +42,71 @@ const LAYERS: { value: LayerId; label: string }[] = [
   { value: 'heat', label: 'Surface heat' },
 ]
 
-// Base maps from public tile services (attribution on the map is required).
-const AERIAL_TILES = {
-  url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-  attribution: 'Imagery &copy; Esri, Maxar, Earthstar Geographics',
+// Base maps from public tile services. Their credits are shown by MapCredits (the licences require them on the map).
+const AERIAL_TILES = { url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}' }
+const STREET_TILES = { url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png' }
+
+// Credits of the base map and of the image laid over it, for each layer.
+function MapCredits({ layer, open, onToggle }: { layer: LayerId; open: boolean; onToggle: () => void }) {
+  const t = useT()
+  const link = 'underline decoration-foreground/30 underline-offset-2 hover:decoration-foreground'
+  return (
+    // Phone: above the zoom buttons at the right edge. Wide screen: above them in the free middle of the map.
+    // Opened by hand, the credits lie over the layer legend; another press folds them again.
+    <div className={`absolute bottom-[106px] right-4 ${open ? 'z-[1001]' : 'z-[1000]'} flex max-w-[calc(100%-2rem)] justify-end lg:bottom-[114px] lg:right-[420px] lg:max-w-[min(26rem,calc(100vw-780px))] xl:right-[460px] xl:max-w-[min(26rem,calc(100vw-820px))]`}>
+      <div className="pw-glass flex min-h-8 items-center gap-1 rounded-2xl text-[11px] leading-snug text-foreground/80">
+        {open && (
+          <p id="map-credits" className="py-1.5 pl-3">
+            <a href="https://leafletjs.com" target="_blank" rel="noreferrer" className={link}>
+              Leaflet
+            </a>
+            {' · '}
+            {layer === 'aerial' ? (
+              <>
+                {t('Imagery')} &copy; Esri, Maxar, Earthstar Geographics
+              </>
+            ) : (
+              <>
+                &copy;{' '}
+                <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer" className={link}>
+                  {t('OpenStreetMap contributors')}
+                </a>
+                {' · '}
+                {layer === 'heat' ? 'NASA ECOSTRESS' : 'NASA/USGS Landsat'}
+              </>
+            )}
+          </p>
+        )}
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-expanded={open}
+          aria-controls="map-credits"
+          aria-label={t('Map credits')}
+          title={t('Map credits')}
+          className="pw-press flex h-8 w-8 shrink-0 items-center justify-center rounded-full hover:bg-foreground/[0.06]"
+        >
+          <Info aria-hidden className="h-4 w-4" strokeWidth={2} />
+        </button>
+      </div>
+    </div>
+  )
 }
-const STREET_TILES = {
-  url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+
+// The credits are open when the map appears and fold into their button the first time someone uses the map.
+function FoldOnFirstUse({ onUse }: { onUse: () => void }) {
+  const map = useMap()
+  useEffect(() => {
+    const container = map.getContainer()
+    const use = () => onUse()
+    container.addEventListener('pointerdown', use, { once: true })
+    container.addEventListener('wheel', use, { once: true, passive: true })
+    return () => {
+      container.removeEventListener('pointerdown', use)
+      container.removeEventListener('wheel', use)
+    }
+  }, [map, onUse])
+  return null
 }
 
 // Button of a layer's legend (it opens that view of the selected field in the popup)
@@ -130,6 +186,8 @@ export function FieldMap({ fields, counties, selected, onSelect, heat, viewerHas
   const [layer, setLayer] = useState<LayerId>('aerial')
   // County or place found by the search; shown as a pin until a field is picked.
   const [target, setTarget] = useState<MapTarget | null>(null)
+  const [creditsOpen, setCreditsOpen] = useState(true)
+  const [creditsTouched, setCreditsTouched] = useState(false)
   const tiles = layer === 'aerial' ? AERIAL_TILES : STREET_TILES
   // Outlines must be light on the aerial photo and dark on the light base map.
   const outline = layer === 'aerial' ? '#ffffff' : '#2a221c'
@@ -169,7 +227,7 @@ export function FieldMap({ fields, counties, selected, onSelect, heat, viewerHas
         dragging={!Browser.mobile}
         className="h-full w-full"
       >
-        <TileLayer key={layer} url={tiles.url} attribution={tiles.attribution} maxZoom={18} />
+        <TileLayer key={layer} url={tiles.url} maxZoom={18} />
         {/* Above the base map, below the field outlines (Leaflet's overlay pane is at 400) */}
         <Pane name="layer-images" style={{ zIndex: 350 }}>
           {overlays.map((overlay) => (
@@ -181,7 +239,14 @@ export function FieldMap({ fields, counties, selected, onSelect, heat, viewerHas
           ))}
         </Pane>
         <ZoomControl position="bottomright" zoomInTitle={t('Zoom in')} zoomOutTitle={t('Zoom out')} />
-        <AttributionControl position="bottomright" prefix="Leaflet" />
+        {!creditsTouched && (
+          <FoldOnFirstUse
+            onUse={() => {
+              setCreditsTouched(true)
+              setCreditsOpen(false)
+            }}
+          />
+        )}
         {fields.map((field) => {
           const isSelected = field.properties.field_id === selected.properties.field_id
           return (
@@ -218,6 +283,15 @@ export function FieldMap({ fields, counties, selected, onSelect, heat, viewerHas
         <FlyToTarget target={target} />
       </MapContainer>
 
+      <MapCredits
+        layer={layer}
+        open={creditsOpen}
+        onToggle={() => {
+          setCreditsTouched(true)
+          setCreditsOpen((open) => !open)
+        }}
+      />
+
       {/* Search and layer switch over the map (z-index above the Leaflet layers) */}
       <div className="absolute inset-x-3 top-3 z-[1000] flex flex-col gap-2 lg:left-[336px] lg:right-[412px] lg:top-[88px] xl:right-[452px]">
         <MapSearch
@@ -232,7 +306,12 @@ export function FieldMap({ fields, counties, selected, onSelect, heat, viewerHas
             label={t('Map layer')}
             options={LAYERS.map((option) => ({ ...option, label: t(option.label) }))}
             value={layer}
-            onValueChange={setLayer}
+            onValueChange={(next) => {
+              setLayer(next)
+              // The legend of the new layer needs the corner: the credits fold into their button.
+              setCreditsTouched(true)
+              setCreditsOpen(false)
+            }}
             tone="glass"
           />
         </div>
@@ -241,7 +320,8 @@ export function FieldMap({ fields, counties, selected, onSelect, heat, viewerHas
       {layer !== 'aerial' && (
         <div
           role="status"
-          className="pw-glass absolute bottom-3 left-3 z-[1000] flex w-[min(24rem,calc(100%-5rem))] flex-col items-start gap-2 rounded-2xl px-4 py-3 text-[13px] text-foreground lg:bottom-4 lg:left-[336px]"
+          // Wide screen: only as wide as the free middle of the map, so that it ends before the zoom buttons.
+          className="pw-glass absolute bottom-3 left-3 z-[1000] flex w-[min(24rem,calc(100%-5rem))] flex-col items-start gap-2 rounded-2xl px-4 py-3 text-[13px] text-foreground lg:bottom-4 lg:left-[336px] lg:w-[min(24rem,calc(100vw-800px))] xl:w-[min(24rem,calc(100vw-840px))]"
         >
           {layer === 'heat' && heatScene && (
             <>
@@ -260,8 +340,8 @@ export function FieldMap({ fields, counties, selected, onSelect, heat, viewerHas
                 gradient={HEAT_SCALE}
                 numbers
               />
-              {/* The explanation is left out on a phone, where the map is small */}
-              <p className="hidden text-muted-foreground sm:block">
+              {/* The explanation is left out where the legend is narrow: on a phone and on a small laptop screen */}
+              <p className="hidden text-muted-foreground sm:block lg:hidden xl:block">
                 {t('Temperature of the ground surface, not of the air, at one moment of that day. Measured by NASA’s ECOSTRESS instrument.')}
               </p>
             </>
@@ -279,7 +359,7 @@ export function FieldMap({ fields, counties, selected, onSelect, heat, viewerHas
                 high={t('dense green crop')}
                 gradient={`linear-gradient(to right, ${greenness.palette.map((colour) => `#${colour}`).join(', ')})`}
               />
-              <p className="hidden text-muted-foreground sm:block">
+              <p className="hidden text-muted-foreground sm:block lg:hidden xl:block">
                 {t('Wheat is harvested in June, so wheat and fallow fields stay pale. Fields with a crop every summer are dark green.')}
               </p>
             </>
