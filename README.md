@@ -215,15 +215,15 @@ We used AI tools as assistants, and this is where.
 
 ## Team
 
-Five Geoinformatics students from AGH University of Krakow.
+Five Geospatial Computer Science students from AGH University of Krakow.
 
 | Workstream | Who |
 | :--- | :--- |
 | Weather and water | Oliwia Grądzka |
 | Fields, soil and vegetation | Jakub Wilk |
-| Crops, rotations and economics | Natalia |
-| Engine and validation | Kuba N. |
-| App and story | Miłosz |
+| Crops, rotations and economics | Natalia Kadłuczka |
+| Engine and validation | Jakub Naporowski |
+| App and story | Miłosz Wiktorowicz |
 
 ## License
 
