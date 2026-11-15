@@ -15,7 +15,7 @@ from .scoring import MONEY_REFERENCE, CRITERIA, DEFAULT_WEIGHTS, SCALES, rank, s
 from .counties import SCENARIOS
 from .yields import load_params
 
-ENGINE_GAPS = ["Stored soil water on this field is modelled from gridded weather, not measured",
+ENGINE_GAPS = ["Stored soil water on this field is modeled from gridded weather, not measured",
                "Yields are long-run estimates; a single year can be far off, wheat more than sorghum"]
 
 

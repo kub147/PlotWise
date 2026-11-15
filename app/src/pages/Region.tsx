@@ -103,6 +103,9 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
   const practice = data.rotations.counties[countyId]
   const result = data.results.counties[countyId]
   const model = countyModel(result, scenario)
+  const bestMean = model?.rotations[model.best_rotation]?.mean
+  const mostCommon = result?.practice?.most_common_of_three
+  const mostCommonShare = mostCommon ? `${formatNumber((result?.practice?.share_of_area[mostCommon] ?? 0) * 100)}%` : ''
   const info = LAYER_INFO[layer]
 
   const zoomTo = (id: string) => {
@@ -205,7 +208,7 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
             >
               {names.map((entry) => (
                 <option key={entry.id} value={entry.id}>
-                  {entry.name} {t('County')}
+                  {t('{name} County', { name: entry.name })}
                 </option>
               ))}
             </select>
@@ -218,7 +221,7 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
               <dl className="grid grid-cols-3 gap-3">
                 <Stat label={t('In 2008')} value={percent(county.fallow_share_2008)} />
                 <Stat label={t('Today')} value={percent(county.fallow_share_latest)} />
-                {result && <Stat label={t('Rain a year')} value={`${formatNumber(mmToInches(result.precip_mm_per_year), 1)} in`} />}
+                {result && <Stat label={t('Rain a year')} value={t('{n} in', { n: formatNumber(mmToInches(result.precip_mm_per_year), 1) })} />}
               </dl>
               <p className="mt-2 text-[13px] text-muted-foreground">{t("Share of the county's cropland left fallow.")}</p>
             </CardSection>
@@ -255,17 +258,29 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
             {model ? (
               <>
                 <dl className="mt-3 grid grid-cols-2 gap-3">
-                  <Stat label={t('Best rotation')} value={t(rotationLabel(model.best_rotation) ?? model.best_rotation)} />
+                  {/* "Best" here means the highest average of the three main rotations; at county yields it is often still a loss. */}
                   <Stat
-                    label={t('Sorghum in place of fallow')}
+                    label={bestMean !== undefined && bestMean < 0 ? t('Smallest loss of the three main rotations') : t('Highest return of the three main rotations')}
+                    value={t(rotationLabel(model.best_rotation) ?? model.best_rotation)}
+                  />
+                  <Stat
+                    label={t('Sorghum in place of fallow, difference')}
                     value={`${model.gain_replacing_fallow_usd_acre > 0 ? '+' : ''}${formatUsd(model.gain_replacing_fallow_usd_acre)} ${t('/acre')}`}
                   />
                 </dl>
-                {result?.practice?.most_common_of_three && (
+                {bestMean !== undefined && (
+                  <p className="mt-2 text-[13px] leading-snug text-muted-foreground">
+                    {bestMean < 0
+                      ? t('Even this rotation averages {value} per acre a year after land rent at this yield level: a loss.', { value: formatUsd(bestMean) })
+                      : t('This rotation averages {value} per acre a year after land rent at this yield level.', { value: formatUsd(bestMean) })}{' '}
+                    {t('The three main rotations are wheat – fallow, wheat – sorghum – fallow and wheat – corn – fallow; the others are left out here because their yields are less well tested.')}
+                  </p>
+                )}
+                {mostCommon && (
                   <p className="mt-2 text-[15px] leading-snug">
-                    {result.practice.most_common_of_three === model.best_rotation
-                      ? t('This is also the rotation farmers here grow most often.')
-                      : t('Farmers here most often grow {rotation}. Where the model and farmers disagree, trust local experience first: the model leaves out crop insurance, program payments and workload.', { rotation: t(rotationLabel(result.practice.most_common_of_three) ?? result.practice.most_common_of_three) })}
+                    {mostCommon === model.best_rotation
+                      ? t('Of the three main rotations, this is also the one farmers here grow most ({share} of field area).', { share: mostCommonShare })
+                      : t('Of the three main rotations, farmers here grow {rotation} most ({share} of field area). Where the model and farmers disagree, trust local experience first: the model leaves out crop insurance, program payments and workload.', { rotation: t(rotationLabel(mostCommon) ?? mostCommon), share: mostCommonShare })}
                   </p>
                 )}
               </>

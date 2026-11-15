@@ -83,7 +83,7 @@ export function FieldList({ data, selectedId, onSelect }: FieldListProps) {
                       <span className="flex items-center justify-between gap-2">
                         <span className="font-mono text-[15px] font-medium">{fieldShortName(p)}</span>
                         {phases ? (
-                          <span className="flex gap-0.5" aria-label={t('Rotation {rotation}', { rotation: phases.join('-') })}>
+                          <span className="flex gap-0.5" aria-label={t('Rotation {rotation}', { rotation: t(phases.join('-')) })}>
                             {phases.map((letter, i) => (
                               <CropTile key={i} letter={letter} className="h-6 w-6 text-[13px]" />
                             ))}

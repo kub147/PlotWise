@@ -4,10 +4,11 @@ import { Droplets } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { useJson, type Climate } from '@/lib/climate'
 import { fieldShortName, type AppData, type FieldFeature } from '@/lib/data'
-import { useDateLocale, useT } from '@/lib/i18n'
+import { useDateLocale, useLang, useT } from '@/lib/i18n'
 
-// 96 -> "96th", 1 -> "1st", 22 -> "22nd"
-function ordinal(value: number) {
+// 96 -> "96th", 1 -> "1st", 22 -> "22nd" in English; "96." in Polish.
+function ordinal(value: number, lang: 'en' | 'pl') {
+  if (lang === 'pl') return `${value}.`
   const tens = value % 100
   if (tens >= 11 && tens <= 13) return `${value}th`
   return `${value}${['th', 'st', 'nd', 'rd'][value % 10] ?? 'th'}`
@@ -30,6 +31,7 @@ type SeasonProps = {
 export function Season({ data, selected }: SeasonProps) {
   const t = useT()
   const locale = useDateLocale()
+  const { lang } = useLang()
   const p = selected.properties
   const hasClimate = data.manifest.climate.includes(p.field_id)
   const state = useJson<Climate>(hasClimate ? `climate/${p.field_id}.json` : null)
@@ -46,7 +48,7 @@ export function Season({ data, selected }: SeasonProps) {
     )
   }
 
-  const { latest, note, period } = state.data.smap
+  const { latest, period } = state.data.smap
   const percentile = latest.percentile_for_calendar_date
   const firstYear = period[0].slice(0, 4)
 
@@ -69,7 +71,7 @@ export function Season({ data, selected }: SeasonProps) {
             <Droplets className="h-6 w-6" />
           </span>
           <div>
-            <p className="text-[64px] font-semibold leading-none tracking-tight">{ordinal(percentile)}</p>
+            <p className="text-[64px] font-semibold leading-none tracking-tight">{ordinal(percentile, lang)}</p>
             <p className="mt-1 text-[19px] font-medium">{t('percentile for this date')}</p>
           </div>
         </div>
@@ -83,7 +85,7 @@ export function Season({ data, selected }: SeasonProps) {
           <div
             className="relative h-3 rounded-full bg-foreground/[0.08]"
             role="img"
-            aria-label={t('Scale from driest on record to wettest on record. Today is at the {rank} percentile.', { rank: ordinal(percentile) })}
+            aria-label={t('Scale from the driest to the wettest reading for this time of year. The reading on {date} is at the {rank} percentile.', { rank: ordinal(percentile, lang), date: longDate(latest.date, locale) })}
           >
             <span
               className="absolute top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-card pw-brand shadow-[0_4px_12px_rgb(15_154_76/0.35)]"
@@ -91,14 +93,14 @@ export function Season({ data, selected }: SeasonProps) {
             />
           </div>
           <div className="mt-3 flex justify-between text-[13px] text-muted-foreground">
-            <span>{t('Driest on record')}</span>
+            <span>{t('Driest for this time of year')}</span>
             <span>{t('Middle')}</span>
-            <span>{t('Wettest on record')}</span>
+            <span>{t('Wettest for this time of year')}</span>
           </div>
         </div>
 
         <p className="mt-6 max-w-[70ch] text-[13px] leading-snug text-muted-foreground">
-          {t('From NASA’s SMAP satellite: moisture in the top 3 feet of soil, compared with the same week of the year in {years} years of record. It covers a square about 5.5 miles wide, so read it as the neighborhood, not as a probe in this field. Use the percentile, not the raw reading.', { years: latest.n_years })}
+          {t('NASA’s SMAP satellite combined with a soil model (SMAP Level 4): moisture in the top 3 feet of soil, compared with the same week of the year in {years} years of record. The satellite senses the top 2 inches; the model carries it down. It covers a square about 5.5 miles wide, so read it as the neighborhood, not as a probe in this field.', { years: latest.n_years })}
         </p>
       </Card>
 
@@ -112,8 +114,6 @@ export function Season({ data, selected }: SeasonProps) {
         </p>
       </Card>
 
-      {/* Note stored in the data file by workstream A, shown unchanged */}
-      <p className="px-2 text-[13px] leading-snug text-muted-foreground">{t('Note from the data:')} {t(note)}</p>
     </div>
   )
 }

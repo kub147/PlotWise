@@ -38,18 +38,32 @@ const VALIDATION_TILES = [
   },
 ]
 
+// Split by what each source does: the replay engine runs on daily gridMET weather (NASA POWER fills its
+// sunshine and wind columns); the NASA data that only appears in the views says where, so its role is clear.
 const SOURCE_GROUPS = [
   {
-    title: 'Weather and water',
-    items: ['gridMET', 'PRISM', 'NASA POWER', 'NASA GPM IMERG', 'NASA GRACE / GRACE-FO', 'NASA SMAP'],
+    title: 'Drives the replay',
+    items: [
+      'gridMET daily weather (with NASA POWER sunshine and wind)',
+      'USDA soil survey (SSURGO)',
+      'USDA Cropland Data Layer',
+      'K-State field trials at Tribune',
+      'K-State farm budgets',
+      'USDA NASS prices and yields',
+      'FAO-56 crop water use',
+    ],
   },
   {
-    title: 'The field',
-    items: ['USDA Cropland Data Layer', 'USDA soil survey (SSURGO)', 'Landsat', 'NASA ECOSTRESS', 'USDA NAIP aerial photos'],
-  },
-  {
-    title: 'Crops and money',
-    items: ['K-State field trials at Tribune', 'K-State farm budgets', 'USDA NASS prices and yields', 'FAO-56 crop water use'],
+    title: 'Shown in the views',
+    items: [
+      'NASA POWER: warming and frost trends (What has changed)',
+      'NASA GPM IMERG and PRISM: rainfall cross-check (What has changed)',
+      'NASA GRACE / GRACE-FO: regional water storage (What has changed)',
+      'NASA SMAP: soil moisture now (This season)',
+      'NASA ECOSTRESS: surface heat (My field, What has changed)',
+      'NASA/USGS Landsat: field greenness (My field)',
+      'USDA NAIP aerial photos (My field)',
+    ],
   },
 ]
 
@@ -191,7 +205,7 @@ export function How({ data }: { data: AppData }) {
               ))}
             </div>
             <p className="max-w-[80ch] text-[13px] leading-snug text-muted-foreground">
-              {t("Measured at {site}. The engine was run there with the same gridded weather it uses for every field, not with the station's own rain gauge. Its water settings were fitted to measured soil water, not to these yields.", { site: validation?.site ?? '' })}
+              {t("Measured at {site}. The engine was run there with the same gridded weather it uses for every field, not with the station's own rain gauge. Its water settings were fitted to measured soil water; the yield-from-water line was then fitted to these yields, so the fair test is the score for years the model has not seen (sorghum 54%, wheat 13%).", { site: validation?.site ?? '' })}
             </p>
           </>
         )}

@@ -96,7 +96,7 @@ export function RegionMap({ counties, results, fields, layer, scenario, selected
           })}
           onEachFeature={(feature, leafletLayer: Layer) => {
             leafletLayer.on('click', () => onSelect(feature.properties.county_id))
-            leafletLayer.bindTooltip(`${feature.properties.name} ${t('County')}`, { sticky: true })
+            leafletLayer.bindTooltip(t('{name} County', { name: feature.properties.name }), { sticky: true })
           }}
         />
         {fields && (

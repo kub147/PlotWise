@@ -30,7 +30,7 @@ Tribune is the validation site: the engine is calibrated and tested against thes
 | E09 | Available soil water at planting (8 ft): wheat 9.4 in after a full fallow, 5.8–6.1 in in longer rotations; sorghum 4.4–5.5 in; corn 4.0–5.2 in | as E07 | read |
 | E10 | Seasonal water use: wheat 12.5–16.7 in; sorghum 11.7–12.8 in; corn 12.5–13.3 in | as E07 | read |
 | E11 | In the same rotation sorghum yielded about twice as much as corn (corn about 65 bu/acre after wheat) | as E07 | read |
-| E12 | Sorghum and corn after wheat vs after a summer crop: the team's notes say "about twice as high" (sorghum) and "60% higher" (corn); the report abstract says "about 60% greater" for both; the 2021 edition (2008–2020) says about 50% | as E07 | conflict — not used by any rotation (WSSF uses E05) |
+| E12 | Sorghum and corn after wheat vs after a summer crop: the report abstract says "about 60% greater" for both; the 2021 edition (2008–2020) says about 50% | as E07 | sources disagree, so not used |
 | E13 | Wheat–sorghum–fallow, 20-year averages: wheat 30 bu/acre no-till vs 22 conventional tillage; no-till stores about 1 in (wheat) to 1.5 in (sorghum) more water at planting | Schlegel, Burnett (2021). *Tillage Intensity in a Long-Term Wheat-Sorghum-Fallow Rotation.* KAES Research Reports 7(7) | read |
 | E14 | Sorghum: long-term no-till 79 bu/acre vs short-term no-till 50; conventional tillage far lower (17 bu/acre in 2020) | as E13 | read |
 | E15 | 11 of 20 wheat years were below normal: mostly drought, also winterkill (2015) and disease (2017) | as E13 | read |
@@ -45,7 +45,7 @@ Tribune is the validation site: the engine is calibrated and tested against thes
 | E23 | Crop coefficients Kc (initial, mid, end) | Allen, Pereira, Raes, Smith (1998). FAO Irrigation and Drainage Paper 56, Table 12. https://www.fao.org/4/x0490e/x0490e0b.htm | data |
 | E24 | Lengths of crop development stages | FAO-56, Table 11 | data |
 | E25 | Rooting depth and depletion fraction p | FAO-56, Table 22. https://www.fao.org/4/x0490e/x0490e0e.htm | data |
-| E29 | Bushel weights: wheat 60 lb; corn and grain sorghum 56 lb; field pea 60 lb; proso millet 50 lb | USDA standard bushel weights | data for wheat, corn, sorghum; secondhand for pea and millet (not modelled) |
+| E29 | Bushel weights: wheat 60 lb; corn and grain sorghum 56 lb; field pea 60 lb; proso millet 50 lb | USDA standard bushel weights | data for wheat, corn, sorghum; secondhand for pea and millet (not modeled) |
 
 ## Replacing fallow with a forage or cover crop (Garden City, Kansas)
 
@@ -70,8 +70,8 @@ Tribune is the validation site: the engine is calibrated and tested against thes
 | E28 | Inflation adjustment to 2025 dollars; October 2025 was not published and is interpolated | BLS CPI-U, FRED series CPIAUCSL | data |
 | E30 | K-State charges fallow weed control to the crop after the fallow, and charges the fallow year's rent with a varying number of acre-years (1.0, 1.5 or 2.0) | AgManager budget PDFs (E26) | data |
 | E31 | Crop insurance premiums in the budgets: about $8–34/acre | AgManager budget PDFs (E26) | data |
-| E32 | Farm yields vs Tribune trial yields, same years. Wheat after fallow: ratio of means 0.85 (Greeley County, 14 years), 0.93 (West Central district, 20 years), 0.96 (mean of West Central counties, 18 years); correlation 0.80–0.94. Sorghum after wheat: 0.72 (Greeley, 7 years), 0.85 (district, 12 years), 0.82 (counties, 12 years); correlation 0.69–0.88 | `scripts/compare_county_vs_trial.py` → `county_vs_trial.csv` (E27 vs E01, E02) | data |
-| E33 | K-State budget region of each county: 46 study counties = 19 SW, 12 NW, 6 NC, 9 SC | `scripts/build_county_regions.py` → `county_budget_regions.csv` | assumption (A9) |
+| E32 | Farm yields vs Tribune trial yields, same years. Wheat after fallow: ratio of means 0.85 (Greeley County, 14 years), 0.93 (West Central district, 20 years), 0.96 (mean of West Central counties, 18 years); correlation 0.80–0.94. Sorghum after wheat: 0.72 (Greeley, 7 years), 0.85 (district, 12 years), 0.82 (counties, 12 years); correlation 0.69–0.88 | Our comparison of USDA NASS county yields (E27) with the Tribune trials (E01, E02) | data |
+| E33 | K-State budget region of each county: 46 study counties = 19 SW, 12 NW, 6 NC, 9 SC | Our assignment of counties to K-State budget regions | our assumption |
 
 ## Answers to the open questions (docs/research-evidence.md, section 7)
 
@@ -79,4 +79,4 @@ Tribune is the validation site: the engine is calibrated and tested against thes
 2. **Planting and harvest windows:** `crops.csv`, from NASS crop progress for Kansas (E27). Winter wheat: planted around day 278 (5 Oct), harvested around day 178 (27 Jun). Sorghum planted around day 158, corn 124, sunflower 163.
 3. **Published soil-water threshold for flexible fallow:** none found. The WS-forage rotation keeps `threshold_mm: null`; the engine shows a range instead of one value.
 4. **County vs trial yields:** farm yields are about 0.85–0.96 of trial yields for wheat and 0.72–0.85 for sorghum, and follow the same good and bad years (E32). Calibrate on Tribune, scale to farm level with `calibration_targets.csv` T19–T20.
-5. **Crop insurance, one sentence for the cards:** "Results leave out crop insurance: premiums (about $8–34/acre) and payouts in failed years such as 2002, 2012 and 2013 would reduce losses in bad years."
+5. **Crop insurance, one sentence for the cards:** "Results leave out crop insurance: premiums (about $8–34/acre a year) would add a cost every year, and payouts in failed years such as 2002, 2012 and 2013 would reduce losses in those years."

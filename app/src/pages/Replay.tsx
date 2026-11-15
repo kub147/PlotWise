@@ -40,26 +40,39 @@ const SCENARIO_TEXT: Record<Scenario, string> = {
 const PROXY_BUDGET_REGIONS = ['NC', 'SC']
 
 // Sentence on how stable the ranking is, built from the field's data (ranking_sensitivity), not hard-coded.
-function stabilitySentence(sensitivity: RankingSensitivity, t: Translate): string {
+function stabilitySentence(sensitivity: RankingSensitivity, t: Translate, topId: string | undefined): string {
   const shares = Object.entries(sensitivity.share_of_wins)
     .filter(([, share]) => share > 0)
     .sort((a, b) => b[1] - a[1])
   const [first, second] = shares
   if (!first) return ''
-  const label = (id: string) => rotationLabel(id) ?? id
+  const label = (id: string) => t(rotationLabel(id) ?? id)
   const percent = (share: number) => `${Math.round(share * 100)}%`
+  // When the rotation first under the current priorities is not the one that wins most often, say so.
+  const yours =
+    topId && rotationLabel(topId) !== rotationLabel(first[0])
+      ? ` ${t('With your current priorities, {top} is first.', { top: label(topId) })}`
+      : ''
   if (sensitivity.stable || !second) {
     return t('Across random priorities, {first} comes out on top about {share} of the time. Different priorities can still change the order.', {
       first: label(first[0]),
       share: percent(first[1]),
-    })
+    }) + yours
   }
-  return t('It is a close call. Across random priorities, {first} comes out on top about {share} of the time and {second} about {share2}. Your priorities decide.', {
+  if (first[1] - second[1] < 0.1) {
+    return t('It is a close call. Across random priorities, {first} comes out on top about {share} of the time and {second} about {share2}. Your priorities decide.', {
+      first: label(first[0]),
+      share: percent(first[1]),
+      second: label(second[0]),
+      share2: percent(second[1]),
+    }) + yours
+  }
+  return t('No rotation comes first under most priorities. Across random priorities, {first} comes out on top about {share} of the time and {second} about {share2}.', {
     first: label(first[0]),
     share: percent(first[1]),
     second: label(second[0]),
     share2: percent(second[1]),
-  })
+  }) + yours
 }
 
 type ReplayProps = {
@@ -176,7 +189,7 @@ export function Replay({ data, selected }: ReplayProps) {
                   ` ${t('This field has no fallow, which is not one of the modeled rotations, so none is marked as yours.')}`}
               </p>
               <RankingList ranked={ranked} selectedId={shown.rotation.id} onSelect={(id) => setChoice({ fieldId, rotationId: id })} />
-              <p className="mt-3 text-[15px] leading-snug">{stabilitySentence(view.sensitivity, t)}</p>
+              <p className="mt-3 text-[15px] leading-snug">{stabilitySentence(view.sensitivity, t, ranked[0]?.rotation.id)}</p>
             </section>
 
             <YearChart rotation={shown.rotation} site={results.site} />

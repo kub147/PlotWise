@@ -31,13 +31,23 @@ export function yieldInUsUnits(kgHa: number, crop: string): { value: number; uni
   return null
 }
 
-// Number formatting in the US style.
-export function formatNumber(value: number, digits = 0) {
-  return value.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })
+// Number style follows the interface language: "1,221.5" in English, "1221,5" / "31 660" in Polish.
+// LanguageProvider sets it before the app renders, so every number on screen uses the current language.
+let numberLocale = 'en-US'
+export function setNumberLocale(lang: 'en' | 'pl') {
+  numberLocale = lang === 'pl' ? 'pl-PL' : 'en-US'
 }
 
-// Dollars with the minus sign before the symbol: -31.2 -> "−$31".
+export function formatNumber(value: number, digits = 0) {
+  // Rounding first avoids "−0.0" when a tiny negative value rounds to zero.
+  const rounded = Number(value.toFixed(digits)) || 0
+  return rounded.toLocaleString(numberLocale, { minimumFractionDigits: digits, maximumFractionDigits: digits })
+}
+
+// Dollars with the minus sign before the amount: -31.2 -> "−$31" in English, "−31 USD" in Polish.
 export function formatUsd(value: number) {
-  const rounded = Math.round(value)
-  return `${rounded < 0 ? '−' : ''}$${Math.abs(rounded).toLocaleString('en-US')}`
+  const rounded = Math.round(value) || 0
+  const sign = rounded < 0 ? '−' : ''
+  const amount = Math.abs(rounded).toLocaleString(numberLocale)
+  return numberLocale === 'pl-PL' ? `${sign}${amount} USD` : `${sign}$${amount}`
 }

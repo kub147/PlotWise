@@ -2704,8 +2704,8 @@
    ],
    "gaps": [
     "How much water fallow really stores on this field (soil-specific; satellites cannot measure it)",
-    "Wheat failures from winterkill, disease and hail are not water effects and are not modelled (E15)",
-    "Stored soil water on this field is modelled from gridded weather, not measured",
+    "Wheat failures from winterkill, disease and hail are not water effects and are not modeled (E15)",
+    "Stored soil water on this field is modeled from gridded weather, not measured",
     "Yields are long-run estimates; a single year can be far off, wheat more than sorghum"
    ],
    "check_locally": [
@@ -3151,8 +3151,8 @@
    ],
    "gaps": [
     "Local sorghum price and basis (AMS Market News)",
-    "No pest, disease or hail modelling",
-    "Stored soil water on this field is modelled from gridded weather, not measured",
+    "No pest, disease or hail modeling",
+    "Stored soil water on this field is modeled from gridded weather, not measured",
     "Yields are long-run estimates; a single year can be far off, wheat more than sorghum"
    ],
    "check_locally": [
@@ -3578,10 +3578,10 @@
     "income": 0.56,
     "dry_year_safety": 0.13
    },
-   "why": "Same structure as wheat-sorghum-fallow but with corn, which pays more per bushel and has a wider market. In Greeley County 17% of wheat fields go to corn the next year (CDL pixel sequences 2010-2024, project brief).",
+   "why": "Same structure as wheat-sorghum-fallow but with corn, which pays more per bushel and has a wider market. In Greeley County 17% of wheat fields go to corn the next year (USDA crop maps, 2010–2024).",
    "benefits": [
     "Wider market than sorghum",
-    "Same equipment calendar as WSF"
+    "Same equipment calendar as wheat – sorghum – fallow"
    ],
    "risks": [
     "Corn needs about 11 in of water use before it makes grain, sorghum about 7 in (E17)",
@@ -3595,11 +3595,11 @@
    ],
    "gaps": [
     "Corn yield in very dry years is close to zero; the distribution matters more than the mean",
-    "Stored soil water on this field is modelled from gridded weather, not measured",
+    "Stored soil water on this field is modeled from gridded weather, not measured",
     "Yields are long-run estimates; a single year can be far off, wheat more than sorghum"
    ],
    "check_locally": [
-    "Seed and fertiliser cost per acre against the K-State budget",
+    "Seed and fertilizer cost per acre against the K-State budget",
     "Hybrid choice for dryland"
    ]
   },
@@ -4038,7 +4038,7 @@
    ],
    "gaps": [
     "No K-State budget for the second sorghum year",
-    "Stored soil water on this field is modelled from gridded weather, not measured",
+    "Stored soil water on this field is modeled from gridded weather, not measured",
     "Yields are long-run estimates; a single year can be far off, wheat more than sorghum"
    ],
    "check_locally": [
@@ -4480,7 +4480,7 @@
    ],
    "gaps": [
     "No K-State budget for recrop wheat in southwest Kansas",
-    "Stored soil water on this field is modelled from gridded weather, not measured",
+    "Stored soil water on this field is modeled from gridded weather, not measured",
     "Yields are long-run estimates; a single year can be far off, wheat more than sorghum"
    ],
    "check_locally": [
@@ -4911,7 +4911,7 @@
     "Deep roots use water below the wheat root zone (FAO-56 root depth 0.8-1.5 m, E25)"
    ],
    "risks": [
-    "Little residue left after harvest: more erosion risk during the next fallow (ASSUMPTION, residue_class 'low')",
+    "Little residue left after harvest: more erosion risk during the next fallow (our assumption)",
     "Smaller and more distant markets than wheat or sorghum"
    ],
    "evidence": [
@@ -4922,7 +4922,7 @@
    "gaps": [
     "No Tribune year-by-year sunflower yields to validate against",
     "Residue effect on the next fallow is not quantified",
-    "Stored soil water on this field is modelled from gridded weather, not measured",
+    "Stored soil water on this field is modeled from gridded weather, not measured",
     "Yields are long-run estimates; a single year can be far off, wheat more than sorghum"
    ],
    "check_locally": [

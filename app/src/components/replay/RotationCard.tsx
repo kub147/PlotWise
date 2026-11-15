@@ -69,7 +69,7 @@ export function RotationCard({ rotation, yearCount, fieldId, evidence }: Rotatio
           <Stat label={t('Years with a loss')}>
             {lossYears} <span className="font-sans text-[13px] font-medium text-muted-foreground">{t('of {n}', { n: yearCount })}</span>
           </Stat>
-          <Stat label={t('Bare ground, modeled')}>
+          <Stat label={t('No growing crop, modeled')}>
             {formatNumber(rotation.indicators.bare_days_per_year)}{' '}
             <span className="font-sans text-[13px] font-medium text-muted-foreground">{t('days a year')}</span>
           </Stat>

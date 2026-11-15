@@ -16,7 +16,7 @@ export function RankingList({ ranked, selectedId, onSelect }: RankingListProps) 
   const t = useT()
   return (
     <ol className="flex flex-col gap-2">
-      {ranked.map(({ rotation, fit, place }) => {
+      {ranked.map(({ rotation, fit, place, tied }) => {
         const selected = rotation.id === selectedId
         const phases = rotationPhases(rotation.id) ?? []
         const fitPercent = Math.round(fit * 100)
@@ -36,9 +36,9 @@ export function RankingList({ ranked, selectedId, onSelect }: RankingListProps) 
                   'flex h-8 w-8 items-center justify-center rounded-full font-mono text-[15px] font-medium',
                   place === 1 ? 'pw-brand shadow-[0_4px_12px_rgb(15_154_76/0.35)]' : 'bg-foreground/[0.06] text-muted-foreground',
                 )}
-                aria-label={t('Place {place}', { place })}
               >
-                {place}
+                <span aria-hidden>{place}</span>
+                <span className="sr-only">{tied ? t('Tied for place {place}:', { place }) : t('Place {place}:', { place })}</span>
               </span>
 
               <span className="flex min-w-0 flex-col gap-1.5">
@@ -50,11 +50,16 @@ export function RankingList({ ranked, selectedId, onSelect }: RankingListProps) 
                   </span>
                   <span className="text-[15px] font-semibold">{rotationDisplayName(t(rotation.name))}</span>
                 </span>
-                {(rotation.is_current || rotation.status === 'optional') && (
+                {(rotation.is_current || rotation.status === 'optional' || tied) && (
                   <span className="flex flex-wrap gap-1.5">
                     {rotation.is_current && (
                       <span className="rounded-full bg-leaf-soft px-2.5 py-0.5 text-[13px] font-medium text-accent-foreground">
                         {t('Your rotation today')}
+                      </span>
+                    )}
+                    {tied && (
+                      <span className="rounded-full bg-foreground/[0.06] px-2.5 py-0.5 text-[13px] text-muted-foreground">
+                        {t('Tied')}
                       </span>
                     )}
                     {rotation.status === 'optional' && (

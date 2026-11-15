@@ -3,6 +3,7 @@ import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'rec
 import { Card } from '@/components/ui/card'
 import { INDICATORS, indicatorValue, slopeText, type Climate, type Trend } from '@/lib/climate'
 import { useDateLocale, useT, useTempUnit } from '@/lib/i18n'
+import { formatNumber } from '@/lib/units'
 import { cn } from '@/lib/utils'
 
 type Point = { year: number; value: number }
@@ -20,6 +21,14 @@ export function ReliabilityBadge({ reliable }: { reliable: boolean }) {
       {reliable ? t('Reliable trend') : t('Not a reliable trend')}
     </span>
   )
+}
+
+// Change per decade as a share of the average level: +62 degree days on about 2,250 -> "+2.8".
+function percentPerDecade(trend: Trend) {
+  const level = (trend.mean_first_half + trend.mean_second_half) / 2
+  const percent = level > 0 ? (trend.slope_per_decade / level) * 100 : 0
+  const rounded = Number(percent.toFixed(1)) || 0
+  return `${rounded > 0 ? '+' : rounded < 0 ? '−' : ''}${formatNumber(Math.abs(rounded), 1)}`
 }
 
 type TrendCardProps = {
@@ -49,7 +58,18 @@ export function TrendCard({ trend, yearly, meaning }: TrendCardProps) {
       </div>
 
       <div>
-        <p className="text-[24px] font-semibold leading-tight">{slopeText(kind, trend.slope_per_decade, t, unit)}</p>
+        {kind === 'gdd' ? (
+          // Degree days read like degrees to most people, so the headline is the change in percent;
+          // the degree days stay underneath for those who use them.
+          <>
+            <p className="text-[24px] font-semibold leading-tight">
+              {t('{n}% warmth for crops per decade', { n: percentPerDecade(trend) })}
+            </p>
+            <p className="mt-0.5 text-[13px] text-muted-foreground">{slopeText(kind, trend.slope_per_decade, t, unit)}</p>
+          </>
+        ) : (
+          <p className="text-[24px] font-semibold leading-tight">{slopeText(kind, trend.slope_per_decade, t, unit)}</p>
+        )}
         <div className="mt-1.5">
           <ReliabilityBadge reliable={trend.reliable} />
         </div>

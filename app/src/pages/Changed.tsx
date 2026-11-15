@@ -16,7 +16,7 @@ import {
 import { fieldShortName, type AppData, type FieldFeature } from '@/lib/data'
 import { imageUrl, useHeatSummary, type HeatSummary } from '@/lib/fieldMedia'
 import { useDateLocale, useT, useTempUnit } from '@/lib/i18n'
-import { cmToInches, formatNumber, formatTemp, mmToInches, tempDelta } from '@/lib/units'
+import { cmToInches, cToF, formatNumber, formatTemp, mmToInches } from '@/lib/units'
 
 // The four trends on the main screen (spec 5.2) and what each means for the field.
 const MAIN_TRENDS: { indicator: string; meaning: string }[] = [
@@ -26,8 +26,11 @@ const MAIN_TRENDS: { indicator: string; meaning: string }[] = [
   { indicator: 'eto_mm', meaning: 'How much water the air can pull from soil and plants in a year.' },
 ]
 
-const signed = (value: number, digits: number) =>
-  `${value > 0 ? '+' : value < 0 ? '−' : ''}${formatNumber(Math.abs(value), digits)}`
+// Sign taken after rounding, so a tiny negative value shows as "0.0", never "−0.0".
+const signed = (value: number, digits: number) => {
+  const rounded = Number(value.toFixed(digits)) || 0
+  return `${rounded > 0 ? '+' : rounded < 0 ? '−' : ''}${formatNumber(Math.abs(rounded), digits)}`
+}
 
 // Rainfall card: highlighted, because it is the most important caveat of the whole view.
 function RainfallCard({ trend, rows }: { trend: Trend | undefined; rows: PrecipRow[] }) {
@@ -35,9 +38,11 @@ function RainfallCard({ trend, rows }: { trend: Trend | undefined; rows: PrecipR
   const reliable = trend?.reliable ?? false
   const power = rows.find((row) => row.product === 'POWER')
   const others = rows.filter((row) => row.product !== 'POWER')
-  // The sentence about the disagreement is written only when the field's data really shows it.
-  const powerDries = power !== undefined && power.own_slope_mm_per_decade < 0
-  const othersDoNot = others.length > 0 && others.every((row) => row.own_slope_mm_per_decade >= 0)
+  // The sentence about the disagreement is written only when the field's data really shows it:
+  // POWER has a reliable decline (p < 0.05) and no other record has one.
+  const reliableDecline = (row: PrecipRow) => row.own_slope_mm_per_decade < 0 && row.own_mk_p < 0.05
+  const powerDries = power !== undefined && reliableDecline(power)
+  const othersDoNot = others.length > 0 && !others.some(reliableDecline)
 
   return (
     <section
@@ -119,11 +124,18 @@ function WaterStorage({ grace }: { grace: Climate['grace'] }) {
         {t('{n} in', { n: signed(cmToInches(grace.total_change_cm), 1) })}
         <span className="font-sans text-[15px] font-medium text-muted-foreground">
           {' '}
-          {t('of water since {year} ({rate} in a year)', { year: firstYear, rate: signed(cmToInches(grace.trend_cm_per_year), 2) })}
+          {t('of water, {from}–{to} ({rate} in a year)', { from: firstYear, to: lastYear, rate: signed(cmToInches(grace.trend_cm_per_year), 2) })}
         </span>
       </p>
       <div className="mt-1.5">
-        <ReliabilityBadge reliable={grace.reliable} />
+        {/* The monthly values are not independent, so the file calls its own test optimistic: say so in the label. */}
+        {grace.reliable ? (
+          <span className="inline-block rounded-full bg-foreground/[0.06] px-2.5 py-0.5 text-[13px] font-medium text-muted-foreground">
+            {t('Steady change (approximate test)')}
+          </span>
+        ) : (
+          <ReliabilityBadge reliable={false} />
+        )}
       </div>
 
       <div className="mt-3 overflow-x-auto">
@@ -234,7 +246,7 @@ function CountyRotationBars({ county, years, note }: { county: CountyRotations['
 }
 
 // ECOSTRESS: the same moment, fallow against sorghum. The scenes cover the Tribune area only.
-function HeatComparison({ heat }: { heat: HeatSummary }) {
+function HeatComparison({ heat, nearTribune }: { heat: HeatSummary; nearTribune: boolean }) {
   const t = useT()
   const unit = useTempUnit()
   const locale = useDateLocale()
@@ -265,6 +277,7 @@ function HeatComparison({ heat }: { heat: HeatSummary }) {
       <h2 className="text-[19px] font-semibold">{t('Same moment, bare fallow against sorghum')}</h2>
       <p className="mt-1 text-[13px] leading-snug text-muted-foreground">
         {t('Ground surface temperature around Tribune from NASA’s ECOSTRESS instrument, averaged over all fields of each kind.')}
+        {!nearTribune && ` ${t('This is an example from Greeley County: the heat images cover the Tribune area only, not this field.')}`}
       </p>
       <div className="mt-4 grid gap-4 sm:grid-cols-[180px_minmax(0,1fr)]">
         <a href={imageUrl(file)} target="_blank" rel="noreferrer" className="block overflow-hidden rounded-2xl">
@@ -294,7 +307,11 @@ function HeatComparison({ heat }: { heat: HeatSummary }) {
               </tr>
             </thead>
             <tbody>
-              {rows.map((row) => (
+              {rows.map((row) => {
+                // The difference is taken from the rounded values shown, so the row adds up.
+                const fallowShown = Math.round(unit === 'F' ? cToF(row.fallow) : row.fallow)
+                const sorghumShown = Math.round(unit === 'F' ? cToF(row.sorghum) : row.sorghum)
+                return (
                 <tr key={row.scene.scene} className="border-b border-border">
                   <th scope="row" className="py-1.5 pr-3 font-medium">
                     {day(row.scene.time_utc)}
@@ -302,11 +319,11 @@ function HeatComparison({ heat }: { heat: HeatSummary }) {
                   <td className="py-1.5 pr-3 text-right font-mono">{formatTemp(row.fallow, unit)}</td>
                   <td className="py-1.5 pr-3 text-right font-mono">{formatTemp(row.sorghum, unit)}</td>
                   <td className="py-1.5 text-right font-mono font-semibold">
-                    {/* Temperature difference: no offset of 32 */}
-                    {signed(tempDelta(row.fallow - row.sorghum, unit), unit === 'C' ? 1 : 0)}°{unit}
+                    {signed(fallowShown - sorghumShown, 0)}°{unit}
                   </td>
                 </tr>
-              ))}
+                )
+              })}
             </tbody>
           </table>
           <p className="mt-2 text-[13px] leading-snug text-muted-foreground">
@@ -358,8 +375,8 @@ export function Changed({ data, selected }: ChangedProps) {
   // The headline says only what this field's data confirms.
   const warmer = warmth !== undefined && warmth.reliable && warmth.slope_per_decade > 0
   const headline = [
-    warmer ? t('It is warmer here than when you started.') : t('The warming here is not clear in this record.'),
-    rain !== undefined && !rain.reliable ? t('Rain has not clearly changed.') : '',
+    warmer ? t('The growing season here is warmer than in the late 1990s.') : t('The warming here is not clear in this record.'),
+    rain !== undefined && !rain.reliable ? t('Total rain has not clearly changed.') : '',
   ]
     .filter(Boolean)
     .join(' ')
@@ -390,7 +407,7 @@ export function Changed({ data, selected }: ChangedProps) {
         )}
       </div>
 
-      {heat && <HeatComparison heat={heat} />}
+      {heat && <HeatComparison heat={heat} nearTribune={p.county_fips === '20071'} />}
 
       <details className="pw-sheet rounded-[28px]">
         <summary className="flex min-h-14 cursor-pointer items-center px-6 text-[15px] font-medium">
@@ -431,7 +448,7 @@ export function Changed({ data, selected }: ChangedProps) {
             </tbody>
           </table>
           <p className="mt-2 text-[13px] text-muted-foreground">
-            {t('“Reliable” means a standard trend test (Mann-Kendall) gives less than a 5% chance that the change is just year-to-year noise. Weather comes from grids 2.5 to 30 miles wide: it describes the area, not the single field.')}
+            {t('“Reliable” means that if nothing had really changed, a trend this strong would turn up by chance less than 1 time in 20 (Mann-Kendall test, p < 0.05). Weather comes from grids 2.5 to 35 miles wide: it describes the area, not the single field.')}
           </p>
         </div>
       </details>

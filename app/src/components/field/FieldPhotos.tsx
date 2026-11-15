@@ -111,11 +111,11 @@ export function FieldPhotos({ fieldId, fieldLabel, hasAerial, ndvi, heatScenes, 
           />
         </Tile>
       ) : (
-        <Missing label={label('aerial')} note={t('Not for this field yet')} />
+        <Missing label={label('aerial')} note={t('Tribune fields only')} />
       )}
 
       {ndvi.status === 'missing' || (ndvi.status === 'ready' && ndvi.points.length < 2) ? (
-        <Missing label={label('greenness')} note={t('Not for this field yet')} />
+        <Missing label={label('greenness')} note={t('No record for this field')} />
       ) : (
         <Tile label={label('greenness')} hint={hint} onOpen={() => onOpen('greenness')} background="var(--tint-life)">
           {ndvi.status === 'ready' && <GreennessSpark points={ndvi.points} />}
@@ -132,7 +132,7 @@ export function FieldPhotos({ fieldId, fieldLabel, hasAerial, ndvi, heatScenes, 
           />
         </Tile>
       ) : (
-        <Missing label={label('heat')} note={t('Not for this field yet')} />
+        <Missing label={label('heat')} note={t('Tribune fields only')} />
       )}
     </div>
   )

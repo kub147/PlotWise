@@ -49,7 +49,7 @@
       ],
       "gaps": [
         "How much water fallow really stores on this field (soil-specific; satellites cannot measure it)",
-        "Wheat failures from winterkill, disease and hail are not water effects and are not modelled (E15)"
+        "Wheat failures from winterkill, disease and hail are not water effects and are not modeled (E15)"
       ],
       "check_locally": [
         "Soil probe depth or soil-water reading at planting",
@@ -112,7 +112,7 @@
       ],
       "gaps": [
         "Local sorghum price and basis (AMS Market News)",
-        "No pest, disease or hail modelling"
+        "No pest, disease or hail modeling"
       ],
       "check_locally": [
         "Elevator or feedlot buying sorghum nearby, and the basis",
@@ -155,10 +155,10 @@
       "tillage": "no-till",
       "effects": [],
       "is_baseline": false,
-      "why": "Same structure as wheat-sorghum-fallow but with corn, which pays more per bushel and has a wider market. In Greeley County 17% of wheat fields go to corn the next year (CDL pixel sequences 2010-2024, project brief).",
+      "why": "Same structure as wheat-sorghum-fallow but with corn, which pays more per bushel and has a wider market. In Greeley County 17% of wheat fields go to corn the next year (USDA crop maps, 2010–2024).",
       "benefits": [
         "Wider market than sorghum",
-        "Same equipment calendar as WSF"
+        "Same equipment calendar as wheat – sorghum – fallow"
       ],
       "risks": [
         "Corn needs about 11 in of water use before it makes grain, sorghum about 7 in (E17)",
@@ -174,7 +174,7 @@
         "Corn yield in very dry years is close to zero; the distribution matters more than the mean"
       ],
       "check_locally": [
-        "Seed and fertiliser cost per acre against the K-State budget",
+        "Seed and fertilizer cost per acre against the K-State budget",
         "Hybrid choice for dryland"
       ]
     },
@@ -369,7 +369,7 @@
         "Deep roots use water below the wheat root zone (FAO-56 root depth 0.8-1.5 m, E25)"
       ],
       "risks": [
-        "Little residue left after harvest: more erosion risk during the next fallow (ASSUMPTION, residue_class 'low')",
+        "Little residue left after harvest: more erosion risk during the next fallow (our assumption)",
         "Smaller and more distant markets than wheat or sorghum"
       ],
       "evidence": [

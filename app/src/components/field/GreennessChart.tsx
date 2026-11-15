@@ -17,6 +17,7 @@ import { useEffect, useRef } from 'react'
 import { dataUrl } from '@/lib/data'
 import type { NdviPoint, NdviState } from '@/lib/fieldMedia'
 import { useDateLocale, useT } from '@/lib/i18n'
+import { formatNumber } from '@/lib/units'
 import type { CropLetter } from '@/lib/rotation'
 import { cn } from '@/lib/utils'
 
@@ -51,7 +52,7 @@ function ChartTooltip({
     <div className="pw-glass rounded-2xl px-3.5 py-2.5 text-[13px]">
       <p className="font-semibold">{new Date(point.time).toLocaleDateString(locale, DAY_FORMAT)}</p>
       <p>
-        {t('Greenness')} <span className="font-mono font-semibold">{point.ndvi.toFixed(2)}</span>
+        {t('Greenness')} <span className="font-mono font-semibold">{formatNumber(point.ndvi, 2)}</span>
       </p>
       {point.ndvi < threshold && <p className="text-muted-foreground">{t('Counted as bare ground')}</p>}
     </div>
@@ -133,6 +134,7 @@ export function GreennessChart({ fieldId, state, threshold, crops = [], wide = f
                 width={36}
                 domain={[0, 1]}
                 ticks={[0, 0.25, 0.5, 0.75, 1]}
+                tickFormatter={(value: number) => (value === 0 || value === 1 ? String(value) : formatNumber(value, 2))}
                 tickLine={false}
                 axisLine={false}
                 tick={{ fontSize: 12, fill: 'var(--muted-foreground)' }}
@@ -152,7 +154,7 @@ export function GreennessChart({ fieldId, state, threshold, crops = [], wide = f
         </div>
       </div>
       <p className="mt-2 text-[13px] leading-snug text-muted-foreground">
-        {t('Greenness (NDVI) seen by Landsat satellites, {days} clear days. Near 0 is bare soil; higher means more green plants. In the grey band (below {threshold}) the field counts as bare ground.', { days: points.length, threshold })}{' '}
+        {t('Greenness (NDVI) seen by Landsat satellites, {days} clear days. Near 0 is bare soil; higher means more green plants. In the grey band (below {threshold}) the field counts as bare ground.', { days: formatNumber(points.length), threshold: formatNumber(threshold, 2) })}{' '}
         {bands.length > 0 && <>{t('The coloured bands are the crop reported for each year.')} </>}
         <span className={wide ? 'lg:hidden' : undefined}>{t('Scroll sideways to see all years.')} </span>
         <a

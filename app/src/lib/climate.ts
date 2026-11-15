@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { dataUrl } from '@/lib/data'
 import type { Translate } from '@/lib/i18n'
-import { mmToInches, type TempUnit } from '@/lib/units'
+import { formatNumber, mmToInches, type TempUnit } from '@/lib/units'
 
 export type Trend = {
   indicator: string
@@ -112,8 +112,7 @@ export const INDICATORS: Record<string, { title: string; kind: IndicatorKind }> 
   longest_dry_spell_apr_sep: { title: 'Longest dry spell, April–September', kind: 'days' },
 }
 
-const number = (value: number, digits: number) =>
-  value.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })
+const number = (value: number, digits: number) => formatNumber(value, digits)
 
 // Day of year -> "Oct 20" (a non-leap year as the pattern).
 export function dayOfYearLabel(doy: number, locale: string) {
@@ -125,7 +124,9 @@ export function dayOfYearLabel(doy: number, locale: string) {
 // Degree days are in °F·days in English and °C·days in Polish (unit from useTempUnit).
 export function indicatorValue(kind: IndicatorKind, value: number, t: Translate, locale: string, unit: TempUnit = 'F'): string {
   if (kind === 'gdd') {
-    return unit === 'F' ? t('{n} °F·days', { n: number(value * 1.8, 0) }) : t('{n} °C·days', { n: number(value, 0) })
+    return unit === 'F'
+      ? t('{n} degree days (base 50°F)', { n: number(value * 1.8, 0) })
+      : t('{n} degree days (base 10°C)', { n: number(value, 0) })
   }
   if (kind === 'doy') return dayOfYearLabel(value, locale)
   if (kind === 'mm') return t('{n} in', { n: number(mmToInches(value), 1) })
@@ -133,19 +134,24 @@ export function indicatorValue(kind: IndicatorKind, value: number, t: Translate,
 }
 
 // Change per decade in words: "+138 °F·days per decade", "4.6 days later per decade".
+// Sign taken after rounding, so a tiny negative slope shows as "0.0", never "−0.0".
+const signedNumber = (value: number, digits: number) => {
+  const rounded = Number(value.toFixed(digits)) || 0
+  return `${rounded > 0 ? '+' : rounded < 0 ? '−' : ''}${number(Math.abs(rounded), digits)}`
+}
+
 export function slopeText(kind: IndicatorKind, slope: number, t: Translate, unit: TempUnit = 'F'): string {
-  const sign = slope > 0 ? '+' : slope < 0 ? '−' : ''
   const size = Math.abs(slope)
   if (kind === 'gdd') {
     return unit === 'F'
-      ? t('{n} °F·days per decade', { n: sign + number(size * 1.8, 0) })
-      : t('{n} °C·days per decade', { n: sign + number(size, 0) })
+      ? t('{n} degree days (base 50°F) per decade', { n: signedNumber(slope * 1.8, 0) })
+      : t('{n} degree days (base 10°C) per decade', { n: signedNumber(slope, 0) })
   }
   if (kind === 'doy') {
     return slope >= 0
       ? t('{n} days later per decade', { n: number(size, 1) })
       : t('{n} days earlier per decade', { n: number(size, 1) })
   }
-  if (kind === 'mm') return t('{n} in per decade', { n: sign + number(mmToInches(size), 1) })
-  return t('{n} days per decade', { n: sign + number(size, 1) })
+  if (kind === 'mm') return t('{n} in per decade', { n: signedNumber(mmToInches(slope), 1) })
+  return t('{n} days per decade', { n: signedNumber(slope, 1) })
 }

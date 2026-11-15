@@ -26,6 +26,7 @@ export type FieldProperties = {
   hydrologic_group: string
   soil_series: string
   soil_map_unit: string
+  soil_map_unit_share: number
   soil_source: string
 }
 

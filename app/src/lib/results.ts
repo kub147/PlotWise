@@ -141,14 +141,24 @@ export function fitScore(scores: Record<Criterion, number>, weights: Weights): n
   return CRITERIA.reduce((sum, criterion) => sum + weights[criterion] * scores[criterion], 0) / total
 }
 
-export type RankedRotation = { rotation: RotationResult; fit: number; place: number }
+export type RankedRotation = { rotation: RotationResult; fit: number; place: number; tied: boolean }
 
-// Ranking from the best fit down. Fits are compared to four decimals and ties keep the order of the file,
-// the same rule as engine/scoring.py rank, so rounding noise never reorders two equal rotations.
+// Ranking from the best fit down, compared on the fit shown on screen (whole points of 100).
+// Rotations with the same fit share a place ("1, 1, 3") and are marked as tied; among them the one with the
+// higher average net return is listed first, then the order of the file.
 export function rankRotations(rotations: RotationResult[], weights: Weights): RankedRotation[] {
-  const key = (fit: number) => Math.round(fit * 1e4)
-  return rotations
+  const shown = (fit: number) => Math.round(fit * 100)
+  const sorted = rotations
     .map((rotation, index) => ({ rotation, fit: fitScore(rotation.scores, weights), index }))
-    .sort((a, b) => key(b.fit) - key(a.fit) || a.index - b.index)
-    .map(({ rotation, fit }, i) => ({ rotation, fit, place: i + 1 }))
+    .sort((a, b) => shown(b.fit) - shown(a.fit) || b.rotation.summary.mean - a.rotation.summary.mean || a.index - b.index)
+  const places: number[] = []
+  sorted.forEach((item, i) => {
+    places.push(i > 0 && shown(item.fit) === shown(sorted[i - 1].fit) ? places[i - 1] : i + 1)
+  })
+  return sorted.map(({ rotation, fit }, i) => ({
+    rotation,
+    fit,
+    place: places[i],
+    tied: sorted.some((other, j) => j !== i && shown(other.fit) === shown(fit)),
+  }))
 }

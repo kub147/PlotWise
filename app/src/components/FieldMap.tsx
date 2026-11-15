@@ -34,14 +34,14 @@ const STREET_TILES = {
 // and the note when the selected field has no such data either.
 const LAYER_NOTES: Record<Exclude<LayerId, 'aerial'>, { note: string; action: string; none: string }> = {
   greenness: {
-    note: 'Greenness is not on the map yet. You can open the record for the selected field.',
+    note: 'Greenness is shown per field, as a chart. Open it for the selected field.',
     action: 'Open the greenness chart',
-    none: 'Greenness is not on the map yet, and there is no greenness record for this field.',
+    none: 'Greenness is shown per field, as a chart, and there is no greenness record for this field.',
   },
   heat: {
-    note: 'Surface heat is not on the map yet. You can open the heat images for the selected field.',
+    note: 'Surface heat is shown as images of the Tribune area. Open them for the selected field.',
     action: 'Open the heat images',
-    none: 'Surface heat is not on the map yet, and there are no heat images for this field. We have them for the Tribune fields.',
+    none: 'Surface heat is shown as images of the Tribune area. They do not cover this field.',
   },
 }
 

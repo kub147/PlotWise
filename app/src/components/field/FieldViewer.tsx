@@ -81,6 +81,15 @@ function GreennessPanel({ field, ndvi, crops }: { field: FieldFeature; ndvi: Ndv
   )
 }
 
+// What stood on the ground at the date of the image: winter wheat is harvested in June, so from July it is stubble.
+function cropAtScene(crop: string, scene: HeatScene, t: (text: string) => string) {
+  const name = crop.split(' (')[0]
+  const month = Number(scene.time_utc.slice(5, 7))
+  if (name === 'winter wheat' && month >= 7) return t('wheat stubble after the June harvest')
+  if (name === 'fallow') return t('field in fallow')
+  return t(name)
+}
+
 function HeatPanel({ field, scenes }: { field: FieldFeature; scenes: HeatScene[] }) {
   const t = useT()
   const unit = useTempUnit()
@@ -129,15 +138,15 @@ function HeatPanel({ field, scenes }: { field: FieldFeature; scenes: HeatScene[]
           <p className="mt-4 text-[15px] leading-snug">
             {t('At that moment the ground on this field was')}{' '}
             <span className="font-mono font-semibold">{temp(onField.lst_c)}</span>
-            {t(', with {crop} on it.', { crop: t(onField.crop) })}
+            {t(' ({crop}).', { crop: cropAtScene(onField.crop, scene, t) })}
           </p>
         )}
-        <p className="mt-4 text-[13px] text-muted-foreground">{t('Average for the whole area at that moment:')}</p>
+        <p className="mt-4 text-[13px] text-muted-foreground">{t('Average ground temperature by land use in this image:')}</p>
         <ul className="mt-1.5 flex flex-col gap-1 text-[13px]">
           {Object.entries(scene.by_crop_class).map(([crop, value]) => (
             <li key={crop} className="flex justify-between gap-2">
-              {/* The key can be long: "winter wheat (ripe in June, stubble from July)" -> crop name only */}
-              <span className="capitalize">{t(crop.split(' (')[0])}</span>
+              {/* The key can be long: "winter wheat (ripe in June, stubble from July)" -> what stands there at that date */}
+              <span className="inline-block first-letter:uppercase">{cropAtScene(crop, scene, t)}</span>
               <span className="font-mono font-medium">{temp(value.mean_c)}</span>
             </li>
           ))}

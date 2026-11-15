@@ -47,13 +47,15 @@ export type FieldRotations = {
 type CountyModel = {
   best_rotation: string
   gain_replacing_fallow_usd_acre: number
+  // Average net return per acre a year after land rent, per rotation id (WF, WSF, ...).
+  rotations: Record<string, { mean: number }>
 }
 
 export type CountyResult = CountyModel & {
   budget_region: string
   precip_mm_per_year: number
   well_managed?: CountyModel
-  practice?: { most_common_of_three: string | null }
+  practice?: { most_common_of_three: string | null; share_of_area: Record<string, number> }
 }
 
 export type CountyResults = {

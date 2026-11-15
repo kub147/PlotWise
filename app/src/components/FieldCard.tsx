@@ -16,10 +16,12 @@ import { useT, type Translate } from '@/lib/i18n'
 import { rotationPhases, toCropLetter, type CropLetter } from '@/lib/rotation'
 import { formatNumber, haToAcres, mmToInches } from '@/lib/units'
 
-// CDL crop name for the caption: "CDL 60" is a class with no name in the file.
+// CDL crop name for the caption. Two classes have no name in the file ("CDL 60", "CDL 224"): named here.
+const CDL_NAMES: Record<string, string> = { '60': 'switchgrass', '224': 'vetch' }
 function historyName(name: string, t: Translate) {
   const code = /^CDL (\d+)$/.exec(name)
-  return code ? t('other crop (CDL class {code})', { code: code[1] }) : t(name)
+  if (!code) return t(name)
+  return CDL_NAMES[code[1]] ? t(CDL_NAMES[code[1]]) : t('other crop')
 }
 
 // Tile with one number: icon, number, unit and label on a lightly tinted background.
@@ -86,7 +88,9 @@ export function FieldCard({ data, field, ndvi, heatScenes, onOpenViewer }: Field
         <h2 className="mt-0.5 text-[21px] font-semibold leading-tight">{t(p.name)}</h2>
         <p className="mt-1.5 text-[15px] text-muted-foreground">
           <span className="font-mono font-semibold text-foreground">{formatNumber(haToAcres(p.area_ha))}</span>{' '}
-          {county ? t('acres in {name} County, Kansas', { name: county }) : t('acres in Kansas')}
+          {county
+            ? t('acres in {name} County, Kansas', { name: county, n: Math.round(haToAcres(p.area_ha)) })
+            : t('acres in Kansas', { n: Math.round(haToAcres(p.area_ha)) })}
         </p>
       </CardSection>
 
@@ -100,7 +104,7 @@ export function FieldCard({ data, field, ndvi, heatScenes, onOpenViewer }: Field
                 <CropTile key={i} letter={letter} />
               ))}
             </span>
-            <span className="font-mono text-[15px] font-medium">{phases.join('-')}</span>
+            <span className="text-[15px] font-medium">{t(phases.join('-'))}</span>
           </div>
         ) : (
           <p className="text-[15px]">{t('No fallow – not one of the modeled rotations.')}</p>
@@ -154,25 +158,30 @@ export function FieldCard({ data, field, ndvi, heatScenes, onOpenViewer }: Field
 
       {/* 5. Soil and bare-ground days */}
       <CardSection>
-        <SectionLabel>{t('Soil and bare ground')}</SectionLabel>
+        <SectionLabel>{t('Soil and ground cover')}</SectionLabel>
         <p className="text-[15px] font-medium">{p.soil_map_unit}</p>
+        {p.soil_map_unit_share < 0.95 && (
+          <p className="text-[13px] text-muted-foreground">
+            {t('Main soil, about {n}% of the field', { n: Math.round(p.soil_map_unit_share * 100) })}
+          </p>
+        )}
         {/* Four numbers as tinted tiles: the tint says what the number is about (water, soil, organic matter, slope) */}
         <dl className="mt-3 grid grid-cols-2 gap-2.5">
           <StatTile icon={Droplets} tint="var(--tint-water)" label={t('Water the soil can hold for plants')} unit={t('in, top 5 ft')}>
             {formatNumber(mmToInches(p.awc_mm), 1)}
           </StatTile>
-          <StatTile icon={Sun} tint="var(--tint-soil)" label={t('Days a year with bare ground')} unit={t('seen from satellite')}>
+          <StatTile icon={Sun} tint="var(--tint-soil)" label={t('Days a year without green cover')} unit={t('seen from satellite')}>
             {formatNumber(p.bare_days_per_year)}
           </StatTile>
           <StatTile icon={Sprout} tint="var(--tint-life)" label={t('Organic matter')}>
             {formatNumber(p.organic_matter_pct, 1)}%
           </StatTile>
-          <StatTile icon={TrendingUp} tint="var(--tint-slope)" label={t('Slope')}>
+          <StatTile icon={TrendingUp} tint="var(--tint-slope)" label={t('Average slope')} unit={t('from satellite elevation')}>
             {formatNumber(p.slope_pct, 1)}%
           </StatTile>
         </dl>
         <p className="mt-3 text-[13px] text-muted-foreground">
-          {t('Bare ground means no green cover, averaged over the last 8 years. Standing stubble still protects the soil and is not counted. Soil from the USDA soil survey (SSURGO).')}
+          {t('Days when satellite greenness is below 0.25, averaged over the last 8 years. This includes winter dormancy and standing stubble: the satellite cannot see stubble, although it still protects the soil. Soil from the USDA soil survey (SSURGO).')}
         </p>
       </CardSection>
 
@@ -181,14 +190,14 @@ export function FieldCard({ data, field, ndvi, heatScenes, onOpenViewer }: Field
         {hasReplay ? (
           <Button asChild width="full">
             <Link to={{ pathname: '/replay', search: `?field=${p.field_id}` }} className="py-2 text-center leading-snug">
-              {t('Replay the last 30 years on this field')}
+              {t('Replay 30 years of weather on this field')}
               <ArrowRight aria-hidden className="h-4 w-4" />
             </Link>
           </Button>
         ) : (
           <>
             <Button width="full" disabled>
-              {t('Replay the last 30 years on this field')}
+              {t('Replay 30 years of weather on this field')}
             </Button>
             <p className="mt-2 text-[13px] text-muted-foreground">
               {t('The replay is not ready for this field yet.')}
