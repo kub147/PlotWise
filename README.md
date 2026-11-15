@@ -11,7 +11,7 @@ priorities and shows, for every suggestion, the evidence behind it, what is not 
 NASA Space Apps Challenge 2026, Rzeszów ·
 challenge [Field Shift: Adapting Farms with NASA Data](https://www.spaceappschallenge.org/2026/challenges/adapting-farms-with-nasa-data/)
 
-![Rotation replay: six rotations replayed on one field and ranked by the farmer's priorities](docs/img/app/rotation-replay.png)
+![Rotation replay: six rotations replayed on one field and ranked by the farmer's priorities](docs/img/app/home-page.png)
 
 ## The problem
 
