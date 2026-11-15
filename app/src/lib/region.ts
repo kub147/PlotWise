@@ -191,19 +191,19 @@ export const LAYER_INFO: Record<RegionLayer, { title: string; source: string; le
       { color: LEFT_COLORS[0], label: 'fallow grew' },
       { color: LEFT_COLORS[1], label: '0–5 points less' },
       { color: LEFT_COLORS[2], label: '5–10 points less' },
-      { color: LEFT_COLORS[3], label: '10 points less or more' },
+      { color: LEFT_COLORS[3], label: '10 or more points less' },
     ],
   },
   model: {
-    title: 'Model: sorghum in place of fallow, per acre a year',
+    title: 'Model: net return of sorghum in place of fallow, $/acre a year',
     source:
-      'Engine replay 1996–2025 at the county centre: wheat – sorghum – fallow minus wheat – fallow.',
+      'Model run for 1996–2025 at the county center: wheat – sorghum – fallow minus wheat – fallow.',
     legend: [
-      { color: DIVERGING[0], label: 'fallow ahead by $15 or more' },
-      { color: DIVERGING[1], label: 'fallow ahead by up to $15' },
-      { color: DIVERGING[2], label: 'sorghum ahead by up to $15' },
-      { color: DIVERGING[3], label: 'sorghum ahead by $15–40' },
-      { color: DIVERGING[4], label: 'sorghum ahead by $40 or more' },
+      { color: DIVERGING[0], label: 'wheat – fallow ahead by $15/acre or more' },
+      { color: DIVERGING[1], label: 'wheat – fallow ahead by up to $15/acre' },
+      { color: DIVERGING[2], label: 'wheat – sorghum – fallow ahead by up to $15/acre' },
+      { color: DIVERGING[3], label: 'wheat – sorghum – fallow ahead by $15–40/acre' },
+      { color: DIVERGING[4], label: 'wheat – sorghum – fallow ahead by $40/acre or more' },
     ],
   },
 }

@@ -1,6 +1,6 @@
 {
  "years": "2018-2025",
- "note": "Fields of at least 40 ha with an identical CDL crop sequence in all pixels and cropland in every year; a sample of clean fields, not all cropland.",
+ "note": "Fields of about 100 acres or more where USDA's satellite crop map shows the same crop over the whole field in every year: a sample of uniform fields, not all cropland.",
  "fields": 31660,
  "area_ha": 2122650,
  "share_of_area": {

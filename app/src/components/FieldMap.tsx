@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css'
 import { Browser, type LatLngBoundsExpression, type LatLngTuple } from 'leaflet'
 import { ArrowUpRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { CircleMarker, MapContainer, Polygon, TileLayer, Tooltip, ZoomControl, useMap } from 'react-leaflet'
+import { CircleMarker, MapContainer, Polygon, TileLayer, Tooltip, ZoomControl, AttributionControl, useMap } from 'react-leaflet'
 import { MapSearch, type MapTarget } from '@/components/MapSearch'
 import { SegmentedControl } from '@/components/ui/segmented-control'
 import { fieldShortName, type County, type FieldFeature } from '@/lib/data'
@@ -110,6 +110,7 @@ export function FieldMap({ fields, counties, selected, onSelect, viewerHas, onOp
   return (
     <div className="pw-map-bleed relative h-[340px] overflow-hidden rounded-[28px] bg-map-frame shadow-soft lg:h-full lg:rounded-none lg:shadow-none">
       <MapContainer
+        attributionControl={false}
         center={[selected.properties.lat, selected.properties.lon]}
         zoom={13}
         zoomControl={false}
@@ -119,7 +120,8 @@ export function FieldMap({ fields, counties, selected, onSelect, viewerHas, onOp
         className="h-full w-full"
       >
         <TileLayer key={layer} url={tiles.url} attribution={tiles.attribution} maxZoom={18} />
-        <ZoomControl position="bottomright" />
+        <ZoomControl position="bottomright" zoomInTitle={t('Zoom in')} zoomOutTitle={t('Zoom out')} />
+        <AttributionControl position="bottomright" prefix="Leaflet" />
         {fields.map((field) => {
           const isSelected = field.properties.field_id === selected.properties.field_id
           return (

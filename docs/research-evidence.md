@@ -29,7 +29,7 @@ Schlegel, Haag, O'Brien (2016), *Large-Scale Dryland Cropping Systems*, KAES Res
 | Wheat yield vs rotation length | Little effect on average; ranking changes from year to year | Do not assume longer rotations hurt wheat |
 | Sorghum and corn after wheat vs after a summer crop | Sorghum about twice as high after wheat; corn about 60% higher | Rotation-effect multiplier |
 | Sorghum vs corn in the same rotation | Sorghum about twice the corn yield (about 65 bu/acre after wheat) | Explains why dryland corn is risky here; card text |
-| Fallow efficiency | Wheat–fallow stores 28% of fallow precipitation; 3- and 4-year no-till rotations 15–19%; before sorghum or corn under 17–22% | Calibrates the fallow part of the water balance |
+| Fallow efficiency | Wheat–fallow stores 28% of fallow precipitation; 3- and 4-year no-till rotations 15–19%; before sorghum or corn 14–22% | Calibrates the fallow part of the water balance |
 | Available soil water at planting (8 ft) | Wheat: 9.4 in after a full fallow vs 5.8–6.1 in in longer rotations; sorghum 4.4–5.5 in; corn 4.0–5.2 in | Check of modelled soil water |
 | Crop water use | Wheat 12.5–16.7 in; sorghum 11.7–12.8 in; corn 12.5–13.3 in | Check of modelled ET |
 | Weather in the study period | Precipitation 96% of normal (17.9 in); one year at 42% of normal | Context |

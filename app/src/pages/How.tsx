@@ -91,7 +91,8 @@ function MoneyOrderTile({ results }: { results: FieldResults | null }) {
       </Card>
     )
   }
-  // The K-State study used trial yields, so the "well managed" scenario is used when the file has it.
+  // The K-State study used trial yields; the "well managed" level is the closest the replay has (about 0.8–0.86 of
+  // trial yields), so it is used when the file has it. The page says which level and field the numbers are for.
   const hasWellManaged = results.yield_scenarios?.well_managed !== undefined
   const { rotations } = scenarioView(results, hasWellManaged ? 'well_managed' : 'county_average')
   const averages = KSTATE_ORDER.flatMap((id) => {

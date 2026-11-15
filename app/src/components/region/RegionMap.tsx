@@ -3,7 +3,7 @@
 import 'leaflet/dist/leaflet.css'
 import { Browser, type LatLngBoundsExpression, type Layer, type PathOptions } from 'leaflet'
 import { useEffect, useMemo, useState } from 'react'
-import { GeoJSON, MapContainer, TileLayer, ZoomControl, useMap, useMapEvents } from 'react-leaflet'
+import { GeoJSON, MapContainer, TileLayer, ZoomControl, AttributionControl, useMap, useMapEvents } from 'react-leaflet'
 import {
   ROTATION_CLASS_STYLE,
   countyColor,
@@ -73,6 +73,7 @@ export function RegionMap({ counties, results, fields, layer, scenario, selected
     <div className="relative h-[360px] overflow-hidden rounded-[28px] bg-map-frame shadow-soft lg:h-full">
       {/* On a phone one finger scrolls the page; the map moves and zooms with two fingers or the buttons. */}
       <MapContainer
+        attributionControl={false}
         bounds={REGION_BOUNDS}
         zoomControl={false}
         scrollWheelZoom
@@ -82,7 +83,8 @@ export function RegionMap({ counties, results, fields, layer, scenario, selected
         className="h-full w-full"
       >
         <TileLayer url={STREET_TILES.url} attribution={STREET_TILES.attribution} maxZoom={15} />
-        <ZoomControl position="bottomright" />
+        <ZoomControl position="bottomright" zoomInTitle={t('Zoom in')} zoomOutTitle={t('Zoom out')} />
+        <AttributionControl position="bottomright" prefix="Leaflet" />
         <GeoJSON
           key={`${layer}-${scenario}-${showFields}`}
           data={counties}

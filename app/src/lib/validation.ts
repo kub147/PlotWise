@@ -61,19 +61,17 @@ export type Tile = { title: string; text: string }
 // The three tiles under the charts, written from the file so no number is copied by hand.
 export function validationTiles(validation: Validation, t: Translate): Tile[] {
   const { grain_sorghum: sorghum, winter_wheat: wheat } = validation.headline
-  // Headline to the nearest 5 ("about 60%"); the sentence gives the exact figure.
-  const about = (share: number) => Math.round(share * 20) * 5
   const years = (values: number[]) => yearList(values).replace(' and ', ` ${t('and')} `)
   const tiles: Tile[] = [
     {
-      title: t('Sorghum: about {percent}%', { percent: about(sorghum.explained) }),
+      title: t('Sorghum: about {percent}%', { percent: percent(sorghum.explained) }),
       text: t('Modeled water use explains about {explained}% of the year-to-year swings in sorghum yield measured at the K-State trials in Tribune. It is {leave_one_out}% when each year is predicted without the model having seen it.', {
         explained: percent(sorghum.explained),
         leave_one_out: percent(sorghum.leave_one_out),
       }),
     },
     {
-      title: t('Wheat: about {percent}%', { percent: about(wheat.explained) }),
+      title: t('Wheat: about {percent}%', { percent: percent(wheat.explained) }),
       text: t('With hot days counted, the model explains about {explained}% of the swings in measured wheat yield. Predicting a year it has not seen, only about {leave_one_out}%. Treat any single wheat year as a rough estimate.', {
         explained: percent(wheat.explained),
         leave_one_out: percent(wheat.leave_one_out),
@@ -99,17 +97,22 @@ export function validationTiles(validation: Validation, t: Translate): Tile[] {
           }),
       )
       .join('; ')
-    // What the model gives in the years the trials harvested nothing (bu/acre).
-    const inLostYears = validation.failures.flatMap((failure) =>
-      failure.model_lowest_years
-        .filter(([year]) => failure.measured_zero_years.includes(year))
-        .map(([, yieldBu]) => Math.round(yieldBu)),
-    )
+    // What the model gives in the years the trials harvested nothing (bu/acre), per crop: "wheat 5–10 and sorghum 28–38".
+    const ranges = validation.failures
+      .map((failure) => {
+        const values = failure.model_lowest_years
+          .filter(([year]) => failure.measured_zero_years.includes(year))
+          .map(([, yieldBu]) => Math.round(yieldBu))
+        if (values.length === 0 || Math.max(...values) <= 0) return ''
+        const low = Math.min(...values)
+        const high = Math.max(...values)
+        return `${t(CROP_WORD[failure.crop] ?? failure.crop)} ${low === high ? low : `${low}–${high}`}`
+      })
+      .filter(Boolean)
     const milder =
-      inLostYears.length > 0 && Math.max(...inLostYears) > 0
-        ? t('It still gives {min} to {max} bu/acre in those years, where the trials harvested nothing, so the worst years in the replay are milder than the real ones.', {
-            min: Math.min(...inLostYears),
-            max: Math.max(...inLostYears),
+      ranges.length > 0
+        ? t('It still gives {ranges} bu/acre in those years, where the trials harvested nothing, so the worst years in the replay are milder than the real ones.', {
+            ranges: ranges.join(` ${t('and')} `),
           })
         : ''
     tiles.push({

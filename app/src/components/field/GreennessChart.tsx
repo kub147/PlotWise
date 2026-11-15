@@ -154,8 +154,8 @@ export function GreennessChart({ fieldId, state, threshold, crops = [], wide = f
         </div>
       </div>
       <p className="mt-2 text-[13px] leading-snug text-muted-foreground">
-        {t('Greenness (NDVI) seen by Landsat satellites, {days} clear days. Near 0 is bare soil; higher means more green plants. In the grey band (below {threshold}) the field counts as bare ground.', { days: formatNumber(points.length), threshold: formatNumber(threshold, 2) })}{' '}
-        {bands.length > 0 && <>{t('The coloured bands are the crop reported for each year.')} </>}
+        {t('Greenness (NDVI) seen by Landsat satellites, {days} clear days. Near 0 is bare soil; higher means more green plants. In the gray band (below {threshold}) the field counts as bare ground.', { days: formatNumber(points.length), threshold: formatNumber(threshold, 2) })}{' '}
+        {bands.length > 0 && <>{t('The colored bands are the crop reported for each year.')} </>}
         <span className={wide ? 'lg:hidden' : undefined}>{t('Scroll sideways to see all years.')} </span>
         <a
           href={dataUrl(`ndvi/${fieldId}.csv`)}

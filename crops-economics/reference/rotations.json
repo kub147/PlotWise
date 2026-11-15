@@ -37,7 +37,7 @@
       "risks": [
         "One crop in two years",
         "Long bare or residue-only period (wind erosion, loss of organic matter)",
-        "Lost money on average in 2008-2015 at Tribune (-$18/acre, E07)",
+        "Lost money on average in 2008–2015 at Tribune (−$18/acre, E07)",
         "Fallow stores only about 28% of the rain that falls during it (E08)"
       ],
       "evidence": [
@@ -94,7 +94,7 @@
       "is_baseline": false,
       "why": "Adds a drought-tolerant summer crop between wheat and fallow: two crops in three years instead of one in two. Researched in western Kansas for forty years.",
       "benefits": [
-        "Only rotation with a positive average net return at Tribune 2008-2015 (< $6/acre, E07)",
+        "Only rotation with a positive average net return at Tribune 2008–2015 (under $6/acre, E07)",
         "More total grain than wheat-fallow at Colby, Garden City and Tribune (E16)",
         "Shorter fallows store water more efficiently (E16)",
         "Sorghum needs only about 7 in of water use before it makes grain (E17)"
@@ -163,7 +163,7 @@
       "risks": [
         "Corn needs about 11 in of water use before it makes grain, sorghum about 7 in (E17)",
         "At Tribune sorghum yielded about twice as much as corn in the same rotation (E11)",
-        "Net return below -$35/acre on average 2008-2015 (E07)"
+        "Net return below −$35/acre on average 2008–2015 (E07)"
       ],
       "evidence": [
         "E07",
@@ -320,7 +320,7 @@
         "E06"
       ],
       "gaps": [
-        "No K-State budget for recrop wheat in southwest Kansas"
+        "No K-State budget for recrop wheat in southwest or northwest Kansas"
       ],
       "check_locally": [
         "Cheat and other grassy weeds",
@@ -365,7 +365,7 @@
       "status": "optional",
       "why": "A summer crop with the lowest water threshold in the K-State functions (about 5.4 in, E17) and its own K-State budget for western Kansas (E26).",
       "benefits": [
-        "Lowest threshold ET of the tested crops (E17)",
+        "Needs the least water before it makes grain of the tested crops (E17)",
         "Deep roots use water below the wheat root zone (FAO-56 root depth 0.8-1.5 m, E25)"
       ],
       "risks": [

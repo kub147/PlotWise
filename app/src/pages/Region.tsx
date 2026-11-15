@@ -120,7 +120,7 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
         <header>
           <h1 className="text-[34px] font-semibold leading-tight">{t('Region')}</h1>
           <p className="mt-1 text-[15px] text-muted-foreground">
-            {t('{counties} western Kansas counties · {fields} fields · {acres} million acres read from satellite crop maps, {years}', { counties: data.counties.features.length, fields: formatNumber(data.rotations.fields), acres: formatNumber(haToAcres(data.rotations.area_ha) / 1e6, 1), years: data.rotations.years })}
+            {t('{counties} western Kansas counties · {fields} fields · {acres} million acres read from satellite crop maps, {years}', { counties: data.counties.features.length, fields: formatNumber(data.rotations.fields), acres: formatNumber(haToAcres(data.rotations.area_ha) / 1e6, 1), years: data.rotations.years.replace('-', '–') })}
           </p>
         </header>
 
@@ -165,7 +165,7 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
           </p>
           <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]">
             <span className="text-muted-foreground">
-              {fields ? t('Field outlines, coloured by rotation as in the rotation list, are drawn for three counties. Zoom to:') : t('Zoom to:')}
+              {fields ? t('Field outlines, colored by rotation as in the rotation list, are drawn for three counties. Zoom to:') : t('Zoom to:')}
             </span>
             {OUTLINE_COUNTIES.map((id) => {
               const name = names.find((entry) => entry.id === id)?.name
@@ -190,7 +190,7 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
             <SectionLabel>{t('What farmers grow across the region')}</SectionLabel>
             <RotationShares shares={data.rotations.share_of_area} />
             <p className="mt-3 text-[13px] leading-snug text-muted-foreground">
-              {t('Share of the area of {count} fields, from the crop grown each year {years} (USDA Cropland Data Layer). These are fields of 100 acres or more with one clear crop sequence: a sample of clean fields, not all cropland.', { count: formatNumber(data.rotations.fields), years: data.rotations.years })}
+              {t('Share of the area of {count} fields, from the crop grown each year {years} (USDA Cropland Data Layer). These are fields of about 100 acres or more with one clear crop sequence: a sample of clean fields, not all cropland.', { count: formatNumber(data.rotations.fields), years: data.rotations.years.replace('-', '–') })}
             </p>
           </CardSection>
         </Card>
@@ -221,7 +221,7 @@ function RegionContent({ data, selectedField }: { data: RegionData; selectedFiel
               <dl className="grid grid-cols-3 gap-3">
                 <Stat label={t('In 2008')} value={percent(county.fallow_share_2008)} />
                 <Stat label={t('Today')} value={percent(county.fallow_share_latest)} />
-                {result && <Stat label={t('Rain a year')} value={t('{n} in', { n: formatNumber(mmToInches(result.precip_mm_per_year), 1) })} />}
+                {result && <Stat label={t('Rain and snow a year, 1996–2025')} value={t('{n} in', { n: formatNumber(mmToInches(result.precip_mm_per_year), 1) })} />}
               </dl>
               <p className="mt-2 text-[13px] text-muted-foreground">{t("Share of the county's cropland left fallow.")}</p>
             </CardSection>

@@ -86,7 +86,7 @@ export function WeightSliders({ weights, onChange }: WeightSlidersProps) {
       })}
 
       <p className="text-[13px] leading-snug text-muted-foreground">
-        {t('Rain use and soil start at half weight. Both go up with how often a crop is grown, so together they start level with one money priority.')}
+        {t('“Putting rain to work” and “Soil” start at half weight. Both go up with how often a crop is grown, so together they start level with one money priority.')}
       </p>
       <Button variant="outline" width="full" disabled={isDefault} onClick={() => onChange(DEFAULT_WEIGHTS)}>
         {t('Reset to starting weights')}

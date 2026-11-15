@@ -63,7 +63,10 @@ export function RankingList({ ranked, selectedId, onSelect }: RankingListProps) 
                       </span>
                     )}
                     {rotation.status === 'optional' && (
-                      <span className="rounded-full bg-foreground/[0.06] px-2.5 py-0.5 text-[13px] text-muted-foreground">
+                      <span
+                        className="rounded-full bg-foreground/[0.06] px-2.5 py-0.5 text-[13px] text-muted-foreground"
+                        title={t('Less evidence: no field trial at Tribune')}
+                      >
                         {t('Optional')}
                       </span>
                     )}

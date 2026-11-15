@@ -5,7 +5,7 @@
    "type": "Feature",
    "properties": {
     "field_id": "ks071-001",
-    "name": "Wheat-sorghum-fallow field, 2 km north of the Tribune station",
+    "name": "Wheat-sorghum-fallow field, about 1.5 miles north of the K-State research station at Tribune",
     "site": "Tribune",
     "county_fips": "20071",
     "area_ha": 58.9,
@@ -943,7 +943,7 @@
    "type": "Feature",
    "properties": {
     "field_id": "ks071-005",
-    "name": "Continuously cropped field (no fallow in 8 years) - contrast",
+    "name": "Continuously cropped field (no fallow since 2008), for comparison",
     "site": "Tribune",
     "county_fips": "20071",
     "area_ha": 46.8,

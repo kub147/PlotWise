@@ -62,7 +62,7 @@ def main():
     ax.legend(handles=[Patch(color=c, label=f"{l} - {100 * overall[k] / total_area:.0f}% of area") for k, (l, c) in STYLE.items()],
               loc="upper center", bbox_to_anchor=(0.5, -0.06), ncol=3, fontsize=8, frameon=False)
     fig.savefig(os.path.join(ROOT, "docs", "img", "transect_fields.png"), bbox_inches="tight")
-    json.dump(dict(years=years, note="Fields of at least 40 ha with an identical CDL crop sequence in all pixels and cropland in every year; a sample of clean fields, not all cropland.",
+    json.dump(dict(years=years, note="Fields of about 100 acres or more where USDA's satellite crop map shows the same crop over the whole field in every year: a sample of uniform fields, not all cropland.",
                    fields=total_fields, area_ha=round(total_area),
                    share_of_area={k: round(overall[k] / total_area, 3) for k in STYLE}, counties=out),
               open(os.path.join(ROOT, "data", "processed", "county_field_rotations.json"), "w"), indent=1)

@@ -26,7 +26,7 @@ Tribune is the validation site: the engine is calibrated and tested against thes
 | E05 | A second sorghum crop in a row yields about 65% of the first | as E01 | read |
 | E06 | Soil water at wheat planting about 9 in; about 3 in (40%) less before a second wheat; about 1.5 in less before a second sorghum | as E01 | read |
 | E07 | 2008–2015: wheat–sorghum–fallow was the only rotation with a positive average net return (under $6/acre); wheat–fallow −$18/acre; all others below −$35/acre (no insurance or government payments). Rotation length had little effect on average wheat yield | Schlegel, Haag, O'Brien (2016). *Large-Scale Dryland Cropping Systems.* KAES Research Reports 2(7). doi:10.4148/2378-5977.1255 | read |
-| E08 | Fallow stores 28% of its precipitation in wheat–fallow; 15–19% in 3- and 4-year no-till rotations; 17–22% before sorghum or corn | as E07 | read |
+| E08 | Fallow stores 28% of its precipitation in wheat–fallow; 15–19% in 3- and 4-year no-till rotations; 14–22% before sorghum or corn | as E07 | read |
 | E09 | Available soil water at planting (8 ft): wheat 9.4 in after a full fallow, 5.8–6.1 in in longer rotations; sorghum 4.4–5.5 in; corn 4.0–5.2 in | as E07 | read |
 | E10 | Seasonal water use: wheat 12.5–16.7 in; sorghum 11.7–12.8 in; corn 12.5–13.3 in | as E07 | read |
 | E11 | In the same rotation sorghum yielded about twice as much as corn (corn about 65 bu/acre after wheat) | as E07 | read |
@@ -40,12 +40,12 @@ Tribune is the validation site: the engine is calibrated and tested against thes
 
 | ID | Finding | Source | Status |
 | :--- | :--- | :--- | :--- |
-| E17 | Yield vs seasonal water use (threshold, yield per inch, long-term yield per inch, maximum): wheat 10.0 in, 6.0 bu/acre, 4.6, 24 in; sorghum 6.9 in, 12.2, 9.4, 21 in; corn 10.9 in, 16.9, 13.3, 25 in; sunflower 5.4 in, 218 lb/acre, 150, 22 in | Stone, Schlegel, Khan, Klocke, Aiken (2006). *Water Supply: Yield Relationships Developed for Study of Water Management.* Table 1 | read |
+| E17 | Yield vs seasonal water use. Wheat: no grain below 10.0 in of water use, then +6.0 bu/acre per extra inch (4.6 over the long term), no gain above 24 in. Sorghum: 6.9 in; +12.2 bu/acre per inch (9.4); 21 in. Corn: 10.9 in; +16.9 bu/acre per inch (13.3); 25 in. Sunflower: 5.4 in; +218 lb/acre per inch (150); 22 in | Stone, Schlegel, Khan, Klocke, Aiken (2006). *Water Supply: Yield Relationships Developed for Study of Water Management.* Table 1 | read |
 | E18 | Water stress at flowering and early grain fill reduces yield more than seasonal totals suggest | as E17 | read |
 | E23 | Crop coefficients Kc (initial, mid, end) | Allen, Pereira, Raes, Smith (1998). FAO Irrigation and Drainage Paper 56, Table 12. https://www.fao.org/4/x0490e/x0490e0b.htm | data |
 | E24 | Lengths of crop development stages | FAO-56, Table 11 | data |
-| E25 | Rooting depth and depletion fraction p | FAO-56, Table 22. https://www.fao.org/4/x0490e/x0490e0e.htm | data |
-| E29 | Bushel weights: wheat 60 lb; corn and grain sorghum 56 lb; field pea 60 lb; proso millet 50 lb | USDA standard bushel weights | data for wheat, corn, sorghum; secondhand for pea and millet (not modeled) |
+| E25 | How deep the roots reach and how far the soil can dry before the crop is stressed (rooting depth and depletion fraction p) | FAO-56, Table 22. https://www.fao.org/4/x0490e/x0490e0e.htm | data |
+| E29 | Bushel weights: wheat 60 lb; corn and grain sorghum 56 lb | USDA standard bushel weights | data |
 
 ## Replacing fallow with a forage or cover crop (Garden City, Kansas)
 
@@ -58,7 +58,7 @@ Tribune is the validation site: the engine is calibrated and tested against thes
 
 | ID | Finding | Source | Status |
 | :--- | :--- | :--- | :--- |
-| E21 | Wheat yield +141 kg/ha per extra cm of soil water at planting (Akron, Colorado) | Nielsen and Vigil, USDA-ARS Akron | secondhand |
+| E21 | Wheat yield about +5.3 bu/acre per extra inch of soil water at planting (141 kg/ha per cm; Akron, Colorado) | Nielsen and Vigil, USDA-ARS Akron | secondhand |
 | E22 | High Plains aquifer: thin original saturated thickness in Greeley, Wichita, Scott and northern Finney counties; large declines in western Kansas | Kansas Geological Survey, Public Information Circular 18; Technical Series 25 | secondhand |
 
 ## Prices, costs and yields for the study area (46 counties)

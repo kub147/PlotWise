@@ -129,7 +129,7 @@ function HeatPanel({ field, scenes }: { field: FieldFeature; scenes: HeatScene[]
         >
           {scenes.map((option) => (
             <option key={option.scene} value={option.scene}>
-              {t('{date}, around {time} sun time', { date: sceneDate(option, locale), time: clockTime(option.local_solar_time, locale) })}
+              {t('{date}, around {time} local solar time', { date: sceneDate(option, locale), time: clockTime(option.local_solar_time, locale) })}
             </option>
           ))}
         </select>

@@ -162,7 +162,7 @@ function WaterStorage({ grace }: { grace: Climate['grace'] }) {
                 width={56}
                 tickLine={false}
                 axisLine={false}
-                tickFormatter={(value: number) => t('{n} in (axis)', { n: value })}
+                tickFormatter={(value: number) => t('{n} in (axis)', { n: `${value < 0 ? '−' : ''}${formatNumber(Math.abs(value))}` })}
                 tick={{ fontSize: 12, fill: 'var(--muted-foreground)' }}
               />
               <ReferenceLine y={0} stroke="var(--foreground)" strokeWidth={1} />
@@ -222,7 +222,7 @@ function CountyRotationBars({ county, years, note }: { county: CountyRotations['
     <Card className="p-6">
       <h2 className="text-[19px] font-semibold">{t('How fields in {name} County are farmed', { name: county.name })}</h2>
       <p className="mt-1 text-[13px] leading-snug text-muted-foreground">
-        {t('Share of the area of {count} fields, read from the crop maps of {years}.', { count: formatNumber(county.fields), years })}
+        {t('Share of the area of {count} fields, read from the crop maps of {years}.', { count: formatNumber(county.fields), years: years.replace('-', '–') })}
       </p>
       <ul className="mt-4 flex flex-col gap-2.5">
         {rows.map(([id, value]) => (

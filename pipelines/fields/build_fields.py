@@ -24,11 +24,11 @@ FIRST_YEAR = 2008         # first CDL year for Kansas
 # (field_id, county FIPS, site, name, lon, lat of the candidate polygon centroid)
 # Three sites along the rainfall gradient of western Kansas, each next to a K-State research station.
 DEMO_FIELDS = [
-    ("ks071-001", "20071", "Tribune", "Wheat-sorghum-fallow field, 2 km north of the Tribune station", -101.7572, 38.4912),
+    ("ks071-001", "20071", "Tribune", "Wheat-sorghum-fallow field, about 1.5 miles north of the K-State research station at Tribune", -101.7572, 38.4912),
     ("ks071-002", "20071", "Tribune", "Wheat-fallow field, south-west of Tribune", -101.7751, 38.4131),
     ("ks071-003", "20071", "Tribune", "Wheat-corn-fallow field", -101.7947, 38.4329),
     ("ks071-004", "20071", "Tribune", "Field that moved from wheat-fallow to wheat-sorghum-fallow", -101.6736, 38.4766),
-    ("ks071-005", "20071", "Tribune", "Continuously cropped field (no fallow in 8 years) - contrast", -101.8164, 38.4711),
+    ("ks071-005", "20071", "Tribune", "Continuously cropped field (no fallow since 2008), for comparison", -101.8164, 38.4711),
     ("ks193-001", "20193", "Colby", "Wheat-corn-fallow field near Colby", -101.0228, 39.4351),
     ("ks193-002", "20193", "Colby", "Wheat-sorghum-fallow field near Colby", -101.0126, 39.4341),
     ("ks193-003", "20193", "Colby", "Wheat-fallow field south of Colby", -101.0793, 39.2239),

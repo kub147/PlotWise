@@ -104,6 +104,8 @@ Average net return 2008-2015 at the station, 2025 USD per acre per year, against
 
 The order matches (wheat-sorghum-fallow first, wheat-fallow second, wheat-corn-fallow last). For the two rotations with a published number the replay is 10-20 USD/acre lower; it uses farm-level instead of trial yields and today's real costs for every year.
 
+The "How we know" page in the app makes the same comparison on field Tribune 001 at the well-managed yield level (not at the station), so its dollar figures differ from this table by a few dollars; the order is the same.
+
 ## 7. Model variants tried
 
 | Variant | r² wheat after fallow | r² sorghum after wheat | Note |

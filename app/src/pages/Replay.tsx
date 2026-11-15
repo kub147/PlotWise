@@ -75,6 +75,18 @@ function stabilitySentence(sensitivity: RankingSensitivity, t: Translate, topId:
   }) + yours
 }
 
+// True when, in the years of the K-State study (2008–2015), the replay puts wheat – fallow ahead of
+// wheat – sorghum – fallow, the reverse of the study's order (E07).
+function studyOrderDiffers(rotations: { id: string; net_return_usd_acre: [number, number][] }[]): boolean {
+  const mean = (id: string) => {
+    const years = rotations.find((rotation) => rotation.id === id)?.net_return_usd_acre.filter(([year]) => year >= 2008 && year <= 2015)
+    return years && years.length > 0 ? years.reduce((sum, [, value]) => sum + value, 0) / years.length : undefined
+  }
+  const wf = mean('WF')
+  const wsf = mean('WSF')
+  return wf !== undefined && wsf !== undefined && wf > wsf
+}
+
 type ReplayProps = {
   data: AppData
   selected: FieldFeature
@@ -186,10 +198,18 @@ export function Replay({ data, selected }: ReplayProps) {
               <p className="mb-3 mt-1 text-[13px] text-muted-foreground">
                 {t('Select a rotation to read why, the evidence and what to check.')}
                 {results.current_rotation === null &&
-                  ` ${t('This field has no fallow, which is not one of the modeled rotations, so none is marked as yours.')}`}
+                  ` ${t('This field is cropped every year without fallow (continuous cropping). The replay does not model that, so no rotation is marked as yours.')}`}
               </p>
               <RankingList ranked={ranked} selectedId={shown.rotation.id} onSelect={(id) => setChoice({ fieldId, rotationId: id })} />
+              <p className="mt-2 text-[13px] leading-snug text-muted-foreground">
+                {t('Fit is your weighted score on the four priorities, out of 100. Money is scored against wheat – fallow, which always gets the middle score on money.')}
+              </p>
               <p className="mt-3 text-[15px] leading-snug">{stabilitySentence(view.sensitivity, t, ranked[0]?.rotation.id)}</p>
+              {studyOrderDiffers(view.rotations) && (
+                <p className="mt-2 text-[13px] leading-snug text-muted-foreground">
+                  {t('The K-State study at Tribune (E07) found wheat – sorghum – fallow ahead of wheat – fallow in 2008–2015. At this yield level the replay for this field puts wheat – fallow ahead in those years; at the well-managed level the study order comes back.')}
+                </p>
+              )}
             </section>
 
             <YearChart rotation={shown.rotation} site={results.site} />

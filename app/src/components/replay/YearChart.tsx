@@ -161,7 +161,10 @@ export function YearChart({ rotation, site }: YearChartProps) {
                   <td className="px-3 py-1.5 font-mono">
                     {point.year}
                     {FAILURE_YEARS.includes(point.year) && (
-                      <span className="ml-2 font-sans text-muted-foreground">{t('crop failure year at Tribune')}</span>
+                      <span className="ml-2 font-sans text-muted-foreground">
+                        <span className="sr-only">, </span>
+                        {t('crop failure year at Tribune')}
+                      </span>
                     )}
                   </td>
                   <td className="px-3 py-1.5 text-right font-mono">{formatUsd(point.value)}</td>

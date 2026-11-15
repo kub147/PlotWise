@@ -444,7 +444,7 @@ def main():
               "of the county's region with land rent; insurance and government payments excluded. mean_before_land_rent "
               "adds the region's rent back (nearly the same for every rotation of a county, within a few dollars)",
         yield_level="Model yields scaled per county and crop to the mean USDA NASS non-irrigated county yield (engine/county_yield_factors.json)",
-        caution="County centroids are not fields. Weather and soil at one point stand for the whole county. Indicative only.",
+        caution="The county center is not a field: weather and soil at one point stand for the whole county. Indicative only.",
         agreement_with_practice=agreement(out),
         choice_checks=choice_checks(out),
         counties=out)
